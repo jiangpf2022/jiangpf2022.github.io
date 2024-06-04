@@ -18,13 +18,15 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta property="og:type" content="article">
+        <meta name="description" content="PreliminariesPlucker CoordinatesA Line L can be represented by its direction vector d and a point P$$[ \mathbf{d}^T , \mathbf{m}^T ]^T&#x3D;[ \mathbf{d}^T , (\mathbf{P} \times \mathbf{d})^T ]^T$$For t">
+<meta property="og:type" content="article">
 <meta property="og:title" content="A 5-Point Minimal Solver for Event Camera Relative Motion Estimation">
 <meta property="og:url" content="http://example.com/2024/06/02/A-5-Point-Minimal-Solver-for-Event-Camera-Relative-Motion-Estimation/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="PreliminariesPlucker CoordinatesA Line L can be represented by its direction vector d and a point P$$[ \mathbf{d}^T , \mathbf{m}^T ]^T&#x3D;[ \mathbf{d}^T , (\mathbf{P} \times \mathbf{d})^T ]^T$$For t">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-06-02T14:26:25.000Z">
-<meta property="article:modified_time" content="2024-06-02T14:26:25.851Z">
+<meta property="article:modified_time" content="2024-06-04T05:47:26.085Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
     
@@ -412,8 +414,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-06-02 22:26:25</span>
-            <span class="mobile">2024-06-02 22:26:25</span>
+            <span class="desktop">2024-06-04 13:47:26</span>
+            <span class="mobile">2024-06-04 13:47:26</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -440,7 +442,9 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            
+            <h1 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h1><h2 id="Plucker-Coordinates"><a href="#Plucker-Coordinates" class="headerlink" title="Plucker Coordinates"></a>Plucker Coordinates</h2><p>A Line <strong>L</strong> can be represented by its direction vector <strong>d</strong> and a point <strong>P</strong><br>$$[ \mathbf{d}^T , \mathbf{m}^T ]^T&#x3D;[ \mathbf{d}^T , (\mathbf{P} \times \mathbf{d})^T ]^T$$<br>For two nonparallel lines $\mathbf{L_1}&#x3D;[ \mathbf{d}_1^T , \mathbf{m}_1^T ]^T$ and $\mathbf{L_2}&#x3D;[ \mathbf{d}_2^T , \mathbf{m}_2^T ]^T$, we have<br>$$&lt;\mathbf{d}_1,\mathbf{m}_2&gt;+&lt;\mathbf{d}_2,\mathbf{m}_1&gt;&#x3D;0$$</p>
+<h2 id="Event-based-Data-Notations"><a href="#Event-based-Data-Notations" class="headerlink" title="Event-based Data Notations"></a>Event-based Data Notations</h2><p>Consider data in $t \in [t_s-\Delta t,t_s+\Delta t]$, the observed events are given by $\epsilon &#x3D;{\epsilon_i}<em>{i&#x3D;1,\ldots,N}$, where $j$-th event of the $i$-th cluster $$e</em>{ij}&#x3D;{u_{ij},v_{ij},t_{ij},p_{ij}}$$<br>Function here projects points $\mathbf{P} \in \mathbb{R}^3$ defined in the camera frame into the image frame<br>$$[u , v]^T&#x3D;\pi(\mathbf{P})$$<br>Converesely have<br>$$\mathbf{f}&#x3D;\pi^{-1} (u,v)$$<br>And $\mathbf{v}$ represents the translational velocity and $\mathbf{\omega}$ represents the rotational velocity.</p>
+<h1 id="Incidence-Relationship"><a href="#Incidence-Relationship" class="headerlink" title="Incidence Relationship"></a>Incidence Relationship</h1>
         </div>
 
         
@@ -454,7 +458,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-06-02 22:26:25
+                    :</strong> 2024-06-04 13:47:26
             </li>
         
         <li>
@@ -554,7 +558,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">A 5-Point Minimal Solver for Event Camera Relative Motion Estimation</div>
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preliminaries"><span class="nav-text">Preliminaries</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Plucker-Coordinates"><span class="nav-text">Plucker Coordinates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-based-Data-Notations"><span class="nav-text">Event-based Data Notations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Incidence-Relationship"><span class="nav-text">Incidence Relationship</span></a></li></ol>
 
     </div>
 </div>
