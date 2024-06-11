@@ -39,7 +39,7 @@
 <meta property="og:image" content="http://example.com/images/2024-6-11-2.png">
 <meta property="og:image" content="http://example.com/images/2024-6-11-3.png">
 <meta property="article:published_time" content="2024-06-04T07:43:58.000Z">
-<meta property="article:modified_time" content="2024-06-11T00:55:29.612Z">
+<meta property="article:modified_time" content="2024-06-11T00:59:07.125Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/2024-6-4-5.png">
@@ -683,8 +683,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-06-11 08:55:29</span>
-            <span class="mobile">2024-06-11 08:55:29</span>
+            <span class="desktop">2024-06-11 08:59:07</span>
+            <span class="mobile">2024-06-11 08:59:07</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -756,11 +756,11 @@ mjx-container[display="true"] + br {
 <h3 id="Hierarchical-Clustering"><a href="#Hierarchical-Clustering" class="headerlink" title="Hierarchical Clustering"></a>Hierarchical Clustering</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/2024-6-4-7.png" alt="Hierarchical Clustering ">  </p>
 <h2 id="Nonparametric-Methods"><a href="#Nonparametric-Methods" class="headerlink" title="Nonparametric Methods"></a>Nonparametric Methods</h2><h2 id="Deep-Learning-Models"><a href="#Deep-Learning-Models" class="headerlink" title="Deep Learning Models"></a>Deep Learning Models</h2><h3 id="Deep-Autoencoders"><a href="#Deep-Autoencoders" class="headerlink" title="Deep Autoencoders"></a>Deep Autoencoders</h3><p>An autoencoder (AE) is a feedforward neural network for learning a compressed representation or latent representation (encoding) of the input data by learning to predict the input itself in the output.<br><img lazyload="" src="/images/loading.svg" data-src="/images/2024-6-4-9.png" alt="Autoencoder"><br>The hidden layer in the middle is constrained to be a narrow bottleneck (with<br>fewer units than the input and output layers) to ensure that the hidden units<br>capture the most relevant aspects of the data.</p>
 <h3 id="Stacked-Denoised-Autoendcoder"><a href="#Stacked-Denoised-Autoendcoder" class="headerlink" title="Stacked Denoised Autoendcoder"></a>Stacked Denoised Autoendcoder</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/2024-6-11-2.png" alt="Denoised_Autoencoder"><br>A denoising autoencoder solves the following (regularized) optimization problem:</p>
-<p>$$<br>\text{minimize}_{\mathbf{W}<em>1, \mathbf{W}<em>2, \mathbf{w}</em>{01}, \mathbf{w}</em>{02}} \quad \frac{1}{2} \sum_\ell | \mathbf{x}^\ell - \hat{\mathbf{x}}^\ell |_2^2 + \lambda \left( | \mathbf{W}_1 |_F^2 + | \mathbf{W}_2 |_F^2 \right)<br>$$</p>
+<p>$$\text{minimize}_{\mathbf{W}<em>1, \mathbf{W}<em>2, \mathbf{w}</em>{01}, \mathbf{w}</em>{02}} \quad \frac{1}{2} \sum_\ell | \mathbf{x}^\ell - \hat{\mathbf{x}}^\ell |_2^2 + \lambda \left( | \mathbf{W}_1 |_F^2 + | \mathbf{W}_2 |_F^2 \right)$$</p>
 <p>where</p>
-<p>$$<br>\begin{aligned}<br>    \mathbf{h}^\ell &amp;= \sigma(\mathbf{W}<em>1 \tilde{\mathbf{x}}^\ell + \mathbf{w}</em>{01}) \<br>    \hat{\mathbf{x}}^\ell &amp;= \sigma(\mathbf{W}<em>2 \mathbf{h}^\ell + \mathbf{w}</em>{02})<br>\end{aligned}<br>$$</p>
+<p>$$\begin{aligned}<br>    \mathbf{h}^\ell &amp;= \sigma(\mathbf{W}<em>1 \tilde{\mathbf{x}}^\ell + \mathbf{w}</em>{01}) \<br>    \hat{\mathbf{x}}^\ell &amp;= \sigma(\mathbf{W}<em>2 \mathbf{h}^\ell + \mathbf{w}</em>{02})<br>\end{aligned}$$</p>
 <p>Here <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.027ex;" xmlns="http://www.w3.org/2000/svg" width="1.319ex" height="1.597ex" role="img" focusable="false" viewBox="0 -694 583 706"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D706" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"></path></g></g></g></svg></mjx-container> is a regularization parameter and <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.674ex;" xmlns="http://www.w3.org/2000/svg" width="4.278ex" height="2.561ex" role="img" focusable="false" viewBox="0 -833.9 1891.1 1131.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo" transform="translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mo" transform="translate(500.2,0)"><path data-c="22C5" d="M78 250Q78 274 95 292T138 310Q162 310 180 294T199 251Q199 226 182 208T139 190T96 207T78 250Z"></path></g><g data-mml-node="msubsup" transform="translate(1000.4,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mn" transform="translate(311,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(311,-297.8) scale(0.707)"><path data-c="1D439" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path></g></g></g></g></svg></mjx-container> is a matrix norm, called the Frobenius norm, which is defined as</p>
-<p>$$<br>| \mathbf{A} |<em>F^2 = \sum</em>{i,j} a_{ij}^2 \quad \text{where} \quad \mathbf{A} = [a_{ij}] \text{ is a matrix}<br>$$<br>Stacked denoising autoencoders can be formed by stacking the denoising<br>autoencoders in a layer-wise manner like deep autoencoders with the same<br>pretraining, unrolling, and fine-tuning steps.<br><img lazyload="" src="/images/loading.svg" data-src="/images/2024-6-11-3.png" alt="Stacked_Denoised_Autoencoder"></p>
+<p>$$| \mathbf{A} |<em>F^2 = \sum</em>{i,j} a_{ij}^2 \quad \text{where} \quad \mathbf{A} = [a_{ij}] \text{ is a matrix}$$<br>Stacked denoising autoencoders can be formed by stacking the denoising<br>autoencoders in a layer-wise manner like deep autoencoders with the same<br>pretraining, unrolling, and fine-tuning steps.<br><img lazyload="" src="/images/loading.svg" data-src="/images/2024-6-11-3.png" alt="Stacked_Denoised_Autoencoder"></p>
 <h2 id="Ensemble-Learning"><a href="#Ensemble-Learning" class="headerlink" title="Ensemble Learning"></a>Ensemble Learning</h2><h2 id="Model-Assessment-Selection"><a href="#Model-Assessment-Selection" class="headerlink" title="Model Assessment Selection"></a>Model Assessment Selection</h2><h2 id="Students’-t-distriburion"><a href="#Students’-t-distriburion" class="headerlink" title="Students’ t-distriburion"></a>Students’ t-distriburion</h2><h2 id="Matrix-Factorization"><a href="#Matrix-Factorization" class="headerlink" title="Matrix Factorization"></a>Matrix Factorization</h2>
         </div>
 
@@ -775,7 +775,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-06-11 08:55:29
+                    :</strong> 2024-06-11 08:59:07
             </li>
         
         <li>
