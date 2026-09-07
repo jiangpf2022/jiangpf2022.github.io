@@ -33,7 +33,8 @@ I am [Panfeng (Gavin) Jiang](https://jiangpf2022.github.io/), currently pursuing
 - *Jun 2025*, **Outstanding Winner Award (Top 0.1%)**, Mathematical Contest in Modeling 2025 (MCM) 
 - *Jun 2025*, **American Mathematical Society Award**, Mathematical Contest in Modeling 2025 (Top 3 / 21,054)
 - *Mar 2025*, **First Place Winner**, Bay Area Data Science Summit 2025 @ UC Berkeley endorsed by Wells Fargo .
-- *Sep 2024*, **Provincial Third Prize**, China Undergraduate Mathematical Contest in Modeling (CUMCM).
+- *Sep 2024*, **Provincial Third Prize**, China Undergraduate Mathematical Contest in Modeling (CUMCM).  
+
 <!-- <div style="border: 2px solid #ff6347; padding: 12px; margin-top: 20px; background-color: #fff5f5;">
   <strong style="color: #c00;">⚠️ I am currently looking for Master's/Ph.D. positions for Fall 2026.</strong><br>
 </div> -->
