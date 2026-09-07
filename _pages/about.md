@@ -77,8 +77,7 @@ International Conference on Computer Vision (ICCV)
   Bachelor of Engineering in Computer Science,   (GPA: 3.75/4.0),   
    **Outstanding Graduate of Dadao College**,     
 **Outstanding Graduate of Shanghai**,  
- **Outstanding Graduate of ShanghaiTech University**
-  **Outstanding Graduate of ShanghaiTech University**,   
+ **Outstanding Graduate of ShanghaiTech University**,  
   **2025 ShanghaiTech Outstanding Student Award(Top 2%)**,  
   **2023 ShanghaiTech Merit Student Award (Top 10%)**.
   <div style="clear: both;"></div>
