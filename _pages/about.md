@@ -26,9 +26,6 @@ redirect_from:
 
 I am [Panfeng (Gavin) Jiang](https://jiangpf2022.github.io/), currently pursuing an M.S. in Computer Science at [Columbia University](https://www.columbia.edu/). I received my B.Eng. in Computer Science from [ShanghaiTech University](https://www.shanghaitech.edu.cn/eng/) and spent an academic year at the [University of California, Berkeley](https://www.berkeley.edu/) as an exchange student. My interests broadly span machine learning, sequential decision-making, LLMs, and embodied & multimodal AI. I have been fortunate to gain research experience across both theory and applications, working with [Dr. Weitong Zhang](https://zeroweight.github.io/) at the [University of North Carolina at Chapel Hill](https://www.unc.edu/) on learning and decision-making under uncertainty, with [Dr. Lin Shao](https://linsats.github.io/) at the [National University of Singapore](https://www.nus.edu.sg/) on vision-language models and robotic navigation, and with [Prof. Laurent Kneip](https://sist.shanghaitech.edu.cn/lkneip/main.htm) at the [Mobile Perception Lab](https://mpl.sist.shanghaitech.edu.cn/MPL%40shanghaitech.html) on event-based vision and perception.
 # 🏅Awards
-- *Jun 2026*, **Outstanding Graduate with “Dadao Xingze” Honors of Dadao College**
-- *Jun 2026*, **Outstanding Graduate of Shanghai**
-- *Jun 2026*, **Outstanding Graduate of ShanghaiTech University**
 - *Dec 2025*, **National Scholarship**
 - *Jun 2025*, **Outstanding Winner Award (Top 0.1%)**, Mathematical Contest in Modeling 2025 (MCM) 
 - *Jun 2025*, **American Mathematical Society Award**, Mathematical Contest in Modeling 2025 (Top 3 / 21,054)
@@ -78,6 +75,9 @@ International Conference on Computer Vision (ICCV)
 /><br><br>
 
   Bachelor of Engineering in Computer Science,   (GPA: 3.75/4.0),   
+   **Outstanding Graduate of Dadao College**,     
+**Outstanding Graduate of Shanghai**,  
+ **Outstanding Graduate of ShanghaiTech University**
   **Outstanding Graduate of ShanghaiTech University**,   
   **2025 ShanghaiTech Outstanding Student Award(Top 2%)**,  
   **2023 ShanghaiTech Merit Student Award (Top 10%)**.
@@ -290,50 +290,3 @@ Traditional hedging strategies often fall short in equity derivatives markets du
 
 Wine quality prediction involves complex dependencies among physicochemical features, many of which are collinear or noisy. In this context, PCA proves especially powerful—not as a generic dimensionality reduction tool, but as a targeted method for denoising redundant feature spaces and isolating signal-bearing subspaces that align with latent quality drivers. Simultaneously, the use of Huber Loss addresses a critical modeling challenge: the presence of label noise and heavy-tailed residuals, which can severely distort optimization under standard squared error. By smoothly interpolating between L2 sensitivity and L1 robustness, Huber Loss enables stable convergence and improved generalization, particularly in small-to-medium data regimes where overfitting to outliers is a major risk. Together, these two components—eigenstructure-guided feature compression and statistically grounded robustification—form a principled foundation for our hybrid pipeline, allowing classical models like logistic regression and ensemble methods like XGBoost to operate closer to their theoretical optimal regimes.
 </div>
-
-
-
-<!-- ## 📃 Papers -->
-
-<!-- Paper 2023.12 -->
-<!-- <div class='paper-box'><div class='paper-box-image'><div><div class="badge">International Journal of Advanced Manufacturing Technology</div><img src='images/publications/202409_Robotic_Grasping_Method_with_6D_Pose_Estimation_and_Point_Cloud_Fusion.png' alt="sym" width="100%"></div></div>
-<div class='paper-box-text' markdown="1">
-
-[**Robotic Grasping Method with 6D Pose Estimation and Point Cloud Fusion**](https://doi.org/10.1007/s00170-024-14372-3)
-
-**Haofei Ma**, Gongcheng Wang, Hua Bai, Zhiyu Xia, Weidong Wang, Zhijiang Du
-
-[**Paper**](https://doi.org/10.1007/s00170-024-14372-3)
-- A grasping pose estimation framework based on point cloud fusion and filtering is proposed, which solves the problem of sparse point clouds at object edges and facilitates more robust grasping.
-- A novel pose estimation method based on viewpoint selection is introduced, which first uses an RGBD cam
-era to reconstruct the point cloud model of the object, and then applies the principle of viewpoint selection to 
-obtain the 6D pose of the object.
-- We demonstrate that through pose estimation and point cloud fusion, this grasping framework can accurately grasp object from a single-view RGBD image, maintaining a high success rate even in cluttered scenes.
-
-</div>
-</div> -->
-
-<!--
-[**Project**](https://scholar.google.com/citations?view_op=view_citation&hl=zh-CN&user=DhtAFkwAAAAJ&citation_for_view=DhtAFkwAAAAJ:ALROH1vI_8AC) <strong><span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span></strong>
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-</div>
-</div>
-
-- [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
--->
-
-
-
-
-
-
-<!-- 
-# 💬 Invited Talks
-- *2021.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2021.03*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  \| [\[video\]](https://github.com/)
--->
-
-<!-- 
-# 💻 Internships
-- *2019.05 - 2020.02*, [Lorem](https://github.com/), China.
--->
