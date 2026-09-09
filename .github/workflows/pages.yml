@@ -28,7 +28,7 @@ jobs:
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
-          destination: ./_site
+          destination: ./_site-home
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -46,16 +46,17 @@ jobs:
 
       - name: Merge Blog into Pages artifact
         run: |
-          mkdir -p _site/blog
-          cp -R blog-src/public/. _site/blog/
+          mkdir -p site-artifact/blog
+          cp -R _site-home/. site-artifact/
+          cp -R blog-src/public/. site-artifact/blog/
 
       - name: Generate combined sitemap
-        run: node scripts/generate-sitemap.js
+        run: node scripts/generate-sitemap.js site-artifact
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: _site
+          path: site-artifact
 
   deploy:
     environment:

@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const siteRoot = path.resolve(__dirname, '..', '_site');
+const siteRoot = process.argv[2]
+  ? path.resolve(process.argv[2])
+  : path.resolve(__dirname, '..', '_site');
 const urls = [];
 
 function visit(directory) {

@@ -1,4 +1,6 @@
 _site/
+_site-home/
+site-artifact/
 .bundle/
 .jekyll-cache/
 .sass-cache/
