@@ -1,0 +1,454 @@
+---
+title: MATH143-Final Review
+date: 2025-04-17 19:50:48
+tags:
+mathjax: True
+sticky: 996
+published: false
+---
+
+## Lecture1 Algebraic Sets
+## Lecture2
+## Lecture3
+## Lecture4
+## Lecture5
+## Lecture6
+## Lecture7
+## Lecture8
+## Lecture9
+## Lecture10
+## Lecture11
+## Lecture12
+## Lecture13
+## Lecture14
+## Lecture15
+## Lecture16
+## Lecture17
+## Lecture18
+## Lecture19
+## Lecture20
+## Lecture21 Tangent Space and Tangent Cone To A Plane Curve
+### Tangent Line To a Plane Curve
+$\textbf{Definition:}$ If $f\_x(P)=0$ and $f\_y(P)=0$, then $P$ is a singular point of $V(f)$, otherwise, $P$ is a smooth point of $V(f)$.
+## Lecture22
+## Lecture23 and 24 Intersection Multiplicity
+### Multiplicity
+$\textbf{Definition:}$ Given $f \in k[x,y], mult\_{(0,0)} f =min\{m:f\_m\neq 0\}$. $mult\_p f=mult\_{(0,0)} \phi\_p^{*} f$  
+Note: $mult_p(fg)=mult\_p f+mult\_p g$
+### Intersection Multiplicity
+$\textbf{Definition:}$ Given $f,g \in k[x,y]$, we'll define $I\_p(f,g)=$ intersection multiplicity of f and g at P = $dim\_k(\frac{O\_p(A^2)}{(\frac{f}{1}),\frac{g}{1}})$  
+{% raw %}
+$$
+\text{Property1: If } V(f) \text{ and } V(g) \text{ have a common component that passes through P, then} I_p(f,g)=\infty.
+$$
+$$
+\text{Otherwise } I_p(f,g) \in Z \geq 0
+$$
+$$
+\textbf{Property2:} I_p(f,g)=0 \Leftrightarrow P \not\in V(f) \cap V(g)
+$$
+$$
+I_p(f,g) \text{depends only on components of } V(f) \text{and} V(g) \text{passing through }P.
+$$
+$$
+\text{Property3: If } \phi:A^2 \rightarrow A^2 \text{ is an affine change of coordinates with } \phi(P)=Q \text{ , then } I_Q(f,h)=I_p(\phi^*f,\phi^*g)
+$$
+$$
+\text{Property4:} I_p(f,g)=I_p(g,f)
+$$
+$$
+\text{Property5:} I_p(f,g) \geq mult_p(f)mult_p(g), \text{ with equality iff no common lines in the tangent cones}
+$$
+$$
+\text{Property6: If} f=\prod f_i^{r_i}, g=\prod g_j^{s_j} , \text{then } I_p(f,g)=\sum r_i s_j I_p(f_i,g_j)
+$$
+$$
+\text{Property7: For any } a \in k[x,y], \text{we have } I_p(f,g)=I_p(f,g+af)
+$$
+{% endraw %}
+## Lecture25 Projective Space
+### Total Intersection
+We define intersection multiplicity to account for situations when intersection points collide.
+![222](/images/2025-5-6-15.png)
+### Projectice Space
+{% raw %}
+$\textbf{Definition:} P^n=\{\text{lines through }(0,\ldots,0) \text{ in } A^{n+1}\} $
+{% endraw %}  
+Any point {% raw %}
+$(x_1,\dots,x_{n+1}) \neq (0,\ldots,0)$
+{% endraw %} defines a line. 
+{% raw %}
+$\textbf 
+ {Alternate Definition:} P^n=\frac{A^{n+1}/ \{(0,\ldots, 0)\}}{\sim} $
+{% endraw %} , where {% raw %}
+$(x_1,\ldots,x_{n+1}) \sim (y_1,\ldots,y_{n+1})$
+{% endraw %} if {% raw %}
+$y_i=\lambda x_1, \forall i$
+{% endraw %}
+$\textbf{Definition:}$    
+{% raw %} 
+$$\{[x_1:\ldots:x_{n+1}] \in P^n;x_{n+1}=0\}$$ 
+{% endraw %} is called the hyperplane at infinity.
+{% raw %}
+$$\{[x_1:\ldots:x_n:0]\}\overset{\sim}{=}P^{n-1} \Rightarrow P^n =A^n \cup P^{n-1}$$
+{% endraw %}
+## Lecture26 Projective Algebraic Sets
+### Affine Charts
+$\textbf{Definition:}$
+{% raw %}
+$$
+U_i=\{x_1: \ldots: x_{i-1}\in P^n : x_i \neq 0\}
+$$
+{% endraw %}
+is called the affine charts.
+{% raw %}
+$$
+P^n=\cup_{i=1}^{n+1} U_i,U_i \overset{\sim}{=}A^n
+$$
+{% endraw %}
+### Projective Algebraic Sets
+$\textbf{Definition:} F \in k[x\_1,\ldots,x\_{n+1}]$ is homogeneous of degree d if it is a combination of degree d monomials.  
+If F is homogeneous of degree d, then   
+{% raw %}
+$$
+F(\lambda x_1, \ldots, \lambda x_{n+1})=\lambda^d F(x_1,\ldots, x_{n+1})
+$$
+{% endraw %}  
+For F homogeneous, define
+{% raw %}
+$$
+\mathbb{V}(F)=\{[x_1:\ldots,x_{n+1}]:F(x_1,\ldots,x_{n+1})=0\} \subset P^n
+$$
+{% endraw %}   
+Given any set $S \subset k[x\_1,\ldots, x\_{n+1}]$ of homogeneous polynomials, define   
+{% raw %}
+$$
+\mathbb{V}(S)=\cap_{F \in S} \mathbb{V}(F) \subset P^n
+$$
+{% endraw %}   
+This is called projective algebraic set.  
+Eg:$V(x^2y-y^3) \subset A^2,\mathbb{V}(x^2y-y^3)=\{[-1:1],[1:1],[1:0]\}$  
+Eg:
+{% raw %}
+$$
+\mathbb{V}(x^2-y^2-z^2) \cap U_3=\{[x:y:z]:x^2=y^2+z^2, z\neq 0\}=\{[x:y:1]:x^2=y^2+1\}
+$$
+{% endraw %} 
+$\textbf{Definition:}$ Given a projective algebraic set $X \subset P^n$, we define the affine con over X to be 
+{% raw %}
+$$
+C(X)=\{(x_1,\ldots,x_{n+1})\in A^{n+1}:[x_1:\ldots,x_{n+1}] \in X \text{or} (x_1,\ldots,x_{n+1}=(0,\ldots,0))\}
+$$
+{% endraw %}   
+Note that if $X=\mathbb{V}(F\_1,\ldots,F\_r)$ with $F\_i$ homogeneous, then $C(X)=V(F\_1,\ldots,F\_r) \subset A^{n+1}$. More generally, an algebraic set $C \subset A^{n+1}$ is called a cone if $\forall (x\_1,\ldots,x\_{n+1}) \in C$ we have $(\lambda x\_1,\ldots,\lambda x\_{n+1}) \in C \forall \lambda \in k$.
+## Lecture27 Homogeneous Ideal
+### Recap
+{% raw %}
+$$
+V(S)\subset A^{n+1} \text{ is a  cone} \Leftrightarrow \text{union of lines through } (0,\ldots,0) \in A^{n+1}
+$$
+{% endraw %} 
+### Homogeneous Ideals
+$\textbf{Definition:}$ Given $X \subset P^n$ a projective algebraic set, define $\mathbb{I}(X)\subset k[x\_1,\ldots,x\_{n+1}]$ to be the ideal generated by $\{\text{homogeneous } F:F(x\_1,\ldots,x\_{n+1}) \in X \}$.  
+Ex: $\mathbb{I}(\{[1:2],[3:4]\})=((2x-y)(4x-3y)) \subset k[x,y]$  
+$\textbf{Definition:}$ An ideal $I \subset k[x\_1,\ldots,x\_{n+1}]$ is called homogeneous if it satisfies either of the following equivalent conditions:  
+1.$I$ is generated by homogeneous polynomials;  
+2.$\forall f \in I, \text{if} f=f\_0+f\_1+\ldots + f\_d$, then each $f\_i \in I$  
+It make sense to apply $\mathbb{V}$ to homogeneous ideals. If $I=(\{F^{(\alpha)}\})$ with $F^{(\alpha)}$ homogeneous, then $\mathbb{V} (I)=V(\{F^{(\alpha)}\})$  
+$\textbf{Proposition:}$ If $X \subset P^n$ nonempty,  then $\mathbb{I}=I(C(X))$s
+## Lecture28 The Projective Nullstellensatz
+### Projective Nullstellensatz
+Given $X \subset P^n, X=\mathbb(V)(F\_1,\ldots,F\_r), \mathbb{I}(X)=(\{\text{homogeneous}F : F(P)=0, \forall P \in X\}) \supset (F\_1,\ldots,F\_r)$. And we have $\mathbb{V}(\mathbb{I}(X))\subset \mathbb{V}(F\_1,\ldots,F\_r)=X$  
+$\textbf{Theorem(Projective Nullstellensatz)}:$ Let $J \subset k[x\_1,\ldots,x\_{n+1}]$ be a homogeneous ideal, and let k be algebraically closed, we have:  
+(1). $\mathbb{V}(J)=\empty$ if and only if $\exists N s.t.J$ contains all homogeneous polynomials of degree $\geq N$.  
+Ex:$\mathbb{V}(x^3,x^2y,xy^2,y^3) \subset \mathbb{V}(x,y)=\empty$  
+(2). If $\mathbb{V}(J) \neq \empty, then \mathbb{I}(\mathbb{V}(J))=\sqrt{J}$  
+$\textbf{Definition:}$ A projective algebraic set $X \subset P^n$ is irreducible if it is not a union of two smaller projective algebraic sets, i.e. $X=X\_1 \cup X\_2 \Rightarrow X=X\_1 \text{or} X=\_2$  
+$\textbf{Definition:}$ An irreducible projective algebraic set is called a projective variety.  
+$\textbf{Definition:}$ The Zariski topology on $P^n$ is the topology whose closed sets are projective algebraic sets.  
+Ex: $U_i$ are open because $U\_i^c = \mathbb{V}(x\_i)$ is closed.  
+$\textbf{Proposition:}$ $X \subset P^n$ is closed if and only if $X \cap U\_i$ is closed $\forall i=1,\ldots,n+1$  
+$\textbf{Proposition:}$ The closure of $A$ is $\mathbb{V}(\mathbb{I}(A)), i.e. \bar{X}=\mathbb{V}(\mathbb{I}(X))$  
+### Projective Closure
+$\textbf{Definition:}$ Given an algebraic set $X \subset A^n \subset P^n$, the smallest projective algebraic set in $P^n$ containing it is called the projective closure.
+## Lecture29 Homogenization And Projective Closure
+### Homogenization
+$\textbf{Definition:}$ Given a polynomial $f\in k[x\_1,\ldots,x\_n]$, the homogenization of f, denoted  $H(f) \in k[x\_1,\ldots,x\_n,x\_{n+1}]$, is the unique homogeneous polynomial of the same degree such that $H(f)(x\_1,\ldots,x\_n,1)=f$   
+In general, $\mathbb{V}(H(f)) \cap U_{n+1}=\{[x\_1:\ldots:x\_n:1]:H(f)(x\_1,\ldots,x\_n,1)=0\}=V(f) \subset A^n \overset{\sim}{=} U_{n+1}$  
+{% raw %}
+$$
+F \neq H(F(x_1,\ldots,x_n,1)), \text{but} \exists N s.t. F(x_1,\ldots,x_{n+1})=x_{n+1}^N \cdot H(F(x_1,\ldots,x_n,1))
+$$
+{% endraw %}  
+Note: $H(fg)=H(f)H(g)$, but $H(f+g)\neq H(f)+H(g)$  
+$\textbf{Definition:}$ Given an ideal $I \subset k[x\_1,\ldots,x\_n]$, let $H(I)=<\{H(f):f\in I\}> \subset k[x\_1,\ldots,x\_{n+1}]$ called the homogenization of the ideal I.  
+$\textbf{Lemma}$: Suppose $X \subset A^n \overset{\sim}{=} U_{n+1}$ is any set. Then $\mathbb{I}(X)=H(I(X))$. Hence, the projective closure of $X$ in $P^n$ is $\mathbb{V}(H(I(X)))$  
+$\textbf{Proposition}$: If $I=(f)$ is generated by a single element, then $H(I)=(H(f))$
+
+## Lecture30 Homogeneous Coordinate Rings And Forms
+### Summary
+![222](/images/2025-5-8-1.png)
+Note:If $X \subset A^n$ is an algebraic set, then $\bar{X} \cap U_{n+1}=\mathbb{V(J(I(X)))} \cap U_{n+1}=V(I(X))=X$  
+If we start on the bottom row, go up and dome down it is the identity.  
+If we start on the top row, go down and then up, it is not usually identity.
+### Homogeneous Coordinate Rings
+$\textbf{Definition:}$ Given a projective algebraic set $X \subset P^n$, we define $\Gamma_h(X)=k[x\_1,\ldots,x\_{n+1}]/\mathbb{I}(X)=k[x\_1,\ldots,x\_{n+1}]/I(C(X))=\Gamma (C(X))$  
+$\textbf{Definition:}$ Suppose $I \subset k[x\_1,\ldots,x\_{n+1}]$ is a homogeneous ideal and let $\Gamma = k[x\_1,\ldots, x\_{n+1}]/I$. We say $0 \neq f \in \Gamma$ is a form of degree d if $\exists F \in k[x\_1,\ldots,x\_n]$ homogeneous of degree d, s.t. $\bar{F}=f \in \Gamma$  
+$\textbf{Proposition}$: Every $f \in \Gamma$ may be written uniquely as $f=f\_0+\ldots+f\_d$ where $f\_i$ is a form of degree i.
+### Morphisms of Projective Algebraic Sets
+$\textbf{Definition:}$ Let $X \subset P^n$ and $Y \subset P^m$ be projective algebraic sets. A map $\phi:X \rightarrow Y$ is a morphism if for every $P \in X$, there is a Zariski open subset $U \subseteq X$ containing P and homogeneous polynomials $F\_1,\ldots,F\_{m+1}$ of the same degree, such that $\phi |_u$ agrees with the map $U \rightarrow P^m, Q \mapsto [F\_1(Q),\ldots, F\_{m+1}(Q)]$  
+Note: Not all morphisms of projective algebraic sets can be described on a single open.
+
+## Lecture31 Projective Morphisms
+### Projective Morphisms
+$\textbf{Definitions:}$ A morphism $\phi:X \rightarrow Y$ is an isomorphism if $\exists$ a morphism $\Phi:Y \rightarrow X$ such that $\phi \circ \Phi=id\_Y$ and $\Phi \circ \phi=id\_X$  
+$\textbf{Warning:}$ In affine case, two algebraic sets are isomorphic iff their coordinate rings are isomorphic. The same is not true for projective algebraic sets.  
+Ex:For $Y$ and $P^1$, they are isomorphic to each other, but   
+{% raw %}
+$$
+\Gamma_h(Y)=\frac{k[x,y,z]}{(xz-y^2)} \text{is not an UFD, but } \Gamma_h(P^1) =k[x,y] \text{is an UFD}
+$$
+{% endraw %}  
+### Projective Change of Coordinates
+$\textbf{Definition:}$ Let $T:A^{n+1} \rightarrow A^{n+1}$ be a linear change of coordinates, i.e. an invertible linear transform. Then $T(0,\ldots,0)=(0,\ldots,0)$ and $T$ sends lines through $(0,\ldots, 0)$ ti lines through $(0,\ldots, 0)$, so $T$wha induces a map $P^n \rightarrow P^n$ called a projective change of coordinates.
+## Lecture32 Vernonese Embedding
+### Projective Equivalence
+$\textbf{Definition:}$ We say $X,Y \subseteq P^n$ are projectively equivalent if $\exists$ a projective change of coordinates that restricts to an isomorphism $X \rightarrow Y$.  
+Note: If $T:P^n \rightarrow P^n$ is a change of coordinates with $T=(T\_1,\ldots,T\_{n+1})$, then $T^{-1}(\mathbb{V}(F\_1,\ldots,F\_r))=\mathbb{V}(F\_1(T\_1,\ldots,T\_{n+1}),\ldots,F\_r(T\_1,\ldots,T\_{n+1})) $  
+{% raw %}
+$$
+\text{X,Y projectively equivalent} \Rightarrow \Gamma_h(x) \overset{\sim}{=} \Gamma_h(Y)
+$$
+{% endraw %} 
+These holds because $T$ is defined on the affine cone of $P^n$ and on the affine cones of $X$ and $Y$. There are "pullbacks defined up to scale".
+### Rational Normal Curves
+$\textbf{Definition:}$ The rational normal curve of degree d is the image of $v_{1,d}:P^1 \rightarrow P^d, [s:t] \mapsto [s^d:s^{d-1}t : \ldots:st^{d-1}:t^d]$.  
+We claim the images is
+{% raw %}
+$$
+Y = \Bigl\{[x_1:\dots:x_{d+1}]\;\Bigm|\;
+\operatorname{rank}
+\begin{pmatrix}
+x_1 & x_2 & \cdots & x_d \\
+x_2 & x_3 & \cdots & x_{d+1}
+\end{pmatrix}
+\le 1
+\Bigr\}
+= \mathbb{V}(\{x_ix_j-x_{i+1}x_{j-1}\})
+$$
+$$
+[0:\ldots:0:1]=v_{1,d}([0:1])
+$$
+$$
+[x_1:x_2:\ldots:x_{d+1}]=[x_1:ux_1:u^2x_1:\ldots:u^dx_1]=[1:u:u^2:\ldots:u^d] =v_{1,d}([1:u])
+$$
+{% endraw %} 
+### Veronese Embedding
+The smallest case of veronese embedding is:
+{% raw %}
+$$
+v_{2,2}:P^2 \rightarrow P^5,[x:y:z]\mapsto [x^2:xy:xz:y^2:yz:z^2]
+$$
+$$
+\text{The preimage of } v_{2,2}^{-1}(\mathbb{V}(x_1+2x_4-x_6))=\mathbb{V}(x^2+2y^2-z^2)
+$$
+$$
+v_{2,2}^{-1}(\mathbb{V}(a_1x_1+\ldots+a_6x_6)) =\mathbb{V}(a_1x^2+a_2xy+\ldots+a_6z^2)
+$$
+{% endraw %}  
+$\textbf{Definition}$: The vanishing of a homogeneous degree 1 equation is called a hyperplane.  
+The set $\{\text{hyperplanes} \mathbb{V}(a\_1x\_1+\ldots+a\_6x\_6) \subset P^5\}$ is itself a copy of $P^5$.  
+{% raw %}
+$$
+\{(a_1,\ldots,a_6):(a_1,\ldots,a_6) \neq (0,\ldots,0)\}/(a_1,\ldots,a_6) \sim (\lambda a_1,\ldots,\lambda a_6)=\{[a_1:\ldots:a_6] \in P^5\}
+$$
+$$
+\text{we call this this copy of } P^5 \text{ the dual projective space.}
+$$
+$$
+\text{Each} [a_1:\ldots:a_6] \leftrightarrow \mathbb{V}(a_1x^2+a_2xy+a_3xz+a_4y^2+a_5yz+a_6z^2)
+$$
+$$
+\text{In this way, }P^5 \text{ is the moduli space of degree 2 plane curves.}
+$$
+{% endraw %}  
+Generally speaking,
+{% raw %}
+$$
+\text{Let }M_1,\ldots,M_n \in k[x_1,\ldots,x_{n+1}] \text{denote the monomials of degree d, the vernoese embedding is the map}
+$$
+$$
+v_{n,d}:P^n \rightarrow P^{N-1},N=C_{d+n}^n
+$$
+$$
+[x_1:\ldots:x_{n+1}] \mapsto [M_1:\ldots:M_n]
+$$
+{% endraw %}
+## Lecture33 Segre Embedding
+### The Segre Embedding
+{% raw %}
+$$
+\text{consider the map }\sigma_{1,1} :P^1 \times P^1 \rightarrow P^3,[x_1:x_2] \times[y_1,y_2] \mapsto [x_1y_1:x_1y_2:x_2y_1:x_2y_2]
+$$
+$$
+\text{It is well-defined because:} [\lambda x_1:\lambda x_2] \times[\lambda y_1,\lambda y_2] \mapsto [\lambda x_1y_1:\lambda x_1y_2:\lambda x_2y_1:\lambda x_2y_2]
+$$
+$$
+V(z_1 z_4 - z_2 z_3)
+=
+\left\{
+  [z_1 : z_2 : z_3 : z_4] \;:\;
+  \operatorname{rank}
+  \begin{pmatrix}
+    z_1 & z_2 \\
+    z_3 & z_4
+  \end{pmatrix}
+  \le 1
+\right\}.
+$$
+$$
+\text{The surface contains lots of lines. For fixed }[x_1:x_2] \text{and varying }[y_1:y_2] \text{ we obtain } \mathbb{V}(z_1-x_3,z_2-z_4)
+$$
+$$
+\text{If we look in the chart } z_4 \neq 0 \text{, we get } V(z_1-z_2z_3) \subset A^3
+$$  
+$$
+\text{We do projective change of coordinates:} z_1=w_1+w_2,z_4=w_1-w_2,z_2=w_3+w_4,z_3=w_3-w_4
+$$
+$$
+\rightarrow w_1^2+w_4^2=w_2^2+w_3^2, \text{let } w_4 \neq 0 \Rightarrow w_1^2+1=w_2^2+w_3^2
+$$
+{% endraw %}
+### The segre Embedding $\sigma_{m,n}$
+The image is a determinantal variety:
+{% raw %}
+$$
+\sigma_{m,n}:P^m \times P^n \rightarrow P^{(m+1)(n+1)-1}
+$$
+$$
+[x_1:\ldots:x_{m+1}] \times [y_1:\ldots:y_{n+1}] \mapsto [\ldots: x_iy_j : \ldots]
+$$
+{% endraw %}
+## Lecture34 Rational Functions And Local Rings
+### Rational Functions
+$\textbf{Definition:}$ Let $K\_h(X)=Frac(\Gamma\_h(X))$ is called the homogeneous function field.
+{% raw %}
+$$
+\text{If } \bar{F},\bar{G} \in \Gamma_h(X) \text{ forms of degree d, then}
+$$
+$$
+\frac{\bar{F}}{\bar{G}}=\frac{F(\lambda x_1,\ldots,\lambda x_{n+1})}{G(\lambda x_1,\ldots,\lambda x_{n+1})}=\frac{\lambda^d F(x_1,\ldots,x_{n+1})}{\lambda^d G(x_1,\ldots,x_{n+1})}, \text{ so if }
+$$
+$$
+G(a_1,\ldots,a_{n+1}) \neq 0, \text{then } F/G \text{ is defined at } P=[a_1:\ldots:a_{n+1}] \in P^n
+$$
+{% endraw %}
+$\textbf{Definition:}$ The filed of rational functions on $X \subset P^n$ is $k(X)=\{z\in k\_h(X):z=F/G \text{ for } F,G \in \Gamma\_h(X) \text{forms of the same degree}, G \neq 0\}$  
+Note: $k \subset k(X) \subset k\_h(X)$, but typically $\Gamma\_h(X) \not\subseteq k(X)$  
+$\textbf{Proposition:} k(P^n) \overset{\sim}{=} k(A^n), e.g.K(P^1) \overset{\sim}{\rightarrow} K(U\_2)=k(A^1)=k(x), \frac{F(x,y)}{G(x,y)} \mapsto \frac{F(x,1)}{G(x,1)}$  
+Note: If $X \overset{\phi}{\rightarrow} Y$ is an isomorphism, then $k(X) \overset{\sim}{=} k(Y)$
+{% raw %}
+$$
+k(\mathbb{V}(xz-y^2))\overset{\sim}{=}k(V(\frac{x}{z}-(\frac{y}{z})^2)) \overset{\sim}{=} Frac \quad \frac{k[\frac{x}{z},\frac{y}{z}]}{(\frac{x}{z}-(\frac{y}{z})^2)^2}=Frac \quad k[\frac{y}{z}]=k(\frac{y}{z})
+$$
+{% endraw %}
+$\textbf{Definition}$, If $k(X) \overset{\sim}{=} k(Y)$, then we say $X$ and $Y$ are birational. Ex:$A^1$ and $P^1$, or $A^1$ and $V(y^2-x^3)$
+### Local Ring
+$\textbf{Definition:}$ Let $X \subset P^n$ be a projective variety. Let $P \in X, \alpha \in k(X)$. We say $\alpha$ is defined at P if $\exists F,G \in \Gamma\_h(X)$ with $G(P) \neq 0$ and $\alpha=F/G.$  
+$\textbf{Definition:}$ The local ring of $X$ at $P$ is $O\_p(X)=\{\alpha \in k(X): \alpha \text{is defined at P}\}$  
+{% raw %}
+$$
+O_p(X) \overset{\sim}{=} O_p(X \cap U_i)
+$$
+$$
+\text{The map } O_p(X) \rightarrow O_p(X \cap U_i) \text{ sends } \frac{F(x_1,\ldots,x_{n+1})}{G(x_1,\ldots,x_{n+1})} \mapsto \frac{F(x_1,\ldots,x_{i-1},1,x_{i+1},\ldots,x_{n+1})}{G(x_1,\ldots,x_{i-1},1,x_{i+1},\ldots,x_{n+1})}
+$$
+$$
+\text{Let }P=[0:0:1] \in P^2, O_p(P^2)=\{\frac{F}{G}:G(P) \neq 0\}=\{\frac{F}{H+z^d},\text{F,H forms of degree d}\}
+$$  
+$$
+\text{Define } O_p(P^2) \rightarrow O_{(0,0)}(A^2) \text{by} \frac{F}{H+z^d} \mapsto \frac{F(x,y,1)}{H(x,y,1)+1} \text{form a bijection}
+$$
+{% endraw %}  
+## Lecture35 Projective Tangent Spaces And Tangent Cones
+### Tangent Spaces and Tangent Cones
+Local ring is independent of the choice of affine chart. In particular, aall of the local geometry we've done can be performed in any chart containing P. We can carry out local calculations in any chart.  
+$\textbf{Definition:}$ Let $X \subset P^n$ be a projective algebraic set and $P \in X$, with $P \in U\_i$. The projective tangent space $\mathbb{T}_pX$ is the projective closure of $T\_p(X \cap U\_i) \subset U\_i$. The projective tangent cone $\mathbb{T}C\_p(X)$ is the projective closure of $TC\_p(X \cap U\_i)$.  
+Similarly, given $P \in U\_i$, we say $\mathbb{V}(F)$ is singular at P if $\mathbb{V}(F) \cap U\_i$ is singular at P.  
+For plane curves, we can compute the multiplicity in any affine chart. Like if $x(P) \neq 0$, then $mult\_p(F)=mult\_p(F(1,y,z))$
+## Lecture36 Bezout's Theorem
+### Intersection Multiplicity
+$\textbf{Definition:}$ Let $F,G\in k[x,y,z]$ be homogeneous, and $P \in P^2$. Let $U\_i \subset P^2$ be an affine chart with $P \in U\_i$. Let f and g be the dehomogenization of F and G obtained by setting the ith variable to 1. Then $I\_p(F,G)=I\_p(f,g)$. In particular, $I\_{[0:0:1](F,G)}=I\_{(0,0)}(F(x,y,1),G(x,y,1))$  
+$\textbf{Claim:}$   
+{% raw %}
+$$
+I_p(F,G)=dim_k\frac{O_p(A^2)}{(\frac{F(1,y,z)}{1},\frac{G(1,y,z)}{1})}=dim_k\frac{O_p(P^2)}{(\frac{F}{x^m},\frac{G}{x^n})}
+$$
+$$
+\text{Indeed, }O_p(P^2) \rightarrow O_p(A^2) \text{is an isomorphism, which sends}
+$$
+$$
+\frac{a}{b} \mapsto \frac{a(1,y,z)}{b(1,y,z)} \text{ and sends } (\frac{F}{x^m},\frac{G}{x^n}) \text{ to } (\frac{F(1,y,z)}{1},\frac{G(1,y,z)}{1})
+$$
+$$
+\text{Similarly, we have } dim_k\frac{O_p(A^2)}{(\frac{F(x,1,z)}{1},\frac{G(x,1,z)}{1})}=dim_k\frac{O_p(P^2)}{(\frac{F}{y^m},\frac{G}{y^n})}
+$$  
+{% endraw %}  
+Since $P \in U\_1 \cap U\_2, x(P)\neq 0$ and $y(P) \neq 0$, so $\frac{x}{y} \in O_p(P^2)$ is a unit. Hence $(\frac{F}{x^m},\frac{G}{x^n})=((\frac{x}{y})^m\frac{F}{x^m},(\frac{x}{y})^n\frac{G}{x^n})=(\frac{F}{y^m},\frac{G}{y^n})$ 
+### Bezout's Theorem
+$\textbf{Theorem:}$ Let k be algebraically closed. Let $F,G \in k[x,y,z]$ be homogeneous of degrees $m,n$ such that $\mathbb{V}(F,G)$ is finite. Then $\sum\_{p\in P^2}I\_p(F,G)=mn$  
+Note that $\mathbb{V}(F,G)$ finite $\Leftrightarrow F,G$ have no common factor.
+## Lecture37 Proof of Bezout's Theorem
+### Proof
+{% raw %}
+$$
+\text{Lemma: }\sum_{p \in A^2} I_p(f,g)=dim_k (\frac{k[x,y]}{(f,g)})
+$$
+$$
+\text{Lemma: }dim_k \Gamma_d=mn, \Gamma=k[x,y,z]/(F,G)
+$$
+$$
+\text{Lemma: } dim_k \frac{k[x,y]}{(f,g)} = dim_k \Gamma_d
+$$
+{% endraw %}  
+## Lecture38 Corollaries of Bezout's Theorem
+### Corollaries
+{% raw %}
+$$
+\text{Corollary: If } \mathbb{V}(F) \text{ and } \mathbb{V}(G) \text{have more than mn points in common, then they have infinitely many points in common.}
+$$
+$$
+\text{Corollary: If } F \text{ and } G \text{have no common component, then } \sum mult_p(F) mult_p(G) \leq deg F \cdot deg G
+$$
+$$
+\text{Corollary: If } \mathbb{V} (F) \subset P^2 \text{ is smooth, then } \mathbb{V}(F) \text{is irreducible}. 
+$$
+{% endraw %}  
+### Circles
+
+## HW1
+## HW2
+## HW3
+## HW2
+## HW4
+## HW5
+## HW6
+## HW7
+## HW8
+## HW9
+## HW10
+## HW11
+## HW12
+## Prove List
+Lec 18: The pole set of rational function is an algebraic subset of X. $V\_x(J)=V\_{A^n} (\pi^{-1}(J))$  
+Lec 19: 2 Conditions of Local Ring.
+Lec27:Def/Prop for conditions of homogeneous ideal, $\mathbb{I}(X)=I(C(X))$  
+Lec28: Projective Nullstellensatz, $\bar{A}=\mathbb{V}(\mathbb{I}(A))$  
+Lec 29: $\mathbb{I}=H(I(X)),H(I)=(H(f))$  
+Lec 30: Proposition, $f \in \Gamma$ can be written uniquely as forms of degree i.  
+Lec 34: bijection between $O\_p(P^2) \rightarrow O_{(0,0)}(A^2)$  
+Lec 37 Bezout's Theorem  
+Lec 38 Proof of Corollaries
+{% raw %}
+$s$
+{% endraw %}

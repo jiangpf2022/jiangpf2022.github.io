@@ -8,7 +8,9 @@
 # Site Settings
 title                    : "Panfeng Jiang - Academic Homepage"
 description              : "M.S. student in Columbia University"
-repository               : "jiangpf2022/academic-page"
+url                      : "https://jiangpf2022.github.io"
+baseurl                  : ""
+repository               : "jiangpf2022/jiangpf2022.github.io"
 google_scholar_stats_use_cdn : false
 
 # google analytics
@@ -31,7 +33,7 @@ author:
   email            : "pj2479@columbia.edu"
   researchgate     : #https://www.researchgate.net/profile/Haofei-Ma-2 # e.g., "https://www.researchgate.net/profile/yourprofile"
   uri              : # "https://www.mahaofei.com"
-  blog             : "https://jiangpf2022.github.io/"
+  blog             : "https://jiangpf2022.github.io/blog/"
   bitbucket        :
   codepen          :
   dribbble         :
@@ -66,6 +68,8 @@ include:
   - _pages
   - files
 exclude:
+  - blog-src
+  - CNAME
   - docs
   - google_scholar_crawler
   - "*.sublime-project"
