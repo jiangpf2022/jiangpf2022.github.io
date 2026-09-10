@@ -46,9 +46,10 @@ jobs:
 
       - name: Merge Blog into Pages artifact
         run: |
-          mkdir -p site-artifact/blog
+          mkdir -p site-artifact/blog site-artifact/files
           cp -R _site-home/. site-artifact/
           cp -R blog-src/public/. site-artifact/blog/
+          cp -R blog-src/public/files/. site-artifact/files/
 
       - name: Generate combined sitemap
         run: node scripts/generate-sitemap.js site-artifact

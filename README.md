@@ -4,6 +4,7 @@ Unified GitHub Pages source for Panfeng Jiang's academic homepage and Blog.
 
 - `/` is built with Jekyll from the repository root.
 - `/blog/` is built with Hexo from `blog-src/`.
+- Blog downloads are published at both `/blog/files/` and the legacy `/files/` paths.
 - `.github/workflows/pages.yml` builds both sites and deploys one Pages artifact.
 
 In GitHub repository settings, set **Pages > Build and deployment > Source** to

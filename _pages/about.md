@@ -225,7 +225,7 @@ Structure and continuous motion estimation from point correspondences is a funda
 <h2 id="MCM2025" style="display: flex; align-items: center; justify-content: space-between;">
   <span>Rebalancing Nature’s Scale: A Model to Tame Overtourism</span>
   <!-- <span style="font-size: 0.8em;">
-    <a href="https://jiangpf2022.github.io/blog/files/badss_report.pdf" target="_blank" style="margin-left: 10px;">[Paper]</a>
+    <a href="https://jiangpf2022.github.io/files/badss_report.pdf" target="_blank" style="margin-left: 10px;">[Paper]</a>
     <a href="https://github.com/jiangpf2022/MLP-for-Optimal-Equity-Derivative-Hedging/tree/main" target="_blank" style="margin-left: 10px;">[Code]</a>
   </span> -->
 </h2>
@@ -248,8 +248,8 @@ Overtourism has become a global challenge, disrupting economic growth, environme
 <h2 id="BADSS2025" style="display: flex; align-items: center; justify-content: space-between;">
   <span>Multi-Layer Perceptron for Optimal Equity Derivative Hedging</span>
   <span style="font-size: 0.8em;">
-    <a href="https://jiangpf2022.github.io/blog/files/badss_ppt.pdf" target="_blank" style="margin-left: 10px;">[Slides]</a>
-    <a href="https://jiangpf2022.github.io/blog/files/badss_report.pdf" target="_blank" style="margin-left: 10px;">[Paper]</a>
+    <a href="https://jiangpf2022.github.io/files/badss_ppt.pdf" target="_blank" style="margin-left: 10px;">[Slides]</a>
+    <a href="https://jiangpf2022.github.io/files/badss_report.pdf" target="_blank" style="margin-left: 10px;">[Paper]</a>
     <a href="https://github.com/jiangpf2022/MLP-for-Optimal-Equity-Derivative-Hedging/tree/main" target="_blank" style="margin-left: 10px;">[Code]</a>
   </span>
 </h2>
@@ -272,8 +272,8 @@ Traditional hedging strategies often fall short in equity derivatives markets du
 <h2 style="display: flex; align-items: center; justify-content: space-between;">
   <span>Hybrid ML for Quality Prediction: Huber Loss Optimization and PCA-Driven Insights</span>
   <span style="font-size: 0.8em;">
-    <a href="https://jiangpf2022.github.io/blog/files/cs182_ppt.pdf" target="_blank" style="margin-left: 10px;">[Slides]</a>
-    <a href="https://jiangpf2022.github.io/blog/files/cs182_report.pdf" target="_blank" style="margin-left: 10px;">[Paper]</a>
+    <a href="https://jiangpf2022.github.io/files/cs182_ppt.pdf" target="_blank" style="margin-left: 10px;">[Slides]</a>
+    <a href="https://jiangpf2022.github.io/files/cs182_report.pdf" target="_blank" style="margin-left: 10px;">[Paper]</a>
     <a href="https://github.com/jiangpf2022/CS182-Project" target="_blank" style="margin-left: 10px;">[Code]</a>
   </span>
 </h2>
