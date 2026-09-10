@@ -1,9 +1,9 @@
 ---
-title: CS188 Cheatsheet
+title: UC Berkeley CS188 Cheatsheet
 date: 2024-12-12 11:16:46
 tags:
 mathjax: True
-password: cs188-final
+# password: cs188-final
 cover: "/images/2024-12-12-1.jpeg"
 categories: Introduction to Artificial Intelligence
 ---

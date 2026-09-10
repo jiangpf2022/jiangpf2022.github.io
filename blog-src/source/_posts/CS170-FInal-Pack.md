@@ -1,5 +1,5 @@
 ---
-title: CS170 Cheatsheet
+title: UC Berkeley CS170 Cheatsheet
 date: 2024-12-12 11:23:42
 tags:
 mathjax: True

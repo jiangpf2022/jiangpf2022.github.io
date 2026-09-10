@@ -3,7 +3,7 @@ title: Math113 Final Review
 date: 2024-12-08 00:07:12
 tags:
 mathjax: True
-password: math113-final
+# password: math113-final
 cover: "/images/2024-11-12-1.jpeg"
 categories: Math113-Abstract Algebra
 ---
