@@ -2,8 +2,8 @@
   --banner-dark-opacity: 0;
   --banner-tone-duration: 0ms;
   overflow: hidden;
-  filter: blur(var(--banner-blur)) !important;
-  -webkit-filter: blur(var(--banner-blur)) !important;
+  filter: none !important;
+  -webkit-filter: none !important;
   transition: none !important;
 }
 

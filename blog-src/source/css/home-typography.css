@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Ma+Shan+Zheng&display=swap");
+
+:root {
+  --home-title-shadow: rgba(3, 20, 43, 0.88);
+  --home-title-glow: rgba(69, 195, 255, 0.72);
+  --home-subtitle-glow: rgba(255, 210, 123, 0.72);
+  --home-subtitle-panel: rgba(5, 27, 57, 0.32);
+}
+
+html.dark {
+  --home-title-shadow: rgba(0, 6, 18, 0.94);
+  --home-title-glow: rgba(104, 207, 255, 0.68);
+  --home-subtitle-glow: rgba(255, 216, 143, 0.78);
+  --home-subtitle-panel: rgba(2, 14, 32, 0.48);
+}
+
+.home-banner-container .description {
+  color: #f8fdff !important;
+  font-family: "Caveat", "Noteworthy", "Bradley Hand", "Segoe Print", cursive !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.025em;
+  -webkit-text-stroke: 0.45px rgba(2, 18, 39, 0.52);
+  text-shadow:
+    0 2px 3px var(--home-title-shadow),
+    0 0 15px var(--home-title-glow),
+    0 0 34px rgba(58, 157, 235, 0.42);
+}
+
+.home-banner-container .description p {
+  position: relative;
+  margin-top: 0.48em;
+  padding: 0.12em 0.72em 0.25em;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--home-subtitle-panel) 22%,
+    var(--home-subtitle-panel) 78%,
+    transparent
+  );
+}
+
+.home-banner-container .description p::after {
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  width: 70%;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #8fe8ff, #ffd88d, transparent);
+  box-shadow: 0 0 10px var(--home-subtitle-glow);
+  content: "";
+}
+
+.home-banner-container #subtitle {
+  color: #fffdf6 !important;
+  font-family: "Ma Shan Zheng", "HanziPen SC", "Kaiti SC", STKaiti, KaiTi, cursive !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.11em;
+  -webkit-text-stroke: 0.3px rgba(2, 16, 35, 0.55);
+  text-shadow:
+    0 2px 3px var(--home-title-shadow),
+    0 0 13px var(--home-subtitle-glow),
+    0 0 25px rgba(76, 192, 255, 0.44);
+}
+
+@media (max-width: 640px) {
+  .home-banner-container .description {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    letter-spacing: 0.01em;
+  }
+
+  .home-banner-container #subtitle {
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-banner-container .description,
+  .home-banner-container #subtitle {
+    text-shadow: 0 2px 3px var(--home-title-shadow);
+  }
+}

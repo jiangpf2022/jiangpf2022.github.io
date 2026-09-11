@@ -86,7 +86,6 @@
     const darkOpacity = isDarkMode
       ? 1 - scrollProgress
       : scrollProgress;
-    const blurAmount = isHomePage ? scrollProgress * 15 : 15;
     const transitionDuration =
       animateThemeChange && !reducedMotion.matches ? "900ms" : "0ms";
 
@@ -95,7 +94,6 @@
       transitionDuration,
     );
     banner.style.setProperty("--banner-dark-opacity", darkOpacity.toFixed(4));
-    banner.style.setProperty("--banner-blur", `${blurAmount.toFixed(3)}px`);
   };
 
   const scheduleScrollUpdate = () => {
