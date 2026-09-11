@@ -7,7 +7,7 @@ tags:
   - Deep Learning
   - LLM Systems
 mathjax: true
-cover: "/images/columbia-neural-networks-deep-learning-cover.png"
+cover: "/images/columbia-low-memorial-library.jpg"
 ---
 
 This course studies generative AI from a systems perspective. The model is important, but a production LLM also depends on data, training algorithms, accelerators, communication libraries, serving software, and careful evaluation. These notes reorganize Lecture 1 by concept rather than by slide order, so repeated diagrams and incremental examples are combined into one coherent chapter.
