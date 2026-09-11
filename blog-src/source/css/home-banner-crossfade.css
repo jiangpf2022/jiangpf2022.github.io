@@ -7,6 +7,14 @@
   transition: none !important;
 }
 
+.home-banner-background.generated-blog-background {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: scale(1.1);
+}
+
 .home-banner-background > img {
   position: absolute;
   inset: 0;
@@ -32,6 +40,15 @@
 
 html.dark .home-banner-background {
   --banner-dark-opacity: 1;
+}
+
+.page-container.has-blog-page-background {
+  background: transparent !important;
+}
+
+.page-container.has-blog-page-background .article-content-container,
+.page-container.has-blog-page-background footer.footer {
+  background-color: var(--background-color-transparent-80) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

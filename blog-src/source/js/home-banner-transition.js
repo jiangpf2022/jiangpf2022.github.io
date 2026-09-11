@@ -23,14 +23,64 @@
     return clamp(window.scrollY / transitionDistance, 0, 1);
   };
 
-  const updateBackground = (animateThemeChange) => {
-    const banner = document.querySelector(".home-banner-background");
+  const resolveThemeImageUrl = (imagePath) => {
+    const siteRoot = window.config && window.config.root
+      ? window.config.root
+      : "/blog/";
+    return `${siteRoot.replace(/\/?$/, "/")}${imagePath.replace(/^\/+/, "")}`;
+  };
 
-    if (!banner) return;
+  const createBackgroundImage = (source) => {
+    const image = document.createElement("img");
+    image.src = resolveThemeImageUrl(source);
+    image.alt = "";
+    image.setAttribute("aria-hidden", "true");
+    return image;
+  };
 
+  const ensureBackground = () => {
+    const pageContainer = document.querySelector(".page-container");
     const isHomePage = Boolean(
       document.querySelector(".home-banner-container"),
     );
+    let banner = document.querySelector(".home-banner-background");
+
+    if (!banner && pageContainer && window.theme && window.theme.home_banner) {
+      const images = window.theme.home_banner.image;
+      banner = document.createElement("div");
+      banner.className =
+        "home-banner-background generated-blog-background transition-fade";
+      banner.setAttribute("aria-hidden", "true");
+      banner.append(
+        createBackgroundImage(images.light),
+        createBackgroundImage(images.dark),
+      );
+      pageContainer.prepend(banner);
+    }
+
+    if (pageContainer) {
+      pageContainer.classList.toggle(
+        "has-blog-page-background",
+        !isHomePage && Boolean(banner),
+      );
+    }
+
+    return { banner, isHomePage };
+  };
+
+  const keepHomeToolsVisible = (isHomePage) => {
+    if (!isHomePage) return;
+
+    const tools = document.querySelector(".right-side-tools-container");
+    if (tools) tools.classList.remove("hide");
+  };
+
+  const updateBackground = (animateThemeChange) => {
+    const { banner, isHomePage } = ensureBackground();
+
+    if (!banner) return;
+
+    keepHomeToolsVisible(isHomePage);
     const isDarkMode = root.classList.contains("dark");
     const scrollProgress = isHomePage ? getScrollProgress() : 0;
     const darkOpacity = isDarkMode
