@@ -3,7 +3,7 @@ title: test1
 date: 2024-11-13 15:38:22
 tags:
 mathjax: true
-password: jiangpf2022
+# password: jiangpf2022
 wrong_pass_message: Please contact the author for the password.
 published : false
 ---

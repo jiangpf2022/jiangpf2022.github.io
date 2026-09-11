@@ -3,7 +3,7 @@ title: UC Berkeley CS170 Cheatsheet
 date: 2024-12-12 11:23:42
 tags:
 mathjax: True
-password: cs170-final
+# password: cs170-final
 cover: "/images/2024-12-12-2.jpeg"
 categories: Efficient Algorithms and Intractable Problems
 ---

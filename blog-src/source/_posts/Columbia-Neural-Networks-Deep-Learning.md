@@ -1,5 +1,5 @@
 ---
-title: Columbia - Neural Networks & Deep Learning
+title: Neural Networks & Deep Learning - Columbia University
 date: 2026-09-10 02:04:18
 tags:
 mathjax: True

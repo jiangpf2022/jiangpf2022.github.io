@@ -1,5 +1,5 @@
 ---
-title: UC Berkeley Deep Neural Networks(CS182-Review)
+title: Deep Neural Networks - UC Berkeley
 date: 2025-04-18 13:45:14
 tags:
 mathjax: True
