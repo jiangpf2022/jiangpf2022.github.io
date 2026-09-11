@@ -9,6 +9,36 @@
   contain: strict;
 }
 
+@media (pointer: fine) {
+  html,
+  body,
+  .page-container {
+    cursor: url("/blog/images/cursor-stardust.svg") 10 10, auto !important;
+  }
+
+  a,
+  button,
+  summary,
+  label,
+  select,
+  [role="button"],
+  [onclick],
+  .cursor-pointer,
+  .right-bottom-tools,
+  .search-popup-trigger {
+    cursor: url("/blog/images/cursor-stardust-active.svg") 12 12, pointer !important;
+  }
+
+  input,
+  textarea,
+  [contenteditable="true"],
+  .markdown-body p,
+  .markdown-body li,
+  .markdown-body code {
+    cursor: text !important;
+  }
+}
+
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   .blog-cursor-effects {
     display: none !important;

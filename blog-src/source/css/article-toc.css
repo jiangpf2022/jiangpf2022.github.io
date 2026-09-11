@@ -1,0 +1,249 @@
+:root {
+  --toc-panel-start: rgba(247, 252, 255, 0.94);
+  --toc-panel-end: rgba(224, 241, 255, 0.86);
+  --toc-border-start: rgba(18, 132, 222, 0.78);
+  --toc-border-end: rgba(98, 217, 255, 0.48);
+  --toc-heading: #17324d;
+  --toc-text: #36546f;
+  --toc-muted: #5d7489;
+  --toc-accent: #087fc5;
+  --toc-accent-bright: #13b9ec;
+  --toc-active-text: #073b63;
+  --toc-active-background: rgba(77, 190, 244, 0.2);
+  --toc-hover-background: rgba(42, 151, 218, 0.11);
+  --toc-line: rgba(25, 133, 202, 0.28);
+  --toc-shadow: rgba(7, 62, 104, 0.22);
+}
+
+html.dark {
+  --toc-panel-start: rgba(6, 19, 39, 0.91);
+  --toc-panel-end: rgba(12, 36, 63, 0.86);
+  --toc-border-start: rgba(96, 203, 255, 0.78);
+  --toc-border-end: rgba(255, 205, 116, 0.42);
+  --toc-heading: #edfaff;
+  --toc-text: #c1d8e9;
+  --toc-muted: #8facbf;
+  --toc-accent: #73d9ff;
+  --toc-accent-bright: #ffd481;
+  --toc-active-text: #f3fbff;
+  --toc-active-background: rgba(74, 181, 241, 0.2);
+  --toc-hover-background: rgba(90, 203, 255, 0.11);
+  --toc-line: rgba(105, 210, 255, 0.25);
+  --toc-shadow: rgba(0, 0, 0, 0.45);
+}
+
+.post-page-container.show-toc .toc-content-container {
+  position: sticky;
+  align-self: flex-start;
+  isolation: isolate;
+  padding: 16px 14px 18px !important;
+  border: 1px solid transparent;
+  border-radius: 18px !important;
+  background:
+    linear-gradient(145deg, var(--toc-panel-start), var(--toc-panel-end)) padding-box,
+    linear-gradient(135deg, var(--toc-border-start), var(--toc-border-end), transparent 78%) border-box;
+  box-shadow:
+    0 18px 45px -22px var(--toc-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+  backdrop-filter: blur(22px) saturate(145%);
+}
+
+.post-page-container.show-toc .toc-content-container::before {
+  position: absolute;
+  top: 0;
+  left: 17%;
+  z-index: 2;
+  width: 66%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--toc-accent-bright), transparent);
+  box-shadow: 0 0 14px var(--toc-accent-bright);
+  content: "";
+  pointer-events: none;
+  animation: toc-aurora-pulse 3.2s ease-in-out infinite;
+}
+
+.post-toc-wrap,
+.post-toc {
+  position: relative;
+  z-index: 1;
+}
+
+.post-toc .toc-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 0.42rem !important;
+  color: var(--toc-accent) !important;
+  font-size: 0.72rem !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.post-toc .toc-title::before {
+  color: var(--toc-accent-bright);
+  font-size: 0.9rem;
+  line-height: 1;
+  text-shadow: 0 0 10px var(--toc-accent-bright);
+  content: "✦";
+}
+
+.post-toc .page-title {
+  display: -webkit-box;
+  margin-bottom: 0.8rem !important;
+  padding-bottom: 0.72rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--toc-line);
+  color: var(--toc-heading) !important;
+  font-size: 1rem !important;
+  line-height: 1.35;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.post-toc .nav,
+.post-toc .nav ol {
+  border-left-color: var(--toc-line) !important;
+}
+
+.post-toc .nav {
+  padding-right: 0 !important;
+  padding-left: 1px !important;
+}
+
+.post-toc .nav ol {
+  margin-left: 8px !important;
+  padding-left: 8px !important;
+  border-left-style: solid !important;
+}
+
+.post-toc .nav .nav-child {
+  display: block !important;
+}
+
+.post-toc .nav-item {
+  margin: 2px 0;
+  overflow: visible !important;
+  color: var(--toc-text);
+  font-size: 0.88rem !important;
+  line-height: 1.45 !important;
+  white-space: normal !important;
+}
+
+.post-toc .nav-link {
+  position: relative;
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+  padding: 6px 8px 6px 11px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.post-toc .nav-link .nav-number {
+  flex: 0 0 auto;
+  color: var(--toc-muted) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.post-toc .nav-link .nav-text {
+  min-width: 0;
+  color: var(--toc-text) !important;
+}
+
+.post-toc .nav-link:hover {
+  border-color: var(--toc-line);
+  background: var(--toc-hover-background);
+  box-shadow: 0 6px 18px -13px var(--toc-shadow);
+  transform: translateX(2px);
+}
+
+.post-toc .nav-link:hover .nav-number,
+.post-toc .nav-link:hover .nav-text {
+  color: var(--toc-heading) !important;
+}
+
+.post-toc .nav-link.active-current {
+  border-color: var(--toc-line);
+  background: linear-gradient(100deg, var(--toc-active-background), transparent);
+  box-shadow:
+    inset 3px 0 0 var(--toc-accent),
+    0 8px 22px -16px var(--toc-shadow);
+  transform: translateX(2px);
+}
+
+.post-toc .nav-link.active-current::after {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--toc-accent-bright);
+  box-shadow: 0 0 9px var(--toc-accent-bright);
+  content: "";
+  transform: translateY(-50%);
+  animation: toc-current-orbit 1.8s ease-in-out infinite;
+}
+
+.post-toc .nav-link.active-current .nav-number,
+.post-toc .nav-link.active-current .nav-text {
+  color: var(--toc-active-text) !important;
+  font-weight: 700 !important;
+}
+
+.post-page-container.show-toc .toc-content-container::-webkit-scrollbar {
+  width: 5px !important;
+}
+
+.post-page-container.show-toc .toc-content-container::-webkit-scrollbar-thumb {
+  border: 0 !important;
+  border-radius: 999px;
+  background: linear-gradient(var(--toc-accent), var(--toc-accent-bright));
+}
+
+@keyframes toc-aurora-pulse {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scaleX(0.72);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes toc-current-orbit {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateY(-50%) scale(0.78);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-page-container.show-toc .toc-content-container::before,
+  .post-toc .nav-link.active-current::after {
+    animation: none;
+  }
+
+  .post-toc .nav-link {
+    transition: none;
+  }
+}

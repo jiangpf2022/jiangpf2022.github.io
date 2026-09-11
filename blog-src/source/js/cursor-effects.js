@@ -103,7 +103,7 @@
       x,
       y,
       velocityX: Math.cos(angle) * speed,
-      velocityY: Math.sin(angle) * speed - 0.035,
+      velocityY: Math.sin(angle) * speed + (settings.lift ?? -0.035),
       size: settings.size ?? 1.2 + Math.random() * 2.2,
       life,
       remaining: life,
@@ -114,15 +114,28 @@
   };
 
   const emitTrail = (x, y, eventTime) => {
-    const distance = Math.hypot(x - lastEmissionX, y - lastEmissionY);
+    const movementX = x - lastEmissionX;
+    const movementY = y - lastEmissionY;
+    const distance = Math.hypot(movementX, movementY);
 
     if (eventTime - lastEmissionTime < 18 || distance < 7) return;
 
     const count = distance > 30 ? 2 : 1;
+    const directionX = movementX / distance;
+    const directionY = movementY / distance;
+    const reverseAngle = Math.atan2(movementY, movementX) + Math.PI;
+
     for (let index = 0; index < count; index += 1) {
+      const trailDistance = 5 + Math.random() * Math.min(distance * 0.38, 13);
+      const sideScatter = (Math.random() - 0.5) * 6;
       addParticle(
-        x + (Math.random() - 0.5) * 7,
-        y + (Math.random() - 0.5) * 7,
+        x - directionX * trailDistance - directionY * sideScatter,
+        y - directionY * trailDistance + directionX * sideScatter,
+        {
+          angle: reverseAngle + (Math.random() - 0.5) * 0.42,
+          speed: 0.11 + Math.random() * 0.2,
+          lift: 0,
+        },
       );
     }
 

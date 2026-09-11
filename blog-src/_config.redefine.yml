@@ -298,7 +298,7 @@ articles:
     enable: true # Whether to enable TOC
     max_depth: 5 # TOC depth
     number: true # Whether to add number to TOC automatically
-    expand: false # Whether to expand TOC
+    expand: true # Keep all knowledge-point headings visible in the article TOC
     init_open: true # Open toc by default
   # Whether to enable copyright notice
   copyright:
@@ -397,6 +397,7 @@ inject:
   head: 
     - <link rel="stylesheet" href="/blog/css/home-banner-crossfade.css">
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
+    - <link rel="stylesheet" href="/blog/css/article-toc.css">
   # Inject custom footer html code
   footer:
     - <script src="/blog/js/home-banner-transition.js"></script>
