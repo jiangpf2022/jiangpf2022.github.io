@@ -1,0 +1,34 @@
+.home-banner-background {
+  overflow: hidden;
+}
+
+.home-banner-background > img {
+  position: absolute;
+  inset: 0;
+  display: block !important;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 1s ease-in-out;
+  will-change: opacity;
+}
+
+.home-banner-background > img:nth-of-type(2) {
+  opacity: 0;
+}
+
+html.dark .home-banner-background > img:nth-of-type(1) {
+  opacity: 0;
+}
+
+html.dark .home-banner-background > img:nth-of-type(2) {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-banner-background > img {
+    transition: none;
+  }
+}

@@ -114,7 +114,7 @@ home_banner:
   # Home banner image
   image: 
     light: /images/new-york-skyline-background.webp # light mode
-    dark: /images/new-york-skyline-background.webp # dark mode
+    dark: /images/new-york-skyline-dark.webp # dark mode
   # Home banner title
   title: All Things Can Be Modeled—Except the Soul.
   # Home banner subtitle
@@ -392,10 +392,10 @@ footer:
 # Docs: https://redefine-docs.ohevan.com/inject
 inject:
   # Whether to enable inject
-  enable: false
+  enable: true
   # Inject custom head html code
   head: 
-    -
+    - <link rel="stylesheet" href="/blog/css/home-banner-crossfade.css">
     -
   # Inject custom footer html code
   footer:
