@@ -1,0 +1,16 @@
+.blog-cursor-effects {
+  position: fixed;
+  inset: 0;
+  z-index: 1080;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  contain: strict;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .blog-cursor-effects {
+    display: none !important;
+  }
+}

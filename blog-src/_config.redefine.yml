@@ -396,11 +396,11 @@ inject:
   # Inject custom head html code
   head: 
     - <link rel="stylesheet" href="/blog/css/home-banner-crossfade.css">
-    -
+    - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
   # Inject custom footer html code
   footer:
     - <script src="/blog/js/home-banner-transition.js"></script>
-    -
+    - <script src="/blog/js/cursor-effects.js"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
