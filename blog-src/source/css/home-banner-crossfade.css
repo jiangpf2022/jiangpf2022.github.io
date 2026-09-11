@@ -1,5 +1,10 @@
 .home-banner-background {
+  --banner-dark-opacity: 0;
+  --banner-tone-duration: 0ms;
   overflow: hidden;
+  filter: blur(var(--banner-blur)) !important;
+  -webkit-filter: blur(var(--banner-blur)) !important;
+  transition: none !important;
 }
 
 .home-banner-background > img {
@@ -9,26 +14,28 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 1;
   pointer-events: none;
-  transition: opacity 1s ease-in-out;
   will-change: opacity;
 }
 
+.home-banner-background > img:nth-of-type(1) {
+  z-index: 0;
+  opacity: 1 !important;
+}
+
 .home-banner-background > img:nth-of-type(2) {
-  opacity: 0;
+  z-index: 1;
+  opacity: var(--banner-dark-opacity) !important;
+  transition: opacity var(--banner-tone-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
 }
 
-html.dark .home-banner-background > img:nth-of-type(1) {
-  opacity: 0;
-}
-
-html.dark .home-banner-background > img:nth-of-type(2) {
-  opacity: 1;
+html.dark .home-banner-background {
+  --banner-dark-opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-banner-background > img {
+  .home-banner-background > img:nth-of-type(2) {
     transition: none;
   }
 }

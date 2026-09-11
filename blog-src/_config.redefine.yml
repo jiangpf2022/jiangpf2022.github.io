@@ -399,7 +399,7 @@ inject:
     -
   # Inject custom footer html code
   footer:
-    -
+    - <script src="/blog/js/home-banner-transition.js"></script>
     -
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
