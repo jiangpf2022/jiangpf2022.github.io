@@ -1,8 +1,7 @@
 ---
 title: LLM 1 - Fundamentals of Deep Learning
 date: 2026-09-11 16:15:28
-categories:
-  - Computer Science Courses
+categories: Columbia University
 tags:
   - Deep Learning
   - LLM Systems

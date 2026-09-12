@@ -2,7 +2,7 @@
 title: (CS182)Machine Learning Review
 date: 2024-06-04 15:43:58
 tags:
-categories: Computer Science Courses
+categories: ShanghaiTech University
 mathjax: true
 cover: "/images/2024-6-4-8.png"
 ---

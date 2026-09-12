@@ -2,7 +2,7 @@
 title: Reading:A 5-Point Minimal Solver for Event Camera Relative Motion Estimation
 date: 2024-06-02 22:26:25
 tags:
-categories: Lab reading
+categories: Paper Reading
 mathjax: true
 cover: "/images/2024-6-4-2.png"
 ---

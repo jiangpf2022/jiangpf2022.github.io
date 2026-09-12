@@ -2,7 +2,7 @@
 title: Projective Geometry and Transformations of 2D
 date: 2024-07-14 10:17:55
 tags:
-categories: Multi-View Geometry
+categories: ShanghaiTech University
 mathjax: true
 cover: "/images/2024-7-14-15.png"
 ---

@@ -2,6 +2,7 @@
 title: Neural Networks & Deep Learning - Columbia University
 date: 2026-09-10 02:04:18
 tags:
+categories: Columbia University
 mathjax: True
 cover: "/images/columbia-neural-networks-deep-learning-cover.png"
 ---

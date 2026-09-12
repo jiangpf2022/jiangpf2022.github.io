@@ -10,6 +10,18 @@
 
   const registrations = [];
 
+  const removeDuplicateNumber = (link) => {
+    const number = link.querySelector(".nav-number")?.textContent.trim();
+    const text = link.querySelector(".nav-text");
+
+    if (!number || !text) return;
+
+    const label = text.textContent.trim();
+    if (label.startsWith(`${number} `)) {
+      text.textContent = label.slice(number.length).trimStart();
+    }
+  };
+
   const setExpanded = (item, child, button, expanded) => {
     item.classList.toggle("toc-section-expanded", expanded);
     button.setAttribute("aria-expanded", String(expanded));
@@ -37,6 +49,8 @@
       );
 
       if (!link || !child) return;
+
+      removeDuplicateNumber(link);
 
       const sectionName =
         link.querySelector(".nav-text")?.textContent.trim() || `section ${index + 1}`;

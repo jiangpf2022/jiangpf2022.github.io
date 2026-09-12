@@ -5,7 +5,7 @@ tags:
 mathjax: True
 # password: cs170-final
 cover: "/images/2024-12-12-2.jpeg"
-categories: Efficient Algorithms and Intractable Problems
+categories: ShanghaiTech University
 ---
 ### Cheatnote 1
 <embed src="https://jiangpf2022.github.io/blog/files/cs170-final-1.pdf" width="100%" height="1600px" type="application/pdf">

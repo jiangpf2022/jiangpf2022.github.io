@@ -4,7 +4,7 @@ date: 2024-09-07 02:03:13
 tags:
 mathjax: true
 cover: "/images/2024-11-12-1.jpeg"
-categories: Math113-Abstract Algebra
+categories: ShanghaiTech University
 background_image: "/images/2024-11-12-1.jpeg"
 ---
 ## Lecture 1
