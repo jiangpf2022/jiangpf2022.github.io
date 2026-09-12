@@ -57,6 +57,24 @@ The five assignments account for **25%** of the grade. They are released after L
 
 Recommended references include Charu Aggarwal's *Neural Networks and Deep Learning*, Goodfellow, Bengio, and Courville's *Deep Learning*, and James et al.'s *An Introduction to Statistical Learning*. The slides also point students toward engineering blogs from Meta, Google, IBM, Microsoft, and AWS because production systems often appear there before they reach textbooks.
 
+<!-- LLM1_GALLERY_START:1 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 1">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-002-01.webp" alt="Course instructors, slide 2, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-002-02.webp" alt="Course instructors, slide 2, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-009-01.webp" alt="Prompt engineering and RAG map, slide 9, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-010-01.webp" alt="LLM benchmark taxonomy, slide 10, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-011-01.webp" alt="LLM pre-training workflow, slide 11, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-012-01.webp" alt="Fine-tuning techniques, slide 12, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-013-01.webp" alt="Efficient LLM serving map, slide 13, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-014-01.webp" alt="RLHF workflow, slide 14, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-015-01.webp" alt="Tool-assisted learning framework, slide 15, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-016-01.webp" alt="Multi-agent systems and MCP, slide 16, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-016-02.webp" alt="Multi-agent systems and MCP, slide 16, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-017-01.webp" alt="Voice-agent architecture and processing pipeline, slide 17, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-018-01.webp" alt="Multimodal model pipeline, slide 18, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:1 -->
+
 ## 2. Why AI Scaled
 
 ### Four Drivers
@@ -92,6 +110,13 @@ The IBM US Open example illustrates a domain system rather than a standalone mod
 
 The example also clarifies why proprietary data can be more defensible than model access alone. Many organizations can call a similar base model; fewer have the same historical records, domain definitions, review process, and product integration.
 
+<!-- LLM1_GALLERY_START:2 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 2">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-024-01.webp" alt="AI timeline, slide 24, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-026-01.webp" alt="Evolution of large language models, slide 26, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:2 -->
+
 ## 3. System Stack
 
 ### Definition
@@ -105,10 +130,6 @@ $$
 &\quad + \text{software platform} + \text{infrastructure}.
 \end{aligned}
 $$
-
-![The main components of a machine learning system](/images/llm-genai-lecture-1-ml-system-components.webp)
-
-*A model is embedded in data, software, and hardware infrastructure.*
 
 The components should not be optimized independently. A model with fewer arithmetic operations may still run slower if its operations have poor kernel support or cause irregular memory access. Likewise, a faster accelerator may sit idle if preprocessing cannot supply batches quickly enough.
 
@@ -149,6 +170,16 @@ Important production properties include:
 
 These are also common inhibitors to adoption. A strong notebook result is not yet a maintainable service.
 
+<!-- LLM1_GALLERY_START:3 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 3">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-029-01.webp" alt="Constituents of a machine-learning system, slide 29, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-033-01.webp" alt="ML software lifecycle, slide 33, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-036-01.webp" alt="Cloud, big data, and AI, slide 36, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-038-01.webp" alt="Generative AI cloud stack, slide 38, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-040-01.webp" alt="Practical ML system pipeline, slide 40, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:3 -->
+
 ## 4. Cloud Lifecycle
 
 ### Service Models
@@ -180,10 +211,6 @@ The model lifecycle is broader than training:
 6. **Monitor:** measure response time, failures, resource use, quality, and data or concept drift.
 7. **Learn continuously:** retrain, adapt, or replace the model when monitored evidence justifies it.
 
-![The AI model training lifecycle](/images/llm-genai-lecture-1-model-training-lifecycle.webp)
-
-*Data work, hardening, serving, and monitoring are all part of model performance.*
-
 Hardening deserves special attention. Average test accuracy does not reveal sensitivity to adversarial inputs, prompt injection, rare subgroups, corrupted data, or unsafe generations. Hardening defines threat models, evaluates likely failures, and introduces defenses before serving.
 
 Continuous learning should not mean blindly training on recent traffic. Feedback can be delayed, biased, manipulated, or affected by the model's own prior decisions. A safe loop validates new data, compares candidate and current models, preserves rollback, and monitors post-deployment drift.
@@ -193,6 +220,12 @@ Continuous learning should not mean blindly training on recent traffic. Feedback
 Each phase has a different bottleneck. Preprocessing may be limited by storage and I/O; training by arithmetic, memory, and communication; serving by memory capacity, memory bandwidth, latency, or concurrency. A lifecycle view prevents local optimizations—such as increasing raw training throughput—from being mistaken for end-to-end improvement.
 
 Amdahl's-law intuition applies: accelerating one stage has little impact when another dominates total time. End-to-end profiling should separate input time, host-to-device transfer, forward and backward compute, synchronization, checkpointing, validation, and serving queue delay.
+
+<!-- LLM1_GALLERY_START:4 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 4">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-039-01.webp" alt="AI model lifecycle, slide 39, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:4 -->
 
 ## 5. Generalization
 
@@ -218,10 +251,6 @@ Linear regression is simple enough to expose the key ideas without hiding them i
 ### Underfit and Overfit
 
 A model **underfits** when its assumptions or capacity are too restrictive: both training and test errors remain high. It **overfits** when it models peculiarities of the training sample: training error is low, but test error is much higher. Their difference is the **generalization gap**.
-
-![Bias, variance, and the generalization gap as model complexity changes](/images/llm-genai-lecture-1-bias-variance-tradeoff.webp)
-
-*Training error may keep falling even after test error begins to rise.*
 
 Model complexity can mean polynomial degree, tree depth, feature count, parameter count, or the effective flexibility created by weak regularization. Training error normally cannot increase when a model family becomes strictly more flexible, because the larger family can reproduce the smaller solution. Test error need not follow that monotonic pattern.
 
@@ -275,6 +304,33 @@ More data usually reduces variance because any one sample has less influence. It
 
 Learning curves help diagnose the regime. If training and validation errors are both high and close, suspect bias. If training error is low but validation error is much higher, suspect variance or distribution mismatch. If validation performance is strong but production performance falls, inspect dataset shift and pipeline skew rather than automatically enlarging the model.
 
+<!-- LLM1_GALLERY_START:5 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 5">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-042-01.webp" alt="Linear regression and residual error, slide 42, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-042-02.webp" alt="Linear regression and residual error, slide 42, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-042-03.webp" alt="Linear regression and residual error, slide 42, figure 3" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-042-04.webp" alt="Linear regression and residual error, slide 42, figure 4" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-042-05.webp" alt="Linear regression and residual error, slide 42, figure 5" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-042-06.webp" alt="Linear regression and residual error, slide 42, figure 6" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-043-01.webp" alt="Mean squared error examples, slide 43, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-043-02.webp" alt="Mean squared error examples, slide 43, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-043-03.webp" alt="Mean squared error examples, slide 43, figure 3" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-043-04.webp" alt="Mean squared error examples, slide 43, figure 4" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-043-05.webp" alt="Mean squared error examples, slide 43, figure 5" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-043-06.webp" alt="Mean squared error examples, slide 43, figure 6" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-044-01.webp" alt="Overfitting and underfitting, slide 44, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-045-01.webp" alt="Bias-variance trade-off, slide 45, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-046-01.webp" alt="Model complexity trade-offs, slide 46, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-046-02.webp" alt="Model complexity trade-offs, slide 46, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-046-03.webp" alt="Model complexity trade-offs, slide 46, figure 3" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-046-04.webp" alt="Model complexity trade-offs, slide 46, figure 4" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-047-01.webp" alt="Training and test error versus complexity, slide 47, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-048-01.webp" alt="Bias and variance intuition, slide 48, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-109-01.webp" alt="Bias example, slide 109, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-110-01.webp" alt="Training-sample variance, slide 110, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:5 -->
+
 ## 6. Regularization
 
 ### Penalized Objective
@@ -326,15 +382,21 @@ Cross-validation is useful when data is scarce, but expensive for deep models. W
 
 The same logic appears later in distributed training. Small-batch gradient noise can act as implicit regularization and favor flatter solutions, while very large batches may converge to sharper minima that fit training data well but generalize less reliably. System choices can therefore change statistical behavior.
 
+<!-- LLM1_GALLERY_START:6 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 6">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-050-01.webp" alt="L1 and L2 regularization, slide 50, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-050-02.webp" alt="L1 and L2 regularization, slide 50, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-050-03.webp" alt="L1 and L2 regularization, slide 50, figure 3" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-050-04.webp" alt="L1 and L2 regularization, slide 50, figure 4" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-051-01.webp" alt="Regularization strength and bias-variance, slide 51, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:6 -->
+
 ## 7. Metrics
 
 ### Confusion Matrix
 
 For binary classification, the confusion matrix contains true positives ($TP$), false positives ($FP$), true negatives ($TN$), and false negatives ($FN$).
-
-![Confusion matrix and common binary classification metrics](/images/llm-genai-lecture-1-classification-metrics.webp)
-
-*Different metrics emphasize different kinds of error.*
 
 “Positive” names the event of interest, not a morally good outcome. In disease screening, positive may mean disease detected; in fraud detection, it may mean transaction blocked. Metric interpretation begins by defining that event and the cost of each cell.
 
@@ -407,6 +469,17 @@ Area under the ROC curve summarizes ranking across thresholds, but it can hide o
 Lecture 1 also separates **model quality** from **system quality**. Loss, accuracy, precision, recall, F-score, and ROC describe predictive behavior. Training time, inference latency, throughput, memory, energy, reliability, resource consumption, scaling efficiency, and monetary cost describe practicality. A fair comparison must hold the target quality constant: the fastest run is not useful if it reaches a worse model.
 
 Later course evaluations extend these ideas to language generation. ROUGE, BLEU, and n-gram overlap capture limited aspects of text similarity; GLUE, SuperGLUE, MMLU, BIG-bench, and HELM aggregate task performance; MLPerf, LLMPerf, Hugging Face tooling, and fmperf focus more directly on systems behavior. No single number captures correctness, safety, speed, and cost.
+
+<!-- LLM1_GALLERY_START:7 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 7">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-053-01.webp" alt="Classification metrics, slide 53, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-053-02.webp" alt="Classification metrics, slide 53, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-053-03.webp" alt="Classification metrics, slide 53, figure 3" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-054-01.webp" alt="F-scores and precision-recall balance, slide 54, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-054-02.webp" alt="F-scores and precision-recall balance, slide 54, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-055-01.webp" alt="ROC curves, slide 55, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:7 -->
 
 ## 8. Training
 
@@ -482,6 +555,17 @@ Inference has a different objective. Training emphasizes time to target quality;
 
 Training needs backward computation and optimizer state; inference does not, but autoregressive generation repeatedly reads model weights and an expanding key-value cache. Training is commonly throughput-oriented, whereas interactive inference must also respect per-request latency and fairness.
 
+<!-- LLM1_GALLERY_START:8 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 8">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-056-01.webp" alt="Deep-learning training hardware, slide 56, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-056-02.webp" alt="Deep-learning training hardware, slide 56, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-057-01.webp" alt="Inference throughput, slide 57, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-058-01.webp" alt="Neural-network training flow, slide 58, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-060-01.webp" alt="Gradient descent update, slide 60, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-062-01.webp" alt="Learning-rate behavior, slide 62, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:8 -->
+
 ## 9. Batch and Rate
 
 ### Batch Trade-off
@@ -514,10 +598,6 @@ $$
 
 This explains an important equivalence: increasing the batch size reduces gradient noise in a way resembling a decrease in learning rate. To preserve a similar noise scale, an optimal batch can grow roughly in proportion to the learning rate. The relationship is a model, not a universal rule; it is most useful for reasoning about the trade-off.
 
-![Learning-rate decay and batch-size growth can produce related training behavior](/images/llm-genai-lecture-1-learning-rate-batch-size.webp)
-
-*The slides compare decreasing the learning rate with increasing the batch size.*
-
 A larger batch processes the same epoch in fewer optimizer updates. It may have higher examples-per-second but still need careful warmup or more epochs to reach the same accuracy. Report both throughput and final quality.
 
 ### Batch Normalization
@@ -545,15 +625,21 @@ $$
 
 The small $\varepsilon$ prevents numerical instability; learned $\gamma$ and $\beta$ restore the ability to scale and shift the normalized value. Batch normalization often allows a larger learning rate, faster convergence, and sometimes better generalization. Its dependence on batch statistics is also why very small or distributed batches require care.
 
-![Batch normalization computes batch statistics, normalizes activations, then learns scale and shift](/images/llm-genai-lecture-1-batch-normalization.webp)
-
-*Normalization is followed by learned parameters, so representation capacity is preserved.*
-
 At inference, batch normalization uses running estimates rather than statistics from the current request. This prevents one prediction from depending on unrelated examples that happen to share a serving batch. The distinction between training and inference mode must be handled correctly when evaluating or exporting a model.
 
 ### Practical Tuning
 
 A useful tuning order is to find a stable learning-rate range on a manageable batch, increase the batch only while throughput and time-to-quality improve, add warmup when scaling aggressively, and compare runs at the same validation target. Monitor loss spikes, gradient norms, examples per second, memory utilization, and final generalization together.
+
+<!-- LLM1_GALLERY_START:9 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 9">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-117-01.webp" alt="Learning rate and batch size, slide 117, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-117-02.webp" alt="Learning rate and batch size, slide 117, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-117-03.webp" alt="Learning rate and batch size, slide 117, figure 3" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-117-04.webp" alt="Learning rate and batch size, slide 117, figure 4" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-119-01.webp" alt="Batch normalization, slide 119, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:9 -->
 
 ## 10. Hardware
 
@@ -617,6 +703,21 @@ Scaling can be **vertical** or **horizontal**. Scale-up places more/faster accel
 
 Lower precision such as FP16 can reduce memory use and increase tensor-core throughput. Mixed-precision training keeps numerically sensitive operations or master weights in higher precision. Precision is therefore both a performance tool and a numerical-stability constraint.
 
+<!-- LLM1_GALLERY_START:10 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 10">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-065-01.webp" alt="Multi-GPU scale-up and scale-out, slide 65, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-065-02.webp" alt="Multi-GPU scale-up and scale-out, slide 65, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-067-01.webp" alt="High-performance network comparison, slide 67, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-068-01.webp" alt="GPU interconnect topologies, slide 68, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-068-02.webp" alt="GPU interconnect topologies, slide 68, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-068-03.webp" alt="GPU interconnect topologies, slide 68, figure 3" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-101-01.webp" alt="Tensor Processing Units, slide 101, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-101-02.webp" alt="Tensor Processing Units, slide 101, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-102-01.webp" alt="TPU and GPU performance, slide 102, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-103-01.webp" alt="TPU VM topology, slide 103, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:10 -->
+
 ## 11. Parallelism
 
 ### Data and Model
@@ -647,10 +748,6 @@ For a matrix multiplication, workers may split rows or columns and then combine 
 
 Modern LLM training combines these methods:
 
-![An example combining data parallelism and pipeline parallelism](/images/llm-genai-lecture-1-hybrid-parallelism.webp)
-
-*The slide example uses four-way data parallelism and two-way pipeline parallelism across eight GPUs.*
-
 Another example uses two-way tensor parallelism inside each model replica and eight-way data parallelism across replicas. These dimensions form independent process groups: a worker participates in one group for tensor communication and another for replica synchronization.
 
 Parallel dimensions multiply. If tensor parallelism is 2, pipeline parallelism is 4, and data parallelism is 8, the job uses $2\times4\times8=64$ workers before accounting for expert parallelism or fault-tolerance replicas.
@@ -668,6 +765,19 @@ Systems such as SageMaker model parallel add:
 These techniques exchange one resource for another. Sharding saves device memory but increases communication. Checkpointing saves activation memory but increases compute. Offloading extends capacity but uses a slower memory path. A good configuration respects both the model graph and machine topology.
 
 Optimizer sharding underlies methods such as ZeRO and FSDP: instead of keeping every optimizer value, gradient, and parameter replica on every data-parallel rank, selected states are partitioned and gathered when needed. The saving can make a previously impossible model trainable, at the cost of more communication and implementation complexity.
+
+<!-- LLM1_GALLERY_START:11 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 11">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-069-01.webp" alt="Distributed training with NCCL, slide 69, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-071-01.webp" alt="Model parallelism, slide 71, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-072-01.webp" alt="GPipe pipeline parallelism, slide 72, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-074-01.webp" alt="Hybrid data and pipeline parallelism, slide 74, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-075-01.webp" alt="Tensor and data parallelism, slide 75, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-076-01.webp" alt="Optimizer-state sharding, slide 76, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-077-01.webp" alt="Data parallelism, slide 77, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-122-01.webp" alt="Deep-learning pipeline schedules, slide 122, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:11 -->
 
 ## 12. Sync and Benchmarks
 
@@ -699,18 +809,10 @@ Staleness is especially harmful when parameters move rapidly or gradients from d
 
 Collective all-reduce avoids a single central server:
 
-![Centralized parameter-server reduction and decentralized ring all-reduce](/images/llm-genai-lecture-1-reduction-topologies.webp)
-
-*A decentralized collective distributes aggregation work across participants.*
-
 In **ring all-reduce**, $P$ processes form a logical ring. The operation has two phases:
 
 1. **Reduce-scatter:** gradient chunks circulate for $P-1$ rounds; each process ends with one fully reduced chunk.
 2. **All-gather:** those chunks circulate for another $P-1$ rounds until every process has the complete reduced gradient.
-
-![The reduce-scatter and all-gather phases of ring all-reduce](/images/llm-genai-lecture-1-ring-all-reduce.webp)
-
-*Each phase takes \(P-1\) rounds, but every process sends only a chunk per round.*
 
 For a gradient of size $N$, a centralized parameter-server design moves roughly
 
@@ -774,3 +876,33 @@ Some reported scaling efficiencies are about 90%, 95%, 80%, 87.9%, and 84.75%, d
 The practical reading is not “the last row wins.” Ask how much hardware was consumed, whether accuracy targets match, whether the global batch changed optimization, how the network was provisioned, and whether the measurement includes input and validation. Only then can the experiments support a fair systems conclusion.
 
 Lecture 1 closes with preparation for Lecture 2: GCP, Colab, course coupons, cloud clusters, and the first homework around September 12. The broader lesson is already established: model quality and system performance must be designed and measured together. A training method is successful only when it reaches the required quality reliably, reproducibly, and at an acceptable resource cost.
+
+<!-- LLM1_GALLERY_START:12 -->
+<div class="llm1-figure-grid" aria-label="Lecture 1 figures for section 12">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-078-01.webp" alt="Parameter-server synchronization, slide 78, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-080-01.webp" alt="Synchronous SGD variants, slide 80, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-082-01.webp" alt="Stale gradients, slide 82, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-083-01.webp" alt="Asynchronous SGD variants, slide 83, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-084-01.webp" alt="Convergence-runtime trade-off, slide 84, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-084-02.webp" alt="Convergence-runtime trade-off, slide 84, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-086-01.webp" alt="Reduction topologies, slide 86, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-086-02.webp" alt="Reduction topologies, slide 86, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-087-01.webp" alt="All-reduce states, slide 87, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-087-02.webp" alt="All-reduce states, slide 87, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-088-01.webp" alt="Ring all-reduce algorithm, slide 88, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-089-01.webp" alt="Reduce-scatter rounds, slide 89, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-089-02.webp" alt="Reduce-scatter rounds, slide 89, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-089-03.webp" alt="Reduce-scatter rounds, slide 89, figure 3" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-089-04.webp" alt="Reduce-scatter rounds, slide 89, figure 4" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-090-01.webp" alt="End of reduce-scatter, slide 90, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-091-01.webp" alt="Transition to all-gather, slide 91, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-092-01.webp" alt="All-gather rounds, slide 92, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-092-02.webp" alt="All-gather rounds, slide 92, figure 2" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-092-03.webp" alt="All-gather rounds, slide 92, figure 3" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-092-04.webp" alt="All-gather rounds, slide 92, figure 4" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-093-01.webp" alt="End of all-gather, slide 93, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-vector-098-01.webp" alt="ImageNet and ResNet-50 training benchmark, slide 98, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-099-01.webp" alt="Two-dimensional torus topology, slide 99, figure 1" loading="lazy" decoding="async">
+  <img src="/blog/images/llm1-lecture-1/llm1-slide-100-01.webp" alt="Two-dimensional torus all-reduce, slide 100, figure 1" loading="lazy" decoding="async">
+</div>
+<!-- LLM1_GALLERY_END:12 -->

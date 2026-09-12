@@ -399,6 +399,7 @@ inject:
     - <link rel="stylesheet" href="/blog/css/home-typography.css">
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
+    - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
   # Inject custom footer html code
   footer:
     - <script src="/blog/js/home-banner-transition.js"></script>
