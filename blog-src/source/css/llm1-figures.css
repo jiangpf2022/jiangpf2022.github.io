@@ -25,6 +25,12 @@
   box-shadow: 0 12px 30px rgba(20, 48, 78, 0.2);
 }
 
+.article-content .llm1-figure-grid img:only-child {
+  grid-column: 1 / -1;
+  height: auto;
+  max-height: 480px;
+}
+
 @media (max-width: 720px) {
   .article-content .llm1-figure-grid {
     grid-template-columns: 1fr;
