@@ -403,7 +403,7 @@ inject:
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
     - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
-    - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260913-en">
+    - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260913-left">
     - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260913-en">
   # Inject custom footer html code
   footer:

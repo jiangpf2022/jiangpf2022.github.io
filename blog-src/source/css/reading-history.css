@@ -27,8 +27,10 @@
 .blog-reader-trigger {
   --reader-progress: 0deg;
   position: fixed;
-  right: 20px;
-  bottom: 164px;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: max(20px, env(safe-area-inset-left));
   width: 52px;
   height: 52px;
   padding: 0;
@@ -41,12 +43,13 @@
   -webkit-backdrop-filter: blur(16px) saturate(135%);
   cursor: pointer;
   overflow: visible;
+  transform: translateY(-50%);
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
 .blog-reader-trigger:hover,
 .blog-reader-trigger:focus-visible {
-  transform: translateY(-3px) rotate(-2deg);
+  transform: translateY(calc(-50% - 3px)) rotate(2deg);
   border-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0 16px 42px rgba(9, 27, 54, 0.38), 0 0 22px rgba(109, 168, 255, 0.24);
   outline: none;
@@ -1039,11 +1042,19 @@
 
 @media (max-width: 640px) {
   .blog-reader-trigger {
-    right: 14px;
-    bottom: 142px;
+    top: auto;
+    right: auto;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    left: max(14px, env(safe-area-inset-left));
     width: 48px;
     height: 48px;
     border-radius: 16px;
+    transform: none;
+  }
+
+  .blog-reader-trigger:hover,
+  .blog-reader-trigger:focus-visible {
+    transform: translateY(-3px) rotate(2deg);
   }
 
   .blog-reader-panel {
