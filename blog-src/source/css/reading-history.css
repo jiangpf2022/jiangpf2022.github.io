@@ -43,8 +43,21 @@
   -webkit-backdrop-filter: blur(16px) saturate(135%);
   cursor: pointer;
   overflow: visible;
+  touch-action: none;
+  user-select: none;
   transform: translateY(-50%);
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.blog-reader-trigger.has-custom-position {
+  top: var(--reader-trigger-y);
+  bottom: auto;
+}
+
+.blog-reader-trigger.is-dragging {
+  cursor: grabbing;
+  transform: translateY(-50%) scale(1.06);
+  transition: box-shadow 120ms ease;
 }
 
 .blog-reader-trigger:hover,
@@ -128,8 +141,9 @@
   position: fixed;
   z-index: 1005;
   top: 12px;
-  right: 12px;
+  right: auto;
   bottom: 12px;
+  left: 12px;
   display: flex;
   width: min(420px, calc(100vw - 24px));
   flex-direction: column;
@@ -141,11 +155,11 @@
     radial-gradient(circle at 12% 4%, rgba(109, 168, 255, 0.2), transparent 36%),
     radial-gradient(circle at 94% 86%, rgba(168, 140, 255, 0.15), transparent 34%),
     var(--reader-panel);
-  box-shadow: -20px 0 80px rgba(5, 18, 40, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  box-shadow: 20px 0 80px rgba(5, 18, 40, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(28px) saturate(135%);
   -webkit-backdrop-filter: blur(28px) saturate(135%);
   opacity: 0;
-  transform: translateX(calc(100% + 32px)) scale(0.98);
+  transform: translateX(calc(-100% - 32px)) scale(0.98);
   transition: transform 320ms cubic-bezier(0.2, 0.75, 0.25, 1), opacity 220ms ease;
   pointer-events: none;
 }
@@ -1052,15 +1066,32 @@
     transform: none;
   }
 
+  .blog-reader-trigger.has-custom-position,
+  .blog-reader-trigger.has-custom-position.is-dragging {
+    top: var(--reader-trigger-y);
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+
   .blog-reader-trigger:hover,
   .blog-reader-trigger:focus-visible {
     transform: translateY(-3px) rotate(2deg);
   }
 
+  .blog-reader-trigger.has-custom-position:hover,
+  .blog-reader-trigger.has-custom-position:focus-visible {
+    transform: translateY(calc(-50% - 3px)) rotate(2deg);
+  }
+
+  .blog-reader-trigger.has-custom-position.is-dragging {
+    transform: translateY(-50%) scale(1.06);
+  }
+
   .blog-reader-panel {
     top: 8px;
-    right: 8px;
+    right: auto;
     bottom: 8px;
+    left: 8px;
     width: calc(100vw - 16px);
     border-radius: 23px;
   }

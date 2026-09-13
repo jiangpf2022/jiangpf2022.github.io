@@ -195,9 +195,6 @@ navbar:
     Archives: 
       path: /archives 
       icon: fa-regular fa-archive # can be empty
-    My Learning:
-      path: /learning/
-      icon: fa-solid fa-user-graduate
     # Status: 
     #   path: https://status.ohevan.com/
     #   icon: fa-regular fa-chart-bar
@@ -208,6 +205,9 @@ navbar:
         Github: https://github.com/jiangpf2022
         # Blog: https://ohevan.com
         # Friends: /friends
+    My Learning:
+      path: /learning/
+      icon: fa-solid fa-user-graduate
     # Links: 
     #   icon: fa-regular fa-link
     #   submenus:
@@ -399,12 +399,12 @@ inject:
   # Inject custom head html code
   head: 
     - <link rel="stylesheet" href="/blog/css/home-banner-crossfade.css">
-    - <link rel="stylesheet" href="/blog/css/home-typography.css">
+    - <link rel="stylesheet" href="/blog/css/home-typography.css?v=20260913-courses">
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
     - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
-    - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260913-left">
-    - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260913-en">
+    - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260913-courses">
+    - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260913-courses">
   # Inject custom footer html code
   footer:
     - <script src="/blog/js/home-banner-transition.js"></script>
@@ -412,8 +412,8 @@ inject:
     - <script src="/blog/js/article-toc-toggle.js"></script>
     - <script src="/blog/js/reading-history-config.js?v=20260913-en"></script>
     - <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
-    - <script src="/blog/js/reading-history.js?v=20260913-en"></script>
-    - <script src="/blog/js/learning-dashboard.js?v=20260913-en"></script>
+    - <script src="/blog/js/reading-history.js?v=20260913-courses"></script>
+    - <script src="/blog/js/learning-dashboard.js?v=20260913-courses"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 

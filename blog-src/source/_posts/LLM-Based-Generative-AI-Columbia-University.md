@@ -1,7 +1,7 @@
 ---
 title: LLM 1 - Fundamentals of Deep Learning
 date: 2026-09-11 16:15:28
-categories: Columbia University
+categories: LLM Generative AI
 tags:
   - Deep Learning
   - LLM Systems
@@ -743,7 +743,52 @@ A useful tuning order is to find a stable learning-rate range on a manageable ba
 
 ## 9. Hardware
 
-### Accelerators
+### Single-GPU Throughput
+
+Before distributing training, establish the **single-node, single-GPU baseline**. Training throughput measures how much useful training work one device completes per unit time. Depending on the workload, it can be reported as examples per second, tokens per second, or achieved floating-point operations per second. For a local batch of size $B$ and measured step time $T_{\text{step}}$,
+
+$$
+\text{throughput}=\frac{B}{T_{\text{step}}}.
+$$
+
+One training step is not only a matrix multiplication. Its wall-clock time can be decomposed conceptually as
+
+$$
+T_{\text{step}}
+=T_{\text{input}}+T_{\text{H2D}}+T_{\text{forward}}
++T_{\text{backward}}+T_{\text{update}}+T_{\text{idle}},
+$$
+
+where input preparation and host-to-device transfer may overlap with GPU work in a well-pipelined implementation. Profiling this decomposition is essential: buying a faster GPU does little when the input pipeline or frequent synchronization leaves it waiting.
+
+The lecture identifies four main determinants of single-GPU training throughput:
+
+1. **The neural-network model.** Parameter count, saved activations, tensor shapes, and operation mix determine arithmetic intensity and memory traffic. Large, regular matrix multiplications usually use the GPU more efficiently than many small or irregular kernels.
+2. **Batch size.** A larger batch exposes more parallel work and amortizes kernel-launch and input overhead, so examples per second normally rises at first. The gain eventually saturates once compute or memory bandwidth is fully utilized.
+3. **Compute hardware.** GPU generations such as the M60, K80, P100, and V100 differ in peak arithmetic, memory capacity, memory bandwidth, and specialized tensor hardware. Peak FLOPS is only a ceiling; achieved throughput depends on whether the workload maps efficiently to the device.
+4. **Floating-point precision.** FP16 values use half the storage of FP32 and can unlock much higher tensor-core throughput. The smaller memory footprint also leaves room for a larger batch or model.
+
+Batch size is bounded by device memory. During an iteration, memory may need to hold the parameters, saved activations, gradients, optimizer state, temporary workspaces, and the current data batch:
+
+$$
+M_{\text{step}}
+\approx M_{\text{parameters}}+M_{\text{activations}}
++M_{\text{gradients}}+M_{\text{optimizer}}+M_{\text{workspace}}.
+$$
+
+The historical examples in the slides cite about 12 GB for a K40 and about 16 GB for common P100 and V100 configurations. If the batch does not fit, gradient accumulation can reproduce a larger *effective* batch over several microbatches, but it does not make one microbatch expose more parallel work to the GPU. Activation checkpointing trades extra recomputation for lower activation memory.
+
+Lower precision is not automatically safe. FP16 has less range and precision, so mixed-precision training commonly retains sensitive reductions or master weights in FP32 and uses loss scaling to prevent small gradients from underflowing. When applied correctly, it can reduce training time and memory use without materially changing final accuracy; the result must still be verified against the FP32 baseline.
+
+The batch that maximizes raw throughput is not necessarily the batch that minimizes **time to target quality**. A very small batch gives a noisy gradient estimate and may require a smaller learning rate, increasing the number of updates needed for convergence. A very large batch may process more examples per second but perform fewer updates per epoch and generalize differently. The complete comparison is therefore
+
+$$
+\text{time to quality}
+=\frac{\text{updates needed to reach the target}}
+{\text{updates per second}},
+$$
+
+not throughput alone. The Places example makes the baseline cost concrete: training AlexNet on roughly 2.5 million images could take about six days on a single K40. That long single-GPU runtime motivates scale-up, but it is also the denominator against which multi-GPU speedup and scaling efficiency must be judged.
 
 Deep-learning accelerators are effective because training contains large amounts of dense, parallel arithmetic. GPUs provide many execution units and high-bandwidth device memory. TPUs are application-specific integrated circuits designed around tensor operations.
 

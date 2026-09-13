@@ -9,6 +9,7 @@ create table if not exists public.reading_history (
   chapter_progress jsonb not null default '{}'::jsonb check (jsonb_typeof(chapter_progress) = 'object'),
   completion smallint not null default 0 check (completion between 0 and 100),
   mastery smallint not null default 0 check (mastery between 0 and 100),
+  course_slug text,
   in_plan boolean not null default false,
   plan_added_at timestamptz,
   read_count integer not null default 1 check (read_count > 0),
@@ -21,6 +22,7 @@ alter table public.reading_history
   add column if not exists chapter_progress jsonb not null default '{}'::jsonb,
   add column if not exists completion smallint not null default 0,
   add column if not exists mastery smallint not null default 0,
+  add column if not exists course_slug text,
   add column if not exists in_plan boolean not null default false,
   add column if not exists plan_added_at timestamptz;
 
@@ -55,8 +57,41 @@ begin
       add constraint reading_history_mastery_range
       check (mastery between 0 and 100);
   end if;
+
+  if not exists (
+    select 1 from pg_constraint
+    where conname = 'reading_history_course_slug_allowed'
+      and conrelid = 'public.reading_history'::regclass
+  ) then
+    alter table public.reading_history
+      add constraint reading_history_course_slug_allowed
+      check (
+        course_slug is null
+        or course_slug in ('deep-learning', 'llm-generative-ai', 'robotic')
+      );
+  end if;
 end;
 $$;
+
+update public.reading_history
+set
+  course_slug = case
+    when post_path = '/blog/2026/09/10/Columbia-Neural-Networks-Deep-Learning/' then 'deep-learning'
+    when post_path = '/blog/2026/09/11/LLM-Based-Generative-AI-Columbia-University/' then 'llm-generative-ai'
+    else course_slug
+  end,
+  post_title = case
+    when post_path = '/blog/2026/09/10/Columbia-Neural-Networks-Deep-Learning/' then 'Deep Learning 1 - Single Layer Models'
+    else post_title
+  end
+where post_path in (
+  '/blog/2026/09/10/Columbia-Neural-Networks-Deep-Learning/',
+  '/blog/2026/09/11/LLM-Based-Generative-AI-Columbia-University/'
+);
+
+update public.reading_history
+set in_plan = false
+where in_plan and course_slug is null;
 
 update public.reading_history as history
 set chapter_progress = coalesce(
@@ -211,11 +246,13 @@ revoke all on function public.save_reading_progress(text, text, text, smallint, 
 grant execute on function public.save_reading_progress(text, text, text, smallint, boolean, boolean) to authenticated;
 
 drop function if exists public.save_learning_progress(text, text, text, jsonb, smallint, smallint);
+drop function if exists public.save_learning_progress(text, text, text, jsonb, smallint, smallint, date);
 
 create or replace function public.save_learning_progress(
   p_post_path text,
   p_post_title text,
   p_post_url text,
+  p_course_slug text,
   p_chapter_progress jsonb,
   p_completion smallint,
   p_mastery smallint,
@@ -238,6 +275,10 @@ begin
     raise exception 'Invalid article path';
   end if;
 
+  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic') then
+    raise exception 'Invalid course';
+  end if;
+
   if p_chapter_progress is null or jsonb_typeof(p_chapter_progress) <> 'object' then
     raise exception 'Chapter progress must be a JSON object';
   end if;
@@ -253,6 +294,7 @@ begin
     post_url,
     progress,
     completed,
+    course_slug,
     chapter_progress,
     completion,
     mastery,
@@ -267,6 +309,7 @@ begin
     p_post_url,
     0,
     normalized_completion = 100,
+    p_course_slug,
     p_chapter_progress,
     normalized_completion,
     normalized_mastery,
@@ -278,6 +321,7 @@ begin
   do update set
     post_title = excluded.post_title,
     post_url = excluded.post_url,
+    course_slug = excluded.course_slug,
     chapter_progress = excluded.chapter_progress,
     completion = excluded.completion,
     mastery = excluded.mastery,
@@ -311,13 +355,16 @@ begin
 end;
 $$;
 
-revoke all on function public.save_learning_progress(text, text, text, jsonb, smallint, smallint, date) from public;
-grant execute on function public.save_learning_progress(text, text, text, jsonb, smallint, smallint, date) to authenticated;
+revoke all on function public.save_learning_progress(text, text, text, text, jsonb, smallint, smallint, date) from public;
+grant execute on function public.save_learning_progress(text, text, text, text, jsonb, smallint, smallint, date) to authenticated;
+
+drop function if exists public.set_learning_plan(text, text, text, boolean, date);
 
 create or replace function public.set_learning_plan(
   p_post_path text,
   p_post_title text,
   p_post_url text,
+  p_course_slug text,
   p_in_plan boolean,
   p_event_date date
 )
@@ -335,11 +382,16 @@ begin
     raise exception 'Invalid article path';
   end if;
 
+  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic') then
+    raise exception 'Invalid course';
+  end if;
+
   insert into public.reading_history (
     user_id,
     post_path,
     post_title,
     post_url,
+    course_slug,
     in_plan,
     plan_added_at,
     read_count,
@@ -351,6 +403,7 @@ begin
     p_post_path,
     p_post_title,
     p_post_url,
+    p_course_slug,
     p_in_plan,
     case when p_in_plan then now() else null end,
     1,
@@ -361,6 +414,7 @@ begin
   do update set
     post_title = excluded.post_title,
     post_url = excluded.post_url,
+    course_slug = excluded.course_slug,
     in_plan = p_in_plan,
     plan_added_at = case
       when p_in_plan and not public.reading_history.in_plan then now()
@@ -399,11 +453,14 @@ begin
 end;
 $$;
 
-revoke all on function public.set_learning_plan(text, text, text, boolean, date) from public;
-grant execute on function public.set_learning_plan(text, text, text, boolean, date) to authenticated;
+revoke all on function public.set_learning_plan(text, text, text, text, boolean, date) from public;
+grant execute on function public.set_learning_plan(text, text, text, text, boolean, date) to authenticated;
 
 create index if not exists reading_history_user_recent_idx
   on public.reading_history (user_id, last_read_at desc);
+
+create index if not exists reading_history_user_course_plan_idx
+  on public.reading_history (user_id, course_slug, in_plan);
 
 create index if not exists learning_mastery_history_user_post_date_idx
   on public.learning_mastery_history (user_id, post_path, event_date);

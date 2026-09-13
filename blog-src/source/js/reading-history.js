@@ -8,6 +8,23 @@
   }
 
   const config = window.blogReaderConfig || {};
+  const COURSE_CATALOG = [
+    {
+      slug: "deep-learning",
+      name: "Deep Learning",
+      categoryPath: "/blog/categories/Deep-Learning/",
+    },
+    {
+      slug: "llm-generative-ai",
+      name: "LLM Generative AI",
+      categoryPath: "/blog/categories/LLM-Generative-AI/",
+    },
+    {
+      slug: "robotic",
+      name: "Robotic",
+      categoryPath: "/blog/categories/Robotic/",
+    },
+  ];
   const state = {
     client: null,
     session: null,
@@ -47,6 +64,8 @@
   let saveTimer = 0;
   let learningSaveTimer = 0;
   let scrollFrame = 0;
+  let triggerDrag = null;
+  let suppressTriggerClick = false;
 
   const escapeHtml = (value) =>
     String(value ?? "")
@@ -114,6 +133,21 @@
     }
   };
 
+  const courseForPage = () => {
+    const categoryPaths = new Set(
+      Array.from(
+        document.querySelectorAll('.article-meta-info .article-categories a[href*="/blog/categories/"]'),
+      ).map((link) => {
+        try {
+          return new URL(link.href, window.location.origin).pathname;
+        } catch (_error) {
+          return "";
+        }
+      }),
+    );
+    return COURSE_CATALOG.find((course) => categoryPaths.has(course.categoryPath)) || null;
+  };
+
   const root = document.createElement("div");
   root.id = "blog-reader-root";
   root.innerHTML = `
@@ -141,6 +175,23 @@
   const panel = root.querySelector(".blog-reader-panel");
   const panelBody = root.querySelector(".blog-reader-panel-body");
   const closeButton = root.querySelector(".blog-reader-close");
+
+  const setTriggerPosition = (clientY, persist = false) => {
+    const halfHeight = Math.max(24, trigger.offsetHeight / 2);
+    const safeTop = Math.max(halfHeight + 12, Math.min(window.innerHeight - halfHeight - 12, clientY));
+    trigger.classList.add("has-custom-position");
+    trigger.style.setProperty("--reader-trigger-y", `${safeTop}px`);
+    if (persist) {
+      localStorage.setItem("blog-reader-trigger-y", String(safeTop / Math.max(1, window.innerHeight)));
+    }
+  };
+
+  const restoreTriggerPosition = () => {
+    const ratio = Number(localStorage.getItem("blog-reader-trigger-y"));
+    if (Number.isFinite(ratio) && ratio > 0 && ratio < 1) {
+      setTriggerPosition(ratio * window.innerHeight, false);
+    }
+  };
 
   const broadcastState = () => {
     document.dispatchEvent(
@@ -328,12 +379,13 @@
       path: window.location.pathname,
       title,
       url: `${window.location.origin}${window.location.pathname}`,
+      course: courseForPage(),
     };
   };
 
   const renderPlanControl = () => {
     const element = state.plan.element;
-    if (!element || !state.article) return;
+    if (!element || !state.article?.course) return;
     const signedIn = Boolean(state.session);
     const canEdit = signedIn && state.syncEnabled && !state.plan.saving;
     let label = "Sign in to Add to Plan";
@@ -351,9 +403,9 @@
     element.classList.toggle("is-active", state.plan.inPlan);
     element.innerHTML = `
       <div>
-        <span class="blog-reader-plan-kicker">STUDY PLAN</span>
-        <strong>${state.plan.inPlan ? "This article is in your study plan" : "Add this article to your study plan"}</strong>
-        <small>${state.plan.inPlan ? "My Learning tracks its completion and retention curve." : "Track your progress and changing mastery in one place."}</small>
+        <span class="blog-reader-plan-kicker">${escapeHtml(state.article.course.name.toUpperCase())} PLAN</span>
+        <strong>${state.plan.inPlan ? `This article is in your ${escapeHtml(state.article.course.name)} study plan` : `Add this article to the ${escapeHtml(state.article.course.name)} study plan?`}</strong>
+        <small>${state.plan.inPlan ? "Chapter progress contributes to this course and your overall semester progress." : "Progress checkpoints appear after you add this course article to your plan."}</small>
       </div>
       <button type="button" data-reader-plan-action="${action}" ${signedIn && !canEdit ? "disabled" : ""}>
         <i class="${icon}" aria-hidden="true"></i><span>${label}</span>
@@ -365,7 +417,7 @@
   const buildPlanControl = () => {
     document.querySelectorAll(".blog-reader-plan-control").forEach((element) => element.remove());
     state.plan = { inPlan: false, loaded: false, saving: false, error: "", element: null };
-    if (!state.article) return;
+    if (!state.article?.course) return;
     const element = document.createElement("section");
     element.className = "blog-reader-plan-control";
     element.setAttribute("aria-label", "Article study plan");
@@ -375,7 +427,7 @@
   };
 
   const setLearningPlan = async (article, inPlan) => {
-    if (!state.client || !state.session || !state.syncEnabled || !article) {
+    if (!state.client || !state.session || !state.syncEnabled || !article?.course) {
       return { error: new Error("Sign in and enable sync first") };
     }
     if (state.article?.path === article.path) {
@@ -388,6 +440,7 @@
       p_post_path: article.path,
       p_post_title: article.title,
       p_post_url: article.url,
+      p_course_slug: article.course.slug,
       p_in_plan: inPlan,
       p_event_date: localDateKey(),
     });
@@ -399,6 +452,8 @@
         state.plan.inPlan = inPlan;
         state.plan.loaded = true;
         state.plan.error = "";
+        if (inPlan) await loadLearningProgress();
+        else buildChapterCheckpoints();
       }
       renderPlanControl();
       renderTrigger();
@@ -500,7 +555,7 @@
   const buildChapterCheckpoints = () => {
     document.querySelectorAll(".blog-reader-chapter-checkpoint").forEach((element) => element.remove());
     state.learning = { chapters: [], completion: 0, mastery: 0, loaded: false };
-    if (!state.article) return;
+    if (!state.article?.course || !state.plan.inPlan) return;
 
     const directChildren = Array.from(state.article.content.children);
     let headings = directChildren.filter((element) => element.tagName === "H2");
@@ -576,7 +631,7 @@
     );
 
   const loadLearningProgress = async () => {
-    if (!state.client || !state.session || !state.article) return;
+    if (!state.client || !state.session || !state.article?.course) return;
     const articlePath = state.article.path;
     const { data, error } = await state.client
       .from(config.table || "reading_history")
@@ -588,6 +643,10 @@
       state.learningError = "Chapter progress could not be loaded";
     } else {
       const saved = data?.chapter_progress || {};
+      state.plan.inPlan = Boolean(data?.in_plan);
+      state.plan.loaded = true;
+      renderPlanControl();
+      buildChapterCheckpoints();
       state.learning.chapters.forEach((chapter) => {
         const entry = saved[chapter.key];
         if (!entry || typeof entry !== "object") return;
@@ -595,9 +654,6 @@
         chapter.mastery = Math.max(0, Math.min(100, Number(entry.mastery) || 0));
         chapter.reviewedAt = entry.reviewed_at || (chapter.completed ? data?.last_read_at : null);
       });
-      state.plan.inPlan = Boolean(data?.in_plan);
-      state.plan.loaded = true;
-      renderPlanControl();
       state.learningError = "";
       state.learning.loaded = true;
       calculateLearningSummary();
@@ -609,7 +665,7 @@
     if (
       !state.client ||
       !state.session ||
-      !state.article ||
+      !state.article?.course ||
       !state.syncEnabled ||
       state.learningSaving
     ) {
@@ -625,6 +681,7 @@
       p_post_path: articlePath,
       p_post_title: state.article.title,
       p_post_url: state.article.url,
+      p_course_slug: state.article.course.slug,
       p_chapter_progress: learningPayload(),
       p_completion: state.learning.completion,
       p_mastery: state.learning.mastery,
@@ -749,7 +806,7 @@
       }
     }
     if (state.session && state.article) {
-      loadLearningProgress();
+      if (state.article.course) loadLearningProgress();
       if (state.syncEnabled) {
         const shouldIncrement = !incrementedPaths.has(state.article.path);
         incrementedPaths.add(state.article.path);
@@ -878,11 +935,64 @@
     window.__blogReadingHistory.authSubscription = subscription;
   };
 
-  trigger.addEventListener("click", () => setPanelOpen(true));
+  trigger.addEventListener("pointerdown", (event) => {
+    if (event.button !== undefined && event.button !== 0) return;
+    triggerDrag = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      lastY: event.clientY,
+      moved: false,
+    };
+    trigger.setPointerCapture?.(event.pointerId);
+    trigger.classList.add("is-dragging");
+  });
+  trigger.addEventListener("pointermove", (event) => {
+    if (!triggerDrag || triggerDrag.pointerId !== event.pointerId) return;
+    const distance = Math.hypot(
+      event.clientX - triggerDrag.startX,
+      event.clientY - triggerDrag.startY,
+    );
+    if (distance < 5 && !triggerDrag.moved) return;
+    triggerDrag.moved = true;
+    triggerDrag.lastY = event.clientY;
+    event.preventDefault();
+    setTriggerPosition(event.clientY, false);
+  });
+  const finishTriggerDrag = (event) => {
+    if (!triggerDrag || triggerDrag.pointerId !== event.pointerId) return;
+    const wasMoved = triggerDrag.moved;
+    if (wasMoved) {
+      setTriggerPosition(triggerDrag.lastY, true);
+      suppressTriggerClick = true;
+      window.setTimeout(() => {
+        suppressTriggerClick = false;
+      }, 0);
+    }
+    trigger.releasePointerCapture?.(event.pointerId);
+    trigger.classList.remove("is-dragging");
+    triggerDrag = null;
+  };
+  trigger.addEventListener("pointerup", finishTriggerDrag);
+  trigger.addEventListener("pointercancel", finishTriggerDrag);
+  trigger.addEventListener("click", (event) => {
+    if (suppressTriggerClick) {
+      event.preventDefault();
+      return;
+    }
+    setPanelOpen(true);
+  });
   closeButton.addEventListener("click", () => setPanelOpen(false));
   backdrop.addEventListener("click", () => setPanelOpen(false));
   window.addEventListener("scroll", handleScroll, { passive: true });
-  window.addEventListener("resize", handleScroll, { passive: true });
+  window.addEventListener(
+    "resize",
+    () => {
+      handleScroll();
+      restoreTriggerPosition();
+    },
+    { passive: true },
+  );
   document.addEventListener("swup:contentReplaced", refreshPage);
   document.addEventListener("swup:pageView", refreshPage);
   document.addEventListener("keydown", (event) => {
@@ -1000,6 +1110,7 @@
     authSubscription: null,
   };
 
+  restoreTriggerPosition();
   renderTrigger();
   initializeAuth();
 })();

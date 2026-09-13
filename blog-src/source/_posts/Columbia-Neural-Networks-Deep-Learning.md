@@ -1,8 +1,8 @@
 ---
-title: Neural Networks & Deep Learning - Columbia University
+title: Deep Learning 1 - Single Layer Models
 date: 2026-09-10 02:04:18
 tags:
-categories: Columbia University
+categories: Deep Learning
 mathjax: True
 cover: "/images/columbia-neural-networks-deep-learning-cover.png"
 ---
