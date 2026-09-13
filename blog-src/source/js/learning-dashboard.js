@@ -47,12 +47,12 @@
   const addDays = (date, amount) => new Date(date.getTime() + amount * DAY_MS);
 
   const formatShortDate = (date) =>
-    new Intl.DateTimeFormat("zh-CN", { month: "numeric", day: "numeric" }).format(date);
+    new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(date);
 
   const formatAddedDate = (value) => {
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return "";
-    return new Intl.DateTimeFormat("zh-CN", {
+    return new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -111,14 +111,14 @@
 
     return `
       <div class="blog-learning-chart-wrap">
-        <svg class="blog-learning-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(title)}的熟练度遗忘曲线">
+        <svg class="blog-learning-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Mastery retention curve for ${escapeHtml(title)}">
           <defs>
             <linearGradient id="${gradientId}" x1="0" x2="0" y1="0" y2="1">
               <stop offset="0" stop-color="#6f8cff" stop-opacity="0.3"></stop>
               <stop offset="1" stop-color="#6f8cff" stop-opacity="0"></stop>
             </linearGradient>
           </defs>
-          <text class="blog-learning-axis-title" x="${left}" y="11">熟练度 (%)</text>
+          <text class="blog-learning-axis-title" x="${left}" y="11">Mastery (%)</text>
           ${[0, 50, 100]
             .map(
               (tick) => `
@@ -132,10 +132,10 @@
           ${forecast.length > 1 ? `<polyline class="blog-learning-curve-forecast" points="${forecastPoints}"></polyline>` : ""}
           <line class="blog-learning-today-line" x1="${x(todayIndex)}" x2="${x(todayIndex)}" y1="${top}" y2="${top + plotHeight}"></line>
           <circle class="blog-learning-today-point" cx="${x(todayIndex)}" cy="${y(todayPoint?.mastery || 0)}" r="5">
-            <title>今天：${todayPoint?.mastery || 0}%</title>
+            <title>Today: ${todayPoint?.mastery || 0}%</title>
           </circle>
           <text class="blog-learning-x-label" x="${left}" y="${height - 8}" text-anchor="start">${formatShortDate(series[0].date)}</text>
-          <text class="blog-learning-x-label is-today" x="${x(todayIndex)}" y="${height - 8}" text-anchor="middle">今天</text>
+          <text class="blog-learning-x-label is-today" x="${x(todayIndex)}" y="${height - 8}" text-anchor="middle">Today</text>
           <text class="blog-learning-x-label" x="${width - right}" y="${height - 8}" text-anchor="end">${formatShortDate(series.at(-1).date)}</text>
         </svg>
       </div>
@@ -146,15 +146,15 @@
     <section class="blog-learning-auth-card">
       <span class="blog-learning-auth-icon"><i class="fa-brands fa-github" aria-hidden="true"></i></span>
       <p class="blog-learning-eyebrow">PRIVATE STUDY SPACE</p>
-      <h2>登录后查看个人学习中心</h2>
-      <p>你的学习计划、章节完成度和熟练度曲线只对当前 GitHub 账号可见。</p>
-      <button type="button" data-learning-action="signin"><i class="fa-brands fa-github" aria-hidden="true"></i> 使用 GitHub 登录</button>
+      <h2>Sign in to view My Learning</h2>
+      <p>Your study plans, chapter completion, and mastery curves are visible only to your GitHub account.</p>
+      <button type="button" data-learning-action="signin"><i class="fa-brands fa-github" aria-hidden="true"></i> Continue with GitHub</button>
     </section>
   `;
 
   const loadingMarkup = () => `
     <div class="blog-learning-loading" aria-live="polite">
-      <span></span><span></span><span></span><p>正在整理你的学习计划…</p>
+      <span></span><span></span><span></span><p>Loading your study plans…</p>
     </div>
   `;
 
@@ -184,7 +184,7 @@
 
     if (plansError) {
       mount.innerHTML = `
-        <div class="blog-learning-error"><i class="fa-regular fa-cloud-exclamation"></i><h2>学习计划暂时无法读取</h2><p>请稍后刷新页面重试。</p></div>
+        <div class="blog-learning-error"><i class="fa-regular fa-cloud-exclamation"></i><h2>Your study plans could not be loaded</h2><p>Please refresh the page and try again.</p></div>
       `;
       loading = false;
       refreshScrollIndicator();
@@ -230,18 +230,18 @@
       <header class="blog-learning-hero">
         <div class="blog-learning-profile">
           ${avatar ? `<img src="${escapeHtml(avatar)}" alt="">` : '<span><i class="fa-brands fa-github" aria-hidden="true"></i></span>'}
-          <div><p class="blog-learning-eyebrow">PERSONAL LEARNING ORBIT</p><h2>${escapeHtml(displayName)} 的学习中心</h2></div>
+          <div><p class="blog-learning-eyebrow">PERSONAL LEARNING ORBIT</p><h2>${escapeHtml(displayName)}'s Learning Space</h2></div>
         </div>
-        <button type="button" class="blog-learning-account" data-learning-action="account"><i class="fa-regular fa-user-gear" aria-hidden="true"></i> 账号与记录</button>
+        <button type="button" class="blog-learning-account" data-learning-action="account"><i class="fa-regular fa-user-gear" aria-hidden="true"></i> Account & History</button>
       </header>
-      <section class="blog-learning-summary" aria-label="学习计划概览">
-        <article><span>计划文章</span><strong>${enriched.length}</strong><small>篇</small></article>
-        <article><span>平均完成度</span><strong>${averageCompletion}</strong><small>%</small></article>
-        <article><span>当前熟练度</span><strong>${averageMastery}</strong><small>%</small></article>
+      <section class="blog-learning-summary" aria-label="Study plan overview">
+        <article><span>Planned Articles</span><strong>${enriched.length}</strong><small>total</small></article>
+        <article><span>Average Completion</span><strong>${averageCompletion}</strong><small>%</small></article>
+        <article><span>Current Mastery</span><strong>${averageMastery}</strong><small>%</small></article>
       </section>
       <div class="blog-learning-explainer">
         <i class="fa-regular fa-wave-sine" aria-hidden="true"></i>
-        <p>当前熟练度按 <code>R(t) = R₀ · e<sup>−t/7</sup></code> 每日衰减；完成新章节、调整本次掌握程度或点击“今日复习”会从新的时间点继续计算。曲线虚线部分是未来 7 天预测。</p>
+        <p>Current mastery decays daily as <code>R(t) = R₀ · e<sup>−t/7</sup></code>. Completing a chapter, updating its mastery, or selecting “Review Today” starts a new retention period. The dotted curve forecasts the next seven days.</p>
       </div>
       ${
         enriched.length
@@ -252,20 +252,20 @@
                 return `
                   <article class="blog-learning-plan-card">
                     <header>
-                      <div><span class="blog-learning-plan-date">${escapeHtml(formatAddedDate(item.plan_added_at))} 加入</span><h3><a href="${escapeHtml(path)}">${escapeHtml(item.post_title || path)}</a></h3></div>
-                      <button type="button" data-learning-action="remove" data-learning-path="${escapeHtml(path)}" data-learning-title="${escapeHtml(item.post_title || path)}"><i class="fa-regular fa-bookmark-slash" aria-hidden="true"></i> 移出计划</button>
+                      <div><span class="blog-learning-plan-date">Added ${escapeHtml(formatAddedDate(item.plan_added_at))}</span><h3><a href="${escapeHtml(path)}">${escapeHtml(item.post_title || path)}</a></h3></div>
+                      <button type="button" data-learning-action="remove" data-learning-path="${escapeHtml(path)}" data-learning-title="${escapeHtml(item.post_title || path)}"><i class="fa-regular fa-bookmark-slash" aria-hidden="true"></i> Remove from Plan</button>
                     </header>
                     <div class="blog-learning-card-metrics">
-                      <div><span><b>完成度</b><strong>${completion}%</strong></span><div class="blog-learning-progress"><span style="width:${completion}%"></span></div></div>
-                      <div class="is-mastery"><span><b>当前熟练度</b><strong>${item.currentMastery}%</strong></span><div class="blog-learning-progress"><span style="width:${item.currentMastery}%"></span></div></div>
+                      <div><span><b>Completion</b><strong>${completion}%</strong></span><div class="blog-learning-progress"><span style="width:${completion}%"></span></div></div>
+                      <div class="is-mastery"><span><b>Current Mastery</b><strong>${item.currentMastery}%</strong></span><div class="blog-learning-progress"><span style="width:${item.currentMastery}%"></span></div></div>
                     </div>
                     ${chartMarkup(item.series, index, item.post_title || path)}
-                    <footer><span><i class="fa-regular fa-circle-info" aria-hidden="true"></i> 实线为历史，虚线为预测</span><a href="${escapeHtml(path)}">继续学习 <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a></footer>
+                    <footer><span><i class="fa-regular fa-circle-info" aria-hidden="true"></i> Solid: history · Dotted: forecast</span><a href="${escapeHtml(path)}">Continue Learning <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a></footer>
                   </article>
                 `;
               })
               .join("")}</div>`
-          : `<section class="blog-learning-empty"><i class="fa-regular fa-books"></i><h2>学习计划还是空的</h2><p>打开任意文章，点击“加入学习计划”，它就会出现在这里。</p><a href="/blog/">浏览文章</a></section>`
+          : `<section class="blog-learning-empty"><i class="fa-regular fa-books"></i><h2>Your study plan is empty</h2><p>Open any article and select “Add to Study Plan” to see it here.</p><a href="/blog/">Browse Articles</a></section>`
       }
     `;
     loading = false;
@@ -281,7 +281,7 @@
     if (action === "account") document.querySelector(".blog-reader-trigger")?.click();
     if (action === "remove" && api) {
       button.disabled = true;
-      button.textContent = "正在移出…";
+      button.textContent = "Removing…";
       const path = safePostPath(button.dataset.learningPath);
       const result = await api.setLearningPlan(
         {
@@ -293,7 +293,7 @@
       );
       if (result.error) {
         button.disabled = false;
-        button.textContent = "移出失败，请重试";
+        button.textContent = "Could not remove — try again";
       } else {
         loadDashboard();
       }

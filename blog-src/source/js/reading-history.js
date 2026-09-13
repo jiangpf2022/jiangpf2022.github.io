@@ -60,7 +60,7 @@
     if (!value) return "";
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return "";
-    return new Intl.DateTimeFormat("zh-CN", {
+    return new Intl.DateTimeFormat("en-US", {
       month: "short",
       day: "numeric",
       hour: "2-digit",
@@ -117,7 +117,7 @@
   const root = document.createElement("div");
   root.id = "blog-reader-root";
   root.innerHTML = `
-    <button class="blog-reader-trigger" type="button" aria-label="打开个人阅读记录" aria-haspopup="dialog" aria-expanded="false">
+    <button class="blog-reader-trigger" type="button" aria-label="Open reading history" aria-haspopup="dialog" aria-expanded="false">
       <span class="blog-reader-trigger-ring" aria-hidden="true"></span>
       <span class="blog-reader-trigger-icon" aria-hidden="true"><i class="fa-regular fa-clock-rotate-left"></i></span>
       <span class="blog-reader-trigger-status" aria-hidden="true"></span>
@@ -127,9 +127,9 @@
       <header class="blog-reader-panel-header">
         <div>
           <p class="blog-reader-eyebrow">PERSONAL LIBRARY</p>
-          <h2 id="blog-reader-title">阅读记录</h2>
+          <h2 id="blog-reader-title">Reading History</h2>
         </div>
-        <button class="blog-reader-close" type="button" aria-label="关闭阅读记录"><i class="fa-regular fa-xmark"></i></button>
+        <button class="blog-reader-close" type="button" aria-label="Close reading history"><i class="fa-regular fa-xmark"></i></button>
       </header>
       <div class="blog-reader-panel-body" aria-live="polite"></div>
     </aside>
@@ -179,12 +179,12 @@
     }
 
     status.title = !state.configured
-      ? "登录服务尚未连接"
+      ? "Sign-in service is not connected"
       : state.session
         ? state.saving || state.learningSaving || state.plan.saving
-          ? "正在同步"
-          : "阅读记录已同步"
-        : "尚未登录";
+          ? "Syncing"
+          : "Reading history synced"
+        : "Not signed in";
   };
 
   const renderHistory = () => {
@@ -196,16 +196,16 @@
       return `
         <div class="blog-reader-empty">
           <i class="fa-regular fa-book-open-reader"></i>
-          <h3>还没有阅读记录</h3>
-          <p>打开一篇文章并开始阅读后，它会出现在这里。</p>
+          <h3>No reading history yet</h3>
+          <p>Articles appear here after you start reading them.</p>
         </div>
       `;
     }
 
     return `
       <div class="blog-reader-history-heading">
-        <h3>最近阅读</h3>
-        <span>${state.history.length} 篇</span>
+        <h3>Recently Read</h3>
+        <span>${state.history.length} article${state.history.length === 1 ? "" : "s"}</span>
       </div>
       <ol class="blog-reader-history-list">
         ${state.history
@@ -222,20 +222,20 @@
                   <span class="blog-reader-history-title">${escapeHtml(item.post_title || item.post_path)}</span>
                   <span class="blog-reader-history-meta">
                     <span>${escapeHtml(formatDate(item.last_read_at))}</span>
-                    <span>阅读位置 ${progress}%</span>
+                    <span>Reading position ${progress}%</span>
                   </span>
                   <span class="blog-reader-history-metrics">
                     <span class="blog-reader-history-metric">
-                      <span><b>完成度</b><strong>${completion}%</strong></span>
-                      <span class="blog-reader-history-progress" aria-label="章节完成度 ${completion}%"><span style="width:${completion}%"></span></span>
+                      <span><b>Completion</b><strong>${completion}%</strong></span>
+                      <span class="blog-reader-history-progress" aria-label="Chapter completion ${completion}%"><span style="width:${completion}%"></span></span>
                     </span>
                     <span class="blog-reader-history-metric is-mastery">
-                      <span><b>当前熟练度</b><strong>${mastery}%</strong></span>
-                      <span class="blog-reader-history-progress" aria-label="已完成章节的加权熟练度 ${mastery}%"><span style="width:${mastery}%"></span></span>
+                      <span><b>Current Mastery</b><strong>${mastery}%</strong></span>
+                      <span class="blog-reader-history-progress" aria-label="Weighted mastery of completed chapters ${mastery}%"><span style="width:${mastery}%"></span></span>
                     </span>
                   </span>
                 </a>
-                <button type="button" data-reader-delete="${escapeHtml(item.id)}" aria-label="删除 ${escapeHtml(item.post_title || "该文章")} 的阅读记录">
+                <button type="button" data-reader-delete="${escapeHtml(item.id)}" aria-label="Delete reading history for ${escapeHtml(item.post_title || "this article")}">
                   <i class="fa-regular fa-trash-can"></i>
                 </button>
               </li>
@@ -251,8 +251,8 @@
       panelBody.innerHTML = `
         <div class="blog-reader-empty blog-reader-unavailable">
           <i class="fa-regular fa-cloud-slash"></i>
-          <h3>账户服务正在配置</h3>
-          <p>博客仍可正常阅读；完成连接后即可使用 GitHub 登录和跨设备同步。</p>
+          <h3>Account service is being configured</h3>
+          <p>The blog remains available. GitHub sign-in and cross-device sync will become available once the connection is complete.</p>
         </div>
       `;
       return;
@@ -262,12 +262,12 @@
       panelBody.innerHTML = `
         <section class="blog-reader-signin">
           <div class="blog-reader-orbit" aria-hidden="true"><i class="fa-brands fa-github"></i></div>
-          <h3>保存你的阅读进度</h3>
-          <p>使用 GitHub 登录后，最近阅读、章节完成状态和熟练度会在你的设备之间同步。</p>
+          <h3>Save your reading progress</h3>
+          <p>Sign in with GitHub to sync recent articles, chapter completion, and mastery across your devices.</p>
           <button class="blog-reader-primary" type="button" data-reader-action="signin">
-            <i class="fa-brands fa-github"></i><span>使用 GitHub 登录</span>
+            <i class="fa-brands fa-github"></i><span>Continue with GitHub</span>
           </button>
-          <p class="blog-reader-privacy-note">登录即表示同意保存文章标题、地址、阅读进度、章节勾选和熟练度。不会读取你的仓库内容。<a href="/blog/privacy/">隐私说明</a></p>
+          <p class="blog-reader-privacy-note">Signing in allows this site to save article titles, URLs, reading progress, chapter completion, and mastery. Your repository contents are never read. <a href="/blog/privacy/">Privacy notice</a></p>
           ${state.error ? `<p class="blog-reader-error">${escapeHtml(state.error)}</p>` : ""}
         </section>
       `;
@@ -281,18 +281,18 @@
           ${userProfile.avatar ? `<img src="${escapeHtml(userProfile.avatar)}" alt="">` : '<span><i class="fa-brands fa-github"></i></span>'}
           <div><p>Signed in with GitHub</p><h3>${escapeHtml(userProfile.name)}</h3></div>
         </div>
-        <button class="blog-reader-secondary" type="button" data-reader-action="signout">退出</button>
+        <button class="blog-reader-secondary" type="button" data-reader-action="signout">Sign Out</button>
       </section>
       <label class="blog-reader-sync-toggle">
-        <span><strong>同步阅读进度</strong><small>关闭后，这台设备不会上传新的记录。</small></span>
+        <span><strong>Sync Reading Progress</strong><small>When disabled, this device will not upload new activity.</small></span>
         <input type="checkbox" data-reader-action="toggle-sync" ${state.syncEnabled ? "checked" : ""}>
         <span class="blog-reader-switch" aria-hidden="true"></span>
       </label>
       ${state.error ? `<p class="blog-reader-error">${escapeHtml(state.error)}</p>` : ""}
       ${renderHistory()}
       <div class="blog-reader-data-actions">
-        <button type="button" data-reader-action="clear" ${state.history.length ? "" : "disabled"}>清除全部阅读记录</button>
-        <p>记录仅对当前账号可见，你可以随时暂停同步或删除。<a href="/blog/privacy/">隐私说明</a></p>
+        <button type="button" data-reader-action="clear" ${state.history.length ? "" : "disabled"}>Clear All Reading History</button>
+        <p>Your records are visible only to this account. You can pause syncing or delete them at any time. <a href="/blog/privacy/">Privacy notice</a></p>
       </div>
     `;
   };
@@ -336,24 +336,24 @@
     if (!element || !state.article) return;
     const signedIn = Boolean(state.session);
     const canEdit = signedIn && state.syncEnabled && !state.plan.saving;
-    let label = "登录后加入学习计划";
+    let label = "Sign in to Add to Plan";
     let icon = "fa-brands fa-github";
     let action = "signin";
     if (signedIn) {
       action = "toggle";
       icon = state.plan.inPlan ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
       label = state.plan.saving
-        ? "正在同步…"
+        ? "Syncing…"
         : state.plan.inPlan
-          ? "已加入学习计划"
-          : "加入学习计划";
+          ? "In Study Plan"
+          : "Add to Study Plan";
     }
     element.classList.toggle("is-active", state.plan.inPlan);
     element.innerHTML = `
       <div>
         <span class="blog-reader-plan-kicker">STUDY PLAN</span>
-        <strong>${state.plan.inPlan ? "这篇文章正在你的计划中" : "把这篇文章加入个人学习计划"}</strong>
-        <small>${state.plan.inPlan ? "个人主页会持续显示完成度和遗忘曲线。" : "加入后可集中查看学习进度和熟练度变化。"}</small>
+        <strong>${state.plan.inPlan ? "This article is in your study plan" : "Add this article to your study plan"}</strong>
+        <small>${state.plan.inPlan ? "My Learning tracks its completion and retention curve." : "Track your progress and changing mastery in one place."}</small>
       </div>
       <button type="button" data-reader-plan-action="${action}" ${signedIn && !canEdit ? "disabled" : ""}>
         <i class="${icon}" aria-hidden="true"></i><span>${label}</span>
@@ -368,7 +368,7 @@
     if (!state.article) return;
     const element = document.createElement("section");
     element.className = "blog-reader-plan-control";
-    element.setAttribute("aria-label", "文章学习计划");
+    element.setAttribute("aria-label", "Article study plan");
     state.article.content.insertBefore(element, state.article.content.firstChild);
     state.plan.element = element;
     renderPlanControl();
@@ -394,7 +394,7 @@
     if (state.article?.path === article.path) {
       state.plan.saving = false;
       if (result.error) {
-        state.plan.error = "学习计划暂时无法同步。";
+        state.plan.error = "The study plan could not be synced right now.";
       } else {
         state.plan.inPlan = inPlan;
         state.plan.loaded = true;
@@ -448,12 +448,12 @@
   };
 
   const checkpointStatus = () => {
-    if (!state.configured) return "账户服务尚未连接";
-    if (!state.session) return "登录后可跨设备保存";
-    if (!state.syncEnabled) return "同步已暂停";
-    if (state.learningSaving) return "正在同步…";
+    if (!state.configured) return "Account service is not connected";
+    if (!state.session) return "Sign in to save across devices";
+    if (!state.syncEnabled) return "Sync paused";
+    if (state.learningSaving) return "Syncing…";
     if (state.learningError) return state.learningError;
-    return state.learning.loaded ? "已同步" : "正在读取记录…";
+    return state.learning.loaded ? "Synced" : "Loading progress…";
   };
 
   const refreshChapterCheckpoint = (chapter) => {
@@ -517,7 +517,7 @@
 
       const chapter = {
         key,
-        title: heading.textContent.trim() || `第 ${index + 1} 章`,
+        title: heading.textContent.trim() || `Chapter ${index + 1}`,
         order: index + 1,
         weight: calculateChapterWeight(heading, nextHeading),
         completed: false,
@@ -527,7 +527,7 @@
       };
       chapter.element.className = "blog-reader-chapter-checkpoint";
       chapter.element.dataset.readerChapterKey = key;
-      chapter.element.setAttribute("aria-label", `${chapter.title} 学习记录`);
+      chapter.element.setAttribute("aria-label", `Learning checkpoint for ${chapter.title}`);
       chapter.element.innerHTML = `
         <div class="blog-reader-checkpoint-heading">
           <span class="blog-reader-checkpoint-kicker"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> LEARNING CHECKPOINT</span>
@@ -537,14 +537,14 @@
           <label class="blog-reader-chapter-check">
             <input type="checkbox" data-reader-chapter-action="completed">
             <span class="blog-reader-checkmark" aria-hidden="true"><i class="fa-regular fa-check"></i></span>
-            <span><strong>完成本章</strong><small>${escapeHtml(chapter.title)}</small></span>
+            <span><strong>Complete Chapter</strong><small>${escapeHtml(chapter.title)}</small></span>
           </label>
           <div class="blog-reader-mastery">
-            <span><strong>熟练度</strong><output>50%</output></span>
-            <input type="range" min="0" max="100" step="5" value="50" data-reader-chapter-action="mastery" aria-label="${escapeHtml(chapter.title)}熟练度">
+            <span><strong>Mastery</strong><output>50%</output></span>
+            <input type="range" min="0" max="100" step="5" value="50" data-reader-chapter-action="mastery" aria-label="Mastery for ${escapeHtml(chapter.title)}">
             <div class="blog-reader-mastery-memory">
-              <span>当前记忆 <b data-reader-current-retention>0%</b></span>
-              <button type="button" data-reader-chapter-action="review"><i class="fa-regular fa-rotate-right" aria-hidden="true"></i> 今日复习</button>
+              <span>Current Retention <b data-reader-current-retention>0%</b></span>
+              <button type="button" data-reader-chapter-action="review"><i class="fa-regular fa-rotate-right" aria-hidden="true"></i> Review Today</button>
             </div>
           </div>
         </div>
@@ -585,7 +585,7 @@
       .maybeSingle();
     if (!state.article || state.article.path !== articlePath) return;
     if (error) {
-      state.learningError = "章节记录读取失败";
+      state.learningError = "Chapter progress could not be loaded";
     } else {
       const saved = data?.chapter_progress || {};
       state.learning.chapters.forEach((chapter) => {
@@ -636,7 +636,7 @@
       return;
     }
     if (error) {
-      state.learningError = "章节记录同步失败";
+      state.learningError = "Chapter progress could not be synced";
     } else {
       state.learningError = "";
       state.learning.loaded = true;
@@ -667,7 +667,7 @@
       .limit(50);
     state.loadingHistory = false;
     if (error) {
-      state.error = "暂时无法读取历史记录，请稍后重试。";
+      state.error = "Reading history could not be loaded. Please try again later.";
     } else {
       state.error = "";
       state.history = data || [];
@@ -690,7 +690,7 @@
     });
     state.saving = false;
     if (error) {
-      state.error = "阅读进度暂时无法同步。";
+      state.error = "Reading progress could not be synced right now.";
     } else {
       state.error = "";
     }
@@ -768,7 +768,7 @@
       options: { redirectTo },
     });
     if (error) {
-      state.error = "无法开始 GitHub 登录，请稍后重试。";
+      state.error = "GitHub sign-in could not be started. Please try again later.";
       renderPanel();
     }
   };
@@ -785,13 +785,13 @@
   };
 
   const clearHistory = async () => {
-    if (!window.confirm("确定删除这个账号的全部阅读记录吗？此操作无法撤销。")) return;
+    if (!window.confirm("Delete all reading history for this account? This action cannot be undone.")) return;
     const { error } = await state.client
       .from(config.table || "reading_history")
       .delete()
       .eq("user_id", state.session.user.id);
     if (error) {
-      state.error = "删除失败，请稍后重试。";
+      state.error = "Delete failed. Please try again later.";
     } else {
       state.history = [];
       state.error = "";
@@ -805,7 +805,7 @@
       .delete()
       .eq("id", id);
     if (error) {
-      state.error = "删除失败，请稍后重试。";
+      state.error = "Delete failed. Please try again later.";
     } else {
       state.history = state.history.filter((item) => item.id !== id);
       state.error = "";
@@ -861,7 +861,7 @@
     if (authCode) {
       const { error: exchangeError } = await state.client.auth.exchangeCodeForSession(authCode);
       if (exchangeError) {
-        state.error = "GitHub 登录回调已失效，请重新登录。";
+        state.error = "The GitHub sign-in callback expired. Please sign in again.";
       }
       ["code", "error", "error_code", "error_description"].forEach((key) =>
         callbackUrl.searchParams.delete(key),
@@ -870,7 +870,7 @@
     }
 
     const { data, error } = await state.client.auth.getSession();
-    if (error) state.error = "登录状态读取失败，请刷新后重试。";
+    if (error) state.error = "Your sign-in status could not be loaded. Please refresh and try again.";
     state.session = data?.session || null;
     renderTrigger();
     refreshPage();
