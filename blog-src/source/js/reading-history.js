@@ -14,7 +14,15 @@
     history: [],
     article: null,
     progress: 0,
+    learning: {
+      chapters: [],
+      completion: 0,
+      mastery: 0,
+      loaded: false,
+    },
     saving: false,
+    learningSaving: false,
+    learningNeedsSave: false,
     loadingHistory: false,
     panelOpen: false,
     configured: Boolean(
@@ -25,10 +33,12 @@
     ),
     syncEnabled: localStorage.getItem("blog-reader-sync-enabled") !== "false",
     error: "",
+    learningError: "",
   };
 
   const incrementedPaths = new Set();
   let saveTimer = 0;
+  let learningSaveTimer = 0;
   let scrollFrame = 0;
 
   const escapeHtml = (value) =>
@@ -112,7 +122,7 @@
     trigger.style.setProperty("--reader-progress", `${Math.round(state.progress * 360)}deg`);
     trigger.classList.toggle("is-signed-in", Boolean(state.session));
     trigger.classList.toggle("is-unconfigured", !state.configured);
-    trigger.classList.toggle("is-saving", state.saving);
+    trigger.classList.toggle("is-saving", state.saving || state.learningSaving);
 
     const userProfile = profile();
     if (state.session && userProfile.avatar) {
@@ -124,7 +134,7 @@
     status.title = !state.configured
       ? "登录服务尚未连接"
       : state.session
-        ? state.saving
+        ? state.saving || state.learningSaving
           ? "正在同步"
           : "阅读记录已同步"
         : "尚未登录";
@@ -154,17 +164,25 @@
         ${state.history
           .map((item) => {
             const progress = Math.max(0, Math.min(100, Number(item.progress) || 0));
-            const label = item.completed ? "已读完" : `${progress}%`;
+            const completion = Math.max(0, Math.min(100, Number(item.completion) || 0));
+            const mastery = Math.max(0, Math.min(100, Number(item.mastery) || 0));
             return `
               <li class="blog-reader-history-item">
                 <a href="${escapeHtml(normalizePath(item.post_path))}" data-reader-history-link data-reader-progress="${progress}">
                   <span class="blog-reader-history-title">${escapeHtml(item.post_title || item.post_path)}</span>
                   <span class="blog-reader-history-meta">
                     <span>${escapeHtml(formatDate(item.last_read_at))}</span>
-                    <span>${escapeHtml(label)}</span>
+                    <span>阅读位置 ${progress}%</span>
                   </span>
-                  <span class="blog-reader-history-progress" aria-label="阅读进度 ${progress}%">
-                    <span style="width:${progress}%"></span>
+                  <span class="blog-reader-history-metrics">
+                    <span class="blog-reader-history-metric">
+                      <span><b>完成度</b><strong>${completion}%</strong></span>
+                      <span class="blog-reader-history-progress" aria-label="章节完成度 ${completion}%"><span style="width:${completion}%"></span></span>
+                    </span>
+                    <span class="blog-reader-history-metric is-mastery">
+                      <span><b>熟练度</b><strong>${mastery}%</strong></span>
+                      <span class="blog-reader-history-progress" aria-label="已完成章节的加权熟练度 ${mastery}%"><span style="width:${mastery}%"></span></span>
+                    </span>
                   </span>
                 </a>
                 <button type="button" data-reader-delete="${escapeHtml(item.id)}" aria-label="删除 ${escapeHtml(item.post_title || "该文章")} 的阅读记录">
@@ -195,11 +213,11 @@
         <section class="blog-reader-signin">
           <div class="blog-reader-orbit" aria-hidden="true"><i class="fa-brands fa-github"></i></div>
           <h3>保存你的阅读进度</h3>
-          <p>使用 GitHub 登录后，最近阅读、文章进度和完成状态会在你的设备之间同步。</p>
+          <p>使用 GitHub 登录后，最近阅读、章节完成状态和熟练度会在你的设备之间同步。</p>
           <button class="blog-reader-primary" type="button" data-reader-action="signin">
             <i class="fa-brands fa-github"></i><span>使用 GitHub 登录</span>
           </button>
-          <p class="blog-reader-privacy-note">登录即表示同意保存文章标题、地址、阅读进度和最近阅读时间。不会读取你的仓库内容。<a href="/blog/privacy/">隐私说明</a></p>
+          <p class="blog-reader-privacy-note">登录即表示同意保存文章标题、地址、阅读进度、章节勾选和熟练度。不会读取你的仓库内容。<a href="/blog/privacy/">隐私说明</a></p>
           ${state.error ? `<p class="blog-reader-error">${escapeHtml(state.error)}</p>` : ""}
         </section>
       `;
@@ -271,13 +289,226 @@
     return Math.max(0, Math.min(1, (window.scrollY - top + window.innerHeight * 0.35) / readable));
   };
 
+  const calculateChapterWeight = (heading, nextHeading) => {
+    let textLength = 0;
+    let imageCount = 0;
+    let node = heading.nextElementSibling;
+    while (node && node !== nextHeading) {
+      if (!node.classList?.contains("blog-reader-chapter-checkpoint")) {
+        textLength += (node.textContent || "").replace(/\s+/g, "").length;
+        imageCount += node.querySelectorAll?.("img").length || 0;
+      }
+      node = node.nextElementSibling;
+    }
+    return Math.max(1, textLength + imageCount * 250);
+  };
+
+  const calculateLearningSummary = () => {
+    const chapters = state.learning.chapters;
+    if (!chapters.length) {
+      state.learning.completion = 0;
+      state.learning.mastery = 0;
+      return;
+    }
+    const completed = chapters.filter((chapter) => chapter.completed);
+    state.learning.completion = Math.round((completed.length / chapters.length) * 100);
+    const totalWeight = completed.reduce((sum, chapter) => sum + chapter.weight, 0);
+    state.learning.mastery = totalWeight
+      ? Math.round(
+          completed.reduce((sum, chapter) => sum + chapter.mastery * chapter.weight, 0) /
+            totalWeight,
+        )
+      : 0;
+  };
+
+  const checkpointStatus = () => {
+    if (!state.configured) return "账户服务尚未连接";
+    if (!state.session) return "登录后可跨设备保存";
+    if (!state.syncEnabled) return "同步已暂停";
+    if (state.learningSaving) return "正在同步…";
+    if (state.learningError) return state.learningError;
+    return state.learning.loaded ? "已同步" : "正在读取记录…";
+  };
+
+  const refreshChapterCheckpoint = (chapter) => {
+    const element = chapter.element;
+    if (!element) return;
+    const checkbox = element.querySelector('[data-reader-chapter-action="completed"]');
+    const range = element.querySelector('[data-reader-chapter-action="mastery"]');
+    const output = element.querySelector("output");
+    const status = element.querySelector(".blog-reader-chapter-status");
+    const canEdit = Boolean(state.configured && state.session && state.syncEnabled);
+    checkbox.checked = chapter.completed;
+    checkbox.disabled = !canEdit;
+    range.value = String(chapter.mastery);
+    range.disabled = !canEdit || !chapter.completed;
+    output.value = `${chapter.mastery}%`;
+    output.textContent = `${chapter.mastery}%`;
+    element.classList.toggle("is-completed", chapter.completed);
+    element.classList.toggle("is-disabled", !canEdit);
+    element.style.setProperty("--mastery", `${chapter.mastery}%`);
+    status.textContent = checkpointStatus();
+  };
+
+  const refreshAllChapterCheckpoints = () => {
+    state.learning.chapters.forEach(refreshChapterCheckpoint);
+  };
+
+  const buildChapterCheckpoints = () => {
+    document.querySelectorAll(".blog-reader-chapter-checkpoint").forEach((element) => element.remove());
+    state.learning = { chapters: [], completion: 0, mastery: 0, loaded: false };
+    if (!state.article) return;
+
+    const directChildren = Array.from(state.article.content.children);
+    let headings = directChildren.filter((element) => element.tagName === "H2");
+    if (!headings.length) headings = directChildren.filter((element) => element.tagName === "H3");
+    const usedKeys = new Set();
+
+    state.learning.chapters = headings.map((heading, index) => {
+      const nextHeading = headings[index + 1] || null;
+      const baseKey = heading.id || `chapter-${index + 1}`;
+      let key = baseKey;
+      let duplicate = 2;
+      while (usedKeys.has(key)) key = `${baseKey}-${duplicate++}`;
+      usedKeys.add(key);
+
+      const chapter = {
+        key,
+        title: heading.textContent.trim() || `第 ${index + 1} 章`,
+        order: index + 1,
+        weight: calculateChapterWeight(heading, nextHeading),
+        completed: false,
+        mastery: 50,
+        element: document.createElement("section"),
+      };
+      chapter.element.className = "blog-reader-chapter-checkpoint";
+      chapter.element.dataset.readerChapterKey = key;
+      chapter.element.setAttribute("aria-label", `${chapter.title} 学习记录`);
+      chapter.element.innerHTML = `
+        <div class="blog-reader-checkpoint-heading">
+          <span class="blog-reader-checkpoint-kicker"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> LEARNING CHECKPOINT</span>
+          <span class="blog-reader-chapter-status" aria-live="polite"></span>
+        </div>
+        <div class="blog-reader-checkpoint-controls">
+          <label class="blog-reader-chapter-check">
+            <input type="checkbox" data-reader-chapter-action="completed">
+            <span class="blog-reader-checkmark" aria-hidden="true"><i class="fa-regular fa-check"></i></span>
+            <span><strong>完成本章</strong><small>${escapeHtml(chapter.title)}</small></span>
+          </label>
+          <label class="blog-reader-mastery">
+            <span><strong>熟练度</strong><output>50%</output></span>
+            <input type="range" min="0" max="100" step="5" value="50" data-reader-chapter-action="mastery" aria-label="${escapeHtml(chapter.title)}熟练度">
+          </label>
+        </div>
+      `;
+      if (nextHeading) {
+        state.article.content.insertBefore(chapter.element, nextHeading);
+      } else {
+        state.article.content.appendChild(chapter.element);
+      }
+      refreshChapterCheckpoint(chapter);
+      return chapter;
+    });
+    calculateLearningSummary();
+  };
+
+  const learningPayload = () =>
+    Object.fromEntries(
+      state.learning.chapters.map((chapter) => [
+        chapter.key,
+        {
+          completed: chapter.completed,
+          mastery: chapter.mastery,
+          title: chapter.title,
+          order: chapter.order,
+          weight: chapter.weight,
+        },
+      ]),
+    );
+
+  const loadLearningProgress = async () => {
+    if (!state.client || !state.session || !state.article || !state.syncEnabled) return;
+    const articlePath = state.article.path;
+    const { data, error } = await state.client
+      .from(config.table || "reading_history")
+      .select("chapter_progress")
+      .eq("post_path", articlePath)
+      .maybeSingle();
+    if (!state.article || state.article.path !== articlePath) return;
+    if (error) {
+      state.learningError = "章节记录读取失败";
+    } else {
+      const saved = data?.chapter_progress || {};
+      state.learning.chapters.forEach((chapter) => {
+        const entry = saved[chapter.key];
+        if (!entry || typeof entry !== "object") return;
+        chapter.completed = Boolean(entry.completed);
+        chapter.mastery = Math.max(0, Math.min(100, Number(entry.mastery) || 0));
+      });
+      state.learningError = "";
+      state.learning.loaded = true;
+      calculateLearningSummary();
+    }
+    refreshAllChapterCheckpoints();
+  };
+
+  const saveLearningProgress = async () => {
+    if (
+      !state.client ||
+      !state.session ||
+      !state.article ||
+      !state.syncEnabled ||
+      state.learningSaving
+    ) {
+      return;
+    }
+    const articlePath = state.article.path;
+    state.learningNeedsSave = false;
+    state.learningSaving = true;
+    state.learningError = "";
+    refreshAllChapterCheckpoints();
+    renderTrigger();
+    const { error } = await state.client.rpc("save_learning_progress", {
+      p_post_path: articlePath,
+      p_post_title: state.article.title,
+      p_post_url: state.article.url,
+      p_chapter_progress: learningPayload(),
+      p_completion: state.learning.completion,
+      p_mastery: state.learning.mastery,
+    });
+    state.learningSaving = false;
+    if (!state.article || state.article.path !== articlePath) {
+      renderTrigger();
+      return;
+    }
+    if (error) {
+      state.learningError = "章节记录同步失败";
+    } else {
+      state.learningError = "";
+      state.learning.loaded = true;
+    }
+    refreshAllChapterCheckpoints();
+    renderTrigger();
+    if (state.panelOpen) loadHistory();
+    if (state.learningNeedsSave) scheduleLearningSave();
+  };
+
+  const scheduleLearningSave = () => {
+    state.learningNeedsSave = true;
+    window.clearTimeout(learningSaveTimer);
+    learningSaveTimer = window.setTimeout(() => {
+      learningSaveTimer = 0;
+      saveLearningProgress();
+    }, 450);
+  };
+
   const loadHistory = async () => {
     if (!state.client || !state.session || state.loadingHistory) return;
     state.loadingHistory = true;
     renderPanel();
     const { data, error } = await state.client
       .from(config.table || "reading_history")
-      .select("id,post_path,post_title,progress,completed,last_read_at,read_count")
+      .select("id,post_path,post_title,progress,completed,completion,mastery,last_read_at,read_count")
       .order("last_read_at", { ascending: false })
       .limit(50);
     state.loadingHistory = false;
@@ -331,8 +562,12 @@
 
   const refreshPage = () => {
     window.clearTimeout(saveTimer);
+    window.clearTimeout(learningSaveTimer);
+    state.learningNeedsSave = false;
     state.article = currentArticle();
     state.progress = calculateProgress();
+    state.learningError = "";
+    buildChapterCheckpoints();
     renderTrigger();
     const resumeRaw = sessionStorage.getItem("blog-reader-resume");
     if (state.article && resumeRaw) {
@@ -362,6 +597,7 @@
       const shouldIncrement = !incrementedPaths.has(state.article.path);
       incrementedPaths.add(state.article.path);
       window.setTimeout(() => saveProgress(shouldIncrement), 900);
+      loadLearningProgress();
     }
   };
 
@@ -385,7 +621,9 @@
     state.session = null;
     state.history = [];
     state.error = "";
+    state.learningError = "";
     renderTrigger();
+    refreshPage();
     renderPanel();
   };
 
@@ -492,7 +730,45 @@
     if (event.key === "Escape" && state.panelOpen) setPanelOpen(false);
   });
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") saveProgress(false);
+    if (document.visibilityState === "hidden") {
+      saveProgress(false);
+      if (state.learningNeedsSave || learningSaveTimer) {
+        window.clearTimeout(learningSaveTimer);
+        learningSaveTimer = 0;
+        saveLearningProgress();
+      }
+    }
+  });
+
+  document.addEventListener("input", (event) => {
+    const action = event.target.dataset.readerChapterAction;
+    if (action !== "mastery") return;
+    const checkpoint = event.target.closest("[data-reader-chapter-key]");
+    const chapter = state.learning.chapters.find(
+      (item) => item.key === checkpoint?.dataset.readerChapterKey,
+    );
+    if (!chapter || event.target.disabled) return;
+    chapter.mastery = Math.max(0, Math.min(100, Number(event.target.value) || 0));
+    calculateLearningSummary();
+    refreshChapterCheckpoint(chapter);
+    scheduleLearningSave();
+  });
+
+  document.addEventListener("change", (event) => {
+    const action = event.target.dataset.readerChapterAction;
+    if (!action) return;
+    const checkpoint = event.target.closest("[data-reader-chapter-key]");
+    const chapter = state.learning.chapters.find(
+      (item) => item.key === checkpoint?.dataset.readerChapterKey,
+    );
+    if (!chapter || event.target.disabled) return;
+    if (action === "completed") chapter.completed = event.target.checked;
+    if (action === "mastery") {
+      chapter.mastery = Math.max(0, Math.min(100, Number(event.target.value) || 0));
+    }
+    calculateLearningSummary();
+    refreshChapterCheckpoint(chapter);
+    scheduleLearningSave();
   });
 
   panelBody.addEventListener("click", (event) => {
@@ -520,6 +796,7 @@
     state.syncEnabled = event.target.checked;
     localStorage.setItem("blog-reader-sync-enabled", String(state.syncEnabled));
     if (state.syncEnabled) refreshPage();
+    else refreshAllChapterCheckpoints();
     renderPanel();
   });
 

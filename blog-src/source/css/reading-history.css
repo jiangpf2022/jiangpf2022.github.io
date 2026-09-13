@@ -525,6 +525,262 @@
   background: linear-gradient(90deg, var(--reader-accent), var(--reader-accent-2));
 }
 
+.blog-reader-history-metrics {
+  display: grid;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+.blog-reader-history-metric > span:first-child {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: var(--reader-muted);
+  font-size: 11px;
+}
+
+.blog-reader-history-metric b {
+  font-weight: 600;
+}
+
+.blog-reader-history-metric strong {
+  color: var(--reader-text);
+  font-size: 12px;
+}
+
+.blog-reader-history-metric .blog-reader-history-progress {
+  margin-top: 4px;
+}
+
+.blog-reader-history-metric.is-mastery .blog-reader-history-progress > span {
+  background: linear-gradient(90deg, #35c8b1, #68a8ff);
+}
+
+.blog-reader-chapter-checkpoint {
+  --checkpoint-accent: #537ef4;
+  --checkpoint-accent-2: #9b6cf2;
+  --checkpoint-text: #172640;
+  --checkpoint-muted: #697a91;
+  --checkpoint-border: rgba(75, 116, 188, 0.24);
+  --checkpoint-surface: rgba(244, 249, 255, 0.78);
+  --mastery: 50%;
+  position: relative;
+  margin: 2rem 0 3rem;
+  padding: 16px 18px 18px;
+  overflow: hidden;
+  border: 1px solid var(--checkpoint-border);
+  border-radius: 18px;
+  color: var(--checkpoint-text);
+  background:
+    radial-gradient(circle at 100% 0, rgba(155, 108, 242, 0.16), transparent 36%),
+    linear-gradient(135deg, var(--checkpoint-surface), rgba(238, 244, 255, 0.6));
+  box-shadow: 0 12px 32px rgba(36, 74, 132, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(14px) saturate(125%);
+  -webkit-backdrop-filter: blur(14px) saturate(125%);
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.dark-mode .blog-reader-chapter-checkpoint {
+  --checkpoint-accent: #74bfff;
+  --checkpoint-accent-2: #ad91ff;
+  --checkpoint-text: #edf6ff;
+  --checkpoint-muted: #9dacc2;
+  --checkpoint-border: rgba(128, 181, 255, 0.23);
+  --checkpoint-surface: rgba(14, 27, 49, 0.8);
+  background:
+    radial-gradient(circle at 100% 0, rgba(133, 103, 236, 0.2), transparent 38%),
+    linear-gradient(135deg, var(--checkpoint-surface), rgba(17, 30, 54, 0.62));
+  box-shadow: 0 14px 36px rgba(0, 9, 27, 0.28), inset 0 1px 0 rgba(184, 215, 255, 0.08);
+}
+
+.blog-reader-chapter-checkpoint::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--checkpoint-accent), var(--checkpoint-accent-2));
+  content: "";
+  opacity: 0.72;
+  transition: opacity 220ms ease, width 220ms ease;
+}
+
+.blog-reader-chapter-checkpoint.is-completed {
+  border-color: color-mix(in srgb, var(--checkpoint-accent), transparent 42%);
+  box-shadow: 0 15px 38px rgba(49, 104, 205, 0.16), 0 0 26px rgba(109, 147, 255, 0.08);
+}
+
+.blog-reader-chapter-checkpoint.is-completed::before {
+  width: 5px;
+  opacity: 1;
+}
+
+.blog-reader-checkpoint-heading,
+.blog-reader-checkpoint-controls,
+.blog-reader-mastery > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.blog-reader-checkpoint-heading {
+  gap: 16px;
+  margin-bottom: 13px;
+}
+
+.blog-reader-checkpoint-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--checkpoint-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.blog-reader-chapter-status {
+  color: var(--checkpoint-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.blog-reader-checkpoint-controls {
+  gap: 24px;
+}
+
+.blog-reader-chapter-check {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 11px;
+  cursor: pointer;
+}
+
+.blog-reader-chapter-check input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.blog-reader-checkmark {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  place-items: center;
+  border: 1px solid var(--checkpoint-border);
+  border-radius: 10px;
+  color: transparent;
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.blog-reader-chapter-check input:checked + .blog-reader-checkmark {
+  color: #fff;
+  background: linear-gradient(135deg, var(--checkpoint-accent), var(--checkpoint-accent-2));
+  transform: rotate(-3deg) scale(1.04);
+}
+
+.blog-reader-chapter-check input:focus-visible + .blog-reader-checkmark {
+  outline: 2px solid var(--checkpoint-accent);
+  outline-offset: 3px;
+}
+
+.blog-reader-chapter-check strong,
+.blog-reader-chapter-check small {
+  display: block;
+}
+
+.blog-reader-chapter-check strong {
+  color: var(--checkpoint-text);
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.blog-reader-chapter-check small {
+  overflow: hidden;
+  max-width: 330px;
+  margin-top: 2px;
+  color: var(--checkpoint-muted);
+  font-size: 11px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.blog-reader-mastery {
+  width: min(250px, 42%);
+  flex: 0 0 min(250px, 42%);
+}
+
+.blog-reader-mastery > span {
+  margin-bottom: 7px;
+  color: var(--checkpoint-muted);
+  font-size: 12px;
+}
+
+.blog-reader-mastery strong {
+  color: var(--checkpoint-text);
+  font-size: 13px;
+}
+
+.blog-reader-mastery output {
+  color: var(--checkpoint-accent);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.blog-reader-mastery input[type="range"] {
+  width: 100%;
+  height: 5px;
+  margin: 0;
+  border-radius: 5px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: linear-gradient(
+    90deg,
+    var(--checkpoint-accent) 0,
+    var(--checkpoint-accent-2) var(--mastery),
+    rgba(111, 130, 157, 0.22) var(--mastery)
+  );
+  cursor: pointer;
+}
+
+.blog-reader-mastery input[type="range"]::-webkit-slider-thumb {
+  width: 17px;
+  height: 17px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--checkpoint-accent-2);
+  box-shadow: 0 2px 9px rgba(47, 65, 115, 0.35);
+}
+
+.blog-reader-mastery input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--checkpoint-accent-2);
+  box-shadow: 0 2px 9px rgba(47, 65, 115, 0.35);
+}
+
+.blog-reader-mastery input[type="range"]:focus-visible {
+  outline: 2px solid var(--checkpoint-accent);
+  outline-offset: 5px;
+}
+
+.blog-reader-chapter-checkpoint.is-disabled .blog-reader-checkpoint-controls {
+  opacity: 0.55;
+}
+
+.blog-reader-chapter-checkpoint.is-disabled label,
+.blog-reader-chapter-checkpoint input:disabled {
+  cursor: not-allowed;
+}
+
 .blog-reader-data-actions {
   margin-top: 22px;
   padding-top: 16px;
@@ -639,6 +895,26 @@
   .blog-reader-panel-body {
     padding: 16px 16px 24px;
   }
+
+  .blog-reader-chapter-checkpoint {
+    margin: 1.6rem 0 2.5rem;
+    padding: 15px;
+  }
+
+  .blog-reader-checkpoint-controls {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .blog-reader-mastery {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .blog-reader-chapter-check small {
+    max-width: calc(100vw - 120px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -647,7 +923,9 @@
   .blog-reader-trigger,
   .blog-reader-orbit::before,
   .blog-reader-loading span,
-  .blog-reader-trigger-status {
+  .blog-reader-trigger-status,
+  .blog-reader-chapter-checkpoint,
+  .blog-reader-checkmark {
     animation: none !important;
     transition-duration: 1ms !important;
   }
