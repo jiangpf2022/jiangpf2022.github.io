@@ -20,6 +20,13 @@
       mastery: 0,
       loaded: false,
     },
+    plan: {
+      inPlan: false,
+      loaded: false,
+      saving: false,
+      error: "",
+      element: null,
+    },
     saving: false,
     learningSaving: false,
     learningNeedsSave: false,
@@ -59,6 +66,34 @@
       hour: "2-digit",
       minute: "2-digit",
     }).format(date);
+  };
+
+  const localDateKey = (value = new Date()) => {
+    const date = value instanceof Date ? value : new Date(value);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const decayedMastery = (chapterProgress, at = new Date(), fallbackDate = null) => {
+    const entries = Object.values(chapterProgress || {}).filter(
+      (chapter) => chapter && typeof chapter === "object" && chapter.completed,
+    );
+    if (!entries.length) return 0;
+    let weightedMastery = 0;
+    let totalWeight = 0;
+    entries.forEach((chapter) => {
+      const weight = Math.max(1, Number(chapter.weight) || 1);
+      const baseMastery = Math.max(0, Math.min(100, Number(chapter.mastery) || 0));
+      const reviewedAt = chapter.reviewed_at || fallbackDate;
+      const reviewedTime = reviewedAt ? new Date(reviewedAt).getTime() : at.getTime();
+      const elapsedDays = Math.max(0, (at.getTime() - reviewedTime) / 86400000);
+      const retained = baseMastery * Math.exp(-elapsedDays / 7);
+      weightedMastery += retained * weight;
+      totalWeight += weight;
+    });
+    return totalWeight ? Math.round(weightedMastery / totalWeight) : 0;
   };
 
   const safeAvatar = (value) => {
@@ -107,6 +142,18 @@
   const panelBody = root.querySelector(".blog-reader-panel-body");
   const closeButton = root.querySelector(".blog-reader-close");
 
+  const broadcastState = () => {
+    document.dispatchEvent(
+      new CustomEvent("blog-reader:state", {
+        detail: {
+          configured: state.configured,
+          signedIn: Boolean(state.session),
+          syncEnabled: state.syncEnabled,
+        },
+      }),
+    );
+  };
+
   const profile = () => {
     const user = state.session?.user;
     const metadata = user?.user_metadata || {};
@@ -122,7 +169,7 @@
     trigger.style.setProperty("--reader-progress", `${Math.round(state.progress * 360)}deg`);
     trigger.classList.toggle("is-signed-in", Boolean(state.session));
     trigger.classList.toggle("is-unconfigured", !state.configured);
-    trigger.classList.toggle("is-saving", state.saving || state.learningSaving);
+    trigger.classList.toggle("is-saving", state.saving || state.learningSaving || state.plan.saving);
 
     const userProfile = profile();
     if (state.session && userProfile.avatar) {
@@ -134,7 +181,7 @@
     status.title = !state.configured
       ? "登录服务尚未连接"
       : state.session
-        ? state.saving || state.learningSaving
+        ? state.saving || state.learningSaving || state.plan.saving
           ? "正在同步"
           : "阅读记录已同步"
         : "尚未登录";
@@ -165,7 +212,10 @@
           .map((item) => {
             const progress = Math.max(0, Math.min(100, Number(item.progress) || 0));
             const completion = Math.max(0, Math.min(100, Number(item.completion) || 0));
-            const mastery = Math.max(0, Math.min(100, Number(item.mastery) || 0));
+            const storedMastery = Math.max(0, Math.min(100, Number(item.mastery) || 0));
+            const mastery = Object.keys(item.chapter_progress || {}).length
+              ? decayedMastery(item.chapter_progress, new Date(), item.last_read_at)
+              : storedMastery;
             return `
               <li class="blog-reader-history-item">
                 <a href="${escapeHtml(normalizePath(item.post_path))}" data-reader-history-link data-reader-progress="${progress}">
@@ -180,7 +230,7 @@
                       <span class="blog-reader-history-progress" aria-label="章节完成度 ${completion}%"><span style="width:${completion}%"></span></span>
                     </span>
                     <span class="blog-reader-history-metric is-mastery">
-                      <span><b>熟练度</b><strong>${mastery}%</strong></span>
+                      <span><b>当前熟练度</b><strong>${mastery}%</strong></span>
                       <span class="blog-reader-history-progress" aria-label="已完成章节的加权熟练度 ${mastery}%"><span style="width:${mastery}%"></span></span>
                     </span>
                   </span>
@@ -281,6 +331,82 @@
     };
   };
 
+  const renderPlanControl = () => {
+    const element = state.plan.element;
+    if (!element || !state.article) return;
+    const signedIn = Boolean(state.session);
+    const canEdit = signedIn && state.syncEnabled && !state.plan.saving;
+    let label = "登录后加入学习计划";
+    let icon = "fa-brands fa-github";
+    let action = "signin";
+    if (signedIn) {
+      action = "toggle";
+      icon = state.plan.inPlan ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
+      label = state.plan.saving
+        ? "正在同步…"
+        : state.plan.inPlan
+          ? "已加入学习计划"
+          : "加入学习计划";
+    }
+    element.classList.toggle("is-active", state.plan.inPlan);
+    element.innerHTML = `
+      <div>
+        <span class="blog-reader-plan-kicker">STUDY PLAN</span>
+        <strong>${state.plan.inPlan ? "这篇文章正在你的计划中" : "把这篇文章加入个人学习计划"}</strong>
+        <small>${state.plan.inPlan ? "个人主页会持续显示完成度和遗忘曲线。" : "加入后可集中查看学习进度和熟练度变化。"}</small>
+      </div>
+      <button type="button" data-reader-plan-action="${action}" ${signedIn && !canEdit ? "disabled" : ""}>
+        <i class="${icon}" aria-hidden="true"></i><span>${label}</span>
+      </button>
+      ${state.plan.error ? `<p class="blog-reader-plan-error">${escapeHtml(state.plan.error)}</p>` : ""}
+    `;
+  };
+
+  const buildPlanControl = () => {
+    document.querySelectorAll(".blog-reader-plan-control").forEach((element) => element.remove());
+    state.plan = { inPlan: false, loaded: false, saving: false, error: "", element: null };
+    if (!state.article) return;
+    const element = document.createElement("section");
+    element.className = "blog-reader-plan-control";
+    element.setAttribute("aria-label", "文章学习计划");
+    state.article.content.insertBefore(element, state.article.content.firstChild);
+    state.plan.element = element;
+    renderPlanControl();
+  };
+
+  const setLearningPlan = async (article, inPlan) => {
+    if (!state.client || !state.session || !state.syncEnabled || !article) {
+      return { error: new Error("Sign in and enable sync first") };
+    }
+    if (state.article?.path === article.path) {
+      state.plan.saving = true;
+      state.plan.error = "";
+      renderPlanControl();
+      renderTrigger();
+    }
+    const result = await state.client.rpc("set_learning_plan", {
+      p_post_path: article.path,
+      p_post_title: article.title,
+      p_post_url: article.url,
+      p_in_plan: inPlan,
+      p_event_date: localDateKey(),
+    });
+    if (state.article?.path === article.path) {
+      state.plan.saving = false;
+      if (result.error) {
+        state.plan.error = "学习计划暂时无法同步。";
+      } else {
+        state.plan.inPlan = inPlan;
+        state.plan.loaded = true;
+        state.plan.error = "";
+      }
+      renderPlanControl();
+      renderTrigger();
+    }
+    broadcastState();
+    return result;
+  };
+
   const calculateProgress = () => {
     if (!state.article) return 0;
     const rect = state.article.content.getBoundingClientRect();
@@ -336,6 +462,8 @@
     const checkbox = element.querySelector('[data-reader-chapter-action="completed"]');
     const range = element.querySelector('[data-reader-chapter-action="mastery"]');
     const output = element.querySelector("output");
+    const retention = element.querySelector("[data-reader-current-retention]");
+    const reviewButton = element.querySelector('[data-reader-chapter-action="review"]');
     const status = element.querySelector(".blog-reader-chapter-status");
     const canEdit = Boolean(state.configured && state.session && state.syncEnabled);
     checkbox.checked = chapter.completed;
@@ -344,6 +472,21 @@
     range.disabled = !canEdit || !chapter.completed;
     output.value = `${chapter.mastery}%`;
     output.textContent = `${chapter.mastery}%`;
+    const currentRetention = chapter.completed
+      ? decayedMastery(
+          {
+            [chapter.key]: {
+              completed: true,
+              mastery: chapter.mastery,
+              weight: chapter.weight,
+              reviewed_at: chapter.reviewedAt,
+            },
+          },
+          new Date(),
+        )
+      : 0;
+    retention.textContent = `${currentRetention}%`;
+    reviewButton.disabled = !canEdit || !chapter.completed;
     element.classList.toggle("is-completed", chapter.completed);
     element.classList.toggle("is-disabled", !canEdit);
     element.style.setProperty("--mastery", `${chapter.mastery}%`);
@@ -379,6 +522,7 @@
         weight: calculateChapterWeight(heading, nextHeading),
         completed: false,
         mastery: 50,
+        reviewedAt: null,
         element: document.createElement("section"),
       };
       chapter.element.className = "blog-reader-chapter-checkpoint";
@@ -395,10 +539,14 @@
             <span class="blog-reader-checkmark" aria-hidden="true"><i class="fa-regular fa-check"></i></span>
             <span><strong>完成本章</strong><small>${escapeHtml(chapter.title)}</small></span>
           </label>
-          <label class="blog-reader-mastery">
+          <div class="blog-reader-mastery">
             <span><strong>熟练度</strong><output>50%</output></span>
             <input type="range" min="0" max="100" step="5" value="50" data-reader-chapter-action="mastery" aria-label="${escapeHtml(chapter.title)}熟练度">
-          </label>
+            <div class="blog-reader-mastery-memory">
+              <span>当前记忆 <b data-reader-current-retention>0%</b></span>
+              <button type="button" data-reader-chapter-action="review"><i class="fa-regular fa-rotate-right" aria-hidden="true"></i> 今日复习</button>
+            </div>
+          </div>
         </div>
       `;
       if (nextHeading) {
@@ -422,16 +570,17 @@
           title: chapter.title,
           order: chapter.order,
           weight: chapter.weight,
+          reviewed_at: chapter.reviewedAt,
         },
       ]),
     );
 
   const loadLearningProgress = async () => {
-    if (!state.client || !state.session || !state.article || !state.syncEnabled) return;
+    if (!state.client || !state.session || !state.article) return;
     const articlePath = state.article.path;
     const { data, error } = await state.client
       .from(config.table || "reading_history")
-      .select("chapter_progress")
+      .select("chapter_progress,in_plan,last_read_at")
       .eq("post_path", articlePath)
       .maybeSingle();
     if (!state.article || state.article.path !== articlePath) return;
@@ -444,7 +593,11 @@
         if (!entry || typeof entry !== "object") return;
         chapter.completed = Boolean(entry.completed);
         chapter.mastery = Math.max(0, Math.min(100, Number(entry.mastery) || 0));
+        chapter.reviewedAt = entry.reviewed_at || (chapter.completed ? data?.last_read_at : null);
       });
+      state.plan.inPlan = Boolean(data?.in_plan);
+      state.plan.loaded = true;
+      renderPlanControl();
       state.learningError = "";
       state.learning.loaded = true;
       calculateLearningSummary();
@@ -475,6 +628,7 @@
       p_chapter_progress: learningPayload(),
       p_completion: state.learning.completion,
       p_mastery: state.learning.mastery,
+      p_event_date: localDateKey(),
     });
     state.learningSaving = false;
     if (!state.article || state.article.path !== articlePath) {
@@ -508,7 +662,7 @@
     renderPanel();
     const { data, error } = await state.client
       .from(config.table || "reading_history")
-      .select("id,post_path,post_title,progress,completed,completion,mastery,last_read_at,read_count")
+      .select("id,post_path,post_title,progress,completed,completion,mastery,chapter_progress,last_read_at,read_count")
       .order("last_read_at", { ascending: false })
       .limit(50);
     state.loadingHistory = false;
@@ -567,6 +721,7 @@
     state.article = currentArticle();
     state.progress = calculateProgress();
     state.learningError = "";
+    buildPlanControl();
     buildChapterCheckpoints();
     renderTrigger();
     const resumeRaw = sessionStorage.getItem("blog-reader-resume");
@@ -593,11 +748,13 @@
         sessionStorage.removeItem("blog-reader-resume");
       }
     }
-    if (state.session && state.article && state.syncEnabled) {
-      const shouldIncrement = !incrementedPaths.has(state.article.path);
-      incrementedPaths.add(state.article.path);
-      window.setTimeout(() => saveProgress(shouldIncrement), 900);
+    if (state.session && state.article) {
       loadLearningProgress();
+      if (state.syncEnabled) {
+        const shouldIncrement = !incrementedPaths.has(state.article.path);
+        incrementedPaths.add(state.article.path);
+        window.setTimeout(() => saveProgress(shouldIncrement), 900);
+      }
     }
   };
 
@@ -694,6 +851,7 @@
           } else if (state.panelOpen) {
             renderPanel();
           }
+          broadcastState();
         }, 0);
       },
     );
@@ -716,6 +874,7 @@
     state.session = data?.session || null;
     renderTrigger();
     refreshPage();
+    broadcastState();
     window.__blogReadingHistory.authSubscription = subscription;
   };
 
@@ -749,6 +908,7 @@
     );
     if (!chapter || event.target.disabled) return;
     chapter.mastery = Math.max(0, Math.min(100, Number(event.target.value) || 0));
+    chapter.reviewedAt = new Date().toISOString();
     calculateLearningSummary();
     refreshChapterCheckpoint(chapter);
     scheduleLearningSave();
@@ -762,10 +922,34 @@
       (item) => item.key === checkpoint?.dataset.readerChapterKey,
     );
     if (!chapter || event.target.disabled) return;
-    if (action === "completed") chapter.completed = event.target.checked;
+    if (action === "completed") {
+      chapter.completed = event.target.checked;
+      if (chapter.completed) chapter.reviewedAt = new Date().toISOString();
+    }
     if (action === "mastery") {
       chapter.mastery = Math.max(0, Math.min(100, Number(event.target.value) || 0));
+      chapter.reviewedAt = new Date().toISOString();
     }
+    calculateLearningSummary();
+    refreshChapterCheckpoint(chapter);
+    scheduleLearningSave();
+  });
+
+  document.addEventListener("click", (event) => {
+    const planAction = event.target.closest("[data-reader-plan-action]")?.dataset.readerPlanAction;
+    if (planAction === "signin") setPanelOpen(true);
+    if (planAction === "toggle" && state.article && !state.plan.saving) {
+      setLearningPlan(state.article, !state.plan.inPlan);
+    }
+
+    const reviewButton = event.target.closest('[data-reader-chapter-action="review"]');
+    if (!reviewButton || reviewButton.disabled) return;
+    const checkpoint = reviewButton.closest("[data-reader-chapter-key]");
+    const chapter = state.learning.chapters.find(
+      (item) => item.key === checkpoint?.dataset.readerChapterKey,
+    );
+    if (!chapter || !chapter.completed) return;
+    chapter.reviewedAt = new Date().toISOString();
     calculateLearningSummary();
     refreshChapterCheckpoint(chapter);
     scheduleLearningSave();
@@ -796,12 +980,23 @@
     state.syncEnabled = event.target.checked;
     localStorage.setItem("blog-reader-sync-enabled", String(state.syncEnabled));
     if (state.syncEnabled) refreshPage();
-    else refreshAllChapterCheckpoints();
+    else {
+      refreshAllChapterCheckpoints();
+      renderPlanControl();
+    }
     renderPanel();
+    broadcastState();
   });
 
   window.__blogReadingHistory = {
     refreshPage,
+    signIn,
+    setLearningPlan,
+    getClient: () => state.client,
+    getSession: () => state.session,
+    getSyncEnabled: () => state.syncEnabled,
+    localDateKey,
+    decayedMastery,
     authSubscription: null,
   };
 

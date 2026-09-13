@@ -556,6 +556,135 @@
   background: linear-gradient(90deg, #35c8b1, #68a8ff);
 }
 
+.blog-reader-plan-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 0 1.8rem;
+  padding: 15px 17px;
+  border: 1px solid rgba(76, 119, 190, 0.2);
+  border-radius: 18px;
+  color: #1a2a43;
+  background:
+    radial-gradient(circle at 100% 0, rgba(151, 105, 238, 0.14), transparent 40%),
+    rgba(244, 249, 255, 0.76);
+  box-shadow: 0 11px 30px rgba(33, 72, 128, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px) saturate(125%);
+  -webkit-backdrop-filter: blur(14px) saturate(125%);
+}
+
+.dark-mode .blog-reader-plan-control {
+  color: #edf6ff;
+  border-color: rgba(134, 185, 255, 0.2);
+  background:
+    radial-gradient(circle at 100% 0, rgba(147, 111, 240, 0.18), transparent 40%),
+    rgba(14, 28, 50, 0.78);
+  box-shadow: 0 13px 34px rgba(0, 9, 28, 0.24), inset 0 1px 0 rgba(187, 216, 255, 0.08);
+}
+
+.blog-reader-plan-control::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 18px 0 0 18px;
+  background: linear-gradient(180deg, #5a84f5, #9c6df0);
+  content: "";
+  transition: width 180ms ease;
+}
+
+.blog-reader-plan-control.is-active::before {
+  width: 6px;
+}
+
+.blog-reader-plan-control > div {
+  min-width: 0;
+}
+
+.blog-reader-plan-kicker,
+.blog-reader-plan-control strong,
+.blog-reader-plan-control small {
+  display: block;
+}
+
+.blog-reader-plan-kicker {
+  margin-bottom: 3px;
+  color: #5a7ee5;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.dark-mode .blog-reader-plan-kicker {
+  color: #76bfff;
+}
+
+.blog-reader-plan-control strong {
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.blog-reader-plan-control small {
+  margin-top: 2px;
+  color: #6b7b91;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.dark-mode .blog-reader-plan-control small {
+  color: #9bacc2;
+}
+
+.blog-reader-plan-control > button {
+  min-height: 40px;
+  flex: 0 0 auto;
+  padding: 0 14px;
+  border: 1px solid rgba(85, 126, 196, 0.26);
+  border-radius: 13px;
+  color: #496fcf;
+  background: rgba(255, 255, 255, 0.38);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease, transform 180ms ease, background 180ms ease;
+}
+
+.dark-mode .blog-reader-plan-control > button {
+  color: #89c8ff;
+  background: rgba(82, 118, 169, 0.12);
+}
+
+.blog-reader-plan-control > button:hover,
+.blog-reader-plan-control > button:focus-visible {
+  border-color: #668bf1;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.blog-reader-plan-control.is-active > button {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, #5881ef, #986ce9);
+  box-shadow: 0 8px 20px rgba(72, 91, 181, 0.22);
+}
+
+.blog-reader-plan-control > button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+  transform: none;
+}
+
+.blog-reader-plan-error {
+  position: absolute;
+  right: 18px;
+  bottom: -20px;
+  margin: 0 !important;
+  color: #c13f5c !important;
+  font-size: 11px !important;
+}
+
 .blog-reader-chapter-checkpoint {
   --checkpoint-accent: #537ef4;
   --checkpoint-accent-2: #9b6cf2;
@@ -772,6 +901,43 @@
   outline-offset: 5px;
 }
 
+.blog-reader-mastery-memory {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 9px;
+  color: var(--checkpoint-muted);
+  font-size: 11px;
+}
+
+.blog-reader-mastery-memory b {
+  color: var(--checkpoint-accent);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.blog-reader-mastery-memory button {
+  padding: 2px 7px;
+  border: 1px solid var(--checkpoint-border);
+  border-radius: 8px;
+  color: var(--checkpoint-accent);
+  background: transparent;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.blog-reader-mastery-memory button:hover,
+.blog-reader-mastery-memory button:focus-visible {
+  border-color: var(--checkpoint-accent);
+  outline: none;
+}
+
+.blog-reader-mastery-memory button:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+}
+
 .blog-reader-chapter-checkpoint.is-disabled .blog-reader-checkpoint-controls {
   opacity: 0.55;
 }
@@ -899,6 +1065,15 @@
   .blog-reader-chapter-checkpoint {
     margin: 1.6rem 0 2.5rem;
     padding: 15px;
+  }
+
+  .blog-reader-plan-control {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .blog-reader-plan-control > button {
+    width: 100%;
   }
 
   .blog-reader-checkpoint-controls {
