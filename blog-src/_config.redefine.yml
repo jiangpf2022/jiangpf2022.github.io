@@ -400,11 +400,15 @@ inject:
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
     - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
+    - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260913b">
   # Inject custom footer html code
   footer:
     - <script src="/blog/js/home-banner-transition.js"></script>
     - <script src="/blog/js/cursor-effects.js"></script>
     - <script src="/blog/js/article-toc-toggle.js"></script>
+    - <script src="/blog/js/reading-history-config.js?v=20260913b"></script>
+    - <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
+    - <script src="/blog/js/reading-history.js?v=20260913b"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
