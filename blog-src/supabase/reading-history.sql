@@ -132,13 +132,37 @@ create table if not exists public.learning_mastery_history (
     on delete cascade
 );
 
+create table if not exists public.course_plans (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  course_slug text not null check (
+    course_slug in ('deep-learning', 'llm-generative-ai', 'robotic')
+  ),
+  enrolled_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key (user_id, course_slug)
+);
+
+insert into public.course_plans (user_id, course_slug, enrolled_at, updated_at)
+select
+  user_id,
+  course_slug,
+  coalesce(min(plan_added_at), min(last_read_at), now()),
+  now()
+from public.reading_history
+where in_plan and course_slug is not null
+group by user_id, course_slug
+on conflict (user_id, course_slug) do nothing;
+
 alter table public.reading_history enable row level security;
 alter table public.learning_mastery_history enable row level security;
+alter table public.course_plans enable row level security;
 
 revoke all on table public.reading_history from anon;
 grant select, insert, update, delete on table public.reading_history to authenticated;
 revoke all on table public.learning_mastery_history from anon;
 grant select, insert, update, delete on table public.learning_mastery_history to authenticated;
+revoke all on table public.course_plans from anon;
+grant select, insert, update, delete on table public.course_plans to authenticated;
 
 drop policy if exists "Readers can view their own history" on public.reading_history;
 create policy "Readers can view their own history"
@@ -187,6 +211,31 @@ with check ((select auth.uid()) = user_id);
 drop policy if exists "Readers can delete their own mastery history" on public.learning_mastery_history;
 create policy "Readers can delete their own mastery history"
 on public.learning_mastery_history for delete
+to authenticated
+using ((select auth.uid()) = user_id);
+
+drop policy if exists "Readers can view their own course plans" on public.course_plans;
+create policy "Readers can view their own course plans"
+on public.course_plans for select
+to authenticated
+using ((select auth.uid()) = user_id);
+
+drop policy if exists "Readers can add their own course plans" on public.course_plans;
+create policy "Readers can add their own course plans"
+on public.course_plans for insert
+to authenticated
+with check ((select auth.uid()) = user_id);
+
+drop policy if exists "Readers can update their own course plans" on public.course_plans;
+create policy "Readers can update their own course plans"
+on public.course_plans for update
+to authenticated
+using ((select auth.uid()) = user_id)
+with check ((select auth.uid()) = user_id);
+
+drop policy if exists "Readers can delete their own course plans" on public.course_plans;
+create policy "Readers can delete their own course plans"
+on public.course_plans for delete
 to authenticated
 using ((select auth.uid()) = user_id);
 
@@ -456,11 +505,55 @@ $$;
 revoke all on function public.set_learning_plan(text, text, text, text, boolean, date) from public;
 grant execute on function public.set_learning_plan(text, text, text, text, boolean, date) to authenticated;
 
+create or replace function public.set_course_plan(
+  p_course_slug text,
+  p_in_plan boolean
+)
+returns void
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+begin
+  if auth.uid() is null then
+    raise exception 'Authentication required';
+  end if;
+
+  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic') then
+    raise exception 'Invalid course';
+  end if;
+
+  if p_in_plan then
+    insert into public.course_plans (user_id, course_slug, enrolled_at, updated_at)
+    values (auth.uid(), p_course_slug, now(), now())
+    on conflict (user_id, course_slug)
+    do update set updated_at = now();
+  else
+    delete from public.course_plans
+    where user_id = auth.uid() and course_slug = p_course_slug;
+  end if;
+
+  update public.reading_history
+  set in_plan = p_in_plan,
+      plan_added_at = case
+        when p_in_plan then coalesce(plan_added_at, now())
+        else plan_added_at
+      end
+  where user_id = auth.uid() and course_slug = p_course_slug;
+end;
+$$;
+
+revoke all on function public.set_course_plan(text, boolean) from public;
+grant execute on function public.set_course_plan(text, boolean) to authenticated;
+
 create index if not exists reading_history_user_recent_idx
   on public.reading_history (user_id, last_read_at desc);
 
 create index if not exists reading_history_user_course_plan_idx
   on public.reading_history (user_id, course_slug, in_plan);
+
+create index if not exists course_plans_user_enrolled_idx
+  on public.course_plans (user_id, enrolled_at desc);
 
 create index if not exists learning_mastery_history_user_post_date_idx
   on public.learning_mastery_history (user_id, post_path, event_date);

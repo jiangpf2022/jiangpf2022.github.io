@@ -11,6 +11,8 @@
   ];
   let loading = false;
   let selectedCurve = "all";
+  let activeCourseSlugs = new Set();
+  let catalogPromise = null;
 
   const escapeHtml = (value) =>
     String(value ?? "")
@@ -22,6 +24,34 @@
 
   const reader = () => window.__blogReadingHistory;
   const courseBySlug = (slug) => COURSES.find((course) => course.slug === slug) || null;
+  const courseByName = (name) => COURSES.find((course) => course.name === name) || null;
+
+  const loadCourseCatalog = async () => {
+    if (!catalogPromise) {
+      catalogPromise = fetch("/blog/search.json", { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error("Course catalog could not be loaded");
+          return response.json();
+        })
+        .then((posts) =>
+          (Array.isArray(posts) ? posts : []).flatMap((post) => {
+            const course = (post.categories || []).map(courseByName).find(Boolean);
+            if (!course) return [];
+            return [{
+              course_slug: course.slug,
+              post_path: safePostPath(post.url),
+              post_title: post.title || safePostPath(post.url),
+              post_url: `${window.location.origin}${safePostPath(post.url)}`,
+            }];
+          }),
+        )
+        .catch((error) => {
+          catalogPromise = null;
+          throw error;
+        });
+    }
+    return catalogPromise;
+  };
 
   const refreshScrollIndicator = () => {
     window.requestAnimationFrame(() => {
@@ -125,6 +155,7 @@
     const areaPoints = `${left},${top + plotHeight} ${historyPoints} ${x(todayIndex)},${top + plotHeight}`;
     const gradientId = `learning-curve-${id}`;
     const todayPoint = series[todayIndex] || series.at(-1);
+    const warningY = y(50);
 
     return `
       <div class="blog-learning-chart-wrap">
@@ -135,6 +166,7 @@
               <stop offset="1" stop-color="#6f8cff" stop-opacity="0"></stop>
             </linearGradient>
           </defs>
+          <rect class="blog-learning-danger-zone" x="${left}" y="${warningY}" width="${plotWidth}" height="${top + plotHeight - warningY}" rx="4"></rect>
           <text class="blog-learning-axis-title" x="${left}" y="13">Mastery (%)</text>
           ${[0, 50, 100]
             .map(
@@ -145,6 +177,8 @@
             )
             .join("")}
           <polygon points="${areaPoints}" fill="url(#${gradientId})"></polygon>
+          <line class="blog-learning-warning-line" x1="${left}" x2="${width - right}" y1="${warningY}" y2="${warningY}"></line>
+          <text class="blog-learning-warning-label" x="${width - right - 4}" y="${warningY - 6}" text-anchor="end">50% review threshold</text>
           <polyline class="blog-learning-curve-history" points="${historyPoints}"></polyline>
           ${forecast.length > 1 ? `<polyline class="blog-learning-curve-forecast" points="${forecastPoints}"></polyline>` : ""}
           <line class="blog-learning-today-line" x1="${x(todayIndex)}" x2="${x(todayIndex)}" y1="${top}" y2="${top + plotHeight}"></line>
@@ -195,12 +229,13 @@
   const articleMarkup = (item) => {
     const path = safePostPath(item.post_path);
     const completion = Math.max(0, Math.min(100, Number(item.completion) || 0));
+    const needsReview = item.currentMastery < 50;
     return `
-      <article class="blog-learning-article-card">
+      <article class="blog-learning-article-card ${needsReview ? "is-mastery-warning" : ""}">
         <header>
-          <div><span class="blog-learning-plan-date">Added ${escapeHtml(formatAddedDate(item.plan_added_at))}</span><h4><a href="${escapeHtml(path)}">${escapeHtml(item.post_title || path)}</a></h4></div>
-          <button type="button" data-learning-action="remove" data-learning-path="${escapeHtml(path)}" data-learning-title="${escapeHtml(item.post_title || path)}" data-learning-course="${escapeHtml(item.course_slug)}" aria-label="Remove ${escapeHtml(item.post_title || path)} from its study plan"><i class="fa-regular fa-bookmark-slash" aria-hidden="true"></i></button>
+          <div><span class="blog-learning-plan-date">Course added ${escapeHtml(formatAddedDate(item.plan_added_at))}</span><h4><a href="${escapeHtml(path)}">${escapeHtml(item.post_title || path)}</a></h4></div>
         </header>
+        ${needsReview ? '<div class="blog-learning-mastery-alert"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><span>Average mastery is below 50%. Review recommended.</span></div>' : ""}
         <div class="blog-learning-card-metrics">
           <div><span><b>Completion</b><strong>${completion}%</strong></span><div class="blog-learning-progress"><span style="width:${completion}%"></span></div></div>
           <div class="is-mastery"><span><b>Current Mastery</b><strong>${item.currentMastery}%</strong></span><div class="blog-learning-progress"><span style="width:${item.currentMastery}%"></span></div></div>
@@ -213,6 +248,7 @@
   const courseSectionMarkup = (course, items) => {
     const completion = average(items, (item) => Number(item.completion) || 0);
     const mastery = average(items, (item) => item.currentMastery || 0);
+    const warningCount = items.filter((item) => item.currentMastery < 50).length;
     return `
       <section class="blog-learning-course" data-course="${course.slug}">
         <header class="blog-learning-course-header">
@@ -221,15 +257,31 @@
             <span><b>${completion}%</b> progress</span>
             <span><b>${mastery}%</b> mastery</span>
             <span><b>${items.length}</b> article${items.length === 1 ? "" : "s"}</span>
+            ${warningCount ? `<span class="is-warning"><b>${warningCount}</b> need${warningCount === 1 ? "s" : ""} review</span>` : ""}
+            <button type="button" data-learning-action="remove-course" data-learning-course="${course.slug}"><i class="fa-regular fa-bookmark-slash" aria-hidden="true"></i> Remove Course</button>
           </div>
         </header>
-        ${items.length ? `<div class="blog-learning-article-list">${items.map(articleMarkup).join("")}</div>` : '<div class="blog-learning-course-empty">No articles have been added to this course plan yet.</div>'}
+        ${items.length ? `<div class="blog-learning-article-list">${items.map(articleMarkup).join("")}</div>` : '<div class="blog-learning-course-empty">This course has no published articles yet. New articles will appear here automatically.</div>'}
+      </section>
+    `;
+  };
+
+  const reviewWarningMarkup = (items) => {
+    const warnings = items.filter((item) => item.currentMastery < 50);
+    if (!warnings.length) return "";
+    return `
+      <section class="blog-learning-review-warning" role="status">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <div>
+          <strong>${warnings.length} article${warnings.length === 1 ? "" : "s"} below the 50% mastery threshold</strong>
+          <p>${warnings.map((item) => `<a href="${escapeHtml(safePostPath(item.post_path))}">${escapeHtml(item.post_title)}</a>`).join(" · ")}</p>
+        </div>
       </section>
     `;
   };
 
   const activateCurve = (key) => {
-    selectedCurve = key === "all" || courseBySlug(key) ? key : "all";
+    selectedCurve = key === "all" || activeCourseSlugs.has(key) ? key : "all";
     document.querySelectorAll("[data-learning-curve]").forEach((button) => {
       const active = button.dataset.learningCurve === selectedCurve;
       button.classList.toggle("is-active", active);
@@ -260,23 +312,48 @@
     loading = true;
     mount.innerHTML = loadingMarkup();
     const client = api.getClient();
-    const { data: plans, error: plansError } = await client
-      .from("reading_history")
-      .select("post_path,post_title,post_url,course_slug,completion,mastery,chapter_progress,plan_added_at,last_read_at")
-      .eq("in_plan", true)
-      .not("course_slug", "is", null)
-      .order("plan_added_at", { ascending: false });
+    let planResult;
+    let historyResult;
+    let catalog;
+    try {
+      [planResult, historyResult, catalog] = await Promise.all([
+        client.from("course_plans").select("course_slug,enrolled_at").order("enrolled_at", { ascending: false }),
+        client
+          .from("reading_history")
+          .select("post_path,post_title,post_url,course_slug,completion,mastery,chapter_progress,last_read_at")
+          .limit(1000),
+        loadCourseCatalog(),
+      ]);
+    } catch (_error) {
+      planResult = { error: new Error("Course catalog unavailable") };
+    }
 
-    if (plansError) {
+    if (planResult?.error || historyResult?.error || !catalog) {
       mount.innerHTML = '<div class="blog-learning-error"><i class="fa-regular fa-cloud-exclamation"></i><h2>Your course plans could not be loaded</h2><p>Please refresh the page and try again.</p></div>';
       loading = false;
       refreshScrollIndicator();
       return;
     }
 
-    const validPlans = (plans || []).filter((item) => courseBySlug(item.course_slug));
+    const enrolledCourses = (planResult.data || [])
+      .map((plan) => ({ ...courseBySlug(plan.course_slug), enrolled_at: plan.enrolled_at }))
+      .filter((course) => course.slug);
+    activeCourseSlugs = new Set(enrolledCourses.map((course) => course.slug));
+    const enrolledAt = new Map(enrolledCourses.map((course) => [course.slug, course.enrolled_at]));
+    const historyByPath = new Map((historyResult.data || []).map((item) => [safePostPath(item.post_path), item]));
+    const courseItems = catalog
+      .filter((post) => activeCourseSlugs.has(post.course_slug))
+      .map((post) => ({
+        completion: 0,
+        mastery: 0,
+        chapter_progress: {},
+        last_read_at: null,
+        ...(historyByPath.get(post.post_path) || {}),
+        ...post,
+        plan_added_at: enrolledAt.get(post.course_slug),
+      }));
     let events = [];
-    const paths = validPlans.map((item) => item.post_path);
+    const paths = courseItems.map((item) => item.post_path);
     if (paths.length) {
       const { data, error } = await client
         .from("learning_mastery_history")
@@ -298,14 +375,13 @@
       ? metadata.avatar_url
       : "";
     const today = new Date();
-    const enriched = validPlans.map((item) => ({
+    const enriched = courseItems.map((item) => ({
       ...item,
       currentMastery: api.decayedMastery(item.chapter_progress, today, item.last_read_at),
     }));
     const totalCompletion = average(enriched, (item) => Number(item.completion) || 0);
     const totalMastery = average(enriched, (item) => item.currentMastery || 0);
-    const activeCourses = COURSES.filter((course) => enriched.some((item) => item.course_slug === course.slug)).length;
-    const overallSeries = aggregateSeries(enriched, events);
+    const overallSeries = enriched.length ? aggregateSeries(enriched, events) : [];
     const courseGroups = Object.fromEntries(
       COURSES.map((course) => [course.slug, enriched.filter((item) => item.course_slug === course.slug)]),
     );
@@ -319,28 +395,29 @@
         <button type="button" class="blog-learning-account" data-learning-action="account"><i class="fa-regular fa-user-gear" aria-hidden="true"></i> Account & History</button>
       </header>
       <section class="blog-learning-summary" aria-label="Semester study plan overview">
-        <article><span>Active Courses</span><strong>${activeCourses}</strong><small>/ ${COURSES.length}</small></article>
-        <article><span>Planned Articles</span><strong>${enriched.length}</strong><small>total</small></article>
+        <article><span>Active Courses</span><strong>${enrolledCourses.length}</strong><small>/ ${COURSES.length}</small></article>
+        <article><span>Course Articles</span><strong>${enriched.length}</strong><small>total</small></article>
         <article><span>Overall Completion</span><strong>${totalCompletion}</strong><small>%</small></article>
         <article><span>Current Mastery</span><strong>${totalMastery}</strong><small>%</small></article>
       </section>
+      ${reviewWarningMarkup(enriched)}
       <section class="blog-learning-curve-lab">
         <header>
           <div><p class="blog-learning-eyebrow">RETENTION VIEW</p><h3>Forgetting Curves</h3></div>
           <div class="blog-learning-curve-tabs" role="group" aria-label="Choose a course retention curve">
             <button type="button" data-learning-curve="all">All Courses</button>
-            ${COURSES.map((course) => `<button type="button" data-learning-curve="${course.slug}">${escapeHtml(course.name)}</button>`).join("")}
+            ${enrolledCourses.map((course) => `<button type="button" data-learning-curve="${course.slug}">${escapeHtml(course.name)}</button>`).join("")}
           </div>
         </header>
         <div class="blog-learning-explainer"><i class="fa-regular fa-wave-sine" aria-hidden="true"></i><p>Mastery decays daily as <code>R(t) = R₀ · e<sup>−t/7</sup></code>. Solid lines show history; dotted lines forecast the next seven days.</p></div>
         <div class="blog-learning-curve-panel" data-learning-curve-panel="all">
           <div class="blog-learning-curve-heading"><div><span>Semester</span><strong>${totalCompletion}% overall progress</strong></div><div><span>Current mastery</span><strong>${totalMastery}%</strong></div></div>
-          ${enriched.length ? chartMarkup(overallSeries, "all", "all courses") : '<div class="blog-learning-curve-empty">Add a course article to begin your semester curve.</div>'}
+          ${enriched.length ? chartMarkup(overallSeries, "all", "all courses") : '<div class="blog-learning-curve-empty">Add a course to begin your semester curve.</div>'}
         </div>
-        ${COURSES.map((course) => coursePanelMarkup(course, courseGroups[course.slug], aggregateSeries(courseGroups[course.slug], events))).join("")}
+        ${enrolledCourses.map((course) => coursePanelMarkup(course, courseGroups[course.slug], aggregateSeries(courseGroups[course.slug], events))).join("")}
       </section>
       <div class="blog-learning-course-list">
-        ${COURSES.map((course) => courseSectionMarkup(course, courseGroups[course.slug])).join("")}
+        ${enrolledCourses.length ? enrolledCourses.map((course) => courseSectionMarkup(course, courseGroups[course.slug])).join("") : '<div class="blog-learning-course-empty is-standalone">No course plan yet. Open a course article and choose Add Course.</div>'}
       </div>
     `;
     loading = false;
@@ -361,17 +438,13 @@
     const action = button.dataset.learningAction;
     if (action === "signin") api?.signIn();
     if (action === "account") document.querySelector(".blog-reader-trigger")?.click();
-    if (action === "remove" && api) {
+    if (action === "remove-course" && api) {
       const course = courseBySlug(button.dataset.learningCourse);
       if (!course) return;
       button.disabled = true;
       const originalMarkup = button.innerHTML;
       button.innerHTML = '<i class="fa-regular fa-spinner-third fa-spin" aria-hidden="true"></i>';
-      const path = safePostPath(button.dataset.learningPath);
-      const result = await api.setLearningPlan(
-        { path, title: button.dataset.learningTitle || path, url: `${window.location.origin}${path}`, course },
-        false,
-      );
+      const result = await api.setCoursePlan(course, false);
       if (result.error) {
         button.disabled = false;
         button.innerHTML = originalMarkup;

@@ -275,7 +275,7 @@
                     <span>${escapeHtml(formatDate(item.last_read_at))}</span>
                     <span>Reading position ${progress}%</span>
                   </span>
-                  <span class="blog-reader-history-metrics">
+                  ${item.course_slug ? `<span class="blog-reader-history-metrics">
                     <span class="blog-reader-history-metric">
                       <span><b>Completion</b><strong>${completion}%</strong></span>
                       <span class="blog-reader-history-progress" aria-label="Chapter completion ${completion}%"><span style="width:${completion}%"></span></span>
@@ -284,7 +284,7 @@
                       <span><b>Current Mastery</b><strong>${mastery}%</strong></span>
                       <span class="blog-reader-history-progress" aria-label="Weighted mastery of completed chapters ${mastery}%"><span style="width:${mastery}%"></span></span>
                     </span>
-                  </span>
+                  </span>` : ""}
                 </a>
                 <button type="button" data-reader-delete="${escapeHtml(item.id)}" aria-label="Delete reading history for ${escapeHtml(item.post_title || "this article")}">
                   <i class="fa-regular fa-trash-can"></i>
@@ -397,15 +397,15 @@
       label = state.plan.saving
         ? "Syncing…"
         : state.plan.inPlan
-          ? "In Study Plan"
-          : "Add to Study Plan";
+          ? "Course Added"
+          : "Add Course";
     }
     element.classList.toggle("is-active", state.plan.inPlan);
     element.innerHTML = `
       <div>
         <span class="blog-reader-plan-kicker">${escapeHtml(state.article.course.name.toUpperCase())} PLAN</span>
-        <strong>${state.plan.inPlan ? `This article is in your ${escapeHtml(state.article.course.name)} study plan` : `Add this article to the ${escapeHtml(state.article.course.name)} study plan?`}</strong>
-        <small>${state.plan.inPlan ? "Chapter progress contributes to this course and your overall semester progress." : "Progress checkpoints appear after you add this course article to your plan."}</small>
+        <strong>${state.plan.inPlan ? `The complete ${escapeHtml(state.article.course.name)} course is in My Learning` : `Add the complete ${escapeHtml(state.article.course.name)} course to My Learning?`}</strong>
+        <small>${state.plan.inPlan ? "Every current and future article in this course is included; this article's checkpoints contribute to the course." : "All articles in this course will appear together, including articles added later."}</small>
       </div>
       <button type="button" data-reader-plan-action="${action}" ${signedIn && !canEdit ? "disabled" : ""}>
         <i class="${icon}" aria-hidden="true"></i><span>${label}</span>
@@ -420,31 +420,27 @@
     if (!state.article?.course) return;
     const element = document.createElement("section");
     element.className = "blog-reader-plan-control";
-    element.setAttribute("aria-label", "Article study plan");
+    element.setAttribute("aria-label", "Course study plan");
     state.article.content.insertBefore(element, state.article.content.firstChild);
     state.plan.element = element;
     renderPlanControl();
   };
 
-  const setLearningPlan = async (article, inPlan) => {
-    if (!state.client || !state.session || !state.syncEnabled || !article?.course) {
+  const setCoursePlan = async (course, inPlan) => {
+    if (!state.client || !state.session || !state.syncEnabled || !course) {
       return { error: new Error("Sign in and enable sync first") };
     }
-    if (state.article?.path === article.path) {
+    if (state.article?.course?.slug === course.slug) {
       state.plan.saving = true;
       state.plan.error = "";
       renderPlanControl();
       renderTrigger();
     }
-    const result = await state.client.rpc("set_learning_plan", {
-      p_post_path: article.path,
-      p_post_title: article.title,
-      p_post_url: article.url,
-      p_course_slug: article.course.slug,
+    const result = await state.client.rpc("set_course_plan", {
+      p_course_slug: course.slug,
       p_in_plan: inPlan,
-      p_event_date: localDateKey(),
     });
-    if (state.article?.path === article.path) {
+    if (state.article?.course?.slug === course.slug) {
       state.plan.saving = false;
       if (result.error) {
         state.plan.error = "The study plan could not be synced right now.";
@@ -633,17 +629,27 @@
   const loadLearningProgress = async () => {
     if (!state.client || !state.session || !state.article?.course) return;
     const articlePath = state.article.path;
-    const { data, error } = await state.client
-      .from(config.table || "reading_history")
-      .select("chapter_progress,in_plan,last_read_at")
-      .eq("post_path", articlePath)
-      .maybeSingle();
-    if (!state.article || state.article.path !== articlePath) return;
-    if (error) {
+    const courseSlug = state.article.course.slug;
+    const [progressResult, planResult] = await Promise.all([
+      state.client
+        .from(config.table || "reading_history")
+        .select("chapter_progress,last_read_at")
+        .eq("post_path", articlePath)
+        .maybeSingle(),
+      state.client
+        .from("course_plans")
+        .select("course_slug")
+        .eq("course_slug", courseSlug)
+        .maybeSingle(),
+    ]);
+    if (!state.article || state.article.path !== articlePath || state.article.course?.slug !== courseSlug) return;
+    const { data, error } = progressResult;
+    const { data: coursePlan, error: coursePlanError } = planResult;
+    if (error || coursePlanError) {
       state.learningError = "Chapter progress could not be loaded";
     } else {
       const saved = data?.chapter_progress || {};
-      state.plan.inPlan = Boolean(data?.in_plan);
+      state.plan.inPlan = Boolean(coursePlan);
       state.plan.loaded = true;
       renderPlanControl();
       buildChapterCheckpoints();
@@ -719,7 +725,7 @@
     renderPanel();
     const { data, error } = await state.client
       .from(config.table || "reading_history")
-      .select("id,post_path,post_title,progress,completed,completion,mastery,chapter_progress,last_read_at,read_count")
+      .select("id,post_path,post_title,progress,completed,completion,mastery,course_slug,chapter_progress,last_read_at,read_count")
       .order("last_read_at", { ascending: false })
       .limit(50);
     state.loadingHistory = false;
@@ -937,17 +943,25 @@
 
   trigger.addEventListener("pointerdown", (event) => {
     if (event.button !== undefined && event.button !== 0) return;
+    event.preventDefault();
+    const rect = trigger.getBoundingClientRect();
     triggerDrag = {
       pointerId: event.pointerId,
       startX: event.clientX,
       startY: event.clientY,
-      lastY: event.clientY,
+      grabOffsetY: event.clientY - (rect.top + rect.height / 2),
+      lastCenterY: rect.top + rect.height / 2,
       moved: false,
     };
-    trigger.setPointerCapture?.(event.pointerId);
+    try {
+      trigger.setPointerCapture?.(event.pointerId);
+    } catch (_error) {
+      // Document-level listeners below keep dragging functional without pointer capture.
+    }
     trigger.classList.add("is-dragging");
+    document.documentElement.classList.add("blog-reader-trigger-dragging");
   });
-  trigger.addEventListener("pointermove", (event) => {
+  const moveTrigger = (event) => {
     if (!triggerDrag || triggerDrag.pointerId !== event.pointerId) return;
     const distance = Math.hypot(
       event.clientX - triggerDrag.startX,
@@ -955,26 +969,34 @@
     );
     if (distance < 5 && !triggerDrag.moved) return;
     triggerDrag.moved = true;
-    triggerDrag.lastY = event.clientY;
+    triggerDrag.lastCenterY = event.clientY - triggerDrag.grabOffsetY;
     event.preventDefault();
-    setTriggerPosition(event.clientY, false);
-  });
+    setTriggerPosition(triggerDrag.lastCenterY, false);
+  };
   const finishTriggerDrag = (event) => {
     if (!triggerDrag || triggerDrag.pointerId !== event.pointerId) return;
     const wasMoved = triggerDrag.moved;
     if (wasMoved) {
-      setTriggerPosition(triggerDrag.lastY, true);
+      setTriggerPosition(triggerDrag.lastCenterY, true);
       suppressTriggerClick = true;
       window.setTimeout(() => {
         suppressTriggerClick = false;
-      }, 0);
+      }, 250);
     }
-    trigger.releasePointerCapture?.(event.pointerId);
+    try {
+      if (trigger.hasPointerCapture?.(event.pointerId)) {
+        trigger.releasePointerCapture(event.pointerId);
+      }
+    } catch (_error) {
+      // The pointer may already have been released by the browser.
+    }
     trigger.classList.remove("is-dragging");
+    document.documentElement.classList.remove("blog-reader-trigger-dragging");
     triggerDrag = null;
   };
-  trigger.addEventListener("pointerup", finishTriggerDrag);
-  trigger.addEventListener("pointercancel", finishTriggerDrag);
+  document.addEventListener("pointermove", moveTrigger, { passive: false });
+  document.addEventListener("pointerup", finishTriggerDrag);
+  document.addEventListener("pointercancel", finishTriggerDrag);
   trigger.addEventListener("click", (event) => {
     if (suppressTriggerClick) {
       event.preventDefault();
@@ -1049,7 +1071,7 @@
     const planAction = event.target.closest("[data-reader-plan-action]")?.dataset.readerPlanAction;
     if (planAction === "signin") setPanelOpen(true);
     if (planAction === "toggle" && state.article && !state.plan.saving) {
-      setLearningPlan(state.article, !state.plan.inPlan);
+      setCoursePlan(state.article.course, !state.plan.inPlan);
     }
 
     const reviewButton = event.target.closest('[data-reader-chapter-action="review"]');
@@ -1101,7 +1123,7 @@
   window.__blogReadingHistory = {
     refreshPage,
     signIn,
-    setLearningPlan,
+    setCoursePlan,
     getClient: () => state.client,
     getSession: () => state.session,
     getSyncEnabled: () => state.syncEnabled,
