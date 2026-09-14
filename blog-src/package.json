@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
+    "build": "hexo generate && node tools/generate-course-pdfs.mjs",
+    "build:site": "hexo generate",
+    "build:pdf": "node tools/generate-course-pdfs.mjs",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server"
@@ -30,6 +32,8 @@
     "hexo-theme-landscape": "^1.0.0",
     "hexo-theme-redefine": "^2.6.2",
     "hexo-wordcount": "^6.0.1",
-    "nodejieba": "^2.5.2"
+    "nodejieba": "^2.5.2",
+    "cheerio": "1.0.0",
+    "puppeteer-core": "24.31.0"
   }
 }

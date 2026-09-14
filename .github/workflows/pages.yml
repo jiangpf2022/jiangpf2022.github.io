@@ -41,8 +41,8 @@ jobs:
         working-directory: blog-src
         run: |
           npm ci
-          npx hexo clean
-          npx hexo generate
+          npm run clean
+          npm run build
 
       - name: Merge Blog into Pages artifact
         run: |

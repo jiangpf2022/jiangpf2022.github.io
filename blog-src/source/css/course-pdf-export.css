@@ -1,0 +1,93 @@
+.course-pdf-toolbar {
+  align-items: center;
+  background:
+    linear-gradient(120deg, rgba(69, 112, 224, 0.1), rgba(120, 78, 205, 0.08)),
+    var(--background-color);
+  border: 1px solid color-mix(in srgb, var(--primary-color) 26%, transparent);
+  border-radius: 14px;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  margin: 12px 2rem 18px;
+  padding: 12px 14px 12px 16px;
+}
+
+.course-pdf-toolbar-copy {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  min-width: 0;
+}
+
+.course-pdf-toolbar-copy > i {
+  align-items: center;
+  background: linear-gradient(135deg, #4f79e6, #7956c9);
+  border-radius: 10px;
+  box-shadow: 0 7px 18px rgba(75, 103, 196, 0.24);
+  color: #fff;
+  display: flex;
+  flex: 0 0 36px;
+  height: 36px;
+  justify-content: center;
+}
+
+.course-pdf-toolbar-copy span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.course-pdf-toolbar-copy strong {
+  color: var(--default-text-color);
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+
+.course-pdf-toolbar-copy small {
+  color: var(--third-text-color);
+  font-size: 0.76rem;
+  line-height: 1.35;
+  margin-top: 3px;
+}
+
+.course-pdf-download {
+  align-items: center;
+  background: linear-gradient(135deg, #456fd8, #6949b4);
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(70, 88, 171, 0.24);
+  color: #fff !important;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 0.82rem;
+  font-weight: 700;
+  gap: 8px;
+  letter-spacing: 0.01em;
+  padding: 10px 14px;
+  text-decoration: none !important;
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+.course-pdf-download,
+.course-pdf-download * {
+  color: #fff !important;
+}
+
+.course-pdf-download:hover {
+  box-shadow: 0 11px 25px rgba(70, 88, 171, 0.32);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .course-pdf-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    margin: 10px 0.5rem 16px;
+  }
+
+  .course-pdf-download {
+    justify-content: center;
+    width: 100%;
+  }
+}
