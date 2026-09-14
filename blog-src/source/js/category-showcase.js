@@ -37,6 +37,27 @@
       cover: "/blog/images/2024-11-12-1.jpeg",
       description: "Course notes, exam reviews, derivations, and reference sheets from mathematics, algorithms, AI, and ML.",
     },
+    "EECS182-Deep-Neural-Networks": {
+      name: "EECS182 Deep Neural Networks",
+      label: "UC BERKELEY COURSE",
+      icon: "fa-solid fa-brain-circuit",
+      cover: "/blog/images/2025-4-21-1.png",
+      description: "A structured path through optimization, sequence models, attention, Transformers, representation learning, and generative models.",
+    },
+    "Introduction-to-Abstract-Algebra": {
+      name: "Introduction to Abstract Algebra",
+      label: "MATHEMATICS COURSE",
+      icon: "fa-solid fa-function",
+      cover: "/blog/images/2024-11-12-1.jpeg",
+      description: "Groups, homomorphisms, quotient structures, group actions, rings, fields, ideals, and the proofs connecting them.",
+    },
+    "CS182-Machine-Learning": {
+      name: "CS182 Machine Learning",
+      label: "MACHINE LEARNING",
+      icon: "fa-solid fa-chart-network",
+      cover: "/blog/images/2024-6-4-8.png",
+      description: "Core machine-learning foundations from Bayesian decisions and SVMs to dimensionality reduction, clustering, ensembles, and evaluation.",
+    },
   };
 
   const fallbackOrder = Object.keys(CATEGORIES);

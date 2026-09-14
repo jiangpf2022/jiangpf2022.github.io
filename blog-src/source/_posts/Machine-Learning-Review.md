@@ -1,8 +1,8 @@
 ---
-title: (CS182)Machine Learning Review
+title: CS182 Machine Learning
 date: 2024-06-04 15:43:58
 tags:
-categories: ShanghaiTech University
+categories: CS182 Machine Learning
 mathjax: true
 cover: "/images/2024-6-4-8.png"
 excerpt: "A broad machine-learning review covering Bayesian decisions, estimation, linear classifiers, neural networks, SVMs, dimensionality reduction, clustering, and ensembles."

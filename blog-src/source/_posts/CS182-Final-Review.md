@@ -1,8 +1,8 @@
 ---
-title: Deep Neural Networks - UC Berkeley
+title: EECS182 Deep Neural Networks
 date: 2025-04-18 13:45:14
 tags:
-categories: ShanghaiTech University
+categories: EECS182 Deep Neural Networks
 mathjax: True
 cover: "/images/2025-4-21-1.png"
 excerpt: "A structured deep-neural-network review spanning initialization, optimization, CNNs, sequence models, attention, Transformers, and modern representation learning."

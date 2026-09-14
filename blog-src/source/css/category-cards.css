@@ -135,6 +135,18 @@
   background-image: url("/blog/images/2024-11-12-1.jpeg");
 }
 
+.category-list-container .all-category-list-link[href$="/EECS182-Deep-Neural-Networks/"] {
+  background-image: url("/blog/images/2025-4-21-1.png");
+}
+
+.category-list-container .all-category-list-link[href$="/Introduction-to-Abstract-Algebra/"] {
+  background-image: url("/blog/images/2024-11-12-1.jpeg");
+}
+
+.category-list-container .all-category-list-link[href$="/CS182-Machine-Learning/"] {
+  background-image: url("/blog/images/2024-6-4-8.png");
+}
+
 .category-list-container .all-category-list-item > .all-category-list-count {
   position: absolute;
   z-index: 2;

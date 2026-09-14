@@ -48,6 +48,30 @@
       description: "A consolidated archive of course notes, exam reviews, derivations, and reference sheets from my undergraduate study, spanning mathematics, algorithms, artificial intelligence, and machine learning.",
       topics: ["Course Notes", "Exam Review", "Foundations"],
     },
+    "EECS182-Deep-Neural-Networks": {
+      name: "EECS182 Deep Neural Networks",
+      eyebrow: "UC BERKELEY COURSE",
+      icon: "fa-solid fa-brain-circuit",
+      cover: "/blog/images/2025-4-21-1.png",
+      description: "A reorganized deep-learning reference covering optimization, recurrent and sequence models, attention, Transformers, fine-tuning, representation learning, meta-learning, and modern generative models.",
+      topics: ["Deep Learning", "Transformers", "Generative Models"],
+    },
+    "Introduction-to-Abstract-Algebra": {
+      name: "Introduction to Abstract Algebra",
+      eyebrow: "MATHEMATICS COURSE",
+      icon: "fa-solid fa-function",
+      cover: "/blog/images/2024-11-12-1.jpeg",
+      description: "A proof-oriented course archive connecting modular arithmetic, groups, homomorphisms, quotient structures, group actions, rings, fields, ideals, and factorization.",
+      topics: ["Group Theory", "Rings & Fields", "Proofs"],
+    },
+    "CS182-Machine-Learning": {
+      name: "CS182 Machine Learning",
+      eyebrow: "MACHINE LEARNING COURSE",
+      icon: "fa-solid fa-chart-network",
+      cover: "/blog/images/2024-6-4-8.png",
+      description: "A comprehensive machine-learning reference spanning Bayesian decision theory, estimation, linear classifiers, SVMs, dimensionality reduction, clustering, neural networks, ensembles, and model assessment.",
+      topics: ["Statistical Learning", "Classical ML", "Model Evaluation"],
+    },
   };
 
   let catalogPromise = null;

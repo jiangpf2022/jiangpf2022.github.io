@@ -4,7 +4,7 @@ date: 2024-09-07 02:03:13
 tags:
 mathjax: true
 cover: "/images/2024-11-12-1.jpeg"
-categories: ShanghaiTech University
+categories: Introduction to Abstract Algebra
 background_image: "/images/2024-11-12-1.jpeg"
 excerpt: "A growing set of abstract algebra notes covering modular arithmetic, groups, homomorphisms, subgroups, symmetric groups, and the proof techniques behind them."
 ---
