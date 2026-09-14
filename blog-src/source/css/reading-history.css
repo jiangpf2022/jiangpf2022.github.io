@@ -265,7 +265,9 @@ html.blog-reader-trigger-dragging * {
 }
 
 .blog-reader-panel-body {
+  min-width: 0;
   flex: 1;
+  overflow-x: hidden;
   overflow-y: auto;
   padding: 20px 22px 28px;
   overscroll-behavior: contain;
@@ -577,6 +579,8 @@ html.blog-reader-trigger-dragging * {
 
 .blog-reader-history-list {
   display: grid;
+  width: 100%;
+  min-width: 0;
   margin: 0;
   padding: 0;
   gap: 10px;
@@ -586,6 +590,10 @@ html.blog-reader-trigger-dragging * {
 .blog-reader-history-item {
   position: relative;
   display: flex;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
   align-items: stretch;
   border: 1px solid var(--reader-border);
   border-radius: 17px;
@@ -599,8 +607,10 @@ html.blog-reader-trigger-dragging * {
 }
 
 .blog-reader-history-item > a {
+  width: 0;
   min-width: 0;
   flex: 1;
+  overflow: hidden;
   padding: 13px 9px 12px 14px;
   color: var(--reader-text);
   text-decoration: none;
@@ -637,9 +647,17 @@ html.blog-reader-trigger-dragging * {
 
 .blog-reader-history-meta {
   display: flex;
+  min-width: 0;
+  gap: 5px 12px;
+  flex-wrap: wrap;
   justify-content: space-between;
   color: var(--reader-muted);
   font-size: 11px;
+}
+
+.blog-reader-history-meta > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .blog-reader-history-progress {

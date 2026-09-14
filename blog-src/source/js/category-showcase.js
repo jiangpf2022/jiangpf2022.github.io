@@ -44,8 +44,8 @@
       cover: "/blog/images/2025-4-21-1.png",
       description: "A structured path through optimization, sequence models, attention, Transformers, representation learning, and generative models.",
     },
-    "Introduction-to-Abstract-Algebra": {
-      name: "Introduction to Abstract Algebra",
+    "MATH113-Introduction-to-Abstract-Algebra": {
+      name: "MATH113 Introduction to Abstract Algebra",
       label: "MATHEMATICS COURSE",
       icon: "fa-solid fa-function",
       cover: "/blog/images/2024-11-12-1.jpeg",
@@ -137,6 +137,7 @@
     let startX = 0;
     let startScroll = 0;
     let frame = 0;
+    let jumpFrame = 0;
 
     const metrics = () => {
       if (cards.length < count * 3) return null;
@@ -152,11 +153,19 @@
       viewport.scrollLeft = value.middleStart;
     };
 
+    const jumpBy = (distance) => {
+      window.cancelAnimationFrame(jumpFrame);
+      viewport.classList.add("is-loop-jump");
+      viewport.scrollLeft += distance;
+      if (dragging) startScroll += distance;
+      jumpFrame = window.requestAnimationFrame(() => viewport.classList.remove("is-loop-jump"));
+    };
+
     const keepLooping = () => {
       const value = metrics();
-      if (!value || dragging) return;
-      if (viewport.scrollLeft < value.middleStart - 2) viewport.scrollLeft += value.setWidth;
-      else if (viewport.scrollLeft >= value.lastStart - 2) viewport.scrollLeft -= value.setWidth;
+      if (!value) return;
+      if (viewport.scrollLeft < value.middleStart - 2) jumpBy(value.setWidth);
+      else if (viewport.scrollLeft >= value.lastStart - 2) jumpBy(-value.setWidth);
     };
 
     viewport.addEventListener("scroll", () => {
@@ -186,6 +195,7 @@
       const delta = event.clientX - startX;
       if (Math.abs(delta) > 5) moved = true;
       viewport.scrollLeft = startScroll - delta;
+      keepLooping();
     });
 
     const finishDrag = (event) => {

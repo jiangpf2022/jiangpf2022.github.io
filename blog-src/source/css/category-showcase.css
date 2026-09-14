@@ -112,6 +112,11 @@ html.dark .home-category-showcase {
   user-select: none;
 }
 
+.home-category-showcase__viewport.is-loop-jump {
+  scroll-behavior: auto !important;
+  scroll-snap-type: none;
+}
+
 .home-category-card {
   min-width: 0;
   scroll-snap-align: start;

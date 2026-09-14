@@ -400,15 +400,15 @@ inject:
   head: 
     - <link rel="stylesheet" href="/blog/css/home-banner-crossfade.css">
     - <link rel="stylesheet" href="/blog/css/home-typography.css?v=20260913-courses">
-    - <link rel="stylesheet" href="/blog/css/category-cards.css?v=20260914-course-split">
-    - <link rel="stylesheet" href="/blog/css/category-showcase.css?v=20260914-type-scale">
+    - <link rel="stylesheet" href="/blog/css/category-cards.css?v=20260914-history-loop">
+    - <link rel="stylesheet" href="/blog/css/category-showcase.css?v=20260914-history-loop">
     - <link rel="stylesheet" href="/blog/css/category-hub.css?v=20260914-course-codes">
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
     - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
     - <link rel="stylesheet" href="/blog/css/robotics-figures.css?v=20260914">
     - <link rel="stylesheet" href="/blog/css/article-attachments.css?v=20260914">
-    - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260914-levels">
+    - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260914-history-loop">
     - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260914-levels">
   # Inject custom footer html code
   footer:
@@ -417,10 +417,10 @@ inject:
     - <script src="/blog/js/article-toc-toggle.js"></script>
     - <script src="/blog/js/reading-history-config.js?v=20260913-en"></script>
     - <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
-    - <script src="/blog/js/reading-history.js?v=20260914-levels"></script>
+    - <script src="/blog/js/reading-history.js?v=20260914-history-loop"></script>
     - <script src="/blog/js/learning-dashboard.js?v=20260914-levels"></script>
-    - <script src="/blog/js/category-hub.js?v=20260914-course-split"></script>
-    - <script src="/blog/js/category-showcase.js?v=20260914-course-split"></script>
+    - <script src="/blog/js/category-hub.js?v=20260914-history-loop"></script>
+    - <script src="/blog/js/category-showcase.js?v=20260914-history-loop"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 

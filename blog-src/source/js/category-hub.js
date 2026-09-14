@@ -56,8 +56,8 @@
       description: "A reorganized deep-learning reference covering optimization, recurrent and sequence models, attention, Transformers, fine-tuning, representation learning, meta-learning, and modern generative models.",
       topics: ["Deep Learning", "Transformers", "Generative Models"],
     },
-    "Introduction-to-Abstract-Algebra": {
-      name: "Introduction to Abstract Algebra",
+    "MATH113-Introduction-to-Abstract-Algebra": {
+      name: "MATH113 Introduction to Abstract Algebra",
       eyebrow: "MATHEMATICS COURSE",
       icon: "fa-solid fa-function",
       cover: "/blog/images/2024-11-12-1.jpeg",
