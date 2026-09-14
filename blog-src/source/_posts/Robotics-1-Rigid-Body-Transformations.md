@@ -274,3 +274,27 @@ The adjacent $j$ labels match, just like cancelling units. The result maps direc
 **Final check:** define every frame, express quantities in compatible frames, use $r=p+Rq$ for the geometric motion, use $T$ for homogeneous composition, and always verify multiplication order.
 
 <p class="robotics-cover-credit">Cover photo: <a href="https://commons.wikimedia.org/wiki/File:Columbia_University_-_The_Fu_Foundation_School_of_Engineering_And_Applied_Science_(48170360946).jpg">Ajay Suresh / Wikimedia Commons</a>, licensed under <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>.</p>
+
+<section class="article-attachments" aria-label="Article attachments">
+  <div class="article-attachments__heading">
+    <span class="article-attachments__heading-icon"><i class="fa-solid fa-paperclip" aria-hidden="true"></i></span>
+    <div>
+      <span class="article-attachments__eyebrow">COURSE FILES</span>
+      <p class="article-attachments__title">Attachments</p>
+      <p class="article-attachments__description">Download the compact review handout for offline study.</p>
+    </div>
+  </div>
+  <div class="article-attachments__list">
+    <article class="article-attachment">
+      <span class="article-attachment__icon"><i class="fa-regular fa-file-pdf" aria-hidden="true"></i></span>
+      <div class="article-attachment__info">
+        <strong>Rigid-Body Transformations - Review Notes</strong>
+        <span>PDF <b>·</b> 2 pages <b>·</b> 215 KB</span>
+      </div>
+      <a class="article-attachment__download" href="/blog/files/coms4773w-robotics-1-rigid-body-transformations.pdf" download="COMS4773W-Robotics-1-Rigid-Body-Transformations.pdf">
+        <i class="fa-solid fa-download" aria-hidden="true"></i>
+        <span>Download PDF</span>
+      </a>
+    </article>
+  </div>
+</section>

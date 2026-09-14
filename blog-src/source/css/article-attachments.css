@@ -1,0 +1,181 @@
+.article-attachments {
+  --attachment-accent: #5278e8;
+  --attachment-accent-2: #7657c7;
+  --attachment-border: rgba(76, 111, 186, 0.22);
+  --attachment-surface: rgba(247, 250, 255, 0.82);
+  --attachment-card: rgba(255, 255, 255, 0.82);
+  --attachment-muted: #6c7890;
+  background:
+    radial-gradient(circle at 96% 0%, rgba(112, 90, 210, 0.12), transparent 38%),
+    linear-gradient(135deg, var(--attachment-surface), rgba(239, 245, 255, 0.72));
+  border: 1px solid var(--attachment-border);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(37, 60, 111, 0.1);
+  margin: 2.8rem 0 0.6rem;
+  overflow: hidden;
+  padding: 1.35rem;
+}
+
+.dark-mode .article-attachments {
+  --attachment-border: rgba(124, 160, 232, 0.22);
+  --attachment-surface: rgba(18, 29, 49, 0.88);
+  --attachment-card: rgba(25, 39, 64, 0.82);
+  --attachment-muted: #a7b3c7;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.24);
+}
+
+.article-attachments__heading {
+  align-items: center;
+  display: flex;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.article-attachments__heading-icon,
+.article-attachment__icon {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+}
+
+.article-attachments__heading-icon {
+  background: linear-gradient(135deg, var(--attachment-accent), var(--attachment-accent-2));
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(73, 94, 177, 0.24);
+  color: #fff;
+  font-size: 1rem;
+  height: 44px;
+  width: 44px;
+}
+
+.article-attachments__eyebrow {
+  color: var(--attachment-accent);
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.article-attachments__title,
+.article-attachments__description {
+  margin: 0 !important;
+}
+
+.article-attachments__title {
+  color: var(--default-text-color);
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.article-attachments__description {
+  color: var(--attachment-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  margin-top: 0.2rem !important;
+}
+
+.article-attachments__list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.article-attachment {
+  align-items: center;
+  background: var(--attachment-card);
+  border: 1px solid var(--attachment-border);
+  border-radius: 15px;
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 0.85rem;
+}
+
+.article-attachment__icon {
+  background: rgba(226, 67, 75, 0.1);
+  border: 1px solid rgba(226, 67, 75, 0.16);
+  border-radius: 12px;
+  color: #de4149;
+  font-size: 1.2rem;
+  height: 42px;
+  width: 42px;
+}
+
+.article-attachment__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.article-attachment__info strong {
+  color: var(--default-text-color);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.article-attachment__info span {
+  color: var(--attachment-muted);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  margin-top: 0.2rem;
+}
+
+.article-attachment__info b {
+  font-weight: 700;
+  margin: 0 0.2rem;
+}
+
+.article-attachment__download {
+  align-items: center;
+  background: linear-gradient(135deg, var(--attachment-accent), var(--attachment-accent-2));
+  border-radius: 11px;
+  box-shadow: 0 8px 20px rgba(75, 94, 177, 0.22);
+  color: #fff !important;
+  display: inline-flex;
+  font-size: 0.76rem;
+  font-weight: 800;
+  gap: 0.45rem;
+  justify-content: center;
+  padding: 0.7rem 0.85rem;
+  text-decoration: none !important;
+  transition: box-shadow 160ms ease, filter 160ms ease, transform 160ms ease;
+  white-space: nowrap;
+}
+
+.article-attachment__download,
+.article-attachment__download * {
+  color: #fff !important;
+}
+
+.article-attachment__download:hover,
+.article-attachment__download:focus-visible {
+  box-shadow: 0 11px 25px rgba(75, 94, 177, 0.3);
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .article-attachments {
+    border-radius: 16px;
+    margin-top: 2rem;
+    padding: 1rem;
+  }
+
+  .article-attachment {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .article-attachment__download {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-attachment__download {
+    transition: none;
+  }
+}
