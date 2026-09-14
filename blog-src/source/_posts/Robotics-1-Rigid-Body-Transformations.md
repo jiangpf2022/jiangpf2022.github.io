@@ -11,7 +11,7 @@ cover: "/images/robotics-1/rigid-body-transformations-cover.webp"
 excerpt: "A compact formula-first guide to 2D and 3D rigid-body transformations, coordinate frames, homogeneous matrices, and composition order."
 ---
 
-Rigid-body transformations describe the same body from different coordinate frames. The notebook's logic is: **define the frames, rotate into a common frame, translate, then compose in the correct order.** Here ${}^{A}\mathbf{p}$ means that point $\mathbf{p}$ is expressed in frame $\{A\}$.
+Rigid-body transformations describe the same body from different coordinate frames. The notebook's logic is: **define the frames, rotate into a common frame, translate, then compose in the correct order.** Here ${}^{A}p$ means that point $p$ is expressed in frame $\{A\}$.
 
 ## 2D Transformations
 
@@ -37,7 +37,7 @@ $$
 h(x,y,z)=(x+t_x,\;y+t_y,\;z+t_z).
 $$
 
-In 2D, omit $z$. Translating the body by $\mathbf t$ is equivalent to translating the reference frame by $-\mathbf t$. Because translation moves the origin, $\mathbf r=\mathbf p+\mathbf q$ is affine rather than linear.
+In 2D, omit $z$. Translating the body by $t$ is equivalent to translating the reference frame by $-t$. For fixed $p$, the coordinate map $q\mapsto p+q$ is affine rather than linear because it moves the origin.
 
 ### Rotation
 
@@ -54,7 +54,7 @@ R(\theta)=
 {}=R(\theta)\begin{bmatrix}x\\\\y\end{bmatrix}.
 $$
 
-The columns of $R=[\,\mathbf x_1\ \mathbf y_1\,]$ are the rotated frame axes expressed in the original frame. Hence
+The columns of $R=[\,x_1\ y_1\,]$ are the rotated frame axes expressed in the original frame. Hence
 
 $$
 R(\theta)^{-1}=R(\theta)^T=R(-\theta),
@@ -69,23 +69,23 @@ $$
 
 ### Homogeneous Form
 
-If frame $\{b\}$ has position $\mathbf p$ and orientation $R$ relative to $\{s\}$, then
+If frame $\{b\}$ has position $p$ and orientation $R$ relative to $\{s\}$, then
 
 $$
-{}^{s}\mathbf r=\mathbf p+R\,{}^{b}\mathbf q.
+{}^{s}r=p+R\,{}^{b}q.
 $$
 
 Appending $1$ combines rotation and translation into one linear map:
 
 $$
-\begin{bmatrix}{}^{s}\mathbf r\\\\1\end{bmatrix}
+\begin{bmatrix}{}^{s}r\\\\1\end{bmatrix}
 {}=
 \underbrace{
 \begin{bmatrix}
-R&\mathbf p\\\\
-\mathbf{0}^T&1
+R&p\\\\
+0^T&1
 \end{bmatrix}}_{T}
-\begin{bmatrix}{}^{b}\mathbf q\\\\1\end{bmatrix},
+\begin{bmatrix}{}^{b}q\\\\1\end{bmatrix},
 \qquad
 T(\theta,p_x,p_y)=
 \begin{bmatrix}
@@ -95,7 +95,7 @@ T(\theta,p_x,p_y)=
 \end{bmatrix}.
 $$
 
-Rotation acts first, then translation. $T$ includes pure rotation ($\mathbf p=0$) and pure translation ($\theta=0$); it is invertible and composable, but is not itself orthogonal.
+Rotation acts first, then translation. $T$ includes pure rotation ($p=0$) and pure translation ($\theta=0$); it is invertible and composable, but is not itself orthogonal.
 
 ### Composition Order
 
@@ -110,13 +110,13 @@ Rotation acts first, then translation. $T$ includes pure rotation ($\mathbf p=0$
   </figure>
 </div>
 
-For $T_a=[R_a,\mathbf p_a;\mathbf{0}^T,1]$ and $T_b=[R_b,\mathbf p_b;\mathbf{0}^T,1]$,
+For $T_a=T(R_a,p_a)$ and $T_b=T(R_b,p_b)$,
 
 $$
 T_aT_b=
 \begin{bmatrix}
-R_aR_b&R_a\mathbf p_b+\mathbf p_a\\\\
-\mathbf{0}^T&1
+R_aR_b&R_a p_b+p_a\\\\
+0^T&1
 \end{bmatrix}.
 $$
 
@@ -177,8 +177,8 @@ A 3D pose is a $4\times4$ homogeneous transform:
 $$
 T=
 \begin{bmatrix}
-R&\mathbf p\\\\
-\mathbf{0}^T&1
+R&p\\\\
+0^T&1
 \end{bmatrix}
 {}=
 \begin{bmatrix}
@@ -188,8 +188,8 @@ r_{31}&r_{32}&r_{33}&p_z\\\\
 0&0&0&1
 \end{bmatrix},
 \qquad
-T\begin{bmatrix}\mathbf q\\\\1\end{bmatrix}
-{}=\begin{bmatrix}R\mathbf q+\mathbf p\\\\1\end{bmatrix}.
+T\begin{bmatrix}q\\\\1\end{bmatrix}
+{}=\begin{bmatrix}R q+p\\\\1\end{bmatrix}.
 $$
 
 The first three columns encode orientation and the last column encodes position. Its inverse is
@@ -197,8 +197,8 @@ The first three columns encode orientation and the last column encodes position.
 $$
 T^{-1}=
 \begin{bmatrix}
-R^T&-R^T\mathbf p\\\\
-\mathbf{0}^T&1
+R^T&-R^T p\\\\
+0^T&1
 \end{bmatrix}.
 $$
 
@@ -209,8 +209,10 @@ $$
   <figcaption>Compose only when the inner frame labels match.</figcaption>
 </figure>
 
-- **Absolute motion:** if each motion is specified in the fixed world frame, pre-multiply; if $A$ acts first and $B$ second, $C=BA$.
-- **Relative motion:** if each motion is specified in the current moving frame, post-multiply:
+- **Fixed-frame increment:** if $\Delta T$ is expressed in the fixed world frame, pre-multiply: $T_{\mathrm{new}}=\Delta T\,T_{\mathrm{old}}$.
+- **Body-frame increment:** if $\Delta T$ is expressed in the current moving frame, post-multiply: $T_{\mathrm{new}}=T_{\mathrm{old}}\,\Delta T$.
+
+For a chain of coordinate frames,
 
 $$
 {}^{i}T_k={}^{i}T_j\,{}^{j}T_k.
@@ -228,6 +230,6 @@ Frame labels behave like units: the adjacent $j$ labels cancel, leaving a transf
 | Homogeneous $T$ | $3\times3$ | $4\times4$ |
 | Composition | Pre-multiply absolute; post-multiply relative | Same rule |
 
-**Checklist:** label every frame; express vectors in a common frame; use $T$ to combine $R$ and $\mathbf p$; verify $R^TR=I$ and $\det R=1$; match adjacent frame labels before multiplying.
+**Checklist:** label every frame; express vectors in a common frame; use $T$ to combine $R$ and $p$; verify $R^TR=I$ and $\det R=1$; match adjacent frame labels before multiplying.
 
 <p class="robotics-cover-credit">Cover photo: <a href="https://commons.wikimedia.org/wiki/File:Columbia_University_-_The_Fu_Foundation_School_of_Engineering_And_Applied_Science_(48170360946).jpg">Ajay Suresh / Wikimedia Commons</a>, licensed under <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>.</p>

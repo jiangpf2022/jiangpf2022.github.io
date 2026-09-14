@@ -164,9 +164,19 @@
     color: #171b25 !important;
     font-family: Georgia, "Times New Roman", "Noto Serif", serif !important;
     font-size: 10.4pt !important;
+    font-weight: 400 !important;
     line-height: 1.46 !important;
     margin: 0 !important;
     padding: 0 !important;
+  }
+
+  body.course-print-mode .article-content mjx-container {
+    font-weight: 400 !important;
+  }
+
+  body.course-print-mode .article-content mjx-container:not([display="true"]) {
+    margin-left: 0.1em !important;
+    margin-right: 0.1em !important;
   }
 
   body.course-print-mode .article-content h2,
@@ -368,6 +378,7 @@
 
   body.course-print-mode .course-pdf-toolbar,
   body.course-print-mode .blog-reader-plan-control,
+  body.course-print-mode .blog-reader-chapter-checkpoint,
   body.course-print-mode .robotics-cover-credit,
   body.course-print-mode .article-toc,
   body.course-print-mode .post-copyright-info,

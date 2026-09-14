@@ -406,7 +406,7 @@ inject:
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
     - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
     - <link rel="stylesheet" href="/blog/css/robotics-figures.css?v=20260914">
-    - <link rel="stylesheet" href="/blog/css/course-pdf-export.css?v=20260914-browser-print">
+    - <link rel="stylesheet" href="/blog/css/course-pdf-export.css?v=20260914-browser-print-v2">
     - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260914-course-codes">
     - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260914-course-codes">
   # Inject custom footer html code
@@ -419,7 +419,7 @@ inject:
     - <script src="/blog/js/reading-history.js?v=20260914-course-codes"></script>
     - <script src="/blog/js/learning-dashboard.js?v=20260914-course-codes"></script>
     - <script src="/blog/js/category-hub.js?v=20260914-course-codes"></script>
-    - <script src="/blog/js/course-pdf-export.js?v=20260914-browser-print"></script>
+    - <script src="/blog/js/course-pdf-export.js?v=20260914-browser-print-v2"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
