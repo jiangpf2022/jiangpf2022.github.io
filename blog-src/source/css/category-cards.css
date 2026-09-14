@@ -70,18 +70,18 @@
 
 .category-list-container .category-card-copy > strong {
   color: #fff;
-  font-size: clamp(1.23rem, 2vw, 1.62rem);
-  font-weight: 800;
-  line-height: 1.12;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 850;
+  line-height: 1.08;
 }
 
 .category-list-container .category-card-description {
   display: -webkit-box;
   margin-top: 10px;
   color: rgba(235, 243, 252, 0.84);
-  font-size: 0.83rem;
-  font-weight: 500;
-  line-height: 1.4;
+  font-size: 0.72rem;
+  font-weight: 450;
+  line-height: 1.45;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.78);
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;

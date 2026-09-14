@@ -185,8 +185,9 @@ html.dark .home-category-showcase {
 
 .home-category-card__content > strong {
   color: #fff;
-  font-size: clamp(1rem, 1.75vw, 1.25rem);
-  line-height: 1.18;
+  font-size: clamp(1.18rem, 2vw, 1.48rem);
+  font-weight: 850;
+  line-height: 1.12;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.62);
 }
 
@@ -194,8 +195,9 @@ html.dark .home-category-showcase {
   display: -webkit-box;
   margin-top: 8px;
   color: rgba(234, 242, 252, 0.84);
-  font-size: 0.76rem;
-  line-height: 1.36;
+  font-size: 0.68rem;
+  font-weight: 450;
+  line-height: 1.42;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;

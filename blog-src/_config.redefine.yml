@@ -400,8 +400,8 @@ inject:
   head: 
     - <link rel="stylesheet" href="/blog/css/home-banner-crossfade.css">
     - <link rel="stylesheet" href="/blog/css/home-typography.css?v=20260913-courses">
-    - <link rel="stylesheet" href="/blog/css/category-cards.css?v=20260914-descriptions">
-    - <link rel="stylesheet" href="/blog/css/category-showcase.css?v=20260914">
+    - <link rel="stylesheet" href="/blog/css/category-cards.css?v=20260914-type-scale">
+    - <link rel="stylesheet" href="/blog/css/category-showcase.css?v=20260914-type-scale">
     - <link rel="stylesheet" href="/blog/css/category-hub.css?v=20260914-course-codes">
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
