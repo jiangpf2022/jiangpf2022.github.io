@@ -230,6 +230,7 @@
     const path = safePostPath(item.post_path);
     const completion = Math.max(0, Math.min(100, Number(item.completion) || 0));
     const needsReview = item.currentMastery < 50;
+    const articleScore = Math.round((completion * item.currentMastery) / 10) / 10;
     return `
       <article class="blog-learning-article-card ${needsReview ? "is-mastery-warning" : ""}">
         <header>
@@ -240,7 +241,7 @@
           <div><span><b>Completion</b><strong>${completion}%</strong></span><div class="blog-learning-progress"><span style="width:${completion}%"></span></div></div>
           <div class="is-mastery"><span><b>Current Mastery</b><strong>${item.currentMastery}%</strong></span><div class="blog-learning-progress"><span style="width:${item.currentMastery}%"></span></div></div>
         </div>
-        <footer><a href="${escapeHtml(path)}">Continue Learning <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a></footer>
+        <footer><span class="blog-learning-article-score"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Study Score <b>${articleScore}</b></span><a href="${escapeHtml(path)}">Continue Learning <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a></footer>
       </article>
     `;
   };
@@ -315,20 +316,22 @@
     let planResult;
     let historyResult;
     let catalog;
+    let experience;
     try {
-      [planResult, historyResult, catalog] = await Promise.all([
+      [planResult, historyResult, catalog, experience] = await Promise.all([
         client.from("course_plans").select("course_slug,enrolled_at").order("enrolled_at", { ascending: false }),
         client
           .from("reading_history")
           .select("post_path,post_title,post_url,course_slug,completion,mastery,chapter_progress,last_read_at")
           .limit(1000),
         loadCourseCatalog(),
+        api.loadExperience(),
       ]);
     } catch (_error) {
       planResult = { error: new Error("Course catalog unavailable") };
     }
 
-    if (planResult?.error || historyResult?.error || !catalog) {
+    if (planResult?.error || historyResult?.error || !catalog || !experience) {
       mount.innerHTML = '<div class="blog-learning-error"><i class="fa-regular fa-cloud-exclamation"></i><h2>Your course plans could not be loaded</h2><p>Please refresh the page and try again.</p></div>';
       loading = false;
       refreshScrollIndicator();
@@ -390,11 +393,12 @@
       <header class="blog-learning-hero">
         <div class="blog-learning-profile">
           ${avatar ? `<img src="${escapeHtml(avatar)}" alt="">` : '<span><i class="fa-brands fa-github" aria-hidden="true"></i></span>'}
-          <div><p class="blog-learning-eyebrow">SEMESTER LEARNING ORBIT</p><h2>${escapeHtml(displayName)}'s Learning Space</h2></div>
+          <div><p class="blog-learning-eyebrow">SEMESTER LEARNING ORBIT</p><h2>${escapeHtml(displayName)}'s Learning Space</h2><span class="blog-learning-level-pill"><b>LV ${experience.level}</b>${Math.round(experience.total)} total EXP <i>·</i> +${Math.round(experience.today)} today</span></div>
         </div>
         <button type="button" class="blog-learning-account" data-learning-action="account"><i class="fa-regular fa-user-gear" aria-hidden="true"></i> Account & History</button>
       </header>
       <section class="blog-learning-summary" aria-label="Semester study plan overview">
+        <article class="is-level"><span>Learning Level</span><strong>${experience.level}</strong><small>LV</small><div><i style="width:${experience.percentage}%"></i></div></article>
         <article><span>Active Courses</span><strong>${enrolledCourses.length}</strong><small>/ ${COURSES.length}</small></article>
         <article><span>Course Articles</span><strong>${enriched.length}</strong><small>total</small></article>
         <article><span>Overall Completion</span><strong>${totalCompletion}</strong><small>%</small></article>
@@ -455,6 +459,7 @@
   });
 
   document.addEventListener("blog-reader:state", loadDashboard);
+  document.addEventListener("blog-reader:experience", loadDashboard);
   document.addEventListener("swup:contentReplaced", loadDashboard);
   document.addEventListener("swup:pageView", loadDashboard);
   loadDashboard();

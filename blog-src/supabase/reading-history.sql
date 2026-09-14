@@ -132,6 +132,108 @@ create table if not exists public.learning_mastery_history (
     on delete cascade
 );
 
+alter table public.learning_mastery_history
+  add column if not exists article_score numeric(6, 2) not null default 0,
+  add column if not exists earned_exp numeric(6, 2) not null default 0;
+
+do $$
+begin
+  if not exists (
+    select 1 from pg_constraint
+    where conname = 'learning_mastery_history_article_score_range'
+      and conrelid = 'public.learning_mastery_history'::regclass
+  ) then
+    alter table public.learning_mastery_history
+      add constraint learning_mastery_history_article_score_range
+      check (article_score between 0 and 100);
+  end if;
+
+  if not exists (
+    select 1 from pg_constraint
+    where conname = 'learning_mastery_history_earned_exp_range'
+      and conrelid = 'public.learning_mastery_history'::regclass
+  ) then
+    alter table public.learning_mastery_history
+      add constraint learning_mastery_history_earned_exp_range
+      check (earned_exp between 0 and 100);
+  end if;
+end;
+$$;
+
+create or replace function public.calculate_learning_article_score(
+  p_completion smallint,
+  p_chapter_progress jsonb,
+  p_at timestamptz default now()
+)
+returns numeric
+language plpgsql
+immutable
+security invoker
+set search_path = ''
+as $$
+declare
+  chapter record;
+  chapter_weight numeric;
+  chapter_mastery numeric;
+  reviewed_at timestamptz;
+  elapsed_days numeric;
+  weighted_mastery numeric := 0;
+  total_weight numeric := 0;
+  retained_mastery numeric := 0;
+begin
+  if p_chapter_progress is null or jsonb_typeof(p_chapter_progress) <> 'object' then
+    return 0;
+  end if;
+
+  for chapter in select value from jsonb_each(p_chapter_progress)
+  loop
+    if coalesce(chapter.value ->> 'completed', 'false') = 'true' then
+      chapter_weight := greatest(1, coalesce((chapter.value ->> 'weight')::numeric, 1));
+      chapter_mastery := greatest(0, least(100, coalesce((chapter.value ->> 'mastery')::numeric, 0)));
+      reviewed_at := coalesce(nullif(chapter.value ->> 'reviewed_at', '')::timestamptz, p_at);
+      elapsed_days := greatest(0, extract(epoch from (p_at - reviewed_at)) / 86400.0);
+      weighted_mastery := weighted_mastery + chapter_mastery * exp(-elapsed_days / 7.0) * chapter_weight;
+      total_weight := total_weight + chapter_weight;
+    end if;
+  end loop;
+
+  if total_weight > 0 then
+    retained_mastery := weighted_mastery / total_weight;
+  end if;
+
+  return round(
+    greatest(0, least(100, coalesce(p_completion, 0))) *
+    greatest(0, least(100, retained_mastery)) / 100.0,
+    2
+  );
+end;
+$$;
+
+revoke all on function public.calculate_learning_article_score(smallint, jsonb, timestamptz) from public;
+grant execute on function public.calculate_learning_article_score(smallint, jsonb, timestamptz) to authenticated;
+
+update public.learning_mastery_history
+set article_score = public.calculate_learning_article_score(completion, chapter_progress, recorded_at);
+
+with daily_scores as (
+  select
+    user_id,
+    post_path,
+    event_date,
+    article_score,
+    lag(article_score, 1, 0) over (
+      partition by user_id, post_path
+      order by event_date
+    ) as previous_score
+  from public.learning_mastery_history
+)
+update public.learning_mastery_history as history
+set earned_exp = greatest(0, daily_scores.article_score - daily_scores.previous_score)
+from daily_scores
+where history.user_id = daily_scores.user_id
+  and history.post_path = daily_scores.post_path
+  and history.event_date = daily_scores.event_date;
+
 create table if not exists public.course_plans (
   user_id uuid not null references auth.users(id) on delete cascade,
   course_slug text not null check (
@@ -315,6 +417,9 @@ as $$
 declare
   normalized_completion smallint := greatest(0, least(100, p_completion));
   normalized_mastery smallint := greatest(0, least(100, p_mastery));
+  effective_date date := coalesce(p_event_date, current_date);
+  current_score numeric(6, 2) := 0;
+  previous_score numeric(6, 2) := 0;
 begin
   if auth.uid() is null then
     raise exception 'Authentication required';
@@ -335,6 +440,27 @@ begin
   if pg_column_size(p_chapter_progress) > 65536 then
     raise exception 'Chapter progress is too large';
   end if;
+
+  current_score := public.calculate_learning_article_score(
+    normalized_completion,
+    p_chapter_progress,
+    now()
+  );
+
+  select public.calculate_learning_article_score(
+    history.completion,
+    history.chapter_progress,
+    now()
+  )
+  into previous_score
+  from public.learning_mastery_history as history
+  where history.user_id = auth.uid()
+    and history.post_path = p_post_path
+    and history.event_date < effective_date
+  order by history.event_date desc
+  limit 1;
+
+  previous_score := coalesce(previous_score, 0);
 
   insert into public.reading_history (
     user_id,
@@ -384,15 +510,19 @@ begin
     chapter_progress,
     completion,
     mastery,
+    article_score,
+    earned_exp,
     recorded_at
   )
   values (
     auth.uid(),
     p_post_path,
-    coalesce(p_event_date, current_date),
+    effective_date,
     p_chapter_progress,
     normalized_completion,
     normalized_mastery,
+    current_score,
+    greatest(0, current_score - previous_score),
     now()
   )
   on conflict (user_id, post_path, event_date)
@@ -400,6 +530,8 @@ begin
     chapter_progress = excluded.chapter_progress,
     completion = excluded.completion,
     mastery = excluded.mastery,
+    article_score = excluded.article_score,
+    earned_exp = excluded.earned_exp,
     recorded_at = now();
 end;
 $$;

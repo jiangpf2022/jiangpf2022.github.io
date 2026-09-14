@@ -31,6 +31,15 @@
     history: [],
     article: null,
     progress: 0,
+    experience: {
+      total: 0,
+      today: 0,
+      level: 1,
+      current: 0,
+      required: 100,
+      percentage: 0,
+      loaded: false,
+    },
     learning: {
       chapters: [],
       completion: 0,
@@ -95,6 +104,32 @@
     return `${year}-${month}-${day}`;
   };
 
+  const levelFromExperience = (value, todayValue = 0) => {
+    const total = Math.max(0, Number(value) || 0);
+    const today = Math.max(0, Number(todayValue) || 0);
+    let level = 1;
+    let current = total;
+    while (current >= level * 100) {
+      current -= level * 100;
+      level += 1;
+    }
+    const required = level * 100;
+    return {
+      total: Math.round(total * 100) / 100,
+      today: Math.round(today * 100) / 100,
+      level,
+      current: Math.round(current * 100) / 100,
+      required,
+      percentage: Math.max(0, Math.min(100, (current / required) * 100)),
+      loaded: true,
+    };
+  };
+
+  const formatExperience = (value) => {
+    const number = Math.round((Number(value) || 0) * 10) / 10;
+    return Number.isInteger(number) ? String(number) : number.toFixed(1);
+  };
+
   const decayedMastery = (chapterProgress, at = new Date(), fallbackDate = null) => {
     const entries = Object.values(chapterProgress || {}).filter(
       (chapter) => chapter && typeof chapter === "object" && chapter.completed,
@@ -155,6 +190,7 @@
       <span class="blog-reader-trigger-ring" aria-hidden="true"></span>
       <span class="blog-reader-trigger-icon" aria-hidden="true"><i class="fa-regular fa-clock-rotate-left"></i></span>
       <span class="blog-reader-trigger-status" aria-hidden="true"></span>
+      <span class="blog-reader-trigger-level" aria-hidden="true">LV 1</span>
     </button>
     <div class="blog-reader-backdrop" hidden></div>
     <aside class="blog-reader-panel" role="dialog" aria-modal="true" aria-labelledby="blog-reader-title" aria-hidden="true">
@@ -217,10 +253,13 @@
   const renderTrigger = () => {
     const icon = trigger.querySelector(".blog-reader-trigger-icon");
     const status = trigger.querySelector(".blog-reader-trigger-status");
+    const level = trigger.querySelector(".blog-reader-trigger-level");
     trigger.style.setProperty("--reader-progress", `${Math.round(state.progress * 360)}deg`);
     trigger.classList.toggle("is-signed-in", Boolean(state.session));
     trigger.classList.toggle("is-unconfigured", !state.configured);
     trigger.classList.toggle("is-saving", state.saving || state.learningSaving || state.plan.saving);
+    level.textContent = `LV ${state.experience.level}`;
+    level.hidden = !state.session;
 
     const userProfile = profile();
     if (state.session && userProfile.avatar) {
@@ -236,6 +275,54 @@
           ? "Syncing"
           : "Reading history synced"
         : "Not signed in";
+    renderSidebarLevel();
+  };
+
+  const renderSidebarLevel = () => {
+    document.querySelectorAll(".home-sidebar-container .sidebar-content .avatar").forEach((avatar) => {
+      avatar.classList.add("has-reader-level");
+      let badge = avatar.querySelector(".blog-reader-sidebar-level");
+      if (!state.session) {
+        badge?.remove();
+        return;
+      }
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "blog-reader-sidebar-level";
+        avatar.appendChild(badge);
+      }
+      badge.textContent = `LV ${state.experience.level}`;
+      badge.title = `${formatExperience(state.experience.total)} total EXP`;
+    });
+  };
+
+  const loadExperience = async () => {
+    if (!state.client || !state.session) {
+      state.experience = levelFromExperience(0);
+      state.experience.loaded = false;
+      renderTrigger();
+      return state.experience;
+    }
+    const userId = state.session.user.id;
+    const { data, error } = await state.client
+      .from("learning_mastery_history")
+      .select("earned_exp,event_date")
+      .limit(5000);
+    if (state.session?.user?.id !== userId) return state.experience;
+    if (!error) {
+      const total = (data || []).reduce((sum, item) => sum + Math.max(0, Number(item.earned_exp) || 0), 0);
+      const today = (data || [])
+        .filter((item) => item.event_date === localDateKey())
+        .reduce((sum, item) => sum + Math.max(0, Number(item.earned_exp) || 0), 0);
+      state.experience = levelFromExperience(total, today);
+    } else {
+      state.experience = levelFromExperience(0);
+      state.experience.loaded = false;
+    }
+    renderTrigger();
+    if (state.panelOpen) renderPanel();
+    document.dispatchEvent(new CustomEvent("blog-reader:experience", { detail: state.experience }));
+    return state.experience;
   };
 
   const renderHistory = () => {
@@ -326,13 +413,19 @@
     }
 
     const userProfile = profile();
+    const experience = state.experience;
     panelBody.innerHTML = `
       <section class="blog-reader-account">
         <div class="blog-reader-profile">
           ${userProfile.avatar ? `<img src="${escapeHtml(userProfile.avatar)}" alt="">` : '<span><i class="fa-brands fa-github"></i></span>'}
-          <div><p>Signed in with GitHub</p><h3>${escapeHtml(userProfile.name)}</h3></div>
+          <div><p>Signed in with GitHub</p><h3>${escapeHtml(userProfile.name)}</h3><span class="blog-reader-profile-level">LV ${experience.level}</span></div>
         </div>
         <button class="blog-reader-secondary" type="button" data-reader-action="signout">Sign Out</button>
+      </section>
+      <section class="blog-reader-level-card" aria-label="Learning level and experience">
+        <div><span><i class="fa-solid fa-bolt" aria-hidden="true"></i> LEVEL ${experience.level}</span><strong>${formatExperience(experience.current)} <small>/ ${experience.required} EXP</small></strong></div>
+        <div class="blog-reader-level-progress"><i style="width:${experience.percentage}%"></i></div>
+        <p>+${formatExperience(experience.today)} EXP today <b>·</b> ${formatExperience(experience.total)} total EXP <b>·</b> Next level requires ${experience.required} EXP</p>
       </section>
       <label class="blog-reader-sync-toggle">
         <span><strong>Sync Reading Progress</strong><small>When disabled, this device will not upload new activity.</small></span>
@@ -703,6 +796,7 @@
     } else {
       state.learningError = "";
       state.learning.loaded = true;
+      await loadExperience();
     }
     refreshAllChapterCheckpoints();
     renderTrigger();
@@ -840,6 +934,8 @@
     await state.client.auth.signOut();
     state.session = null;
     state.history = [];
+    state.experience = levelFromExperience(0);
+    state.experience.loaded = false;
     state.error = "";
     state.learningError = "";
     renderTrigger();
@@ -858,6 +954,7 @@
     } else {
       state.history = [];
       state.error = "";
+      await loadExperience();
     }
     renderPanel();
   };
@@ -872,6 +969,7 @@
     } else {
       state.history = state.history.filter((item) => item.id !== id);
       state.error = "";
+      await loadExperience();
     }
     renderPanel();
   };
@@ -903,6 +1001,7 @@
           state.session = session;
           renderTrigger();
           if (session) {
+            await loadExperience();
             const returnPath = sessionStorage.getItem("blog-reader-return-path");
             if (returnPath && window.location.pathname === normalizePath(config.redirectPath || "/blog/")) {
               sessionStorage.removeItem("blog-reader-return-path");
@@ -936,6 +1035,7 @@
     if (error) state.error = "Your sign-in status could not be loaded. Please refresh and try again.";
     state.session = data?.session || null;
     renderTrigger();
+    if (state.session) await loadExperience();
     refreshPage();
     broadcastState();
     window.__blogReadingHistory.authSubscription = subscription;
@@ -1129,6 +1229,9 @@
     getSyncEnabled: () => state.syncEnabled,
     localDateKey,
     decayedMastery,
+    levelFromExperience,
+    loadExperience,
+    getExperience: () => ({ ...state.experience }),
     authSubscription: null,
   };
 
