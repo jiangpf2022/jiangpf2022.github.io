@@ -40,6 +40,14 @@
   text-align: center;
 }
 
+.article-content mjx-container:not([display="true"]) {
+  margin-inline: 0.08em;
+}
+
+.article-content mjx-container[display="true"] {
+  padding-block: 0.12rem;
+}
+
 .robotics-figure-pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
