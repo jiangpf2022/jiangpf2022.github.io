@@ -23,6 +23,15 @@
       description: "A systems-first path through generative AI: deep-learning fundamentals, large-model training, hardware efficiency, distributed optimization, evaluation, and the engineering choices behind production LLMs.",
       topics: ["LLM Systems", "Distributed Training", "Generative AI"],
     },
+    "Computational-Aspects-of-Robotics": {
+      name: "Computational Aspects of Robotics",
+      eyebrow: "COLUMBIA COURSE",
+      course: { slug: "robotic", name: "Computational Aspects of Robotics" },
+      icon: "fa-solid fa-robot",
+      cover: "/blog/images/robotics-1/rigid-body-transformations-cover.webp",
+      description: "A computational study of robot geometry, coordinate frames, kinematics, sensing, planning, and control. The course builds the mathematical tools needed to connect physical motion with reliable algorithms.",
+      topics: ["Robot Geometry", "Kinematics", "Motion Planning"],
+    },
     "Paper-Reading": {
       name: "Paper Reading",
       eyebrow: "RESEARCH LIBRARY",

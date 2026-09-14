@@ -7,7 +7,7 @@
   const COURSES = [
     { slug: "deep-learning", name: "Deep Learning", icon: "fa-solid fa-network-wired" },
     { slug: "llm-generative-ai", name: "LLM Generative AI", icon: "fa-solid fa-sparkles" },
-    { slug: "robotic", name: "Robotic", icon: "fa-solid fa-robot" },
+    { slug: "robotic", name: "Computational Aspects of Robotics", icon: "fa-solid fa-robot" },
   ];
   let loading = false;
   let selectedCurve = "all";

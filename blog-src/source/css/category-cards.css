@@ -88,6 +88,10 @@
   background-image: url("/blog/images/columbia-low-memorial-library.jpg");
 }
 
+.category-list-container .all-category-list-link[href$="/Computational-Aspects-of-Robotics/"] {
+  background-image: url("/blog/images/robotics-1/rigid-body-transformations-cover.webp");
+}
+
 .category-list-container .all-category-list-link[href$="/Paper-Reading/"] {
   background-image: url("/blog/images/2024-6-4-2.png");
 }

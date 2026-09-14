@@ -21,8 +21,8 @@
     },
     {
       slug: "robotic",
-      name: "Robotic",
-      categoryPath: "/blog/categories/Robotic/",
+      name: "Computational Aspects of Robotics",
+      categoryPath: "/blog/categories/Computational-Aspects-of-Robotics/",
     },
   ];
   const state = {

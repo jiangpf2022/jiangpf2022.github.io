@@ -149,7 +149,7 @@ html.dark {
   line-height: 1.4;
 }
 
-.category-hub-plan-button {
+.category-hub-container .category-hub-plan-button {
   display: inline-flex;
   min-height: 42px;
   padding: 0 17px;
@@ -167,20 +167,20 @@ html.dark {
   transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
-.category-hub-plan-button:hover,
-.category-hub-plan-button:focus-visible {
+.category-hub-container .category-hub-plan-button:hover,
+.category-hub-container .category-hub-plan-button:focus-visible {
   background: #fff;
   box-shadow: 0 15px 34px rgba(0, 0, 0, 0.34);
   outline: none;
   transform: translateY(-2px);
 }
 
-.category-hub-plan-button.is-enrolled {
+.category-hub-container .category-hub-plan-button.is-enrolled {
   color: #fff;
   background: rgba(210, 61, 88, 0.84);
 }
 
-.category-hub-plan-button:disabled {
+.category-hub-container .category-hub-plan-button:disabled {
   opacity: 0.72;
   cursor: wait;
 }
