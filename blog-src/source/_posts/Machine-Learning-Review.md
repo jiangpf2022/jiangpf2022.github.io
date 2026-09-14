@@ -5,6 +5,7 @@ tags:
 categories: ShanghaiTech University
 mathjax: true
 cover: "/images/2024-6-4-8.png"
+excerpt: "A broad machine-learning review covering Bayesian decisions, estimation, linear classifiers, neural networks, SVMs, dimensionality reduction, clustering, and ensembles."
 ---
 ## Scope of Final Exam  
 $\textbf{Bayesian Decision Theory}$:   

@@ -5,6 +5,7 @@ tags:
 categories: ShanghaiTech University
 mathjax: true
 cover: "/images/2024-7-14-15.png"
+excerpt: "Notes on 2D projective geometry: homogeneous coordinates, conics, transformations, cross-ratios, points at infinity, and affine or metric rectification."
 ---
 ## Planar Geometry
 ## The 2D Projective Plane

@@ -5,6 +5,7 @@ tags:
 categories: Deep Learning
 mathjax: True
 cover: "/images/columbia-neural-networks-deep-learning-cover.png"
+excerpt: "Single-layer models built from first principles: linear regression, vectorized loss, partial derivatives, the chain rule, gradient descent, and nonlinear feature maps."
 ---
 
 ## Single-Layer Models

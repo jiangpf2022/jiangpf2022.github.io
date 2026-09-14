@@ -7,6 +7,7 @@ tags:
   - LLM Systems
 mathjax: true
 cover: "/images/columbia-low-memorial-library.jpg"
+excerpt: "A systems-oriented foundation for deep learning, connecting generalization and optimization with accelerators, single-GPU throughput, distributed training, All-Reduce, and benchmarking."
 ---
 
 These notes reorganize Lecture 1 by **knowledge**, not by slide order. The lecture moves back and forth between statistical learning, hardware, distributed optimization, and benchmarking; here those pieces are connected into one systems story. Every technical topic that appears in the slides is retained, while repeated examples are merged and explained together.

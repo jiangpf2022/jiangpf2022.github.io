@@ -5,6 +5,7 @@ tags:
 categories: Paper Reading
 mathjax: true
 cover: "/images/2024-6-4-2.png"
+excerpt: "A technical reading of the five-point minimal solver for event-camera relative motion, from Plücker coordinates and incidence geometry to the final polynomial solution."
 ---
 Original Paper Link:[Paper](https://arxiv.org/pdf/2309.17054 "Click here to view original paper")  
 Paper Auther: Ling Gao* ,Hang Su* ,Daniel Gehrig, Marco Cannici, Davide Scaramuzza, Laurent Kneip

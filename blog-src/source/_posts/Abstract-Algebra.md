@@ -6,6 +6,7 @@ mathjax: true
 cover: "/images/2024-11-12-1.jpeg"
 categories: ShanghaiTech University
 background_image: "/images/2024-11-12-1.jpeg"
+excerpt: "A growing set of abstract algebra notes covering modular arithmetic, groups, homomorphisms, subgroups, symmetric groups, and the proof techniques behind them."
 ---
 ## Lecture 1
 ### Warm-up

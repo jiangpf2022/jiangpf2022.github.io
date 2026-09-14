@@ -6,6 +6,7 @@ mathjax: True
 # password: cs170-final
 cover: "/images/2024-12-12-2.jpeg"
 categories: ShanghaiTech University
+excerpt: "Three downloadable CS170 final-review cheat sheets collected in one place for compact, exam-focused revision."
 ---
 ### Cheatnote 1
 <embed src="https://jiangpf2022.github.io/blog/files/cs170-final-1.pdf" width="100%" height="1600px" type="application/pdf">

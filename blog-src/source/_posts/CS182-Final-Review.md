@@ -5,6 +5,7 @@ tags:
 categories: ShanghaiTech University
 mathjax: True
 cover: "/images/2025-4-21-1.png"
+excerpt: "A structured deep-neural-network review spanning initialization, optimization, CNNs, sequence models, attention, Transformers, and modern representation learning."
 ---
 <!-- ## Scope of Final Exam
 $\textbf{Basics}$:  

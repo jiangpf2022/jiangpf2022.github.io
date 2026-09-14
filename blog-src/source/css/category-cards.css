@@ -1,0 +1,151 @@
+.category-list-container {
+  --category-card-height: 230px;
+}
+
+.category-list-container .category-header {
+  margin-bottom: 28px;
+}
+
+.category-list-container .category-list-content .all-category-list {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  padding-left: 0 !important;
+}
+
+.category-list-container .category-list-content .all-category-list > .all-category-list-item {
+  position: relative;
+  width: auto !important;
+  min-width: 0;
+  padding: 0 !important;
+  border: 1px solid rgba(108, 151, 214, 0.22) !important;
+  border-radius: 22px !important;
+  background: #14243b !important;
+  box-shadow: 0 16px 38px rgba(16, 38, 72, 0.18) !important;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.category-list-container .category-list-content .all-category-list > .all-category-list-item:hover {
+  border-color: rgba(116, 197, 255, 0.72) !important;
+  background: #14243b !important;
+  box-shadow: 0 20px 45px rgba(13, 42, 83, 0.3) !important;
+  transform: translateY(-5px) !important;
+}
+
+.category-list-container .all-category-list-item > .all-category-list-link {
+  position: relative;
+  display: flex;
+  min-height: var(--category-card-height);
+  padding: 28px 26px;
+  border: 0 !important;
+  border-radius: inherit;
+  align-items: flex-end;
+  color: #fff !important;
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 0 -112px 96px -34px rgba(2, 10, 24, 0.9);
+  font-size: clamp(1.35rem, 2.1vw, 1.8rem);
+  font-weight: 800;
+  line-height: 1.12;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.78);
+  transition: background-size 500ms ease, filter 250ms ease;
+}
+
+.category-list-container .all-category-list-item > .all-category-list-link::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(3, 13, 30, 0.04) 18%, rgba(3, 13, 30, 0.88) 100%);
+  content: "";
+}
+
+.category-list-container .all-category-list-item > .all-category-list-link::after {
+  display: block;
+  position: absolute;
+  right: 26px;
+  bottom: 24px;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: "Font Awesome 6 Pro";
+  font-size: 1rem;
+  font-weight: 400;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.68);
+  content: "\f061";
+  transition: transform 200ms ease;
+}
+
+.category-list-container .all-category-list-item:hover > .all-category-list-link::after {
+  transform: translateX(5px);
+}
+
+.category-list-container .all-category-list-link[href$="/Deep-Learning/"] {
+  background-image: url("/blog/images/columbia-neural-networks-deep-learning-cover.png");
+}
+
+.category-list-container .all-category-list-link[href$="/LLM-Generative-AI/"] {
+  background-image: url("/blog/images/columbia-low-memorial-library.jpg");
+}
+
+.category-list-container .all-category-list-link[href$="/Paper-Reading/"] {
+  background-image: url("/blog/images/2024-6-4-2.png");
+}
+
+.category-list-container .all-category-list-link[href$="/ShanghaiTech-University/"] {
+  background-image: url("/blog/images/2024-11-12-1.jpeg");
+}
+
+.category-list-container .all-category-list-item > .all-category-list-count {
+  position: absolute;
+  z-index: 2;
+  top: 18px;
+  right: 18px;
+  min-width: 38px;
+  margin: 0 !important;
+  padding: 4px 11px !important;
+  border: 1px solid rgba(255, 255, 255, 0.34) !important;
+  border-radius: 999px !important;
+  color: #fff !important;
+  background: rgba(5, 18, 38, 0.5) !important;
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  font-size: 0.82rem;
+  text-align: center;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+html.dark .category-list-container .all-category-list-item > .all-category-list-link {
+  filter: brightness(0.82) saturate(0.92);
+}
+
+html.dark .category-list-container .all-category-list-item:hover > .all-category-list-link {
+  filter: brightness(0.92) saturate(1.04);
+}
+
+@media (max-width: 720px) {
+  .category-list-container {
+    --category-card-height: 190px;
+  }
+
+  .category-list-container .category-list-content .all-category-list {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .category-list-container .all-category-list-item > .all-category-list-link {
+    padding: 24px 22px;
+  }
+
+  .category-list-container .all-category-list-item > .all-category-list-link::after {
+    right: 22px;
+    bottom: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-list-container .category-list-content .all-category-list > .all-category-list-item,
+  .category-list-container .all-category-list-item > .all-category-list-link::after {
+    transition: none;
+  }
+}
