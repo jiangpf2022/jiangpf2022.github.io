@@ -11,37 +11,39 @@ cover: "/images/robotics-1/rigid-body-transformations-cover.webp"
 excerpt: "A compact formula-first guide to 2D and 3D rigid-body transformations, coordinate frames, homogeneous matrices, and composition order."
 ---
 
-Rigid-body transformations describe the same body from different coordinate frames. The notebook's logic is: **define the frames, rotate into a common frame, translate, then compose in the correct order.** Here ${}^{A}p$ means that point $p$ is expressed in frame $\{A\}$.
+Rigid-body transformations let us describe the same robot or point from different coordinate frames. We use a fixed **world frame** and one or more moving **body frames**.
+
+- The world space is $\mathcal W=\mathbb R^2$ in 2D or $\mathcal W=\mathbb R^3$ in 3D.
+- A point $p\in\mathcal W$ has coordinates that depend on the chosen frame.
+- A free vector, such as linear velocity, has a fixed magnitude and direction.
+- A rigid-body transformation $h:\mathcal W\to\mathcal W$ preserves relative distances and orientation; it excludes scaling, shear, and reflection.
+
+<figure class="robotics-figure robotics-figure--compact">
+  <img src="/blog/images/robotics-1/frames-2d.webp" alt="A point represented relative to nested two-dimensional coordinate frames" loading="lazy" decoding="async">
+  <figcaption>The same geometry can have different coordinates in different frames.</figcaption>
+</figure>
 
 ## 2D Transformations
 
-### Frames and Rigid Motion
-
-<figure class="robotics-figure robotics-figure--compact">
-  <img src="/blog/images/robotics-1/frames-2d.webp" alt="Nested two-dimensional coordinate frames" loading="lazy" decoding="async">
-  <figcaption>One point, expressed in three frames.</figcaption>
-</figure>
-
-- **World space:** $\mathcal W=\mathbb R^2$ in 2D and $\mathbb R^3$ in 3D.
-- **Point:** coordinates depend on the reference frame's origin and orientation.
-- **Free vector:** magnitude and direction are fixed; velocity is a typical example.
-- **Frame:** an origin with orthonormal axes; robots use a fixed world frame and moving body frames.
-
-A rigid-body map $h:\mathcal W\to\mathcal W$ preserves relative distances and orientations. It excludes scaling, shear, and reflection.
-
 ### Translation
 
-Translation changes position but not orientation:
+A translation changes position without changing orientation. In two dimensions,
 
 $$
-h(x,y,z)=(x+t_x,\;y+t_y,\;z+t_z).
+h(x,y)=(x+x_t,\;y+y_t).
 $$
 
-In 2D, omit $z$. Translating the body by $t$ is equivalent to translating the reference frame by $-t$. For fixed $p$, the coordinate map $q\mapsto p+q$ is affine rather than linear because it moves the origin.
+In three dimensions the same rule becomes
+
+$$
+h(x,y,z)=(x+x_t,\;y+y_t,\;z+z_t).
+$$
+
+Translating the body by $(x_t,y_t)$ is equivalent to translating the reference frame by $(-x_t,-y_t)$. This body-frame duality is why the sign changes when we move the coordinate system instead of the object.
 
 ### Rotation
 
-A counterclockwise planar rotation is
+For a counterclockwise angle $\theta$, the planar rotation matrix is
 
 $$
 R(\theta)=
@@ -54,79 +56,106 @@ R(\theta)=
 {}=R(\theta)\begin{bmatrix}x\\\\y\end{bmatrix}.
 $$
 
-The columns of $R=[\,x_1\ y_1\,]$ are the rotated frame axes expressed in the original frame. Hence
+The notation $R(\theta)=[\,x_1\;y_1\,]$ in the reference PDF means **column concatenation**, not another transformation: $x_1=R(\theta)e_x$ and $y_1=R(\theta)e_y$ are the rotated unit axes, expressed in the world frame.
+
+<div class="robotics-axis-derivation">
+
+To see this explicitly, start from the world-frame unit axes
+
+$$
+e_x=\begin{bmatrix}1\\\\0\end{bmatrix},
+\qquad
+e_y=\begin{bmatrix}0\\\\1\end{bmatrix}.
+$$
+
+After rotation,
+
+$$
+x_1=R(\theta)e_x=
+\begin{bmatrix}\cos\theta\\\\\sin\theta\end{bmatrix},
+\qquad
+y_1=R(\theta)e_y=
+\begin{bmatrix}-\sin\theta\\\\\cos\theta\end{bmatrix}.
+$$
+
+</div>
+
+Therefore the first column of $R(\theta)$ is the rotated $x$-axis and the second column is the rotated $y$-axis.
+
+### Rotation Properties
+
+A valid rotation matrix is orthogonal and has determinant $1$:
 
 $$
 R(\theta)^{-1}=R(\theta)^T=R(-\theta),
-\qquad \det R(\theta)=1.
+\qquad
+\det R(\theta)=1.
 $$
 
-There is only one planar rotation axis, so
+The inverse rotation is clockwise. Orthogonality preserves length, angle, area, and vector magnitude. Because all planar rotations use the same axis perpendicular to the plane, 2D rotations commute:
 
 $$
-R(\theta_1)R(\theta_2)=R(\theta_1+\theta_2)=R(\theta_2)R(\theta_1).
+R(\theta_1+\theta_2)
+{}=R(\theta_1)R(\theta_2)
+{}=R(\theta_2)R(\theta_1).
 $$
 
-### Homogeneous Form
+### Homogeneous Coordinates
 
-If frame $\{b\}$ has position $p$ and orientation $R$ relative to $\{s\}$, then
-
-$$
-{}^{s}r=p+R\,{}^{b}q.
-$$
-
-Appending $1$ combines rotation and translation into one linear map:
+Let $q$ be a point in the body frame, $R$ the body's orientation, $p$ the body's position in the world frame, and $r$ the resulting world-frame point. The rigid-body motion is exactly
 
 $$
-\begin{bmatrix}{}^{s}r\\\\1\end{bmatrix}
+r=p+Rq.
+$$
+
+This map is affine because of the translation $p$. Appending a final coordinate $1$ turns it into a linear matrix multiplication:
+
+$$
+\begin{bmatrix}r_x\\\\r_y\\\\1\end{bmatrix}
 {}=
 \underbrace{
-\begin{bmatrix}
-R&p\\\\
-0^T&1
-\end{bmatrix}}_{T}
-\begin{bmatrix}{}^{b}q\\\\1\end{bmatrix},
-\qquad
-T(\theta,p_x,p_y)=
 \begin{bmatrix}
 \cos\theta&-\sin\theta&p_x\\\\
 \sin\theta&\cos\theta&p_y\\\\
 0&0&1
-\end{bmatrix}.
+\end{bmatrix}}_{T(\theta,p_x,p_y)}
+\begin{bmatrix}q_x\\\\q_y\\\\1\end{bmatrix}.
 $$
 
-Rotation acts first, then translation. $T$ includes pure rotation ($p=0$) and pure translation ($\theta=0$); it is invertible and composable, but is not itself orthogonal.
+Reading the multiplication from right to left: rotate $q$ first, then translate by $p$. The matrix $T$ includes pure rotation when $p=0$ and pure translation when $\theta=0$. It is invertible and composable, but $T$ itself is not an orthogonal matrix.
 
 ### Composition Order
 
 <div class="robotics-figure-pair">
   <figure class="robotics-figure">
     <img src="/blog/images/robotics-1/rotate-then-translate.webp" alt="Rotation followed by translation" loading="lazy" decoding="async">
-    <figcaption>Rotate, then translate.</figcaption>
+    <figcaption>Rotate first, then translate.</figcaption>
   </figure>
   <figure class="robotics-figure">
     <img src="/blog/images/robotics-1/translate-then-rotate.webp" alt="Translation followed by rotation" loading="lazy" decoding="async">
-    <figcaption>Translate, then rotate.</figcaption>
+    <figcaption>Translate first, then rotate.</figcaption>
   </figure>
 </div>
 
-For $T_a=T(R_a,p_a)$ and $T_b=T(R_b,p_b)$,
+Matrix multiplication acts from right to left. If transformation $A$ happens first and transformation $B$ happens second, then
 
 $$
-T_aT_b=
-\begin{bmatrix}
-R_aR_b&R_a p_b+p_a\\\\
-0^T&1
-\end{bmatrix}.
+C=BA.
 $$
 
-The rightmost transform acts first. Reversing the order changes the translation term, so $T_aT_b\neq T_bT_a$.
+In general the order cannot be reversed:
+
+$$
+T_1T_0\neq T_0T_1.
+$$
+
+This non-commutativity comes from the translation term: rotating a translation vector is not the same as translating after the rotation.
 
 ## 3D Transformations
 
 ### Principal-Axis Rotations
 
-Using the right-hand convention,
+Using the right-hand convention, the three principal-axis rotations are
 
 $$
 R_z(\alpha)=
@@ -135,7 +164,7 @@ R_z(\alpha)=
 \sin\alpha&\cos\alpha&0\\\\
 0&0&1
 \end{bmatrix},
-\quad
+\qquad
 R_y(\beta)=
 \begin{bmatrix}
 \cos\beta&0&\sin\beta\\\\
@@ -153,26 +182,38 @@ R_x(\gamma)=
 \end{bmatrix}.
 $$
 
-Every proper 3D rotation satisfies $R^{-1}=R^T$ and $\det R=1$; its columns are the moving frame's axes expressed in the reference frame.
+Each matrix leaves its named axis unchanged. Every proper 3D rotation satisfies
+
+$$
+R^{-1}=R^T,
+\qquad
+\det R=1.
+$$
 
 ### Right-Hand Rule
 
 <figure class="robotics-figure robotics-figure--small">
-  <img src="/blog/images/robotics-1/right-hand-rule.webp" alt="Right-hand rule for positive rotation" loading="lazy" decoding="async">
-  <figcaption>Thumb: positive axis. Fingers: positive rotation.</figcaption>
+  <img src="/blog/images/robotics-1/right-hand-rule.webp" alt="Right-hand rule for positive three-dimensional rotation" loading="lazy" decoding="async">
+  <figcaption>Thumb along the positive axis; curled fingers show positive rotation.</figcaption>
 </figure>
 
-Point the right thumb along the positive axis; curled fingers give the positive direction. Unlike 2D,
+Point the right thumb along the positive rotation axis. The curled fingers show the positive direction in the plane normal to that axis. Unlike 2D rotations, rotations about different 3D axes do not commute:
 
 $$
-R_y(\phi)R_z(\theta)\neq R_z(\theta)R_y(\phi),
+R_y(\phi)R_z(\theta)\neq R_z(\theta)R_y(\phi).
 $$
 
-so a 3D rotation sequence must state its multiplication order.
+The multiplication order must therefore be written explicitly.
 
-### Homogeneous Form
+### Homogeneous Coordinates
 
-A 3D pose is a $4\times4$ homogeneous transform:
+The same motion equation remains valid in 3D:
+
+$$
+r=p+Rq,
+$$
+
+where now $p,q,r\in\mathbb R^3$ and $R\in\mathbb R^{3\times3}$. Its homogeneous matrix is
 
 $$
 T=
@@ -186,50 +227,50 @@ r_{11}&r_{12}&r_{13}&p_x\\\\
 r_{21}&r_{22}&r_{23}&p_y\\\\
 r_{31}&r_{32}&r_{33}&p_z\\\\
 0&0&0&1
-\end{bmatrix},
-\qquad
-T\begin{bmatrix}q\\\\1\end{bmatrix}
-{}=\begin{bmatrix}R q+p\\\\1\end{bmatrix}.
-$$
-
-The first three columns encode orientation and the last column encodes position. Its inverse is
-
-$$
-T^{-1}=
-\begin{bmatrix}
-R^T&-R^T p\\\\
-0^T&1
 \end{bmatrix}.
 $$
 
-### Transform Chains
+Equivalently,
+
+$$
+T\begin{bmatrix}q\\\\1\end{bmatrix}
+{}=
+\begin{bmatrix}Rq+p\\\\1\end{bmatrix}.
+$$
+
+The upper-left block stores orientation; the last column stores position. As in 2D, rotation is applied first and translation second. The transform is invertible and composable, but is not orthogonal.
+
+### Frame Chains
 
 <figure class="robotics-figure robotics-figure--small">
-  <img src="/blog/images/robotics-1/camera-robot-frames.webp" alt="World camera and robot coordinate frames" loading="lazy" decoding="async">
-  <figcaption>Compose only when the inner frame labels match.</figcaption>
+  <img src="/blog/images/robotics-1/camera-robot-frames.webp" alt="World camera and robot coordinate frames forming a transformation chain" loading="lazy" decoding="async">
+  <figcaption>Adjacent frame labels must match before transforms can be composed.</figcaption>
 </figure>
 
-- **Fixed-frame increment:** if $\Delta T$ is expressed in the fixed world frame, pre-multiply: $T_{\mathrm{new}}=\Delta T\,T_{\mathrm{old}}$.
-- **Body-frame increment:** if $\Delta T$ is expressed in the current moving frame, post-multiply: $T_{\mathrm{new}}=T_{\mathrm{old}}\,\Delta T$.
+For **absolute transformations** expressed relative to the same fixed world frame, each new transformation pre-multiplies the current one. If $A$ occurs first and $B$ occurs second,
 
-For a chain of coordinate frames,
+$$
+C=B\cdot A.
+$$
+
+For **relative transformations** between moving frames, the frame labels determine the valid product. If ${}^{i}T_j$ maps coordinates from frame $j$ to frame $i$, and ${}^{j}T_k$ maps from frame $k$ to frame $j$, then
 
 $$
 {}^{i}T_k={}^{i}T_j\,{}^{j}T_k.
 $$
 
-Frame labels behave like units: the adjacent $j$ labels cancel, leaving a transform from $k$ to $i$.
+The adjacent $j$ labels match, just like cancelling units. The result maps directly from frame $k$ to frame $i$.
 
-### Quick Reference
+### Summary
 
-| Concept | 2D | 3D |
+| Concept | 2D space | 3D space |
 | --- | --- | --- |
-| Space | $\mathbb R^2$ | $\mathbb R^3$ |
-| Rotation | $2\times2$, one angle | $3\times3$, axes $R_x,R_y,R_z$ |
-| Commutes? | Yes, one axis | No, across axes |
-| Homogeneous $T$ | $3\times3$ | $4\times4$ |
-| Composition | Pre-multiply absolute; post-multiply relative | Same rule |
+| Vector dimension | $\mathbb R^2$ | $\mathbb R^3$ |
+| Rotation matrix | $2\times2$, one angle $\theta$ | $3\times3$, axes $R_x,R_y,R_z$ |
+| Do rotations commute? | Yes, one rotation axis | No, across different axes |
+| Homogeneous matrix | $3\times3$ | $4\times4$ |
+| Composition | Left-multiply absolute; right-multiply relative | Same rule |
 
-**Checklist:** label every frame; express vectors in a common frame; use $T$ to combine $R$ and $p$; verify $R^TR=I$ and $\det R=1$; match adjacent frame labels before multiplying.
+**Final check:** define every frame, express quantities in compatible frames, use $r=p+Rq$ for the geometric motion, use $T$ for homogeneous composition, and always verify multiplication order.
 
 <p class="robotics-cover-credit">Cover photo: <a href="https://commons.wikimedia.org/wiki/File:Columbia_University_-_The_Fu_Foundation_School_of_Engineering_And_Applied_Science_(48170360946).jpg">Ajay Suresh / Wikimedia Commons</a>, licensed under <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>.</p>

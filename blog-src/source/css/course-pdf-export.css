@@ -175,8 +175,8 @@
   }
 
   body.course-print-mode .article-content mjx-container:not([display="true"]) {
-    margin-left: 0.1em !important;
-    margin-right: 0.1em !important;
+    margin-left: 0.16em !important;
+    margin-right: 0.16em !important;
   }
 
   body.course-print-mode .article-content h2,
@@ -310,6 +310,7 @@
   }
 
   body.course-print-mode.course-print-robotics .article-content p {
+    line-height: 1.25 !important;
     margin-bottom: 0.8mm !important;
   }
 
@@ -320,6 +321,7 @@
   }
 
   body.course-print-mode.course-print-robotics .article-content li {
+    line-height: 1.25 !important;
     margin: 0.25mm 0 !important;
   }
 
@@ -372,7 +374,8 @@
   }
 
   body.course-print-mode.course-print-robotics .article-content .robotics-figure,
-  body.course-print-mode.course-print-robotics .article-content .robotics-figure-pair {
+  body.course-print-mode.course-print-robotics .article-content .robotics-figure-pair,
+  body.course-print-mode.course-print-robotics .article-content .robotics-axis-derivation {
     display: none !important;
   }
 
