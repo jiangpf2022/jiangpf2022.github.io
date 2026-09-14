@@ -289,7 +289,7 @@ The adjacent $j$ labels match, just like cancelling units. The result maps direc
       <span class="article-attachment__icon"><i class="fa-regular fa-file-pdf" aria-hidden="true"></i></span>
       <div class="article-attachment__info">
         <strong>Rigid-Body Transformations - Review Notes</strong>
-        <span>PDF <b>·</b> 2 pages <b>·</b> 215 KB</span>
+        <span>PDF <b>·</b> 2 pages <b>·</b> 161 KB</span>
       </div>
       <a class="article-attachment__download" href="/blog/files/coms4773w-robotics-1-rigid-body-transformations.pdf" download="COMS4773W-Robotics-1-Rigid-Body-Transformations.pdf">
         <i class="fa-solid fa-download" aria-hidden="true"></i>
