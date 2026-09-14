@@ -5,28 +5,28 @@
   const HISTORY_DAYS = 13;
   const FORECAST_DAYS = 7;
   const CATEGORIES = {
-    "Deep-Learning": {
-      name: "Deep Learning",
+    "COMS4776W-Neural-Networks-Deep-Learning": {
+      name: "COMS4776W Neural Networks & Deep Learning",
       eyebrow: "COLUMBIA COURSE",
-      course: { slug: "deep-learning", name: "Deep Learning" },
+      course: { slug: "deep-learning", name: "COMS4776W Neural Networks & Deep Learning" },
       icon: "fa-solid fa-network-wired",
       cover: "/blog/images/columbia-neural-networks-deep-learning-cover.png",
       description: "Build neural networks from mathematical foundations to modern architectures. This course connects model design, optimization, representation learning, and the practical reasoning needed to understand why deep networks work.",
       topics: ["Foundations", "Optimization", "Neural Networks"],
     },
-    "LLM-Generative-AI": {
-      name: "LLM Generative AI",
+    "COMS6998E-LLM-Based-Generative-AI": {
+      name: "COMS6998E LLM-Based Generative AI",
       eyebrow: "COLUMBIA COURSE",
-      course: { slug: "llm-generative-ai", name: "LLM Generative AI" },
+      course: { slug: "llm-generative-ai", name: "COMS6998E LLM-Based Generative AI" },
       icon: "fa-solid fa-sparkles",
       cover: "/blog/images/columbia-low-memorial-library.jpg",
       description: "A systems-first path through generative AI: deep-learning fundamentals, large-model training, hardware efficiency, distributed optimization, evaluation, and the engineering choices behind production LLMs.",
       topics: ["LLM Systems", "Distributed Training", "Generative AI"],
     },
-    "Computational-Aspects-of-Robotics": {
-      name: "Computational Aspects of Robotics",
+    "COMS4773W-Computational-Aspects-of-Robotics": {
+      name: "COMS4773W Computational Aspects of Robotics",
       eyebrow: "COLUMBIA COURSE",
-      course: { slug: "robotic", name: "Computational Aspects of Robotics" },
+      course: { slug: "robotic", name: "COMS4773W Computational Aspects of Robotics" },
       icon: "fa-solid fa-robot",
       cover: "/blog/images/robotics-1/rigid-body-transformations-cover.webp",
       description: "A computational study of robot geometry, coordinate frames, kinematics, sensing, planning, and control. The course builds the mathematical tools needed to connect physical motion with reliable algorithms.",

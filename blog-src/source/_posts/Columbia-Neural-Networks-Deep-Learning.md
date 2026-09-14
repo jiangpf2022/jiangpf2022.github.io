@@ -2,7 +2,7 @@
 title: Deep Learning 1 - Single Layer Models
 date: 2026-09-10 02:04:18
 tags:
-categories: Deep Learning
+categories: "COMS4776W Neural Networks & Deep Learning"
 mathjax: True
 cover: "/images/columbia-neural-networks-deep-learning-cover.png"
 excerpt: "Single-layer models built from first principles: linear regression, vectorized loss, partial derivatives, the chain rule, gradient descent, and nonlinear feature maps."

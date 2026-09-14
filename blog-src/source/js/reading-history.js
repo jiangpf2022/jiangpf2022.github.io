@@ -11,18 +11,18 @@
   const COURSE_CATALOG = [
     {
       slug: "deep-learning",
-      name: "Deep Learning",
-      categoryPath: "/blog/categories/Deep-Learning/",
+      name: "COMS4776W Neural Networks & Deep Learning",
+      categoryPath: "/blog/categories/COMS4776W-Neural-Networks-Deep-Learning/",
     },
     {
       slug: "llm-generative-ai",
-      name: "LLM Generative AI",
-      categoryPath: "/blog/categories/LLM-Generative-AI/",
+      name: "COMS6998E LLM-Based Generative AI",
+      categoryPath: "/blog/categories/COMS6998E-LLM-Based-Generative-AI/",
     },
     {
       slug: "robotic",
-      name: "Computational Aspects of Robotics",
-      categoryPath: "/blog/categories/Computational-Aspects-of-Robotics/",
+      name: "COMS4773W Computational Aspects of Robotics",
+      categoryPath: "/blog/categories/COMS4773W-Computational-Aspects-of-Robotics/",
     },
   ];
   const state = {

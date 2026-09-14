@@ -1,7 +1,7 @@
 ---
 title: LLM 1 - Fundamentals of Deep Learning
 date: 2026-09-11 16:15:28
-categories: LLM Generative AI
+categories: COMS6998E LLM-Based Generative AI
 tags:
   - Deep Learning
   - LLM Systems

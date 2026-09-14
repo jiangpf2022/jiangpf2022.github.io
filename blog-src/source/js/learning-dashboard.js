@@ -5,9 +5,9 @@
   const HISTORY_DAYS = 13;
   const FORECAST_DAYS = 7;
   const COURSES = [
-    { slug: "deep-learning", name: "Deep Learning", icon: "fa-solid fa-network-wired" },
-    { slug: "llm-generative-ai", name: "LLM Generative AI", icon: "fa-solid fa-sparkles" },
-    { slug: "robotic", name: "Computational Aspects of Robotics", icon: "fa-solid fa-robot" },
+    { slug: "deep-learning", name: "COMS4776W Neural Networks & Deep Learning", icon: "fa-solid fa-network-wired" },
+    { slug: "llm-generative-ai", name: "COMS6998E LLM-Based Generative AI", icon: "fa-solid fa-sparkles" },
+    { slug: "robotic", name: "COMS4773W Computational Aspects of Robotics", icon: "fa-solid fa-robot" },
   ];
   let loading = false;
   let selectedCurve = "all";

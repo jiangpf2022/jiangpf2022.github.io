@@ -400,15 +400,15 @@ inject:
   head: 
     - <link rel="stylesheet" href="/blog/css/home-banner-crossfade.css">
     - <link rel="stylesheet" href="/blog/css/home-typography.css?v=20260913-courses">
-    - <link rel="stylesheet" href="/blog/css/category-cards.css?v=20260913-robotics">
-    - <link rel="stylesheet" href="/blog/css/category-hub.css?v=20260913-robotics">
+    - <link rel="stylesheet" href="/blog/css/category-cards.css?v=20260914-course-codes">
+    - <link rel="stylesheet" href="/blog/css/category-hub.css?v=20260914-course-codes">
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
     - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
     - <link rel="stylesheet" href="/blog/css/robotics-figures.css?v=20260914">
-    - <link rel="stylesheet" href="/blog/css/course-pdf-export.css?v=20260914">
-    - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260913-course-plans">
-    - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260913-course-plans">
+    - <link rel="stylesheet" href="/blog/css/course-pdf-export.css?v=20260914-browser-print">
+    - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260914-course-codes">
+    - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260914-course-codes">
   # Inject custom footer html code
   footer:
     - <script src="/blog/js/home-banner-transition.js"></script>
@@ -416,10 +416,10 @@ inject:
     - <script src="/blog/js/article-toc-toggle.js"></script>
     - <script src="/blog/js/reading-history-config.js?v=20260913-en"></script>
     - <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
-    - <script src="/blog/js/reading-history.js?v=20260913-robotics"></script>
-    - <script src="/blog/js/learning-dashboard.js?v=20260913-robotics"></script>
-    - <script src="/blog/js/category-hub.js?v=20260913-robotics"></script>
-    - <script src="/blog/js/course-pdf-export.js?v=20260914"></script>
+    - <script src="/blog/js/reading-history.js?v=20260914-course-codes"></script>
+    - <script src="/blog/js/learning-dashboard.js?v=20260914-course-codes"></script>
+    - <script src="/blog/js/category-hub.js?v=20260914-course-codes"></script>
+    - <script src="/blog/js/course-pdf-export.js?v=20260914-browser-print"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
