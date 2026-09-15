@@ -1,7 +1,7 @@
 ---
 title: Mathematical Modeling 6 - Convex Optimization
 date: 2026-09-14 20:00:11
-categories: Mathematical Modeling
+categories: Mathematical Modeling Draft Archive
 tags:
   - Linear Programming
   - Quadratic Programming

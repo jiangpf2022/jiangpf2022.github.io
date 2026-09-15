@@ -1,7 +1,7 @@
 ---
 title: Mathematical Modeling 12 - Time Series Foundations
 date: 2026-09-14 20:00:05
-categories: Mathematical Modeling
+categories: Mathematical Modeling Draft Archive
 tags:
   - Time Series
   - Data Preprocessing

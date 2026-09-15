@@ -65,6 +65,64 @@
   margin-bottom: 0;
 }
 
+.mm-key-box,
+.mm-question-box {
+  position: relative;
+  margin: 1.5rem 0;
+  padding: 1.3rem 1.45rem;
+  border: 1px solid rgba(96, 151, 226, 0.5);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(214, 235, 255, 0.94), rgba(231, 243, 255, 0.87));
+  box-shadow: 0 12px 36px rgba(38, 101, 173, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  color: #173351;
+}
+
+.mm-key-box {
+  border-left: 5px solid #2f81e4;
+}
+
+.mm-question-box {
+  border-color: rgba(62, 190, 202, 0.5);
+  border-left: 5px solid #18a8bd;
+  background: linear-gradient(135deg, rgba(208, 251, 248, 0.96), rgba(229, 247, 255, 0.9));
+  box-shadow: 0 12px 34px rgba(25, 137, 153, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.mm-callout-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: #126ead;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.mm-question-box .mm-callout-label {
+  color: #087a89;
+}
+
+.article-content .mm-key-box ol,
+.article-content .mm-key-box ul {
+  margin: 0.55rem 0 0;
+  padding-left: 1.55rem;
+}
+
+.article-content .mm-key-box li {
+  margin: 0.34rem 0;
+  line-height: 1.6;
+}
+
+.article-content .mm-key-box li strong,
+.article-content .mm-question-box strong {
+  color: #155a9a;
+}
+
+.article-content .mm-key-box > :last-child,
+.article-content .mm-question-box > :last-child {
+  margin-bottom: 0;
+}
+
 html.dark .mm-figure,
 html.dark .mm-gallery figure {
   border-color: rgba(116, 176, 242, 0.2);
@@ -75,7 +133,34 @@ html.dark .mm-case {
   background: rgba(71, 132, 204, 0.13);
 }
 
+html.dark .mm-key-box {
+  border-color: rgba(120, 187, 255, 0.57);
+  border-left-color: #71b4ff;
+  background: linear-gradient(135deg, rgba(31, 83, 125, 0.96), rgba(29, 62, 106, 0.94));
+  box-shadow: 0 14px 36px rgba(13, 42, 78, 0.35);
+  color: #f2f8ff;
+}
+
+html.dark .mm-question-box {
+  border-color: rgba(112, 216, 225, 0.52);
+  border-left-color: #6ed7e3;
+  background: linear-gradient(135deg, rgba(28, 93, 107, 0.95), rgba(26, 74, 104, 0.94));
+  box-shadow: 0 14px 36px rgba(9, 53, 74, 0.34);
+  color: #f1fdff;
+}
+
+html.dark .mm-callout-label,
+html.dark .mm-question-box .mm-callout-label,
+html.dark .mm-key-box li strong,
+html.dark .mm-question-box strong {
+  color: #9edcff;
+}
+
 @media (max-width: 760px) {
+  .mm-key-box,
+  .mm-question-box {
+    padding: 1.1rem 1.15rem;
+  }
   .mm-gallery,
   .mm-gallery.mm-gallery-3 {
     grid-template-columns: 1fr;

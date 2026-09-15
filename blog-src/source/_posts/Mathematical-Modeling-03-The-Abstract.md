@@ -1,7 +1,7 @@
 ---
 title: Mathematical Modeling 3 - The Abstract
 date: 2026-09-14 20:00:14
-categories: Mathematical Modeling
+categories: Mathematical Modeling Draft Archive
 tags:
   - Scientific Writing
   - Abstract

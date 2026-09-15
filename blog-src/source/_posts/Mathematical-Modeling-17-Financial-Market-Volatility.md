@@ -1,15 +1,16 @@
 ---
-title: Mathematical Modeling 8 - Genetic Algorithms
-date: 2026-09-14 20:00:09
-categories: Mathematical Modeling Draft Archive
+title: Mathematical Modeling 17 - Financial Market Volatility
+date: 2026-09-15 18:00:04
+categories: Mathematical Modeling
 tags:
-  - Genetic Algorithms
-  - Metaheuristics
-  - Combinatorial Optimization
+  - Mathematical Modeling
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
-study_time: 40
-excerpt: "Genetic algorithms explained as representations, operators, constraints, and evidence—not as a black-box substitute for formulation."
+study_time: 0
+lesson_number: 17
+lesson_level: 3
+review_lock: true
+excerpt: "Analyze a synthetic market-volatility case without confusing forecasts with investment advice."
 ---
 
 ## Lesson awaiting review

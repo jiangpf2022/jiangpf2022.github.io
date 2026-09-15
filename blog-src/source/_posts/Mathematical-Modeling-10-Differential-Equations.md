@@ -1,7 +1,7 @@
 ---
 title: Mathematical Modeling 10 - Differential Equations
 date: 2026-09-14 20:00:07
-categories: Mathematical Modeling
+categories: Mathematical Modeling Draft Archive
 tags:
   - Differential Equations
   - Dynamical Systems

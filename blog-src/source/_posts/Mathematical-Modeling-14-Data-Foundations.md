@@ -1,7 +1,7 @@
 ---
 title: Mathematical Modeling 14 - Data Foundations
 date: 2026-09-14 19:59:05
-categories: Mathematical Modeling
+categories: Mathematical Modeling Draft Archive
 tags:
   - Data Cleaning
   - Exploratory Analysis

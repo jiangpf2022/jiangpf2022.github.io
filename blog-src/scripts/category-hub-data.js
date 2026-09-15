@@ -28,6 +28,9 @@ hexo.extend.generator.register("category-hub-data", (locals) => {
         updated: post.updated ? post.updated.toISOString() : null,
         cover: blogAsset(post.cover || post.banner || post.thumbnail),
         studyTime: Number(post.study_time) || null,
+        lessonNumber: Number(post.lesson_number) || null,
+        lessonLevel: Number(post.lesson_level) || null,
+        reviewLock: Boolean(post.review_lock),
         excerpt: content.length > 220 ? `${content.slice(0, 217).trim()}...` : content,
         categories: post.categories.map((category) => category.name),
       };

@@ -11,8 +11,8 @@
       course: { slug: "mathematical-modeling", name: "Mathematical Modeling" },
       icon: "fa-solid fa-chart-line",
       cover: "/blog/images/mathematical-modeling-nyc.webp",
-      description: "A zero-to-competition mathematical modeling course rebuilt from the 2026 notes. Each 40-minute guided lesson develops intuition, mathematics, a worked example, implementation choices, validation, and practice before connecting the topic to a complete modeling workflow.",
-      topics: ["18 Guided Lessons", "Zero to Competition", "Models & Evidence"],
+      description: "A 20-lesson learning path, organized from first models through optimization, differential equations, time series, data analysis, full cases, and scientific writing. Lesson 1 is open; lessons awaiting author review stay locked until their teaching drafts are complete.",
+      topics: ["20 Guided Lessons", "Zero to Competition", "Models & Evidence"],
     },
     "COMS4776W-Neural-Networks-Deep-Learning": {
       name: "COMS4776W Neural Networks & Deep Learning",
@@ -95,6 +95,8 @@
       .replaceAll("'", "&#039;");
 
   const reader = () => window.__blogReadingHistory;
+  const availableToReader = (article) =>
+    !article.reviewLock || (article.lessonNumber === 2 && reader()?.isDeveloper?.() && !reader()?.isRegularPreview?.());
   const average = (items, selector) =>
     items.length ? Math.round(items.reduce((sum, item) => sum + selector(item), 0) / items.length) : 0;
 
@@ -243,7 +245,7 @@
         <div class="category-hub-topics">${config.topics.map((topic) => `<span>${escapeHtml(topic)}</span>`).join("")}</div>
         ${config.course ? `<div class="category-hub-plan-row">${planButtonMarkup(session, enrolled)}<small>${enrolled ? "All current and future lessons are included in My Learning." : "One choice adds every lesson in this course."}</small></div>` : ""}
       </div>
-      <div class="category-hub-hero-count"><strong>${articleCount}</strong><span>published<br>article${articleCount === 1 ? "" : "s"}</span></div>
+      <div class="category-hub-hero-count"><strong>${articleCount}</strong><span>${config.name === "Mathematical Modeling" ? "planned lessons" : `published<br>article${articleCount === 1 ? "" : "s"}`}</span></div>
     </section>`;
 
   const metricMarkup = (label, value, suffix, icon, warning = false) => `
@@ -291,20 +293,21 @@
   };
 
   const articleCardMarkup = (article, config, enrolled) => {
-    const completion = enrolled ? article.completion : 0;
-    const mastery = enrolled ? article.currentMastery : 0;
-    const needsReview = enrolled && mastery < 50;
-    const status = !enrolled ? "Lesson" : completion >= 100 ? "Completed" : completion > 0 ? "In Progress" : "Not Started";
+    const locked = !availableToReader(article);
+    const completion = enrolled && !locked ? article.completion : 0;
+    const mastery = enrolled && !locked ? article.currentMastery : 0;
+    const needsReview = enrolled && !locked && mastery < 50;
+    const status = locked ? "Awaiting Review" : !enrolled ? "Lesson" : completion >= 100 ? "Completed" : completion > 0 ? "In Progress" : "Not Started";
     const cover = article.cover || config.cover;
     return `
-      <article class="category-hub-article ${needsReview ? "is-warning" : ""}">
+      <article class="category-hub-article ${needsReview ? "is-warning" : ""} ${locked ? "is-review-locked" : ""}">
         <a class="category-hub-article-cover" href="${escapeHtml(safePath(article.path))}" style="--article-cover:url('${escapeHtml(cover)}')"><span>${escapeHtml(status)}</span></a>
         <div class="category-hub-article-body">
-          <p class="category-hub-article-date">${escapeHtml(formatArticleDate(article.date))}${article.studyTime ? ` · ${escapeHtml(article.studyTime)} min guided lesson` : ""}</p>
+          <p class="category-hub-article-date">${config.name === "Mathematical Modeling" && article.lessonNumber ? `Lesson ${String(article.lessonNumber).padStart(2, "0")} · Level ${article.lessonLevel || 1}` : escapeHtml(formatArticleDate(article.date))}${!locked && article.studyTime ? ` · ${escapeHtml(article.studyTime)} min guided lesson` : ""}</p>
           <h3><a href="${escapeHtml(safePath(article.path))}">${escapeHtml(article.title)}</a></h3>
           <p>${escapeHtml(article.excerpt || "Open this article to explore the complete notes and references.")}</p>
-          ${enrolled ? `<div class="category-hub-article-progress"><span><b>Progress ${completion}%</b><b class="${needsReview ? "is-warning" : ""}">Mastery ${mastery}%</b></span><div><i style="width:${completion}%"></i></div></div>` : ""}
-          <a class="category-hub-open" href="${escapeHtml(safePath(article.path))}">${enrolled && completion > 0 ? "Continue Lesson" : "Open Article"} <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>
+          ${enrolled && !locked ? `<div class="category-hub-article-progress"><span><b>Progress ${completion}%</b><b class="${needsReview ? "is-warning" : ""}">Mastery ${mastery}%</b></span><div><i style="width:${completion}%"></i></div></div>` : ""}
+          <a class="category-hub-open" href="${escapeHtml(safePath(article.path))}">${locked ? "View Review Status" : enrolled && completion > 0 ? "Continue Lesson" : "Open Article"} <i class="fa-regular ${locked ? "fa-lock" : "fa-arrow-right"}" aria-hidden="true"></i></a>
         </div>
       </article>`;
   };
@@ -328,7 +331,11 @@
     }
     if (version !== renderVersion || !mount.isConnected) return;
 
-    const articles = catalog.filter((article) => article.categories.includes(config.name));
+    const articles = catalog
+      .filter((article) => article.categories.includes(config.name))
+      .sort((a, b) => config.name === "Mathematical Modeling"
+        ? (a.lessonNumber || 999) - (b.lessonNumber || 999)
+        : new Date(b.date) - new Date(a.date));
     const api = reader();
     if (!api || !api.getClient()) {
       window.setTimeout(renderHub, 180);
@@ -385,13 +392,14 @@
         currentMastery: enrolled ? api.decayedMastery(chapterProgress, new Date(), saved.last_read_at) : 0,
       };
     });
-    const series = enrolled ? aggregateSeries(enriched, events) : [];
+    const available = enriched.filter(availableToReader);
+    const series = enrolled ? aggregateSeries(available, events) : [];
 
     mount.innerHTML = `
       ${heroMarkup(config, enriched.length, session, enrolled)}
-      ${config.course ? courseOverviewMarkup(enriched, enrolled, series) : readingOverviewMarkup(enriched, session)}
+      ${config.course ? courseOverviewMarkup(available, enrolled, series) : readingOverviewMarkup(enriched, session)}
       <section class="category-hub-curriculum">
-        <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">${config.course ? "COURSE CONTENT" : "CATEGORY LIBRARY"}</p><h2>${config.course ? "Learning Path" : "All Articles"}</h2></div><span>${enriched.length} published</span></div>
+        <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">${config.course ? "COURSE CONTENT" : "CATEGORY LIBRARY"}</p><h2>${config.course ? "Learning Path" : "All Articles"}</h2></div><span>${config.name === "Mathematical Modeling" ? `${available.length} available · ${enriched.length - available.length} awaiting review` : `${enriched.length} published`}</span></div>
         <div class="category-hub-article-grid">${enriched.map((article) => articleCardMarkup(article, config, Boolean(config.course && enrolled))).join("")}</div>
       </section>`;
     mount.dataset.categoryHubReady = "true";

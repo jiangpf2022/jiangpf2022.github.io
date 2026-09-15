@@ -1019,3 +1019,57 @@
     transition-duration: 1ms !important;
   }
 }
+
+.blog-learning-awaiting-review {
+  margin: 12px 0 !important;
+  color: var(--blog-learning-muted, #60759a);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.blog-learning-awaiting-review i {
+  margin-right: 6px;
+  color: #4d7ad0;
+}
+
+.blog-learning-legacy-records {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid rgba(106, 145, 213, 0.28);
+  border-radius: 18px;
+  background: rgba(92, 129, 187, 0.08);
+}
+
+.blog-learning-legacy-records h3 {
+  margin: 0 0 7px !important;
+  font-size: 18px;
+}
+
+.blog-learning-legacy-records p {
+  margin: 0 0 13px !important;
+  font-size: 12px;
+}
+
+.blog-learning-legacy-records > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 9px;
+}
+
+.blog-learning-legacy-records a {
+  padding: 11px;
+  border: 1px solid rgba(106, 145, 213, 0.23);
+  border-radius: 12px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.blog-learning-legacy-records small {
+  display: block;
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+.dark .blog-learning-legacy-records a {
+  background: rgba(25, 44, 76, 0.65);
+}

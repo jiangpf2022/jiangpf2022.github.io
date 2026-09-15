@@ -7,7 +7,7 @@
       label: "MODELING STUDIO",
       icon: "fa-solid fa-chart-line",
       cover: "/blog/images/mathematical-modeling-nyc.webp",
-      description: "An 18-lesson, zero-to-competition tutorial in formulation, optimization, simulation, dynamical systems, forecasting, data analysis, validation, and scientific communication.",
+      description: "A 20-lesson, zero-to-competition path from the first model through visual evidence, optimization, dynamical systems, forecasting, data analysis, case studies, and scientific writing. New lessons open after author review.",
     },
     "COMS4773W-Computational-Aspects-of-Robotics": {
       name: "COMS4773W Computational Aspects of Robotics",

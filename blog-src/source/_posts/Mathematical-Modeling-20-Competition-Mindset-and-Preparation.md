@@ -1,15 +1,16 @@
 ---
-title: Mathematical Modeling 8 - Genetic Algorithms
-date: 2026-09-14 20:00:09
-categories: Mathematical Modeling Draft Archive
+title: Mathematical Modeling 20 - Competition Mindset & Preparation
+date: 2026-09-15 18:00:01
+categories: Mathematical Modeling
 tags:
-  - Genetic Algorithms
-  - Metaheuristics
-  - Combinatorial Optimization
+  - Mathematical Modeling
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
-study_time: 40
-excerpt: "Genetic algorithms explained as representations, operators, constraints, and evidence—not as a black-box substitute for formulation."
+study_time: 0
+lesson_number: 20
+lesson_level: 2
+review_lock: true
+excerpt: "Prepare the team, time budget, tools, and decision habits for a modeling competition."
 ---
 
 ## Lesson awaiting review

@@ -1,7 +1,7 @@
 ---
 title: Mathematical Modeling 13 - Forecasting Models
 date: 2026-09-14 20:00:04
-categories: Mathematical Modeling
+categories: Mathematical Modeling Draft Archive
 tags:
   - ARIMA
   - Exponential Smoothing

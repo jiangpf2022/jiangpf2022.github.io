@@ -2,6 +2,8 @@
 title: Mathematical Modeling 1 - From Reality to a Model
 date: 2026-09-14 20:00:16
 categories: Mathematical Modeling
+lesson_number: 1
+lesson_level: 1
 tags:
   - Modeling Cycle
   - Assumptions
@@ -26,13 +28,17 @@ Our commuter guess already contains the first modeling question: *what exactly a
 
 ## The modeling contract
 
-A model must make five things explicit:
-
-1. **Purpose:** What decision, explanation, or prediction is required?
-2. **Boundary:** Which objects, time scales, and interactions belong to the system?
-3. **State:** What quantities are sufficient to describe the system at a given moment?
-4. **Mechanism:** How do those quantities interact or change?
-5. **Evidence:** What observation could show that the model is inadequate?
+<aside class="mm-key-box" role="note" aria-label="The modeling contract">
+  <span class="mm-callout-label">Key idea · The modeling contract</span>
+  <p>A model must make five things explicit:</p>
+  <ol>
+    <li><strong>Purpose:</strong> What decision, explanation, or prediction is required?</li>
+    <li><strong>Boundary:</strong> Which objects, time scales, and interactions belong to the system?</li>
+    <li><strong>State:</strong> What quantities are sufficient to describe the system at a given moment?</li>
+    <li><strong>Mechanism:</strong> How do those quantities interact or change?</li>
+    <li><strong>Evidence:</strong> What observation could show that the model is inadequate?</li>
+  </ol>
+</aside>
 
 This contract prevents a common failure: solving a mathematically interesting problem that is not the problem asked.
 

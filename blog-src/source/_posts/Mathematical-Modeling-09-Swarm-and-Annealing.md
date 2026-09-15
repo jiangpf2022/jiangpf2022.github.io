@@ -1,7 +1,7 @@
 ---
 title: Mathematical Modeling 9 - Swarm and Annealing
 date: 2026-09-14 20:00:08
-categories: Mathematical Modeling
+categories: Mathematical Modeling Draft Archive
 tags:
   - Particle Swarm Optimization
   - Simulated Annealing

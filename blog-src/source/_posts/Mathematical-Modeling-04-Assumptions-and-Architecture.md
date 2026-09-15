@@ -1,7 +1,7 @@
 ---
 title: Mathematical Modeling 4 - Assumptions and Architecture
 date: 2026-09-14 20:00:13
-categories: Mathematical Modeling
+categories: Mathematical Modeling Draft Archive
 tags:
   - Problem Analysis
   - Notation

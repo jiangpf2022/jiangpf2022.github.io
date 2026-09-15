@@ -6,9 +6,9 @@
     return;
   }
 
-  const protectedRoute = /^\/blog\/2026\/09\/14\/Mathematical-Modeling-(0[2-9]|1[0-8])-[A-Za-z0-9-]+\/$/;
+  const protectedRoute = /^\/blog\/2026\/09\/(?:14|15)\/Mathematical-Modeling-(0[2-9]|1[0-9]|20)-[A-Za-z0-9-]+\/$/;
   // Remove a lesson number here only when its reviewed Markdown is published.
-  const lockedLessons = new Set(["02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18"]);
+  const lockedLessons = new Set(["02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]);
   const table = "protected_modeling_articles";
   const lockedViews = new WeakMap();
   let requestVersion = 0;
@@ -66,7 +66,12 @@
       .single();
     if (version !== requestVersion || !canRead() || activeContent !== content) return;
     if (error || !data?.content_html) {
-      announceLoadError(content);
+      if (path.startsWith("/blog/2026/09/15/")) {
+        const message = content.querySelector(".mm-protected-article p:last-child");
+        if (message) message.textContent = "The 20-lesson edition is being rewritten and will open after author review.";
+      } else {
+        announceLoadError(content);
+      }
       return;
     }
 
@@ -85,6 +90,7 @@
       if (toc) toc.innerHTML = data.toc_html || "";
       window.__articleTocToggle?.refresh?.();
       reader()?.refreshPage?.();
+      document.dispatchEvent(new CustomEvent("modeling:article-loaded", { detail: { path } }));
     } catch (_error) {
       restoreLock(content);
       announceLoadError(content);

@@ -29,12 +29,14 @@
       .replaceAll("'", "&#039;");
 
   const reader = () => window.__blogReadingHistory;
+  const availableToReader = (item) =>
+    !item.reviewLock || (item.lessonNumber === 2 && reader()?.isDeveloper?.() && !reader()?.isRegularPreview?.());
   const courseBySlug = (slug) => COURSES.find((course) => course.slug === slug) || null;
   const courseByName = (name) => COURSES.find((course) => course.name === name) || null;
 
   const loadCourseCatalog = async () => {
     if (!catalogPromise) {
-      catalogPromise = fetch("/blog/search.json", { cache: "no-store" })
+      catalogPromise = fetch("/blog/category-hub.json", { cache: "no-store" })
         .then((response) => {
           if (!response.ok) throw new Error("Course catalog could not be loaded");
           return response.json();
@@ -45,9 +47,11 @@
             if (!course) return [];
             return [{
               course_slug: course.slug,
-              post_path: safePostPath(post.url),
-              post_title: post.title || safePostPath(post.url),
-              post_url: `${window.location.origin}${safePostPath(post.url)}`,
+              post_path: safePostPath(post.path),
+              post_title: post.title || safePostPath(post.path),
+              post_url: `${window.location.origin}${safePostPath(post.path)}`,
+              reviewLock: Boolean(post.reviewLock),
+              lessonNumber: Number(post.lessonNumber) || null,
             }];
           }),
         )
@@ -234,6 +238,12 @@
 
   const articleMarkup = (item) => {
     const path = safePostPath(item.post_path);
+    if (!availableToReader(item)) return `
+      <article class="blog-learning-article-card">
+        <header><div><span class="blog-learning-plan-date">Lesson ${String(item.lessonNumber || "").padStart(2, "0")} · Author review</span><h4><a href="${escapeHtml(path)}">${escapeHtml(item.post_title || path)}</a></h4></div></header>
+        <p class="blog-learning-awaiting-review"><i class="fa-solid fa-lock" aria-hidden="true"></i> Awaiting review. Progress tracking starts when this lesson opens.</p>
+        <footer><a href="${escapeHtml(path)}">View Review Status <i class="fa-regular fa-lock" aria-hidden="true"></i></a></footer>
+      </article>`;
     const completion = Math.max(0, Math.min(100, Number(item.completion) || 0));
     const needsReview = item.currentMastery < 50;
     const articleScore = Math.round((completion * item.currentMastery) / 10) / 10;
@@ -253,9 +263,10 @@
   };
 
   const courseSectionMarkup = (course, items) => {
-    const completion = average(items, (item) => Number(item.completion) || 0);
-    const mastery = average(items, (item) => item.currentMastery || 0);
-    const warningCount = items.filter((item) => item.currentMastery < 50).length;
+    const available = items.filter(availableToReader);
+    const completion = average(available, (item) => Number(item.completion) || 0);
+    const mastery = average(available, (item) => item.currentMastery || 0);
+    const warningCount = available.filter((item) => item.currentMastery < 50).length;
     return `
       <section class="blog-learning-course" data-course="${course.slug}">
         <header class="blog-learning-course-header">
@@ -263,7 +274,7 @@
           <div class="blog-learning-course-stats">
             <span><b>${completion}%</b> progress</span>
             <span><b>${mastery}%</b> mastery</span>
-            <span><b>${items.length}</b> article${items.length === 1 ? "" : "s"}</span>
+            <span><b>${available.length}</b> open / ${items.length} planned</span>
             ${warningCount ? `<span class="is-warning"><b>${warningCount}</b> need${warningCount === 1 ? "s" : ""} review</span>` : ""}
             <button type="button" data-learning-action="remove-course" data-learning-course="${course.slug}"><i class="fa-regular fa-bookmark-slash" aria-hidden="true"></i> Remove Course</button>
           </div>
@@ -350,8 +361,14 @@
     activeCourseSlugs = new Set(enrolledCourses.map((course) => course.slug));
     const enrolledAt = new Map(enrolledCourses.map((course) => [course.slug, course.enrolled_at]));
     const historyByPath = new Map((historyResult.data || []).map((item) => [safePostPath(item.post_path), item]));
+    const legacyRecords = (historyResult.data || [])
+      .filter((item) => /^\/blog\/2026\/09\/14\/Mathematical-Modeling-(0[3-9]|1[0-8])-/.test(safePostPath(item.post_path)))
+      .sort((a, b) => safePostPath(a.post_path).localeCompare(safePostPath(b.post_path)));
     const courseItems = catalog
       .filter((post) => activeCourseSlugs.has(post.course_slug))
+      .sort((a, b) => a.course_slug === "mathematical-modeling" && b.course_slug === "mathematical-modeling"
+        ? (a.lessonNumber || 999) - (b.lessonNumber || 999)
+        : 0)
       .map((post) => ({
         completion: 0,
         mastery: 0,
@@ -388,9 +405,10 @@
       ...item,
       currentMastery: api.decayedMastery(item.chapter_progress, today, item.last_read_at),
     }));
-    const totalCompletion = average(enriched, (item) => Number(item.completion) || 0);
-    const totalMastery = average(enriched, (item) => item.currentMastery || 0);
-    const overallSeries = enriched.length ? aggregateSeries(enriched, events) : [];
+    const available = enriched.filter(availableToReader);
+    const totalCompletion = average(available, (item) => Number(item.completion) || 0);
+    const totalMastery = average(available, (item) => item.currentMastery || 0);
+    const overallSeries = available.length ? aggregateSeries(available, events) : [];
     const courseGroups = Object.fromEntries(
       COURSES.map((course) => [course.slug, enriched.filter((item) => item.course_slug === course.slug)]),
     );
@@ -409,11 +427,11 @@
       <section class="blog-learning-summary" aria-label="Semester study plan overview">
         <article class="is-level"><span>Learning Level</span><strong>${experience.level}</strong><small>LV</small><div><i style="width:${experience.percentage}%"></i></div></article>
         <article><span>Active Courses</span><strong>${enrolledCourses.length}</strong><small>/ ${COURSES.length}</small></article>
-        <article><span>Course Articles</span><strong>${enriched.length}</strong><small>total</small></article>
+        <article><span>Open / Planned Lessons</span><strong>${available.length}</strong><small>/ ${enriched.length}</small></article>
         <article><span>Overall Completion</span><strong>${totalCompletion}</strong><small>%</small></article>
         <article><span>Current Mastery</span><strong>${totalMastery}</strong><small>%</small></article>
       </section>
-      ${reviewWarningMarkup(enriched)}
+      ${reviewWarningMarkup(available)}
       <section class="blog-learning-curve-lab">
         <header>
           <div><p class="blog-learning-eyebrow">RETENTION VIEW</p><h3>Forgetting Curves</h3></div>
@@ -425,13 +443,18 @@
         <div class="blog-learning-explainer"><i class="fa-regular fa-wave-sine" aria-hidden="true"></i><p>Mastery decays daily as <code>R(t) = R₀ · e<sup>−t/7</sup></code>. Solid lines show history; dotted lines forecast the next seven days.</p></div>
         <div class="blog-learning-curve-panel" data-learning-curve-panel="all">
           <div class="blog-learning-curve-heading"><div><span>Semester</span><strong>${totalCompletion}% overall progress</strong></div><div><span>Current mastery</span><strong>${totalMastery}%</strong></div></div>
-          ${enriched.length ? chartMarkup(overallSeries, "all", "all courses") : '<div class="blog-learning-curve-empty">Add a course to begin your semester curve.</div>'}
+          ${available.length ? chartMarkup(overallSeries, "all", "all courses") : '<div class="blog-learning-curve-empty">Complete an open lesson to begin your semester curve.</div>'}
         </div>
-        ${enrolledCourses.map((course) => coursePanelMarkup(course, courseGroups[course.slug], aggregateSeries(courseGroups[course.slug], events))).join("")}
+        ${enrolledCourses.map((course) => coursePanelMarkup(course, courseGroups[course.slug].filter(availableToReader), aggregateSeries(courseGroups[course.slug].filter(availableToReader), events))).join("")}
       </section>
       <div class="blog-learning-course-list">
         ${enrolledCourses.length ? enrolledCourses.map((course) => courseSectionMarkup(course, courseGroups[course.slug])).join("") : '<div class="blog-learning-course-empty is-standalone">No course plan yet. Open a course article and choose Add Course.</div>'}
       </div>
+      ${legacyRecords.length ? `<section class="blog-learning-legacy-records" aria-label="Earlier modeling edition progress">
+        <h3>Earlier Modeling Edition</h3>
+        <p>Your old reading and mastery records are preserved. They are separate from the reorganized 20-lesson course and will not produce false review alerts.</p>
+        <div>${legacyRecords.map((item) => `<a href="${escapeHtml(safePostPath(item.post_path))}">${escapeHtml(item.post_title || safePostPath(item.post_path))} <small>${Math.round(Number(item.completion) || 0)}% completed</small></a>`).join("")}</div>
+      </section>` : ""}
     `;
     loading = false;
     activateCurve(selectedCurve);
