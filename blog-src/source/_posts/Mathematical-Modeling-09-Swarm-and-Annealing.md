@@ -7,7 +7,8 @@ tags:
   - Simulated Annealing
   - Global Optimization
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "Particle swarm optimization and simulated annealing, with practical guidance on boundaries, cooling, stopping, and fair evaluation."
 ---
 
@@ -106,3 +107,47 @@ for temperature in cooling_schedule:
 ```
 
 Plot acceptance rate by temperature. If it begins near zero, the initial temperature is too low or moves are too large; if it remains near one, cooling is too slow or moves are too small.
+
+## Guided workshop: search, simulate, and queue
+
+Metaheuristics are often used around a simulation whose output has no simple formula. Suppose an emergency department chooses staffing levels and patient-priority rules. The objective combines waiting time, overtime, and the fraction of high-severity patients served late. A discrete-event simulation estimates these outcomes for one candidate policy.
+
+### Build a discrete-event simulation
+
+The simulation state contains the clock, waiting queues, busy servers, and patient records. Events include arrival, service start, and service completion. The basic loop is:
+
+1. remove the earliest event from a priority queue;
+2. advance the clock to that event time;
+3. update state and statistics;
+4. schedule any events caused by the update;
+5. stop after the warm-up and observation horizon.
+
+Do not advance time in tiny fixed increments when nothing happens. Event-driven simulation is both faster and conceptually clearer.
+
+For a simple $M/M/1$ queue with Poisson arrival rate $\lambda$ and exponential service rate $\mu$, utilization is $\rho=\lambda/\mu$. When $\rho<1$,
+
+$$
+L=\frac{\rho}{1-\rho},
+\qquad
+W=\frac{1}{\mu-\lambda},
+$$
+
+and Little's law gives $L=\lambda W$. Use these formulas to verify a simulation before adding priorities, multiple servers, or empirical distributions. When $\rho$ approaches one, delay grows nonlinearly; average capacity being barely above average demand is not enough.
+
+### Understand Markov structure
+
+If the future state depends on the present state but not the full past, transitions can be written in a matrix $P$ with $P_{ij}=\Pr(X_{t+1}=j\mid X_t=i)$. A distribution evolves as $\pi_{t+1}=\pi_tP$. A stationary distribution satisfies $\pi=\pi P$ and $\sum_i\pi_i=1$. Markov chains model weather regimes, customer states, reliability, and inventory conditions, but the memoryless assumption must be tested or justified.
+
+### Optimize noisy outputs
+
+One simulated objective value is noisy. Compare policies using common random numbers: run competing candidates on the same arrival and service scenarios so that differences have lower variance. Use multiple replications and optimize an estimated mean plus risk term. Cache evaluations when the same discrete policy returns.
+
+PSO is natural for continuous parameters such as priority weights; SA is natural when a policy has a meaningful local move, such as transferring one worker between periods. A hybrid can use PSO or SA globally and a deterministic local search for refinement. State the total simulation replications because they dominate computational cost.
+
+### Remove initialization bias
+
+For a continuing queue, an empty system at time zero is unrepresentative. Plot time-series averages and discard a justified warm-up period, or initialize from an approximate steady state. For terminating systems such as one clinic day, the empty opening state may be real and should not be removed.
+
+### Practice
+
+Simulate an $M/M/1$ queue and verify Little's law over several $\rho$ values. Replace exponential service with a two-component empirical mixture and observe the tail. Then choose staffing for each period using SA, with common random numbers and a penalty for late high-severity patients. Report confidence intervals and compare with a rule based only on average utilization.

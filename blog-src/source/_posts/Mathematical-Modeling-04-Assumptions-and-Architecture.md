@@ -7,7 +7,8 @@ tags:
   - Notation
   - Model Architecture
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "How to turn a prompt into connected submodels, defensible assumptions, a clean notation system, and an executable research plan."
 ---
 
@@ -82,3 +83,43 @@ Write a one-page model specification containing the objective, state or decision
 
 The architecture is successful when another teammate can implement one stage without guessing what the previous stage meant.
 
+## Guided workshop: architect a multi-part problem
+
+Consider a coastal city deciding where to place emergency shelters, how to route residents, and how many supplies to pre-position under uncertain storm intensity. The prompt appears to contain three independent questions, but a good architecture exposes their interfaces.
+
+### Build a dependency graph
+
+The hazard model estimates flooding by location and scenario. Its output determines which roads are available and how many residents require evacuation. The network model estimates travel time and accessibility. Those quantities enter a facility-location model that selects shelters and allocations. A final simulation tests congestion, shelter overflow, and supply exhaustion.
+
+Write every arrow as data: “hazard model $\rightarrow$ road-open indicator $a_{e,s}$,” not merely “Model 1 supports Model 2.” If an arrow has no named output, the modules are not yet connected.
+
+### Define states, decisions, and parameters
+
+For scenario $s$, let $a_{e,s}\in\{0,1\}$ indicate whether road edge $e$ is usable and $d_{i,s}$ be evacuees at neighborhood $i$. Let $x_j\in\{0,1\}$ indicate whether shelter $j$ is opened and $y_{ijs}\ge0$ the scenario-dependent number sent from $i$ to $j$. The distinction matters: $x_j$ is a here-and-now decision, while $y_{ijs}$ may adapt after the storm scenario is known.
+
+The phrase “under severe storms” must become a scenario set, probability model, or bounded uncertainty set. A verbal adjective is not a mathematical input.
+
+### Audit assumptions by module
+
+The hazard layer may assume elevation data are accurate; the network layer may assume travel time depends on flow; the location layer may assume shelters meet a minimum safety class. Do not place all assumptions in one undifferentiated list. A local assumption is easier to test and revise. For each one, state which equation or data transformation it enables.
+
+### Specify interfaces before implementation
+
+Create a contract for each module:
+
+| Module | Inputs | Outputs | Required checks |
+|---|---|---|---|
+| Hazard | elevation, storm scenario | flooded cells, $a_{e,s}$ | compare with historic flood maps |
+| Network | graph, $a_{e,s}$, demand | travel-time matrix | connectivity and flow conservation |
+| Location | travel time, capacity, cost | $x_j,y_{ijs}$ | budget, capacity, integrality |
+| Simulation | selected plan, event distributions | delay, overflow, failures | repeated seeds and extreme scenarios |
+
+This table also defines a clean software structure. Each module can be tested using synthetic inputs before the preceding module is finished.
+
+### Trace one number end to end
+
+Choose a final result—say, “95% of residents reach shelter within 45 minutes”—and trace it backward. Which simulation output creates it? Which routes and assignments create those trips? Which road states and storm scenarios create the network? Which raw measurements create those states? If any transition is undocumented, the result is not reproducible.
+
+### Practice
+
+Take a problem with at least three subquestions. Draw a directed acyclic graph whose nodes are model modules and whose edges are named tables, vectors, or parameters. Mark each quantity as observed, estimated, assumed, decided, or simulated. The finished graph should let a teammate identify circular dependencies before any code is written.

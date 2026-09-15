@@ -7,7 +7,8 @@ tags:
   - Factor Analysis
   - Clustering
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "A step-by-step introduction to PCA, factor analysis, K-means, hierarchical clustering, DBSCAN, mixture models, and stability."
 ---
 
@@ -110,3 +111,44 @@ for k in range(2, 8):
 ```
 
 Do not choose $K$ from this printout alone. Inspect cluster sizes, profiles, resampling stability, and whether the groups change any real decision.
+
+## Guided workshop: discover structure without inventing it
+
+Suppose 200 cities are described by 30 socioeconomic, mobility, health, and environmental indicators. The goals are to summarize dominant dimensions and identify groups that may require different policies. Standardization, PCA, and clustering form a workflow, but each step contains modeling choices.
+
+### Prepare the matrix
+
+Remove identifiers and variables that directly encode the answer. Transform severely skewed positive measurements, orient variables consistently when interpretation requires it, and standardize units. Impute before PCA inside a reproducible pipeline. If missingness is informative, add indicators or use methods that model it rather than silently filling all gaps.
+
+PCA diagonalizes the sample covariance or correlation matrix. If $Z$ is standardized, directions $v_k$ solve
+
+$$
+v_k=\arg\max_{\|v\|=1,\,v\perp v_1,\ldots,v_{k-1}}
+\operatorname{Var}(Zv).
+$$
+
+Scores $Zv_k$ locate observations; loadings connect original variables to a component. The sign of a component is arbitrary. Name a component only when several large loadings form a coherent pattern, and report the loading table.
+
+### Select dimension with several signals
+
+Use cumulative explained variance, a scree plot, reconstruction error, parallel analysis, and downstream stability. “Retain enough components for 85% variance” is a convention, not a theorem. A low-variance direction may be important for prediction, while a high-variance direction may represent nuisance scale.
+
+Factor analysis models covariance using latent factors plus variable-specific noise, whereas PCA is a variance-preserving transformation. Rotation can improve interpretability but changes the loading representation. State extraction and rotation methods.
+
+### Match clustering to geometry
+
+K-means minimizes within-cluster squared Euclidean distance and prefers compact, roughly spherical groups. Hierarchical clustering exposes nested merges but depends on linkage. DBSCAN discovers dense shapes and labels sparse points as noise, but scale and varying density are difficult. Gaussian mixtures provide soft probabilities and elliptical clusters under distributional assumptions.
+
+Choose distance deliberately. Euclidean distance on standardized continuous features differs from Manhattan distance; mixed numeric/categorical data may require Gower distance. For time series, shape or dynamic-time-warping distances may be meaningful. The distance function is part of the model.
+
+### Measure stability
+
+Repeat preprocessing and clustering on bootstrap or subsamples, align labels, and measure agreement such as adjusted Rand index. Perturb feature sets and scaling. A high silhouette score with unstable membership is not persuasive. Separate a small “cluster” that exists only because of data errors or extreme scale.
+
+### Turn clusters into decisions
+
+Build profile tables using variables not solely those that forced the clustering. Report size, uncertainty, representative cases, and overlap. Policy should not treat an uncertain boundary as a natural law. Use soft membership or tiers when appropriate, and test whether cluster-specific policies actually outperform a common policy.
+
+### Practice
+
+Analyze the city matrix with PCA plus K-means, hierarchical clustering, DBSCAN, and a Gaussian mixture. Compare geometry, metrics, stability, and interpretability. Name groups only after profiles are produced. Finish with one concrete decision that changes because of the grouping and one warning about how preprocessing could change it.

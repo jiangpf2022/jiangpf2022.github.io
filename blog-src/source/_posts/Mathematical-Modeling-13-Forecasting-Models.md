@@ -7,7 +7,8 @@ tags:
   - Exponential Smoothing
   - Forecast Validation
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "A comparative guide to smoothing, ARIMA, seasonal models, volatility, grey forecasting, regressors, and honest forecast evaluation."
 ---
 
@@ -99,3 +100,62 @@ Compare models by horizon, season, and operating regime. A model may be best at 
 ### Beginner comparison table
 
 For each candidate, record preprocessing, required history, required future covariates, fitted parameters, rolling MAE/RMSE, interval coverage, runtime, and failure modes. A forecasting section is complete only when a reader can see why the chosen model is preferable for the stated horizon.
+
+## Guided workshop: build a forecasting tournament
+
+Use monthly product demand as a running example. The series has five years of history, annual seasonality, promotions, and occasional stockouts. The business needs forecasts for the next three months. A model tournament compares candidates under exactly this information pattern.
+
+### Start with baselines
+
+Define naive, seasonal-naive, mean, drift, and moving-average forecasts. The seasonal-naive forecast $\hat y_{t+h}=y_{t+h-12}$ is often difficult to beat for strongly seasonal monthly data. If a sophisticated model wins only against the mean, the comparison is incomplete.
+
+### Understand exponential smoothing
+
+Simple exponential smoothing updates level:
+
+$$
+\ell_t=\alpha y_t+(1-\alpha)\ell_{t-1},
+\qquad
+\hat y_{t+h|t}=\ell_t.
+$$
+
+$\alpha$ near one reacts quickly; near zero smooths strongly. Holt adds trend; damped Holt prevents indefinite linear growth; Holt–Winters adds seasonality. Estimate smoothing parameters by minimizing one-step errors or likelihood rather than choosing them from visual smoothness.
+
+### Read ARIMA notation
+
+ARIMA$(p,d,q)$ applies $d$ differences and models the remainder with $p$ autoregressive lags and $q$ lagged shocks. SARIMA adds seasonal orders $(P,D,Q)_s$. ACF/PACF patterns can suggest orders, but information criteria and rolling validation decide among plausible candidates. After fitting, residuals should have near-zero mean, stable variance, and no material autocorrelation; a Ljung–Box test supports but does not replace the residual plots.
+
+### Treat interventions and external variables honestly
+
+Promotion, price, weather, and holidays can enter dynamic regression. Future values must be known or separately forecast. Stockouts censor demand: observed sales are less than latent demand, so a model trained on sales may learn artificial low demand. Add availability indicators, reconstruct censored demand when defensible, or state the limitation.
+
+Structural breaks require intervention variables, shorter training windows, time-varying parameters, or regime models. Do not hide a pandemic or policy change inside a generic outlier-cleaning rule.
+
+### Generate intervals
+
+Intervals should widen with horizon. Analytic state-space models can propagate uncertainty; bootstrap methods resample suitable residual blocks; quantile regression directly predicts conditional quantiles. Evaluate empirical coverage and average width together. A 95% interval that covers 100% because it is enormous is not automatically useful.
+
+### Compare over rolling origins
+
+For each origin, fit using only available history and forecast horizons 1–3. Store every prediction, not only aggregate scores. Report MAE, RMSE, MASE, bias, and interval coverage by horizon. Use a loss function aligned with decisions: underprediction may be more costly than overprediction in capacity planning.
+
+```python
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+model = SARIMAX(
+    train,
+    order=(1, 1, 1),
+    seasonal_order=(1, 1, 1, 12),
+    enforce_stationarity=False,
+)
+fit = model.fit(disp=False)
+forecast = fit.get_forecast(steps=3)
+mean = forecast.predicted_mean
+interval = forecast.conf_int(alpha=0.05)
+```
+
+This code is a candidate, not a conclusion. The final selection table must compare it with baselines and alternatives over all origins.
+
+### Practice
+
+Run a tournament containing seasonal naive, Holt–Winters, SARIMA, and a tree model with lag/calendar features. Use a common rolling split and report performance by horizon. Inspect residuals, bias, coverage, runtime, and dependence on future covariates. Select a model and write one paragraph explaining when it should be retrained or replaced.

@@ -7,7 +7,8 @@ tags:
   - Abstract
   - Model Summary
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "A compact architecture for an abstract that states the problem, model, evidence, conclusions, and robustness without empty claims."
 ---
 
@@ -81,3 +82,41 @@ Highlight every method in one color, every result in another, and every validati
 
 The abstract is written last, after results are stable. It is then revised as a standalone decision memo: concise, quantitative, and consistent with the body.
 
+## Guided workshop: write an abstract from a result table
+
+Imagine a problem with three tasks: forecast weekly water demand, design a reservoir release policy, and test the policy during drought. The final results are: seasonal-naive MAE $=8.7$ ML/day, selected forecasting model MAE $=5.9$ ML/day, expected shortage reduced from $14.2$ to $4.6$ ML/day, and the policy remains feasible in 93% of 2,000 drought scenarios.
+
+### Convert tasks into a logical chain
+
+Do not write “For Problem 1 we used X; for Problem 2 we used Y.” Explain why the outputs connect. The demand forecast generates inflow and demand scenarios; those scenarios enter the release optimization; simulation evaluates the chosen policy. This chain is the intellectual contribution.
+
+A useful first sentence is: “We develop a forecast–optimization–simulation framework for weekly reservoir operation under seasonal demand and uncertain drought severity.” It identifies the object, time scale, decision, and uncertainty without retelling the prompt.
+
+### State methods at the correct resolution
+
+“We use machine learning” is too vague. “We use a gradient-boosted tree” may be too detailed if the method is not central. Choose the resolution that explains the role: “A seasonal forecasting model with weather covariates generates demand scenarios, which feed a two-stage release optimization.” Libraries, hyperparameter searches, and routine preprocessing belong in the body.
+
+### Attach a number to every important claim
+
+An evidence-rich result paragraph might say:
+
+> On the final 12-week holdout, the demand model achieves an MAE of 5.9 ML/day, compared with 8.7 for the seasonal-naive baseline. The optimized release policy lowers expected shortage from 14.2 to 4.6 ML/day while satisfying storage and ecological-flow constraints. In 2,000 drought scenarios, 93% remain feasible; the principal failure mode is a simultaneous 20% inflow decline and peak-demand increase.
+
+Notice what is absent: “excellent,” “high accuracy,” and “very robust.” The numbers perform that work.
+
+### End with a bounded recommendation
+
+The final sentence should answer what the decision maker should do and when the answer might change: “We recommend the optimized policy while weekly inflow remains within the calibrated drought envelope; below its 5th-percentile threshold, the emergency conservation rule should be activated.” This is more useful than “Our model provides theoretical guidance.”
+
+### A fill-in scaffold
+
+Draft the abstract in six sentences:
+
+1. context and decision;
+2. integrated modeling framework;
+3. first task and quantitative evidence;
+4. second task and quantitative evidence;
+5. validation, sensitivity, or failure boundary;
+6. recommendation and operating condition.
+
+Then delete repeated prompt language and any method that never affects a result. Check every number against the final table and every claimed method against the equations. Ask a teammate who has not read the paper to identify the problem, models, main results, validation, and recommendation using only the abstract. Any missing item reveals the next revision.

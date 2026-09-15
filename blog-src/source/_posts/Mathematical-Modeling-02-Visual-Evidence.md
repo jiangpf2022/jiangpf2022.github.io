@@ -7,7 +7,8 @@ tags:
   - Scientific Figures
   - Communication
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "How to choose plots, diagrams, color, and layout so that every figure proves one part of the modeling argument."
 ---
 
@@ -92,3 +93,42 @@ For each graphic, ask:
 
 Use vector output (`.pdf` or `.svg`) for diagrams and line art when possible; use high-resolution raster output for images and dense heatmaps. Matplotlib supports both interactive and hardcopy backends, including PDF and SVG ([official backend guide](https://matplotlib.org/stable/users/explain/figure/backends.html)).
 
+## Guided workshop: turn a table into an argument
+
+Assume a city tests three traffic-control policies at 40 intersections. The raw table contains intersection, date, policy, traffic volume, mean delay, 95th-percentile delay, and incident count. A beginner often creates one large bar chart of all observations. That picture contains data but answers no precise question.
+
+### Start with three claims
+
+Write the claims before writing plotting code:
+
+1. Policy B reduces typical delay relative to the current policy.
+2. The reduction is not created only by low-volume intersections.
+3. Policy B does not improve the mean by creating a dangerous upper tail.
+
+The first claim suggests paired differences or a distribution plot. The second suggests delay against volume, with policy encoded consistently. The third requires quantiles, an empirical cumulative distribution, or a box/violin plot—not another mean bar.
+
+### Encode variables deliberately
+
+Position is the most accurate visual channel for quantitative comparison, followed by length. Area, volume, and color intensity are harder to compare. Therefore use an aligned dot plot for policy means rather than circles whose areas encode delay. Use color for policy, marker shape for observed versus simulated values, and line style for forecast versus history. Do not assign three visual channels to the same variable unless accessibility requires redundancy.
+
+When observations are paired by intersection, show that pairing. Plot $d_i=y_{i,B}-y_{i,A}$ with a zero reference line. The sign immediately answers whether B improves each intersection, while the spread shows heterogeneity hidden by the overall mean.
+
+### Build uncertainty into the figure
+
+An interval must be identified. A standard-error bar, confidence interval for a mean, prediction interval for a future observation, and interquartile range answer different questions. For repeated simulations, show median and central 90% simulation range. For sampled intersections, a bootstrap confidence interval can communicate uncertainty in the population mean. State the resampling unit: resampling individual rows is wrong when many rows come from the same intersection.
+
+### Make the caption carry reasoning
+
+A useful caption can stand alone:
+
+> **Figure 2.** Paired change in mean delay for 40 intersections under Policy B relative to the current policy. Negative values indicate improvement. Points show held-out observations; horizontal lines show 95% bootstrap confidence intervals obtained by resampling intersections. Improvements persist across traffic-volume quartiles, although three high-volume intersections show no reliable change.
+
+This caption defines the population, comparison, direction, uncertainty, and exception. “Results of Policy B” does none of those things.
+
+### Reproduce the figure safely
+
+Keep data transformation separate from styling. First produce a tidy table with one row per plotted mark; save it; then plot it. Set physical figure dimensions, font sizes, and export format explicitly. Open the exported file rather than trusting the notebook preview. Check it at the size used in the paper, in grayscale, and on a projector or phone if the blog is a target.
+
+### Practice
+
+Take one figure from an earlier report. Write its intended claim in one sentence, list every encoded variable, identify the uncertainty shown, and rewrite the caption. Then remove any legend entry, color, gridline, annotation, or decimal place that does not help the claim. The goal is not minimalism for its own sake; it is maximum evidence per unit of attention.

@@ -6,8 +6,8 @@
       name: "Mathematical Modeling",
       label: "MODELING STUDIO",
       icon: "fa-solid fa-chart-line",
-      cover: "/blog/images/mathematical-modeling-course.svg",
-      description: "A competition-ready course in modeling, optimization, dynamical systems, forecasting, data analysis, and scientific communication.",
+      cover: "/blog/images/mathematical-modeling-nyc.webp",
+      description: "An 18-lesson, zero-to-competition tutorial in formulation, optimization, simulation, dynamical systems, forecasting, data analysis, validation, and scientific communication.",
     },
     "COMS4773W-Computational-Aspects-of-Robotics": {
       name: "COMS4773W Computational Aspects of Robotics",

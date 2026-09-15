@@ -7,7 +7,8 @@ tags:
   - Regression
   - Statistical Inference
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "From least-squares curve fitting to linear and logistic regression, diagnostics, uncertainty, regularization, and honest interpretation."
 ---
 
@@ -134,3 +135,52 @@ print(mean_absolute_error(y_test, pred))
 ```
 
 The pipeline ensures that imputation, scaling, and encoding learn only from the training set.
+
+## Guided workshop: from association to prediction
+
+Suppose we model household electricity consumption using floor area, occupants, building age, temperature, and retrofit status. Start by deciding the goal. Explanation asks how consumption changes with a predictor under assumptions; prediction asks how accurately new households can be estimated. The same regression can serve either goal, but validation and language differ.
+
+### Read a coefficient conditionally
+
+In
+
+
+$$
+Y=\beta_0+\beta_1A+\beta_2O+\beta_3T+\epsilon,
+$$
+
+$\beta_1$ is the expected difference associated with one unit of area **holding occupants and temperature fixed**. It is not necessarily the causal effect of constructing a larger home. Omitted income, building type, or behavior may confound the association.
+
+Center continuous variables when interactions are present. With $Y=\beta_0+\beta_1T+\beta_2R+\beta_3TR$, where $R$ indicates retrofit, the temperature slope is $\beta_1$ without retrofit and $\beta_1+\beta_3$ with retrofit. Main effects cannot be interpreted without the interaction.
+
+### Diagnose assumptions visually
+
+Plot residuals versus fitted values for nonlinearity and unequal variance, a Q–Q plot for tail behavior when inference relies on normal errors, residuals versus time for dependence, and leverage/Cook's distance for influential observations. A significant coefficient does not rescue a misspecified model.
+
+Transformations should follow mechanism. A log response turns additive coefficients into approximate percentage changes and can stabilize multiplicative noise. Polynomial terms approximate curvature but extrapolate dangerously. Splines give local flexibility; specify knots or degrees of freedom and validate them.
+
+### Distinguish uncertainty types
+
+A confidence interval quantifies uncertainty in an estimated parameter or mean response under the model. A prediction interval adds individual variation. Bootstrap intervals can help when analytic approximations are doubtful, provided resampling respects clusters and time.
+
+Multiple testing inflates false discoveries. If dozens of coefficients are screened, control family-wise error or false discovery rate, or treat the analysis as exploratory and validate on new data. Report effect size and interval, not only a p-value threshold.
+
+### Expand to generalized models
+
+Binary outcomes use logistic regression:
+
+$$
+\log\frac{p(x)}{1-p(x)}=x^T\beta.
+$$
+
+Exponentiating a coefficient gives an odds ratio, not a probability difference. Counts may use Poisson or negative-binomial regression with an exposure offset. Proportions, durations, and zero-inflated outcomes require distributions consistent with their support.
+
+### Compare machine-learning models fairly
+
+Regularized linear models provide stable baselines. Trees capture thresholds and interactions; random forests reduce tree variance; boosting builds sequential corrections; kernel methods capture nonlinear geometry; neural networks are useful when data volume and structure justify them. Tune every candidate inside training folds and evaluate once on untouched test data.
+
+Use permutation importance or accumulated local effects cautiously when interpretation matters. Feature importance is not causality, and correlated predictors can split or hide importance. Calibrate probabilities for decisions based on risk thresholds.
+
+### Practice
+
+Build an explanatory linear model and a predictive model for the same dataset. For the first, define estimand, confounders, diagnostics, coefficient intervals, and limitations. For the second, create a leakage-safe pipeline, nested tuning, baseline comparison, subgroup error table, and prediction intervals or calibrated probabilities. Explain why the “best” model differs by goal.

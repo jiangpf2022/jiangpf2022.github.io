@@ -8,7 +8,8 @@ tags:
   - TOPSIS
   - CRITIC
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "A complete beginner workflow for indicator design, AHP, entropy and CRITIC weights, TOPSIS ranking, interpretation, and robustness."
 ---
 
@@ -125,3 +126,35 @@ ranking = np.argsort(-score)
 ```
 
 Keep the oriented matrix, weights, ideal points, distances, and final scores in the supporting material so the ranking can be audited.
+
+## Guided workshop: create an evaluation system responsibly
+
+Suppose five neighborhoods are prioritized for resilience investment using exposure, vulnerability, infrastructure condition, emergency access, project cost, and population served. A ranking is not discovered automatically by TOPSIS; it is constructed from a value model. The indicator hierarchy and direction are therefore as important as the final formula.
+
+### Define the decision and stakeholders
+
+State whether the output is a complete ranking, funding tiers, or identification of unacceptable risk. Identify who supplies preferences and who bears consequences. An indicator may be measurable but irrelevant, or relevant but double-counted through several correlated proxies.
+
+Build a hierarchy whose branches correspond to distinct concepts. Check coverage, non-redundancy, direction, and data quality. Document benefit indicators, cost indicators, interval-preferred indicators, and thresholds. For a cost indicator $x$, a simple orientation is $z=(x_{\max}-x)/(x_{\max}-x_{\min})$, but this makes relative position depend on the candidate set. A policy threshold may deserve a piecewise value function instead.
+
+### Use AHP with consistency
+
+Pairwise judgments form matrix $A$ with $a_{ij}=1/a_{ji}$. Derive weights from the principal eigenvector or geometric means. The consistency ratio compares observed inconsistency with a random benchmark. A high ratio requires revisiting judgments, not mechanically editing numbers until the test passes. Show the pairwise matrix so priorities are auditable.
+
+### Understand objective weights
+
+Entropy weights increase when an indicator differentiates alternatives; CRITIC combines variability with low correlation. Neither measures ethical or policy importance. A wildly noisy indicator may receive high objective weight. Screen reliability before weighting, and compare subjective and data-driven schemes rather than pretending one is neutral.
+
+### Compare aggregation models
+
+Weighted sums allow full compensation: a very poor score on one criterion can be offset by others. TOPSIS rewards closeness to an ideal and distance from an anti-ideal but depends on normalization and distance. Grey relational analysis compares geometric similarity of sequences. Fuzzy evaluation represents graded membership when boundaries are linguistic. Data Envelopment Analysis compares relative efficiency of units using multiple inputs and outputs, but flexible weights and sensitivity to outliers require care.
+
+Choose a model based on the meaning of preference, not popularity. If a safety threshold cannot be compensated by low cost, impose it as a constraint before ranking feasible alternatives.
+
+### Analyze rank robustness
+
+Sample weights from plausible ranges, repeat normalization choices, bootstrap data, and record rank acceptability: the fraction of runs in which each candidate occupies each rank. Plot score contribution by criterion and identify pairwise reversal thresholds. If first and second exchange under tiny perturbations, report a tied priority tier.
+
+### Practice
+
+Build the neighborhood hierarchy and data dictionary. Produce AHP, entropy, and CRITIC weights; combine them under several $\alpha$ values; compare weighted sum and TOPSIS; and run 10,000 plausible weight perturbations. Report rank acceptability and the exact assumptions needed for the leading recommendation. Add one non-compensable safety threshold and explain its effect.

@@ -7,7 +7,8 @@ tags:
   - Quadratic Programming
   - Convex Optimization
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "A modeling-first guide to linear, assignment, quadratic, and conic optimization with variables, constraints, and solver checks."
 ---
 
@@ -124,3 +125,60 @@ print(x, profit, violation)
 ```
 
 Read the answer in domain language: how many boxes of each product, expected profit, which resource is binding, and whether continuous quantities are physically allowed. If boxes must be integral, use a mixed-integer solver instead of this continuous model.
+
+## Guided workshop: from linear programs to networks
+
+Optimization becomes easier when every symbol answers a physical question. Consider shipping a product from factories $i\in I$ through warehouses $j\in J$ to customers $k\in K$. Let $x_{ij}$ and $y_{jk}$ be shipped quantities and $c_{ij},d_{jk}$ their unit costs.
+
+### Write balance equations
+
+At warehouse $j$, incoming and outgoing flow must balance unless inventory is explicitly modeled:
+
+$$
+\sum_i x_{ij}=\sum_k y_{jk}.
+$$
+
+Factory capacity gives $\sum_jx_{ij}\le u_i$; customer demand gives $\sum_jy_{jk}\ge q_k$. The objective is
+
+$$
+\min\;\sum_{i,j}c_{ij}x_{ij}+\sum_{j,k}d_{jk}y_{jk}.
+$$
+
+This is a minimum-cost flow structure. Recognizing structure matters because specialized algorithms are fast and the resulting solution has an interpretable network.
+
+### Add discrete decisions carefully
+
+If a warehouse must be either open or closed, introduce $z_j\in\{0,1\}$ and link flow to that decision:
+
+$$
+\sum_k y_{jk}\le M_jz_j.
+$$
+
+Choose $M_j$ as the tightest valid capacity, not an enormous arbitrary number. An unnecessarily large big-$M$ weakens the relaxation and can create numerical problems. Fixed opening cost $f_jz_j$ enters the objective. The model is now mixed-integer and convexity of the continuous part no longer guarantees that a local relaxation solution is an integer optimum.
+
+Logical statements can often be encoded similarly. “Choose at most one of A and B” becomes $z_A+z_B\le1$. “If A then B” becomes $z_A\le z_B$. Write a truth table before translating a complicated rule.
+
+### Learn the major graph templates
+
+Many competition problems reduce to a few network patterns:
+
+- **shortest path:** minimum additive cost from a source to a destination;
+- **maximum flow:** greatest feasible flow under edge capacities;
+- **minimum spanning tree:** connect all nodes with minimum total edge weight;
+- **matching/assignment:** pair two sets while respecting exclusivity;
+- **facility location:** choose nodes to open and assign demand to them;
+- **vehicle routing:** construct capacity- and time-constrained tours.
+
+Do not use Dijkstra's algorithm when edges can have negative costs; do not use a spanning tree when traffic must travel from a source to destinations; do not confuse straight-line distance with travel time on a road network.
+
+### Use dual information
+
+Suppose the dual value of factory capacity is $7.4$ dollars per additional unit. Locally, increasing capacity by one unit improves the optimal objective by about $7.4$ until the active set changes. Reduced costs help explain why unused routes remain unused. Sensitivity ranges are local; after a constraint becomes inactive or another becomes binding, resolve the model.
+
+### Diagnose infeasibility
+
+When no solution exists, do not immediately remove constraints. Check units, signs, index ranges, duplicated demand, and lower bounds. Introduce labeled nonnegative slack variables temporarily and penalize them heavily. The locations of unavoidable slack reveal which business rules conflict. Then decide with the domain owner which rule is wrong or negotiable.
+
+### Practice
+
+Build a three-factory, two-warehouse, four-customer instance. Solve the continuous flow model, then add warehouse opening decisions. Verify every balance independently from the solver, visualize positive-flow edges, and explain the change using fixed costs and capacity shadow prices. Finally perturb demand by $\pm10\%$ and record which facilities and routes change.

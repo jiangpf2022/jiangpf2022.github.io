@@ -7,7 +7,8 @@ tags:
   - Exploratory Analysis
   - Interpolation
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "A beginner-friendly pipeline for understanding, cleaning, transforming, visualizing, and interpolating competition data before modeling."
 ---
 
@@ -144,3 +145,47 @@ This is only a scaffold. Each line needs a written justification, and the data l
 ### Beginner exercise
 
 Take one dataset and produce: a data dictionary, audit table, missingness plot, before/after distribution comparison, and one paragraph explaining which cleaning decision could most affect the final conclusion.
+
+## Guided workshop: probability, sampling, and spatial data
+
+Before using a sample, define the population and the mechanism that produced the rows. Convenience samples, voluntary responses, sensor coverage, and survivorship can create bias that no downstream algorithm removes. Randomness in a probability model is not proof that the data were randomly sampled.
+
+### Build probability intuition
+
+For events $A$ and $B$,
+
+$$
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},
+\qquad
+P(A)=\sum_b P(A\mid B=b)P(B=b).
+$$
+
+Bayes' rule reverses conditioning. If a rare defect has prevalence 1%, a test with 95% sensitivity and 95% specificity still produces many false positives. Always combine test accuracy with base rate before interpreting a positive result.
+
+Expectation is a probability-weighted average, variance measures squared deviation, and covariance measures joint movement. Correlation is standardized covariance but does not capture every nonlinear dependence and does not imply causality. Plot joint distributions and identify repeated-measure or clustered structure.
+
+### Quantify sampling uncertainty
+
+The sample mean has standard error approximately $s/\sqrt n$ under independent sampling. More rows do not correct systematic bias, and correlated rows provide less information than independent rows. Bootstrap by resampling the observational unit: residents, hospitals, days, or regions—not arbitrary rows created from the same unit.
+
+Stratified sampling ensures representation of important groups. Cluster sampling may be practical but increases dependence. Weight estimates when sampling probabilities differ. Report both raw sample size and effective design.
+
+### Use interpolation according to geometry
+
+One-dimensional linear interpolation is appropriate between nearby ordered observations when abrupt curvature is unlikely. Cubic splines are smoother but may overshoot. Spatial inverse-distance weighting assumes nearby points are more similar; kriging adds a covariance model and returns uncertainty. Never interpolate across a physical barrier or long unsupported gap without justification.
+
+Cross-validation for spatial interpolation must hold out spatial regions, not random neighboring points, or it will be optimistic. Plot distance to nearest observation and flag extrapolation beyond the observed domain.
+
+### Handle geospatial coordinates correctly
+
+Latitude and longitude are angles. Project to a suitable coordinate reference system before treating them as planar distances over a city or region. Great-circle distance is appropriate on larger domains. Spatial autocorrelation means ordinary random train/test splits can leak local information. Use spatial blocks and inspect residual maps.
+
+### Use Monte Carlo for derived uncertainty
+
+If output $Y=g(X_1,\ldots,X_p)$ depends on uncertain inputs, sample coherent input vectors, compute $Y$, and summarize its distribution. Preserve bounds and dependence. Convergence should be assessed for the statistic used in the decision—mean, 95th percentile, or failure probability.
+
+For rare failure probability $p$, the standard error of the simple estimate is roughly $\sqrt{p(1-p)/N}$. If $p$ is extremely small, naive Monte Carlo may need too many samples; importance sampling or analytical bounds may be required.
+
+### Practice
+
+Choose a dataset with time, location, and repeated observations. Define population, observational unit, sampling mechanism, and dependence. Create a data dictionary; map missingness; compare random, temporal, and spatial splits; bootstrap at the correct unit; and run a Monte Carlo propagation for one uncertain derived quantity. Explain how each design choice changes the conclusion.

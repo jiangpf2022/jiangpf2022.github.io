@@ -7,7 +7,8 @@ tags:
   - Case Study
   - Reproducibility
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "A full competition workflow connecting problem selection, baselines, graph and market case patterns, teamwork, writing, and submission."
 ---
 
@@ -102,3 +103,52 @@ $$
 $$
 
 When time is short, simplify within this loop; do not skip the loop. A transparent, validated model that fully answers the prompt is stronger than a sophisticated algorithm disconnected from the decision.
+
+## Guided workshop: execute a complete modeling project
+
+Use a generic urban heat-resilience problem: identify vulnerable locations, forecast future heat exposure, allocate a limited intervention budget, and explain how the plan changes under climate uncertainty. This case can combine the course without forcing every technique into one paper.
+
+### Hour 0–3: translate the prompt
+
+Create a requirement matrix with one row per requested output: quantity, unit, geography, time horizon, decision maker, evidence, and final presentation. Draw the system boundary and module graph. List available data, expected external data, and quantities that must be assumed. Select a simple baseline for every subproblem.
+
+Assign roles but maintain shared understanding. One person owns the mathematical narrative, one the data pipeline, and one computation/validation; all review the assumptions and final claims. Keep a decision log containing choices, rejected alternatives, and reasons.
+
+### Build the minimum complete pipeline
+
+The first milestone is not the most advanced model. It is one complete path from raw data to a defensible recommendation:
+
+1. clean and map temperature, population, and infrastructure data;
+2. build a transparent vulnerability score with equal weights;
+3. use a seasonal or trend baseline for future exposure;
+4. allocate budget with a linear model;
+5. validate on historical holdouts and perturb weights/costs;
+6. produce one map, one result table, and one recommendation.
+
+Only then replace the weakest component. This protects the team from ending with several sophisticated fragments and no complete answer.
+
+### Choose extensions by failure mode
+
+If equal weights conflict with stakeholder priorities, add AHP and robustness analysis. If the forecast misses nonlinear weather effects, add dynamic regression or tree models. If interventions interact spatially, add coverage or network constraints. If climate scenarios change feasibility, add robust or two-stage optimization. Every extension must correspond to observed failure and be compared with the baseline.
+
+### Use a model-selection ledger
+
+For each candidate, record purpose, assumptions, input requirements, validation result, runtime, interpretability, and decision effect. Rejecting a complex model is evidence of judgment. Do not present a method merely because it was tried.
+
+### Integrate uncertainty
+
+Separate measurement error, parameter uncertainty, forecast uncertainty, and scenario uncertainty. Propagate the uncertainties that can change the recommendation. Use common scenarios to compare plans, report expected and tail outcomes, and identify decision thresholds. A sensitivity tornado plot is useful only when variables, ranges, and output are clearly defined.
+
+### Write the paper as an audit trail
+
+The introduction defines decisions and contributions. Assumptions map to equations. The data section records provenance and transformations. Each model section follows inputs $\rightarrow$ formulation $\rightarrow$ solution $\rightarrow$ checks $\rightarrow$ output. Results answer prompt questions in order. Validation tests claims. Limitations identify mechanisms and consequences. The conclusion gives actions and triggers.
+
+Every table and figure should be referenced in the prose and support one claim. Every headline number should be reproducible from a stored result table. Keep code deterministic, save random seeds, and regenerate the final document from a clean environment.
+
+### Final 90-minute audit
+
+Have one teammate reproduce the principal numbers while another performs a cold read against the prompt. Search for undefined symbols, inconsistent units, unsupported adjectives, impossible precision, uncited data, and claims that exceed the operating range. Open every supporting file, test every link, and verify anonymity and naming rules.
+
+### Capstone assignment
+
+Choose a real problem and submit a reproducible package containing the requirement matrix, assumption ledger, data dictionary, baseline, one justified extension, validation matrix, sensitivity analysis, final decision, and six-page technical report plus appendix. A reader should be able to understand the mechanism, reproduce the computation, and know when not to trust the recommendation.

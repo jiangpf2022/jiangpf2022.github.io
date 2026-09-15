@@ -7,7 +7,8 @@ tags:
   - Epidemics
   - Stability
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "Growth, diffusion, compartment, epidemic, and interacting-population models connected through equilibria, stability, and identifiable parameters."
 ---
 
@@ -95,3 +96,46 @@ Estimate parameters by minimizing residuals between observations and model outpu
 
 Use held-out time intervals, multiple observed states, and mechanistic bounds. Report both trajectory uncertainty and parameter uncertainty, and distinguish interpolation within observed conditions from extrapolation to a new regime.
 
+## Guided workshop: think in stocks and flows
+
+A compartment is a stock: people, animals, customers, information, water, or capital currently in one state. An arrow is a flow with units stock/time. The derivative of each stock equals total inflow minus total outflow. Drawing this diagram before equations prevents missing or duplicated terms.
+
+### Derive rather than memorize SIR
+
+Under homogeneous mixing, one susceptible person encounters infectious people at a rate proportional to $I/N$. If $\beta$ is effective infectious contacts per person per time, total new infections occur at rate $\beta SI/N$. Recovery removes infectious individuals at rate $\gamma I$. The signs in the SIR equations follow directly from arrows.
+
+Check conservation:
+
+$$
+\frac{d}{dt}(S+I+R)=0.
+$$
+
+Thus $S+I+R=N$ for all time if it holds initially. A numerical trajectory that violates this beyond solver tolerance is wrong. Positivity is another invariant: negative populations are impossible.
+
+### Interpret thresholds and equilibria
+
+Initially, $I$ grows when $\beta S/N-\gamma>0$. Therefore the effective reproduction number is $R_t=(\beta/\gamma)(S/N)$, not always the basic $R_0=\beta/\gamma$. The infection peak occurs when $S=N/R_0$ in the simplest model. These thresholds connect parameters to policy more clearly than a simulated curve alone.
+
+For logistic growth, equilibria are $0$ and $K$. The derivative of $f(N)=rN(1-N/K)$ is positive at zero and negative at $K$, showing that zero is unstable and $K$ stable for $r>0$. In several dimensions, replace this derivative with Jacobian eigenvalues.
+
+### Add structure with purpose
+
+Age groups replace scalar contact with a matrix $C_{ab}$. Spatial patches add movement. SEIR adds a latent compartment. Birth, death, vaccination, waning immunity, or treatment add flows. Every extra compartment adds parameters and possible non-identifiability. Include a state only if it changes observable dynamics or a decision.
+
+### Distinguish process and observation
+
+The state may be true incidence, while data are reported cases. A simple observation model is
+
+$$
+Y_t\sim\operatorname{NegBin}(\rho\,\text{new infections}_t,\phi),
+$$
+
+where $\rho$ is reporting fraction and $\phi$ controls overdispersion. Without this layer, a change in reporting may be mistaken for a change in transmission. The same lesson applies to sales versus latent demand and sensor readings versus physical state.
+
+### Calibrate and validate
+
+Fit several parameters only when the data contain information about them. Use external estimates or priors for recovery duration, report parameter correlation, and propagate parameter uncertainty to forecasts. Validate on later time intervals and on summaries not used in fitting, such as peak time or final size.
+
+### Practice
+
+Draw and derive logistic, SIR, and predator–prey models from flow diagrams. Verify invariants numerically. For SIR, vary $R_0$ and initial susceptible fraction, locate the infection peak, and compare reported cases under different $\rho$. Then propose one extension and state the new data required to identify it.

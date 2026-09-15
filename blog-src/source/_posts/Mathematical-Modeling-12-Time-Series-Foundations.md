@@ -7,7 +7,8 @@ tags:
   - Data Preprocessing
   - Stationarity
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "Time indexing, missingness, decomposition, stationarity, autocorrelation, and leakage-safe preprocessing before any forecast is fitted."
 ---
 
@@ -109,3 +110,55 @@ print(mae)
 ```
 
 The exact boundary convention matters: no timestamp should appear in both sets. For long-horizon rolling validation, rebuild the forecast at each origin using only information available at that origin.
+
+## Guided workshop: diagnose a series before forecasting
+
+Suppose hourly electricity demand spans two years. Before fitting a model, define the timestamp: start of interval or end, local time or UTC, average power or energy consumed during the hour. Daylight-saving transitions create repeated or missing local hours. A perfectly fitted model can be conceptually wrong if the index is misunderstood.
+
+### Establish frequency and availability
+
+Create a complete hourly index and join observations to it. Mark missing intervals rather than silently compressing time. Plot missingness by hour, weekday, and month. Missing demand during outages is not random and should not automatically be interpolated. Record which weather forecasts, prices, and calendar variables would truly be known at each prediction origin.
+
+### Decompose patterns
+
+Think of
+
+$$
+y_t=T_t+S_t+R_t
+\quad\text{or}\quad
+y_t=T_tS_tR_t.
+$$
+
+Use additive structure when seasonal amplitude is roughly constant and multiplicative structure when it scales with level. Plot hourly profiles by weekday and monthly profiles by year. Multiple seasonality—daily, weekly, annual—requires more than one seasonal lag.
+
+Autocorrelation at lag $k$ is correlation between $y_t$ and $y_{t-k}$. Peaks at 24 and 168 hours suggest daily and weekly recurrence, but a trend can create high autocorrelation at many lags. Difference, detrend, or condition on calendar effects before interpreting dependence.
+
+### Understand stationarity
+
+Weak stationarity means constant mean, constant variance, and autocovariance depending only on lag. It is a useful local approximation, not a requirement that raw real-world demand never changes. Differencing removes certain trends; seasonal differencing $y_t-y_{t-s}$ removes recurring level. Over-differencing injects noise and can create negative lag-one autocorrelation.
+
+Use ADF or KPSS tests as supporting evidence, not automatic switches. Their power depends on sample size and deterministic terms. Always pair tests with plots, mechanism, and residual diagnostics.
+
+### Engineer leakage-safe features
+
+At origin $t$, lag $y_{t-24}$ is available; a centered 24-hour rolling mean includes future values and is not. Shift before rolling:
+
+```python
+features = pd.DataFrame(index=series.index)
+features["lag_1"] = series.shift(1)
+features["lag_24"] = series.shift(24)
+features["lag_168"] = series.shift(168)
+features["mean_24"] = series.shift(1).rolling(24).mean()
+features["hour"] = features.index.hour
+features["weekday"] = features.index.dayofweek
+```
+
+Fit imputers and scalers separately inside every training window. A global normalization knows the future distribution.
+
+### Design rolling evaluation
+
+Choose expanding windows when all history remains relevant and sliding windows when regimes drift. At each origin, issue the same horizon required operationally. Aggregate error by horizon, weekday, season, and demand quantile. Compare with naive, seasonal-naive, and perhaps temperature-adjusted baselines.
+
+### Practice
+
+Create a timestamp audit, missingness calendar, seasonal profiles, ACF, and rolling-origin split diagram. Build a feature availability table showing when every predictor becomes known. Implement seasonal-naive forecasts for 1, 24, and 168 hours and calculate MAE and MASE by horizon. Do not fit a sophisticated model until this notebook is complete.

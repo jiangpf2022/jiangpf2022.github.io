@@ -10,9 +10,9 @@
       eyebrow: "MODELING COURSE",
       course: { slug: "mathematical-modeling", name: "Mathematical Modeling" },
       icon: "fa-solid fa-chart-line",
-      cover: "/blog/images/mathematical-modeling-course.svg",
-      description: "A knowledge-first mathematical modeling course rebuilt from the 2026 competition notes. It connects problem abstraction, scientific writing, optimization, dynamical systems, forecasting, data analysis, model validation, and competition practice into one coherent workflow.",
-      topics: ["Optimization", "Dynamic Models", "Data & Communication"],
+      cover: "/blog/images/mathematical-modeling-nyc.webp",
+      description: "A zero-to-competition mathematical modeling course rebuilt from the 2026 notes. Each 40-minute guided lesson develops intuition, mathematics, a worked example, implementation choices, validation, and practice before connecting the topic to a complete modeling workflow.",
+      topics: ["18 Guided Lessons", "Zero to Competition", "Models & Evidence"],
     },
     "COMS4776W-Neural-Networks-Deep-Learning": {
       name: "COMS4776W Neural Networks & Deep Learning",
@@ -300,7 +300,7 @@
       <article class="category-hub-article ${needsReview ? "is-warning" : ""}">
         <a class="category-hub-article-cover" href="${escapeHtml(safePath(article.path))}" style="--article-cover:url('${escapeHtml(cover)}')"><span>${escapeHtml(status)}</span></a>
         <div class="category-hub-article-body">
-          <p class="category-hub-article-date">${escapeHtml(formatArticleDate(article.date))}</p>
+          <p class="category-hub-article-date">${escapeHtml(formatArticleDate(article.date))}${article.studyTime ? ` · ${escapeHtml(article.studyTime)} min guided lesson` : ""}</p>
           <h3><a href="${escapeHtml(safePath(article.path))}">${escapeHtml(article.title)}</a></h3>
           <p>${escapeHtml(article.excerpt || "Open this article to explore the complete notes and references.")}</p>
           ${enrolled ? `<div class="category-hub-article-progress"><span><b>Progress ${completion}%</b><b class="${needsReview ? "is-warning" : ""}">Mastery ${mastery}%</b></span><div><i style="width:${completion}%"></i></div></div>` : ""}

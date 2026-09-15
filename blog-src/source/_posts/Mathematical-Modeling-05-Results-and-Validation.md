@@ -7,7 +7,8 @@ tags:
   - Sensitivity Analysis
   - Technical Writing
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "A practical framework for reporting results, testing models, analyzing sensitivity, and writing conclusions that follow from evidence."
 ---
 
@@ -87,3 +88,57 @@ The final supporting material should include source code, a data dictionary, pre
 
 The conclusion should contain no new method. It should answer the original questions, state the strongest quantitative evidence, describe the valid operating range, and end with the decision—not with a generic claim that the model is useful.
 
+## Guided workshop: validation as an experiment
+
+Suppose a model predicts daily bicycle demand and an optimization model uses those predictions to reposition bicycles overnight. A low forecast error does not automatically imply a useful repositioning policy. Validation must follow the complete chain from prediction to decision.
+
+### Establish three baselines
+
+Use a seasonal-naive demand forecast, a do-nothing repositioning policy, and a simple rule that moves bicycles toward stations with yesterday's shortage. The proposed pipeline must be compared with all three. This separates the contribution of forecasting from the contribution of optimization.
+
+Evaluate on days not used to fit preprocessing, features, parameters, or hyperparameters. For temporal data, use rolling origins. Report MAE for demand, shortage trips for operations, and cost or driving distance for implementation. A forecast can improve MAE while worsening shortage if its errors occur at strategically important stations.
+
+### Verify before validating
+
+Construct a two-station problem that can be solved by hand. Check inventory conservation:
+
+$$
+I_{i,t+1}=I_{i,t}+\text{returns}_{it}-\text{rentals}_{it}
++\text{moved-in}_{it}-\text{moved-out}_{it}.
+$$
+
+Sum over stations. Internal repositioning should cancel. If total inventory changes without loss or repair, the implementation is wrong regardless of its attractive plots.
+
+### Propagate uncertainty with Monte Carlo simulation
+
+Fit or justify distributions for demand residuals, travel time, and unavailable bicycles. For replication $r$:
+
+1. draw one coherent scenario $\xi^{(r)}$;
+2. run the fixed policy without retuning it using future information;
+3. record shortage, operating cost, and service rate;
+4. repeat with controlled random seeds.
+
+Estimate $\hat\mu=N^{-1}\sum_r Y_r$ and its Monte Carlo standard error $s/\sqrt N$. More simulations reduce numerical uncertainty in the estimate; they do not repair an incorrect scenario distribution. Plot the running mean and interval against $N$ to justify the simulation budget.
+
+Preserve correlation. Drawing station demands independently may eliminate city-wide peaks. Use residual blocks, copulas, multivariate models, or common scenario multipliers when dependence matters.
+
+### Design stress tests, not only random tests
+
+Random scenarios represent frequent uncertainty; stress scenarios examine consequential boundaries. Test a transit disruption, major event, heavy rain, and simultaneous vehicle failure. Report the threshold at which the recommendation changes. “The model works in 95% of sampled days” is incomplete unless the other 5% are understood.
+
+### Present a validation matrix
+
+For each claim, list evidence and acceptance rule:
+
+| Claim | Evidence | Example acceptance rule |
+|---|---|---|
+| forecasts are useful | rolling holdout vs seasonal naive | lower MAE in at least 8 of 10 folds |
+| solution is feasible | independent constraint audit | maximum violation $<10^{-7}$ |
+| decision improves service | paired scenario comparison | lower shortage in at least 80% of scenarios |
+| conclusion is stable | sensitivity and stress tests | selected policy unchanged over stated range |
+
+Define rules before examining the final results when possible. Otherwise it is easy to move the goalposts.
+
+### Practice
+
+Write one sentence that your model is intended to support. Decompose it into implementation, mechanism, empirical, comparative, and decision evidence. For each, specify a dataset or synthetic test, a metric, a baseline, and a failure threshold. This document becomes the validation plan and later the structure of the results section.

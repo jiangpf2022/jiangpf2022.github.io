@@ -7,7 +7,8 @@ tags:
   - Metaheuristics
   - Combinatorial Optimization
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "Genetic algorithms explained as representations, operators, constraints, and evidence—not as a black-box substitute for formulation."
 ---
 
@@ -101,3 +102,43 @@ Keep evaluation count—not only generation count—because population sizes may
 ### Practice
 
 For a ten-item knapsack, compare three constraint strategies: penalty, repair by removing low value-to-weight items, and feasibility-first selection. Across 30 seeds, report feasibility rate, median objective, best objective, and evaluations. This exercise shows that representation and constraint handling matter at least as much as the word “genetic.”
+
+## Guided workshop: design a GA that can be trusted
+
+Consider a traveling-salesperson problem with cities $1,\ldots,n$ and distance matrix $d_{ij}$. A candidate is a permutation $\pi$, and its cost is
+
+$$
+C(\pi)=\sum_{k=1}^{n-1}d_{\pi_k,\pi_{k+1}}+d_{\pi_n,\pi_1}.
+$$
+
+### Choose representation before operators
+
+A binary chromosome is unnatural here because most bit strings do not describe valid tours. A permutation representation makes feasibility automatic, but ordinary one-point crossover produces duplicated and missing cities. Use order crossover, partially matched crossover, or edge recombination. Swap, insertion, inversion, and 2-opt moves preserve permutation structure.
+
+Representation controls the neighborhood the algorithm can explore. Inversion is especially meaningful for routes because it removes crossing edges. A domain-aware operator is not cheating; it is the difference between searching the problem and searching an arbitrary encoding.
+
+### Separate selection, variation, and survival
+
+Tournament selection controls pressure through tournament size. Crossover combines information, mutation restores local diversity, and survivor selection decides whether parents can remain. Preserve a small elite, but do not let elites occupy most of the population. Track the best, median, and worst cost plus the number of unique candidates. A falling diversity curve can warn of premature convergence before the best-cost curve becomes flat.
+
+Fitness transformations should preserve ordering without creating numerical explosions. For minimization, avoid $1/C$ when $C$ can be near zero or negative. Tournament selection can use objective comparisons directly. With constraint violations, compare feasible solutions before infeasible ones and rank infeasible candidates by violation, or design a repair with a documented bias.
+
+### Budget comparisons fairly
+
+If population size is $P$ and the algorithm runs $G$ generations, it uses roughly $PG$ objective evaluations. Compare methods at the same evaluation or wall-clock budget. Run independent seeds and report median, interquartile range, best, and feasibility rate. Use paired seeds or common test instances when comparing configurations.
+
+On small $n$, enumerate or solve exactly to measure optimality gap:
+
+$$
+\text{gap}=\frac{C_{GA}-C^*}{|C^*|}\times100\%.
+$$
+
+On large instances, compare with nearest-neighbor and repeated 2-opt baselines. A GA that cannot beat a simple local search is not justified.
+
+### Tune mechanisms, not a magic list
+
+Use pilot experiments to study population size, mutation probability, tournament size, and elitism. Change one mechanism at a time or use a designed experiment. High mutation makes the search nearly random; very low mutation may prevent recovery after convergence. Adaptive mutation can increase variation when diversity falls, but its trigger and limit must be stated.
+
+### Practice
+
+Implement a permutation GA for 20 cities. Unit-test every operator for length, uniqueness, and city membership. Plot objective and diversity by evaluation count. Compare order crossover with edge recombination and swap mutation with inversion. Run 30 seeds, compare against nearest-neighbor plus 2-opt, and explain performance using the structure each operator preserves.

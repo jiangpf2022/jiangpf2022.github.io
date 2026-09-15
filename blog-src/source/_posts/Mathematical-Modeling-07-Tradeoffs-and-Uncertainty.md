@@ -7,7 +7,8 @@ tags:
   - Robust Optimization
   - Decision Analysis
 mathjax: true
-cover: "/images/mathematical-modeling-course.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
+study_time: 40
 excerpt: "How to expose competing objectives, construct Pareto solutions, and make plans that remain feasible when inputs are uncertain."
 ---
 
@@ -88,3 +89,62 @@ Show at least three points: a low-cost extreme, a balanced compromise, and a hig
 
 The recommended plan should come with a policy: which parameter is monitored, what threshold triggers reconsideration, and which alternative becomes preferable. A trade-off plot plus a trigger rule is more actionable than one “optimal” number.
 
+## Guided workshop: choose under competing objectives
+
+Suppose a city must choose an electricity portfolio. Technology $i$ has annual cost $c_i$, expected emissions $e_i$, reliable capacity $r_i$, and uncertain output $a_{is}$ in scenario $s$. The decision $x_i$ is installed capacity. Cost, emissions, and reliability cannot be collapsed until their units and trade-offs are understood.
+
+### Build the feasible set first
+
+Write physical and policy constraints before preferences:
+
+$$
+0\le x_i\le \bar x_i,
+\qquad
+\sum_i r_ix_i\ge D^{\text{peak}},
+\qquad
+\sum_i a_{is}x_i\ge D_s-L_s \quad \forall s.
+$$
+
+Here $L_s$ is allowed shortage or recourse. A plan outside this set is not a “less preferred” plan; it is infeasible. Separating feasibility from preference prevents a weighted objective from silently buying violations that should be impossible.
+
+### Construct a Pareto frontier
+
+First minimize cost alone and emissions alone. These anchor solutions reveal scale and conflict. Next use the epsilon-constraint method:
+
+$$
+\min_x C(x)
+\quad\text{subject to}\quad E(x)\le\varepsilon.
+$$
+
+Sweep $\varepsilon$ across a meaningful range. Remove dominated points: solution A dominates B if A is no worse in every objective and strictly better in at least one. A weighted sum can miss non-convex parts of a frontier, while epsilon constraints can expose them.
+
+Select a compromise only after showing the frontier. A knee point is where a small further improvement in one objective requires a large sacrifice in another, but “knee” must be supported by a curvature rule or stakeholder reasoning rather than visual preference alone.
+
+### Model decisions before and after uncertainty
+
+Installed capacity is chosen before scenario $s$ is observed; dispatch and shortage are chosen afterward. This produces a two-stage stochastic program:
+
+$$
+\min_x C^{\text{build}}(x)+\sum_s p_sQ(x,s),
+$$
+
+where $Q(x,s)$ is the optimal recourse cost in scenario $s$. A perfect-information benchmark allows $x$ to depend on $s$ and is unrealistically optimistic. The difference between perfect-information and here-and-now objectives measures the value of knowing the future.
+
+### Include risk, not only expectation
+
+Two portfolios can have the same expected cost but very different tails. Conditional Value at Risk at level $\alpha$ summarizes the mean loss in the worst $1-\alpha$ fraction of cases. For loss $Z$,
+
+$$
+\operatorname{CVaR}_\alpha(Z)=
+\min_\eta\left[\eta+\frac{1}{1-\alpha}\mathbb E(Z-\eta)_+\right].
+$$
+
+Explain $\eta$ as a loss threshold and $(Z-\eta)_+$ as excess loss. Increasing the CVaR weight purchases protection at an expected-cost premium. Plot both quantities.
+
+### Strategic uncertainty and game theory
+
+Some uncertainty comes from another decision maker rather than nature. If two firms choose prices, or defenders allocate resources against an adaptive attacker, scenarios with fixed probabilities may be inappropriate. A payoff matrix can reveal dominant strategies, best responses, and Nash equilibria. In a zero-sum finite game, mixed strategies solve a linear program. State whose incentives are modeled; “opponent chooses the worst scenario” is a robust model, not automatically a behavioral theory.
+
+### Practice
+
+Create five candidate portfolios and calculate cost, emissions, and worst-scenario shortage. Identify dominated alternatives. Then formulate the continuous portfolio model, generate an epsilon-constraint frontier, and select three representative solutions. For each, report expected cost, CVaR, maximum shortage, active constraints, and the parameter range over which it remains preferable.
