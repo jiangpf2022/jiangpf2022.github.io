@@ -115,6 +115,10 @@
   transform: translateX(5px);
 }
 
+.category-list-container .all-category-list-link[href$="/Mathematical-Modeling/"] {
+  background-image: url("/blog/images/mathematical-modeling-nyc.webp");
+}
+
 .category-list-container .all-category-list-link[href$="/COMS4776W-Neural-Networks-Deep-Learning/"] {
   background-image: url("/blog/images/columbia-neural-networks-deep-learning-cover.png");
 }

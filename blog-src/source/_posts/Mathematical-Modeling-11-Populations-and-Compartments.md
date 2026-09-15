@@ -139,3 +139,61 @@ Fit several parameters only when the data contain information about them. Use ex
 ### Practice
 
 Draw and derive logistic, SIR, and predator–prey models from flow diagrams. Verify invariants numerically. For SIR, vary $R_0$ and initial susceptible fraction, locate the infection peak, and compare reported cases under different $\rho$. Then propose one extension and state the new data required to identify it.
+
+## Remaining lecture examples
+
+The differential-equation lecture also includes artifact dating, product diffusion, rockets, pharmacokinetic compartments, diabetes testing, stability, and two-species systems. They share one habit: derive flows before choosing a numerical solver.
+
+<div class="mm-gallery">
+<figure><img src="/blog/images/mathematical-modeling/ode-06.webp" alt="Malthus growth curve"><figcaption>Malthus growth is locally useful but cannot represent resource limitation indefinitely.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/ode-11.webp" alt="Compartment system"><figcaption>A compartment diagram turns transfer assumptions into balance equations.</figcaption></figure>
+</div>
+
+### Artifact authenticity and decay
+
+Radioactive content $C$ follows $C'=-\lambda C$, so $C(t)=C_0e^{-\lambda t}$. Estimated age is $t=-\lambda^{-1}\log(C/C_0)$. Authenticity assessment must propagate uncertainty in $C$, $C_0$, contamination, and half-life; an impossible estimated age is evidence against the claimed origin only under those assumptions.
+
+### New-product diffusion
+
+If adoption grows through contact between adopters and non-adopters,
+
+$$\frac{dN}{dt}=\beta N(M-N),$$
+
+which is logistic. Bass diffusion separates external advertising $p$ and imitation $q$:
+
+$$\frac{dF}{dt}=[p+qF(t)][1-F(t)].$$
+
+The peak sales time and saturation $M$ guide production. Fit cumulative and incremental sales carefully because cumulative errors are strongly correlated.
+
+### Why rockets have stages
+
+The ideal rocket equation $\Delta v=v_e\ln(m_0/m_f)$ shows logarithmic return from mass ratio. Carrying empty tanks after fuel is exhausted wastes mass; staging discards inert structure. More stages improve mass efficiency but add engines, structure, failure risk, and operational complexity, so the optimum is not “as many as possible.”
+
+### Compartments and diabetes testing
+
+For two well-mixed compartments,
+
+$$\dot x_1=u-k_{12}x_1+k_{21}x_2-k_{10}x_1,\qquad
+\dot x_2=k_{12}x_1-k_{21}x_2.$$
+
+Glucose-insulin models use the same stock-flow logic: glucose enters, is used or stored, and insulin changes removal rates. Diagnosis is an inverse problem: parameters inferred from a glucose tolerance curve may be correlated. Report identifiability and measurement noise instead of treating one fitted parameter as ground truth.
+
+### Epidemic final size
+
+In SIR, total $S+I+R=N$ is conserved. Dividing $dS/dt$ by $dR/dt$ yields
+
+$$\frac{dS}{dR}=-\frac{\beta S}{\gamma N},$$
+
+which leads to a final-size relation. This explains why outbreaks in a similar population can reach reproducible totals even though individual events are random. Reporting rate and immunity alter observed cases and effective susceptible population, so “same disease” is not enough for transfer.
+
+### Stability and predator–prey dynamics
+
+For $\dot x=f(x)$, equilibrium $x^*$ satisfies $f(x^*)=0$. In higher dimensions, eigenvalues of the Jacobian determine local behavior. Lotka–Volterra equations
+
+$$\dot x=ax-bxy,\qquad \dot y=-cy+dxy$$
+
+produce idealized cycles, but real systems need carrying capacity, functional responses, harvesting, or seasonal parameters. The course's warning is important: one predator–prey model need not fit another ecosystem.
+
+## Forty-minute compartment lab
+
+Derive decay, Bass diffusion, two-compartment pharmacokinetics, SIR, and predator–prey equations from arrow diagrams. For each, identify conserved quantities, equilibria, identifiable parameter combinations, and one dataset that could falsify the structure. Compare a solution's qualitative behavior before fitting any numbers.

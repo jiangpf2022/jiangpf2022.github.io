@@ -151,3 +151,31 @@ For a continuing queue, an empty system at time zero is unrepresentative. Plot t
 ### Practice
 
 Simulate an $M/M/1$ queue and verify Little's law over several $\rho$ values. Replace exponential service with a two-component empirical mixture and observe the tail. Then choose staffing for each period using SA, with common random numbers and a penalty for late high-severity patients. Report confidence intervals and compare with a rule based only on average utilization.
+
+## PSO and annealing as shown in the course
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/meta-07.webp" alt="Particle swarm landscape"><figcaption>Each particle carries position and velocity through a shared landscape.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/meta-08.webp" alt="Particle state variables"><figcaption>Personal and global best are memories, not current positions.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/meta-09.webp" alt="PSO implementation"><figcaption>Implementation must expose boundary handling and stopping.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/meta-10.webp" alt="Social sharing in PSO"><figcaption>Social sharing accelerates consensus; cognitive memory protects exploration.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/meta-11.webp" alt="Annealing applications"><figcaption>Routing, SAT, protein configurations, and job shops require problem-specific moves.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/meta-12.webp" alt="Metallurgical annealing analogy"><figcaption>Controlled cooling reduces acceptance of worse states gradually.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/meta-13.webp" alt="Annealing acceptance rule"><figcaption>Acceptance connects objective increase and temperature.</figcaption></figure>
+</div>
+
+For particle $i$,
+
+$$v_i^{t+1}=\omega v_i^t+c_1r_1(p_i-x_i^t)+c_2r_2(g-x_i^t),\qquad x_i^{t+1}=x_i^t+v_i^{t+1}.$$
+
+$p_i$ is personal best, $g$ swarm best. Large $\omega$ sustains motion; small $\omega$ damps it. Velocity clipping prevents explosion but changes geometry. Reflection usually preserves more search information than blunt coordinate clipping.
+
+Annealing accepts improvements and accepts deterioration $\Delta>0$ with
+
+$$P(\text{accept})=\exp(-\Delta/T).$$
+
+Choose $T_0$ so typical uphill moves have a planned acceptance rate. Routing uses swap, insertion, or 2-opt; scheduling uses feasibility-preserving moves or repair. Cooling without a suitable neighborhood cannot rescue the search.
+
+## Fair comparison and 40-minute lab
+
+Compare PSO, annealing, GA, and local search by objective evaluations. Use identical objectives and constraints, multiple seeds, median and dispersion, best-so-far curves, and a small exact case. For noisy simulations, use common random numbers and re-evaluate finalists. In the lab, run PSO on a bounded continuous function and annealing on a route, then explain performance through representation and information sharing.

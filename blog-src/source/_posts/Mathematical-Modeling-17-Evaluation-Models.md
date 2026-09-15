@@ -158,3 +158,35 @@ Sample weights from plausible ranges, repeat normalization choices, bootstrap da
 ### Practice
 
 Build the neighborhood hierarchy and data dictionary. Produce AHP, entropy, and CRITIC weights; combine them under several $\alpha$ values; compare weighted sum and TOPSIS; and run 10,000 plausible weight perturbations. Report rank acceptability and the exact assumptions needed for the leading recommendation. Add one non-compensable safety threshold and explain its effect.
+
+## Evaluation models as a transparent pipeline
+
+Begin with decision object, stakeholder, and use of the ranking. Build an indicator hierarchy without duplicate proxies. Specify source, unit, direction, target interval, missing rule, and whether compensation is permitted. A catastrophic safety criterion should be a threshold, not something that excellent aesthetics can cancel.
+
+### Weighting formulas
+
+AHP constructs pairwise matrix $A$, extracts priority vector $w$, and checks
+
+$$CI=\frac{\lambda_{\max}-n}{n-1},\qquad CR=CI/RI.$$
+
+An unacceptable $CR$ requires revisiting judgments, not merely normalizing them. Entropy weighting gives more weight to indicators with greater cross-candidate information, while CRITIC combines standard deviation with low correlation:
+
+$$C_j=\sigma_j\sum_k(1-r_{jk}),\qquad w_j=C_j/\sum_kC_k.$$
+
+Large variation may reflect noise, so objective weight is not synonymous with importance. PCA weights maximize explained variance, again a statistical property rather than stakeholder value.
+
+### TOPSIS and alternatives
+
+After direction and scale normalization, weighted vector $v_{ij}=w_jz_{ij}$ is compared with ideal and anti-ideal points:
+
+$$D_i^+=\sqrt{\sum_j(v_{ij}-v_j^+)^2},\quad D_i^-=\sqrt{\sum_j(v_{ij}-v_j^-)^2},\quad C_i=\frac{D_i^-}{D_i^++D_i^-}.$$
+
+Weighted sums measure compensatory utility; TOPSIS measures relative closeness; outranking methods can represent vetoes. Choose according to decision semantics, then test whether the winner depends on normalization, weights, aggregation, or candidate set.
+
+## Three course-style cases
+
+For city livability, combine infrastructure, environment, affordability, and accessibility but keep pollution or safety vetoes. For enterprise risk, combine financial ratios, governance, market exposure, and supply resilience; validate ranks against future distress. For ecological quality, integrate biodiversity, fragmentation, water, and human pressure while preserving spatial scale. In every case, translate the score back into actionable strengths and weaknesses.
+
+## Forty-minute evaluation lab
+
+Construct the hierarchy and data dictionary, compute AHP/entropy/CRITIC weights, compare weighted sum and TOPSIS, and sample 10,000 plausible weight vectors. Plot rank acceptability and the 50% warning line for fragile candidates. End with the exact assumptions under which the leading recommendation holds.

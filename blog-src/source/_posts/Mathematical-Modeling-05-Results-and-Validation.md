@@ -142,3 +142,63 @@ Define rules before examining the final results when possible. Otherwise it is e
 ### Practice
 
 Write one sentence that your model is intended to support. Decompose it into implementation, mechanism, empirical, comparative, and decision evidence. For each, specify a dataset or synthetic test, a metric, a baseline, and a failure threshold. This document becomes the validation plan and later the structure of the results section.
+
+## Validation continuation: robot fusion and scheduling
+
+The robot case shows why a results section cannot be a parade of final numbers. Every module needs a diagnostic matched to its claim.
+
+### Alignment and fusion evidence
+
+Report $\hat\tau$, but also show the objective curve, aligned trajectories, and coordinate-wise residuals. Repeat the estimate on time blocks. If it shifts materially, the constant-offset assumption is false even when the full-data objective is small. Compare no synchronization, nearest-timestamp matching, and continuous alignment on withheld timestamps.
+
+The filter should outperform both sensors under the same window and metric. Report RMSE and 95th-percentile Euclidean error. Inspect innovations $\nu_k=z_k-H\hat x_{k|k-1}$: autocorrelation indicates missing dynamics; variance larger than predicted indicates underestimated $Q$ or $R$.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/paper-12.webp" alt="Robot trajectory validation plots"><figcaption>Path overlays, component errors, and residuals answer different questions.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/paper-13.webp" alt="Smoothed trajectory and residual distributions"><figcaption>Smoothing may reduce noise but must be kept separate from online claims.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/paper-14.webp" alt="Model comparison table and pipeline"><figcaption>Each parameter and metric should trace to its module.</figcaption></figure>
+</div>
+
+## From path to task windows
+
+For target $j$ at $q_j$, calculate
+
+$$
+d_j(t)=\|p(t)-q_j\|_2,\qquad
+\theta_j(t)=\operatorname{atan2}(q_{j,y}-p_y(t),q_{j,x}-p_x(t)).
+$$
+
+A task is feasible only when range, visibility, dwell time, and device constraints hold. Interpolate threshold crossings; a 0.1-second grid can distort short windows. Under path uncertainty, require $P(d_j(t)\le d_{\max})\ge0.95$ instead of testing only the mean.
+
+For equal-reward single-device intervals, earliest-finish selection is optimal. For heterogeneous photography durations, rewards, and turning restrictions, use binary $x_j$ and possibly transition $y_{ij}$:
+
+$$\max\sum_jw_jx_j$$
+
+subject to overlap, window, and angular constraints. Distinguish the proof for interval scheduling from the solver certificate for the integer program.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/paper-16.webp" alt="Task feasibility windows"><figcaption>Geometric feasibility becomes explicit time windows.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/paper-17.webp" alt="Scheduling model diagram"><figcaption>The decision layer consumes the fused path and separates devices.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/paper-18.webp" alt="Selected task geometry"><figcaption>Show selected targets, directions, and conflicts spatially.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/paper-19.webp" alt="Sensitivity comparison"><figcaption>Scenario lines show whether the recommended schedule survives calibration change.</figcaption></figure>
+</div>
+
+## Pipeline validation matrix
+
+| Claim | Evidence | Stress test | Failure response |
+|---|---|---|---|
+| one offset synchronizes sensors | objective + block estimates | clock drift | affine/piecewise time map |
+| fixed bias is real | held-out RMS + BIC | block resampling | keep no-bias model |
+| fusion improves position | sensor baselines + innovations | noise and missing bursts | retune/change dynamics |
+| windows are accurate | geometric replay | position/target perturbation | safety margins |
+| schedule is useful | count, reward, utilization | duration/range/turn changes | robust alternative |
+
+## Sensitivity as a decision surface
+
+Vary clock offset, bias, sensor noise, maximum range, dwell time, and turning limit jointly. Rerun the whole pipeline and record both statistical metrics and selected tasks. A small RMSE change is harmless if the schedule is unchanged; a tiny calibration change that swaps many tasks is important.
+
+Monte Carlo draws from calibration uncertainty estimate selection frequency. A target chosen in 99% of scenarios is a robust core; one chosen in 45% is conditional. This is more honest than one deterministic schedule.
+
+## Forty-minute validation lab
+
+Build the matrix for your project. Allocate ten minutes to numerical verification and units, ten to baselines, ten to deliberate stress scenarios, and ten to rewrite results around decisions. Produce one table, one diagnostic figure, one sensitivity figure, and one bounded recommendation.

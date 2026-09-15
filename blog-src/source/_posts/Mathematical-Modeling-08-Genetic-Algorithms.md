@@ -142,3 +142,33 @@ Use pilot experiments to study population size, mutation probability, tournament
 ### Practice
 
 Implement a permutation GA for 20 cities. Unit-test every operator for length, uniqueness, and city membership. Plot objective and diversity by evaluation count. Compare order crossover with edge recombination and swap mutation with inversion. Run 30 seeds, compare against nearest-neighbor plus 2-opt, and explain performance using the structure each operator preserves.
+
+## The lecture's complete evolutionary story
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/ga-02.webp" alt="Genetic algorithm cycle"><figcaption>Selection creates pressure; variation creates candidates; evaluation connects them to the model.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/ga-03.webp" alt="Parent crossover and mutation"><figcaption>Operators should preserve useful building blocks without destroying diversity.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/ga-04.webp" alt="Knapsack example"><figcaption>Knapsack makes encoding, feasibility, penalty, and repair concrete.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/ga-05.webp" alt="Epistasis and interaction"><figcaption>Epistasis means one gene's value depends on others; independent tuning can fail.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/ga-06.webp" alt="Encoding geometry"><figcaption>Binary, real-valued, and permutation encodings induce different neighborhoods.</figcaption></figure>
+</div>
+
+### Knapsack from chromosome to fitness
+
+For values $v_i$, weights $w_i$, capacity $C$, chromosome $x\in\{0,1\}^n$ represents a subset:
+
+$$\max\sum_iv_ix_i\quad\text{s.t. }\sum_iw_ix_i\le C.$$
+
+Penalty fitness $F(x)=\sum_iv_ix_i-\lambda\max(0,\sum_iw_ix_i-C)$ is simple but sensitive to $\lambda$. Repair can remove low value-to-weight items until feasible. Feasibility-preserving construction samples only legal subsets. Compare these mechanisms by feasible-offspring rate and best feasible objective.
+
+Tournament size controls selection pressure. One-point crossover suits ordered strings but is arbitrary for unordered items; uniform crossover treats positions symmetrically. Bit mutation near $1/n$ changes one bit on average. Elitism preserves the best candidate but excessive elitism collapses diversity.
+
+For continuous variables, use real-valued crossover and Gaussian or polynomial mutation. For routes, use order or edge-preserving crossover and swap, insertion, or inversion mutation. Ordinary one-point crossover creates missing and duplicate cities.
+
+### Evidence, not one lucky run
+
+Plot best and median feasible objective versus evaluations, diversity versus evaluations, and final values across 20–30 seeds. Compare with exact optima on small cases and greedy/local baselines on large cases. Fix the number of objective evaluations, not generations, across algorithms.
+
+## Forty-minute GA lab
+
+Implement a 20-item knapsack GA. Spend ten minutes on representation and a brute-force oracle, ten on selection/crossover/mutation, ten comparing penalty and repair, and ten running 30 seeds. Explain failure through feasibility, diversity, or epistasis—not the label “randomness.”

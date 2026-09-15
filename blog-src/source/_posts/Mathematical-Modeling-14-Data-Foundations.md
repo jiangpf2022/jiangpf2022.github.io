@@ -189,3 +189,40 @@ For rare failure probability $p$, the standard error of the simple estimate is r
 ### Practice
 
 Choose a dataset with time, location, and repeated observations. Define population, observational unit, sampling mechanism, and dependence. Create a data dictionary; map missingness; compare random, temporal, and spatial splits; bootstrap at the correct unit; and run a Monte Carlo propagation for one uncertain derived quantity. Explain how each design choice changes the conclusion.
+
+## Full preprocessing decision tree
+
+The 111-page course sequence can be reduced to one rule: every operation must name the defect it repairs and the information it is allowed to use.
+
+1. **Audit structure:** shape, types, units, keys, duplicates, ranges, time order, coordinate system, and source provenance.
+2. **Classify missingness:** impossible-by-design, not collected, failed measurement, censored, or truly unknown.
+3. **Classify extremes:** impossible error, rare valid event, regime shift, or target signal.
+4. **Transform:** direction, scale, skewness, category encoding, and interaction terms according to the downstream geometry.
+5. **Split:** by time, group, or space before learning imputation, scaling, feature selection, or interpolation parameters.
+6. **Document impact:** compare sample size, distribution, and model conclusions before and after processing.
+
+For missing $x$, deletion is defensible only when missingness and sample loss are understood. Mean/median imputation shrinks variance; forward fill assumes persistence; interpolation assumes local continuity; KNN and model imputation borrow relationships and may amplify model bias. Preserve a missingness indicator when the absence itself is informative.
+
+For an ordered criterion $x$, min–max normalization is
+
+$$z_i=\frac{x_i-\min x}{\max x-\min x}$$
+
+for a benefit and $z_i=(\max x-x_i)/(\max x-\min x)$ for a cost. Interval and target criteria require distance from the desired range or target. Fit extrema on the training set for prediction; otherwise future observations leak into the scale.
+
+## Interpolation and fitting examples
+
+Lagrange interpolation passes through all $n+1$ points but high degree can oscillate. Newton's divided-difference form updates more conveniently. Piecewise cubic splines trade exactness for local stability. Use spatial inverse-distance weighting or kriging when distance and spatial covariance matter; do not flatten latitude/longitude into an ordinary index.
+
+Interpolation estimates a missing response at a location inside the observed domain. Regression estimates a conditional relationship under noise. For polynomial fitting,
+
+$$\hat\beta=\arg\min_\beta\sum_i(y_i-\beta_0-\beta_1x_i-\cdots-\beta_dx_i^d)^2.$$
+
+Select degree by validation and residual structure, not by in-sample $R^2$. Nonlinear least squares requires initial values and may have local minima.
+
+## Probability and spatial example
+
+Suppose air-quality sensors are clustered near roads. A simple citywide mean estimates the sampled-location average, not population exposure. Define a spatial population, weight cells by residents, and validate by leaving out regions rather than random rows. For a derived exposure-risk estimate $g(X)$, sample uncertain calibration, interpolation, and population weights jointly; the resulting distribution includes more uncertainty than a regression standard error alone.
+
+## Forty-minute data lab
+
+Create a data dictionary and automated audit; implement three missing-value strategies within a split-safe pipeline; compare IQR, MAD, and domain bounds for extremes; test scaling/encoding choices; and interpolate one missing curve or spatial field with held-out points. Conclude with a processing table listing rule, threshold, rows affected, and downstream effect.

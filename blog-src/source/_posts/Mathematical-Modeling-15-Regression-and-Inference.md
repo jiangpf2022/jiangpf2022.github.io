@@ -184,3 +184,33 @@ Use permutation importance or accumulated local effects cautiously when interpre
 ### Practice
 
 Build an explanatory linear model and a predictive model for the same dataset. For the first, define estimand, confounders, diagnostics, coefficient intervals, and limitations. For the second, create a leakage-safe pipeline, nested tuning, baseline comparison, subgroup error table, and prediction intervals or calibrated probabilities. Explain why the “best” model differs by goal.
+
+## Regression sequence from the course
+
+Start with descriptive plots and a baseline. Pearson correlation measures linear association, Spearman rank correlation monotone association; neither adjusts for confounding or proves causality. A heat map is a screening tool, and highly correlated indicators may double-count information in later evaluation models.
+
+For $y=X\beta+\varepsilon$, OLS is $\hat\beta=(X^\top X)^{-1}X^\top y$ when full rank holds. Interpret $\beta_j$ as the change in conditional mean per unit of $x_j$, holding included predictors fixed. The t-test evaluates one coefficient, the F-test a group, and adjusted $R^2$, AIC/BIC, cross-validation, and residuals answer different model-selection questions.
+
+Residual plots check linearity, constant variance, influential observations, and structure left unexplained. Heteroscedasticity-consistent standard errors repair inference under some variance misspecification but do not repair a wrong mean function. Clustered or time-dependent errors require corresponding covariance or model structure.
+
+### Nonlinearity, classification, and regularization
+
+Add interactions when one effect depends on another: $y=\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_1x_2+\varepsilon$. Centering can make main effects interpretable. Splines represent smooth nonlinear response with controlled flexibility.
+
+Logistic regression models
+
+$$P(Y=1\mid x)=\frac{1}{1+e^{-x^\top\beta}},$$
+
+so $e^{\beta_j}$ is a conditional odds ratio. Evaluate discrimination and calibration; accuracy is misleading under imbalance. Ridge minimizes RSS plus $\lambda\|\beta\|_2^2$ and stabilizes correlated coefficients. Lasso uses $\lambda\|\beta\|_1$ and can select variables, but selected sets may be unstable.
+
+### Prediction uncertainty
+
+A confidence interval for $E[Y\mid x_0]$ is narrower than a prediction interval for a new $Y_0$. Bootstrap when analytic assumptions are doubtful, preserving groups or time blocks. For black-box models, use nested tuning, subgroup errors, calibration, and permutation tests. Feature importance is association with predictive performance, not causal effect.
+
+## Worked case
+
+To predict building energy use, begin with area and weather, add occupancy and type, test temperature nonlinearity and area-by-type interaction, compare OLS/ridge/tree under building-group cross-validation, inspect residuals by season and building class, and produce prediction intervals. For policy interpretation, predefine the estimand and confounders; the predictive winner may not support a causal retrofit claim.
+
+## Forty-minute regression lab
+
+Fit baseline OLS, diagnose it, add justified nonlinear/interaction terms, compare ridge/lasso/logistic or tree models as appropriate, and create both confidence and prediction intervals. Write one explanatory conclusion and one predictive conclusion, explicitly stating why they are not interchangeable.

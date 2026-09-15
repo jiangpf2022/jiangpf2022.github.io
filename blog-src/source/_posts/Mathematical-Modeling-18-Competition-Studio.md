@@ -152,3 +152,127 @@ Have one teammate reproduce the principal numbers while another performs a cold 
 ### Capstone assignment
 
 Choose a real problem and submit a reproducible package containing the requirement matrix, assumption ledger, data dictionary, baseline, one justified extension, validation matrix, sensitivity analysis, final decision, and six-page technical report plus appendix. A reader should be able to understand the mechanism, reproduce the computation, and know when not to trust the recommendation.
+
+## Complete mock-analysis case: pose-graph estimation
+
+The reference-analysis lecture studies a robot moving around a loop. Integrating noisy relative motion creates random-walk drift: every local error is carried into later poses, so the final pose fails to meet the start. The remedy is not arbitrary smoothing; it is to represent all relative measurements as graph constraints and optimize the absolute poses jointly.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/graph-02.webp" alt="Robot moving around a loop"><figcaption>A sequence of relative motions should return to the start but accumulates drift.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-03.webp" alt="Accumulated random-walk drift"><figcaption>Integrating noisy increments converts local error into global inconsistency.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-04.webp" alt="Spatial drift around a loop"><figcaption>The visible gap is a violated loop-closure constraint.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-05.webp" alt="Strategies for drift"><figcaption>Interpolation, motion models, additional sensors, and better estimation address different causes.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-06.webp" alt="Pose graph edge measurements"><figcaption>Edges encode relative-pose measurements.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-07.webp" alt="Pose graph nodes"><figcaption>Nodes are unknown absolute poses.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-08.webp" alt="Pose graph agreement"><figcaption>Optimization seeks absolute poses consistent with all edges.</figcaption></figure>
+</div>
+
+Let node pose be transformation $T_i$ and edge measurement $Z_{ij}$ from $i$ to $j$. A local error can be written in the tangent space of the transformation group:
+
+$$e_{ij}(x)=\operatorname{Log}\left(Z_{ij}^{-1}T_i^{-1}T_j\right).$$
+
+With information matrix $\Omega_{ij}$, solve
+
+$$x^*=\arg\min_x\sum_{(i,j)\in E} e_{ij}(x)^\top\Omega_{ij}e_{ij}(x).$$
+
+One pose must be fixed to remove gauge freedom: relative measurements cannot determine the global origin. Robust loss may downweight false loop closures, but should be justified by residual diagnostics.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/graph-09.webp" alt="Pose parameterization"><figcaption>Minimal pose coordinates support optimization while transformations support composition.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-10.webp" alt="Pose graph error function"><figcaption>The edge error compares measured and predicted relative transformations.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-11.webp" alt="Pose graph residual visualization"><figcaption>Residual arrows make individual constraint disagreement visible.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-12.webp" alt="Graph optimization objective"><figcaption>The global objective is a weighted nonlinear least-squares problem.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-13.webp" alt="Perfect loop agreement"><figcaption>When all relative poses agree, every residual vanishes.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-14.webp" alt="Nonconsecutive constraint"><figcaption>A loop closure distributes correction across the cycle.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-15.webp" alt="Large-error loop closure"><figcaption>One long-range measurement may dominate unless covariance and robustness are modeled.</figcaption></figure>
+</div>
+
+Gauss–Newton linearizes $e_{ij}(x+\Delta x)\approx e_{ij}(x)+J_{ij}\Delta x$ and solves
+
+$$H\Delta x=-b,\qquad H=\sum J_{ij}^\top\Omega_{ij}J_{ij},\quad b=\sum J_{ij}^\top\Omega_{ij}e_{ij}.$$
+
+Because each edge touches only two nodes, $J$, $H$, and the linear system are sparse. Exploiting sparsity changes a seemingly huge problem into a practical one.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/graph-16.webp" alt="Taylor linearization"><figcaption>Linearization is local, so initialization and iteration matter.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-17.webp" alt="Gauss Newton algorithm"><figcaption>Each iteration builds and solves a local least-squares system.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-18.webp" alt="Normal equation blocks"><figcaption>Each edge contributes small blocks to the global vector and matrix.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-19.webp" alt="Jacobian structure"><figcaption>An edge residual depends only on its incident nodes.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-20.webp" alt="Sparse Jacobian"><figcaption>Most Jacobian blocks are zero.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-21.webp" alt="Sparse Hessian consequence"><figcaption>Adjacency determines the normal matrix sparsity.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-22.webp" alt="Sparse vector blocks"><figcaption>Vector contributions touch only the two linked state blocks.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-23.webp" alt="Sparse matrix blocks"><figcaption>Matrix contributions form diagonal and paired off-diagonal blocks.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-24.webp" alt="Edge block contribution"><figcaption>The algebra mirrors the graph's local structure.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-25.webp" alt="Hessian coefficient matrix"><figcaption>Nonzeros appear only between related pose blocks.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-26.webp" alt="Linearized system"><figcaption>The increment vector, gradient, and sparse Hessian form one system.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-27.webp" alt="Building the linear system"><figcaption>Accumulate edge contributions rather than constructing dense matrices.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/graph-28.webp" alt="Final pose graph algorithm"><figcaption>Fix a gauge, iterate, check residuals, and stop on justified tolerances.</figcaption></figure>
+</div>
+
+## Competition preparation shown in the course
+
+The final lecture covers logistics as part of modeling quality: install and test the environment, prepare templates, collect trustworthy references, agree on file ownership, practice diagrams, and make an offline fallback. During competition, inspect all prompts before choosing; check data accessibility, team fit, model opportunities, and the risk of an attractive but underspecified problem.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/studio-02.webp" alt="Software preparation"><figcaption>Install Python/Matlab/solver tools before the clock starts.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-03.webp" alt="Reference preparation"><figcaption>Prepare legitimate model and writing references.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-04.webp" alt="Figure preparation"><figcaption>Keep reusable figure principles, not copied results.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-05.webp" alt="Collaboration preparation"><figcaption>Test shared writing and version control.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-06.webp" alt="Model preparation"><figcaption>Review model families and their assumptions.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-07.webp" alt="Physical workspace preparation"><figcaption>Power, network, food, sleep, and backups affect reliability.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-08.webp" alt="Competition schedule"><figcaption>Front-load prompt analysis, baseline, and evidence planning.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-09.webp" alt="Problem selection tips"><figcaption>Choose with evidence about fit, data, and tractability.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-10.webp" alt="Model selection tips"><figcaption>Prefer clear, robust, interpretable models over fashionable complexity.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-11.webp" alt="Equation and writing checks"><figcaption>Use consistent notation and define every symbol.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-12.webp" alt="Writing checklist"><figcaption>Write a logical chain from observation to choice to result.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-13.webp" alt="Team coordination"><figcaption>Integrate continuously instead of merging independent papers at the end.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-14.webp" alt="LaTeX workflow"><figcaption>Control figures, tables, references, and pagination early.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-15.webp" alt="Final formatting checks"><figcaption>Formatting and anonymity are hard constraints.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-16.webp" alt="Final submission cautions"><figcaption>Open the final file and verify every required artifact.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/studio-17.webp" alt="Course encouragement"><figcaption>Reliable preparation creates room for creative modeling.</figcaption></figure>
+</div>
+
+## Second mock case: read figures as a model pipeline
+
+The second mock material contains process architecture, time-series comparisons, heat maps, regression diagnostics, and final strategy comparisons. Use them as a cold-reading exercise: reconstruct the question, variables, method, result, and limitation from each figure, then check whether the caption supports that reconstruction.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/mock-03.webp" alt="Mock-case system architecture"><figcaption>Start by identifying subsystem boundaries and outputs.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-06.webp" alt="Mock-case conceptual framework"><figcaption>A conceptual framework should correspond to calculable modules.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-07.webp" alt="Mock-case time series"><figcaption>Compare observed dynamics before selecting a predictor.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-08.webp" alt="Mock-case heat map"><figcaption>A heat map reveals interactions only with defined axes and scale.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-09.webp" alt="Mock-case statistical table"><figcaption>Connect each table statistic to a claim and unit.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-10.webp" alt="Mock-case process diagram"><figcaption>Processes are evidence when arrows represent explicit transformations.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-13.webp" alt="Mock-case regression panels"><figcaption>Panels compare fit, uncertainty, and regime behavior.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-14.webp" alt="Mock-case sensitivity panels"><figcaption>Multiple scenarios reveal which conclusions are stable.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-15.webp" alt="Mock-case mechanism diagram"><figcaption>A mechanism diagram explains why a statistical relation may generalize.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-19.webp" alt="Mock-case distribution and time plots"><figcaption>Distribution and temporal evidence should be read together.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-21.webp" alt="Mock-case result tables"><figcaption>Tables retain exact values while figures expose structure.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-22.webp" alt="Mock-case comparison chart"><figcaption>Use aligned baselines and uncertainty for method comparisons.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-23.webp" alt="Mock-case ranking table"><figcaption>Rankings need score contributions and sensitivity.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-24.webp" alt="Mock-case strategy bars"><figcaption>A strategy comparison should report real decision units.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock-25.webp" alt="Mock-case final comparison"><figcaption>Final alternatives should be compared on all required objectives.</figcaption></figure>
+</div>
+
+## Forty-minute studio simulation
+
+Use a fresh prompt. In ten minutes build the requirement and dependency maps; in ten build a baseline and one falsification test; in ten design the result table and figures before computing; in ten conduct a cold-read submission audit. Repeat under a strict file-freeze deadline. The goal is to practice the complete research system, not one algorithm.
+
+## First mock submission: evidence audit
+
+The first mock submission adds a second set of worked outputs. Rather than copying its formulas, use the images below to practice traceability: every architecture, fit, heat map, table, and robustness plot must map to a requirement, equation, and decision statement.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/mock1-02.webp" alt="First mock problem structure"><figcaption>Translate the prompt into objects, states, and outputs.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-03.webp" alt="First mock exploratory plot"><figcaption>Exploration should motivate the next model assumption.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-04.webp" alt="First mock architecture"><figcaption>Architecture shows how subproblems exchange information.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-05.webp" alt="First mock fitted relationship"><figcaption>Show raw points, fitted relation, and uncertainty together.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-07.webp" alt="First mock time-series comparison"><figcaption>Compare methods on a common time axis and holdout.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-08.webp" alt="First mock heat map"><figcaption>Heat-map axes and color scale must be interpretable.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-10.webp" alt="First mock mechanism diagram"><figcaption>A diagram should reveal the variables entering each module.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-12.webp" alt="First mock geometric output"><figcaption>Geometric outputs should preserve scale and constraints.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-13.webp" alt="First mock sensitivity output"><figcaption>Multiple scenarios reveal interactions and failure boundaries.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-20.webp" alt="First mock result comparison"><figcaption>Tables and bars should use identical alternatives and units.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-21.webp" alt="First mock robustness panels"><figcaption>Robustness is a range of conclusions, not one extra number.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/mock1-23.webp" alt="First mock final comparison"><figcaption>End with decision alternatives and their trade-offs.</figcaption></figure>
+</div>

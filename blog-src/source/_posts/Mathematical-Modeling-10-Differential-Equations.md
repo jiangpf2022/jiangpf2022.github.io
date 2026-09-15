@@ -154,3 +154,43 @@ Perfect mixing may fail in a large room. A two-zone model adds near-source and f
 ### Practice
 
 Derive the pollutant balance, solve the constant-input case, and verify the numerical solver against the analytic expression. Fit $q$ and $g$ to synthetic noisy data, calculate equilibrium and time constant, and test a step change in generation. Finally, create one dataset too short to identify both parameters and explain the ambiguity.
+
+## All four derivation examples from the slides
+
+### Pendulum
+
+Torque balance about the pivot gives $ml^2\theta''=-mgl\sin\theta$, hence
+
+$$\theta''+\frac gl\sin\theta=0.$$
+
+Only for $|\theta|\ll1$ may $\sin\theta\approx\theta$, yielding period $T\approx2\pi\sqrt{l/g}$. Compare numerical nonlinear periods against this approximation as amplitude grows; the approximation's failure is part of the model.
+
+### Pursuit at sea
+
+The lecture places a 60-nautical-mile separation between a 60-knot patrol craft and a 30-knot submarine. If the pursuer always aims at the current target,
+
+$$\dot r_p=v_p\frac{r_s-r_p}{\|r_s-r_p\|},\qquad \dot r_s=v_su_s(t).$$
+
+This defines pure pursuit. Intercept prediction requires the submarine heading $u_s$, detection delay, and turning limits. Compare pure pursuit with a lead-intercept strategy that aims at a predicted meeting point; faster speed alone does not determine the best control law.
+
+### Draining hemisphere
+
+For water depth $h$ in a hemisphere of radius $R$, cross-sectional area is $A(h)=\pi(2Rh-h^2)$. Torricelli outflow through area $S$ is $Q=C_dS\sqrt{2gh}$. Conservation gives
+
+$$\pi(2Rh-h^2)\frac{dh}{dt}=-C_dS\sqrt{2gh}.$$
+
+Integrate from $h=R$ to $0$ for emptying time. The discharge coefficient $C_d$ captures a real jet's deviation from ideal flow and should be calibrated.
+
+### Heated metal rod
+
+A rod of length $l$, cross-section $A$, perimeter $B$, conductivity $\lambda$, ambient $T_3$, and convection coefficient $\alpha$ satisfies at steady state
+
+$$\lambda A T''(x)-\alpha B[T(x)-T_3]=0,$$
+
+with $T(0)=T_1$, $T(l)=T_2$. Setting $u=T-T_3$ gives $u''-m^2u=0$, $m^2=\alpha B/(\lambda A)$. The exponential/hyperbolic solution separates boundary forcing from environmental loss.
+
+These four examples correspond to force balance, moving geometry, conservation with changing area, and distributed transport. Learning the derivation families is more transferable than memorizing four equations.
+
+## Forty-minute derivation lab
+
+For each example, write the state, rate law, initial/boundary conditions, units, and one limiting check. Numerically solve the nonlinear pendulum and pursuit system, integrate the draining model, and verify the rod solution at both boundaries. Finish by naming one omitted physical effect and the data needed to add it.

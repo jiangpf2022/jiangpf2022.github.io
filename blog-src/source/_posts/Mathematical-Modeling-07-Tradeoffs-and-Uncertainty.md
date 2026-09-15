@@ -148,3 +148,29 @@ Some uncertainty comes from another decision maker rather than nature. If two fi
 ### Practice
 
 Create five candidate portfolios and calculate cost, emissions, and worst-scenario shortage. Identify dominated alternatives. Then formulate the continuous portfolio model, generate an epsilon-constraint frontier, and select three representative solutions. For each, report expected cost, CVaR, maximum shortage, active constraints, and the parameter range over which it remains preferable.
+
+## Course example: three goals in production
+
+| | Product I | Product II | Available |
+|---|---:|---:|---:|
+| material (kg) | 2 | 1 | 11 |
+| machine time (h) | 1 | 2 | 10 |
+| profit (10,000 yuan) | 8 | 10 | — |
+
+The feasible set is $2x_1+x_2\le11$, $x_1+2x_2\le10$, $x\ge0$. The course adds three aspirations: keep product I from exceeding II, use the machine fully, and earn at least 560,000 yuan. Turning all three into hard constraints can make the model infeasible, so goal programming introduces deviations:
+
+$$x_1-x_2+d_1^- -d_1^+=0,$$
+$$x_1+2x_2+d_2^- -d_2^+=10,$$
+$$8x_1+10x_2+d_3^- -d_3^+=56.$$
+
+Penalize $d_1^+$ for excess I, $d_2^-$ for unused equipment, and $d_3^-$ for profit shortfall. Normalize units. With priorities, minimize profit shortfall first, fix it, then improve utilization and balance. This is more transparent than one unexplained weighted sum.
+
+## Pareto and robustness reasoning
+
+A plan dominates another if it is no worse in every objective and better in one. Generate a frontier by maximizing profit while limiting imbalance and requiring utilization across a range of thresholds. Present knee points and the marginal price of fairness.
+
+If material availability is $11+u$, $u\in[-\Gamma,0]$, a simple robust counterpart uses $2x_1+x_2\le11-\Gamma$. More general budgeted sets restrict how many coefficients become adverse together. Calibrate the robustness budget from data. Then compare nominal and robust plans by expected profit, worst loss, violation frequency, and price of robustness.
+
+## Forty-minute trade-off lab
+
+Plot the feasible polygon, solve profit-only production, construct deviations for all three goals, and generate eight Pareto points. Simulate uncertain material supply and compare nominal, expected-value, and robust decisions. Finish with a recommendation that states which stakeholder preference makes each plan appropriate.

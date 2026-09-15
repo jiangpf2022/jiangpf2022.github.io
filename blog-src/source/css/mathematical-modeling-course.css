@@ -1,0 +1,87 @@
+.mm-figure,
+.mm-gallery figure {
+  margin: 1.25rem 0;
+  padding: 0.7rem;
+  border: 1px solid rgba(87, 145, 214, 0.22);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 28px rgba(22, 52, 89, 0.1);
+}
+
+.mm-figure img,
+.mm-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.mm-figure figcaption,
+.mm-gallery figcaption {
+  margin-top: 0.6rem;
+  color: var(--default-text-color);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  opacity: 0.78;
+}
+
+.mm-gallery {
+  display: grid;
+  margin: 1.2rem 0 1.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.mm-gallery.mm-gallery-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mm-gallery figure {
+  display: flex;
+  min-width: 0;
+  margin: 0;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mm-gallery img {
+  max-height: 290px;
+}
+
+.mm-case {
+  margin: 1.35rem 0;
+  padding: 1rem 1.15rem;
+  border-left: 4px solid #4f8edc;
+  border-radius: 0 14px 14px 0;
+  background: rgba(78, 142, 220, 0.09);
+}
+
+.mm-case > :first-child {
+  margin-top: 0;
+}
+
+.mm-case > :last-child {
+  margin-bottom: 0;
+}
+
+html.dark .mm-figure,
+html.dark .mm-gallery figure {
+  border-color: rgba(116, 176, 242, 0.2);
+  background: rgba(18, 34, 56, 0.78);
+}
+
+html.dark .mm-case {
+  background: rgba(71, 132, 204, 0.13);
+}
+
+@media (max-width: 760px) {
+  .mm-gallery,
+  .mm-gallery.mm-gallery-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .mm-gallery img {
+    max-height: none;
+  }
+}

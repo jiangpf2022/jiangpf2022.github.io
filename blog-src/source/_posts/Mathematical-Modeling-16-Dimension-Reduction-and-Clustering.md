@@ -152,3 +152,23 @@ Build profile tables using variables not solely those that forced the clustering
 ### Practice
 
 Analyze the city matrix with PCA plus K-means, hierarchical clustering, DBSCAN, and a Gaussian mixture. Compare geometry, metrics, stability, and interpretability. Name groups only after profiles are produced. Finish with one concrete decision that changes because of the grouping and one warning about how preprocessing could change it.
+
+## The complete unsupervised pipeline
+
+Standardize continuous indicators, encode categories deliberately, and handle missing values inside resampling. PCA diagonalizes the covariance/correlation matrix. For standardized $X$, eigenpairs of $X^\top X/(n-1)$ produce loading directions; scores $Z=XW$ give low-dimensional coordinates. Choose components with cumulative variance, scree shape, reconstruction error, and interpretability—not one threshold alone.
+
+PCA explains variance; factor analysis attributes covariance to latent factors plus unique noise. Rotations can improve interpretability but do not create objective “true” factors. Report loading tables, communalities, factor naming rationale, and sensitivity to the number of factors.
+
+K-means minimizes within-cluster squared Euclidean distance and therefore favors spherical, similar-scale groups. Hierarchical clustering exposes nested structure but depends on linkage. DBSCAN finds dense irregular groups and noise but depends on distance scale and $(\varepsilon,\text{minPts})$. Gaussian mixtures provide soft elliptical memberships under distribution assumptions.
+
+### Validation without labels
+
+Use silhouette, Calinski–Harabasz, and Davies–Bouldin as views, not verdicts. Bootstrap rows, vary preprocessing and hyperparameters, align cluster labels, and calculate pairwise co-clustering stability. Profile clusters with variables not solely those that created them. If tiny preprocessing changes destroy groups, the honest result may be a continuum rather than discrete types.
+
+## City example
+
+For 200 cities and 30 socioeconomic, mobility, health, and environmental indicators: audit redundancy; reverse cost indicators; standardize; use PCA to inspect dominant gradients; cluster in retained-score space; compare K-means, hierarchy, DBSCAN, and GMM; then validate on external outcomes such as policy response. A useful conclusion is not “there are four clusters,” but “two policy packages outperform a common policy for stable groups A/B while boundary cities require probabilistic assignment.”
+
+## Forty-minute unsupervised lab
+
+Run PCA with a scree and loading analysis, then four clustering methods on the same prepared matrix. Compare geometry, index values, bootstrap stability, and decision usefulness. Repeat with one alternative scaling and feature set. Name groups only after profiles and uncertainty are visible.

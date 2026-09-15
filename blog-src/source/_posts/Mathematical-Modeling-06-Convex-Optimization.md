@@ -182,3 +182,50 @@ When no solution exists, do not immediately remove constraints. Check units, sig
 ### Practice
 
 Build a three-factory, two-warehouse, four-customer instance. Solve the continuous flow model, then add warehouse opening decisions. Verify every balance independently from the solver, visualize positive-flow edges, and explain the change using fixed costs and capacity shadow prices. Finally perturb demand by $\pm10\%$ and record which facilities and routes change.
+
+## Course examples in full
+
+### Snack production
+
+A factory makes A and B. A uses 4 kg flour and 1 kg sugar and earns 60 yuan; B uses 2 kg flour and 2 kg sugar and earns 40 yuan. Daily supplies are 80 kg flour and 50 kg sugar:
+
+$$\max 60x_A+40x_B$$
+$$4x_A+2x_B\le80,\qquad x_A+2x_B\le50,\qquad x_A,x_B\ge0.$$
+
+The continuous optimum is the intersection $x_A=10,x_B=20$, with profit 1400. It is already integral. The deeper result is sensitivity: a resource has marginal value only when its constraint is active. Dual prices estimate the value of one extra kilogram within the current basis range.
+
+### Assignment
+
+For task $i$, worker $j$, cost $c_{ij}$, and binary $x_{ij}$,
+
+$$\min\sum_{i,j}c_{ij}x_{ij},\quad \sum_jx_{ij}=1,\quad \sum_ix_{ij}\le1.$$
+
+The first constraint assigns every task; the second prevents double booking. Forbidden pairings are fixed to zero. Capacity greater than one changes the right side. Naming an algorithm is not a formulation until these rules are explicit.
+
+### Supply and facility location
+
+The lecture gives six construction sites:
+
+| Site | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---:|---:|---:|---:|---:|---:|
+| $a_i$ | 1.25 | 8.75 | 0.50 | 5.75 | 3.00 | 7.25 |
+| $b_i$ | 1.25 | 0.75 | 4.75 | 5.00 | 6.50 | 7.25 |
+| $d_i$ | 3 | 5 | 4 | 7 | 6 | 11 |
+
+Existing depots $A=(5,1)$ and $B=(2,7)$ each hold 20 tons. Shipment $q_{ki}$ and Euclidean distance $c_{ki}$ give
+
+$$\min\sum_{k,i}c_{ki}q_{ki},\quad \sum_kq_{ki}=d_i,\quad \sum_iq_{ki}\le20,\quad q_{ki}\ge0.$$
+
+Relocating the depots makes coordinates decision variables, so distance and allocation become coupled and nonlinear. An alternating location-allocation heuristic supplies a baseline; multistart or global search tests local sensitivity. Report saved ton-kilometers, not merely new coordinates.
+
+### Quadratic and conic structure
+
+Portfolio variance, least squares, and smoothing produce
+
+$$\min_x\tfrac12x^\top Qx+c^\top x\quad\text{s.t. }Ax\le b.$$
+
+If $Q\succeq0$, the problem is convex. Norm constraints $\|Bx+d\|_2\le a^\top x+\beta$ are second-order cones. Recognizing LP, convex QP, or SOCP structure matters because a local optimum is global and solvers can provide certificates.
+
+## Solver audit and 40-minute lab
+
+Independently recompute every constraint, integrality condition, and objective. Report maximum violation, status, mixed-integer gap, scaling, and a simple feasible baseline. Then solve the snack problem graphically, derive assignment constraints, implement the fixed-depot model, and perturb resource limits. A complete solution explains every variable in units and every constraint in real language.

@@ -159,3 +159,56 @@ This code is a candidate, not a conclusion. The final selection table must compa
 ### Practice
 
 Run a tournament containing seasonal naive, Holt–Winters, SARIMA, and a tree model with lag/calendar features. Use a common rolling split and report performance by horizon. Inspect residuals, bias, coverage, runtime, and dependence on future covariates. Select a model and write one paragraph explaining when it should be retrained or replaced.
+
+## Model map from the full lecture
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/timeseries-33.webp" alt="ARIMA order-selection pipeline"><figcaption>Order selection combines differencing, ACF/PACF, information criteria, and residual diagnosis.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-37.webp" alt="Volatility clustering"><figcaption>Volatility clustering motivates modeling conditional variance, not only the mean.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-49.webp" alt="Rolling-origin validation"><figcaption>Every candidate must forecast the same horizons from the same origins.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-50.webp" alt="Forecast interval comparison"><figcaption>Coverage and interval width matter alongside point error.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-57.webp" alt="Forecasting workflow"><figcaption>Reliable forecasting is a loop from data audit to decision and back to monitoring.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-60.webp" alt="Three forecasting principles"><figcaption>Understand data, beat a baseline, validate by time, and connect predictions to decisions.</figcaption></figure>
+</div>
+
+### Exponential smoothing family
+
+Simple exponential smoothing handles a changing level. Holt adds trend; damped Holt prevents indefinite linear growth; Holt–Winters adds additive or multiplicative seasonality. Additive seasonality has roughly constant amplitude; multiplicative seasonality scales with level. State-space implementations provide likelihood-based estimation and intervals.
+
+### ARIMA and SARIMAX
+
+ARIMA$(p,d,q)$ models differenced history with autoregressive and moving-average terms. Seasonal ARIMA adds $(P,D,Q)_s$. SARIMAX includes external predictors, but future values of those predictors must actually be known or separately forecast. Select a small candidate set using ACF/PACF and AIC/BIC, then decide with rolling performance and residual white-noise checks.
+
+### ARCH/GARCH
+
+When residual magnitude clusters, model conditional variance:
+
+$$\sigma_t^2=\omega+\alpha\varepsilon_{t-1}^2+\beta\sigma_{t-1}^2.$$
+
+GARCH answers risk and interval questions that a mean forecast misses. Check positivity and persistence $\alpha+\beta$; values near one imply slow volatility decay.
+
+### Grey, Markov, and VAR models
+
+GM(1,1) is designed for very short, smooth positive series: accumulate data, fit a first-order response, and inverse-accumulate predictions. Test level-ratio conditions and compare with naive forecasts; small sample size is not evidence of validity.
+
+A Markov chain models discrete state transitions $P_{ij}=P(S_{t+1}=j\mid S_t=i)$. It is useful for regimes, ratings, or weather states when the state definition is meaningful. VAR models multiple endogenous series,
+
+$$y_t=c+A_1y_{t-1}+\cdots+A_py_{t-p}+\varepsilon_t,$$
+
+and supports impulse responses, but parameter count grows as $K^2p$ and stationarity/cointegration must be addressed.
+
+### Regression, trees, and neural models
+
+Supervised models need lag features, rolling statistics, calendar variables, and known external factors. Trees capture nonlinear interactions; SVR works on medium data; neural sequence models demand more data and stronger baselines. Fit feature transformations inside each rolling fold. Direct multi-horizon models avoid recursive error accumulation; recursive models are cheaper; multi-output models exploit cross-horizon structure.
+
+## Two complete decision cases
+
+For sales-to-inventory, forecast demand distribution, not just the mean. If ordering $q_t$, demand $D_t$, holding cost $h$, and shortage cost $p$, the forecast enters
+
+$$\min_q\ E[h(q-D)^++p(D-q)^+].$$
+
+Evaluate final inventory cost as well as MAE. For investment series, forecast expected return and conditional covariance, then feed both into a mean–variance or robust allocation. Backtest with transaction costs and rolling re-estimation; a lower price RMSE does not guarantee a better portfolio.
+
+## Forty-minute forecasting tournament
+
+Run seasonal naive, Holt–Winters, SARIMA, and a tree model on identical rolling origins. Record error by horizon, residual autocorrelation, interval coverage, runtime, and required future covariates. Add GM, Markov, VAR, or GARCH only when the data-generating question requires them. Select the simplest model whose advantage is stable and decision-relevant.

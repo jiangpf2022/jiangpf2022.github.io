@@ -162,3 +162,37 @@ Choose expanding windows when all history remains relevant and sliding windows w
 ### Practice
 
 Create a timestamp audit, missingness calendar, seasonal profiles, ACF, and rolling-origin split diagram. Build a feature availability table showing when every predictor becomes known. Implement seasonal-naive forecasts for 1, 24, and 168 hours and calculate MAE and MASE by horizon. Do not fit a sophisticated model until this notebook is complete.
+
+## Complete diagnostic sequence from the slides
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/timeseries-05.webp" alt="Trend seasonal cycle and noise decomposition"><figcaption>Begin by separating trend, seasonality, cycles, and noise conceptually.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-08.webp" alt="Time-series line chart"><figcaption>A line plot reveals trend and local structure before a model is selected.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-11.webp" alt="Outlier in a time series"><figcaption>An extreme point may be error, event, regime change, or target signal.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-15.webp" alt="Chronological train validation test split"><figcaption>Validation must respect information time; random splitting leaks the future.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-17.webp" alt="Moving-average smoothing"><figcaption>Smoothing reveals level but delays turning points.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-22.webp" alt="Seasonal decomposition"><figcaption>Decomposition is a diagnostic view, not proof that components are independent.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/timeseries-25.webp" alt="Autocorrelation function"><figcaption>ACF measures linear dependence at different lags and requires uncertainty bands.</figcaption></figure>
+</div>
+
+The course begins with a data contract: target, frequency, timestamp meaning, horizon, forecast origin, and variable availability. Before filling a missing value, distinguish a missing timestamp from a timestamp with a missing measurement. Reindex to the intended frequency, preserve a missingness flag, and fit any imputer only on past training data.
+
+Outliers require mechanisms. Recording error may be corrected; an intervention should be encoded; a genuine shock belongs in validation; a regime change may require a new window. Winsorizing every extreme destroys the events a decision model may care about.
+
+### Transformations and stationarity
+
+Log or Box–Cox transforms can stabilize scale-dependent variance. Standardization helps regularized and machine-learning models but its mean and variance must be learned on training history. Differencing removes changing level:
+
+$$\nabla y_t=y_t-y_{t-1},\qquad \nabla_s y_t=y_t-y_{t-s}.$$
+
+Over-differencing adds noise. Use plots, domain logic, and tests such as ADF/KPSS together; a test decision does not replace inspection of structural breaks.
+
+For weakly stationary $y_t$, covariance depends on lag. ACF and PACF are model clues, not an automatic order selector: AR often has a tailing ACF and truncated PACF; MA often the reverse. Residuals should approximate white noise. Ljung–Box tests remaining autocorrelation, while residual plots also reveal bias, nonconstant variance, and unmodeled events.
+
+### Baselines and metrics
+
+Always include mean, last-value, drift, and seasonal-naive forecasts as appropriate. MAE is easy to interpret; RMSE emphasizes large errors; MAPE fails near zero; sMAPE has its own asymmetry; MASE compares error to a naive scale. Report metric by horizon and important regimes, not one grand average.
+
+## Forty-minute diagnostic lab
+
+Audit frequency and missingness; make a time plot, seasonal profile, decomposition, ACF/PACF, and chronological split; construct leakage-safe lags and rolling features; then beat seasonal naive under rolling-origin validation. Stop if future availability of a predictor cannot be explained. The deliverable is a diagnostic dossier, not a fitted black box.

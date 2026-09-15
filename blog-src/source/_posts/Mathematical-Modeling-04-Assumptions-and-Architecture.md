@@ -123,3 +123,99 @@ Choose a final result—say, “95% of residents reach shelter within 45 minutes
 ### Practice
 
 Take a problem with at least three subquestions. Draw a directed acyclic graph whose nodes are model modules and whose edges are named tables, vectors, or parameters. Mark each quantity as observed, estimated, assumed, decided, or simulated. The finished graph should let a teammate identify circular dependencies before any code is written.
+
+## Full course case: asynchronous robot localization
+
+The writing lectures use one continuous case. A robot travels while two positioning systems record coordinates with different startup times, sampling rates, random noise, and possible fixed spatial bias. The fused 10 Hz trajectory is then used to schedule shooting and photography tasks. Estimation and decision must remain connected without being confused.
+
+### Four deliverables
+
+1. Estimate a pure time offset from noise-free position records and reconstruct a 10 Hz path.
+2. Estimate time and fixed spatial offsets under noise, then fuse observations.
+3. Decide whether field data support a fixed bias before correcting it.
+4. Maximize feasible tasks under range, dwell-time, device, and turning constraints.
+
+Tasks 1–3 estimate state; task 4 consumes that state. If task 4 silently reads raw observations, the architecture is broken.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/paper-04.webp" alt="Notation table from the robot report"><figcaption>Notation is the interface shared by alignment, fusion, diagnosis, and scheduling.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/paper-05.webp" alt="Exploratory figures for two positioning systems"><figcaption>Initial plots compare sampling, path shape, and possible temporal displacement.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/paper-06.webp" alt="Trajectory alignment diagnostics"><figcaption>Aligned paths and residual panels test whether a clock shift is sufficient.</figcaption></figure>
+</div>
+
+## Continuous-time alignment
+
+Let source 1 provide $(t_i^{(1)},z_i^{(1)})$ and source 2 provide $(t_j^{(2)},z_j^{(2)})$, where $z=(x,y)^\top$. Pointwise subtraction is invalid because timestamps differ. Build continuous interpolants $s_1(t)$ and $s_2(t)$. For clock offset $\tau$, minimize
+
+$$
+J(\tau)=\frac{1}{|\mathcal T(\tau)|}\sum_{t\in\mathcal T(\tau)}
+\|s_1(t)-s_2(t+\tau)\|_2^2.
+$$
+
+The overlap set $\mathcal T(\tau)$ must be recomputed for every candidate; otherwise large offsets can appear good because fewer points remain. Use a coarse grid to locate a basin and bounded refinement to obtain precision. Plot $J(\tau)$: a flat or multimodal curve means the offset is weakly identified.
+
+Interpolation is part of the observation model. Linear interpolation is conservative but nonsmooth; cubic splines are smooth but may overshoot turns. Test both on withheld timestamps. Smoothness is not evidence of accuracy.
+
+## Joint temporal and spatial calibration
+
+With constant bias $b\in\mathbb R^2$,
+
+$$
+z_j^{(2)}=r(t_j^{(2)}-\tau)+b+\varepsilon_j^{(2)}.
+$$
+
+For each $\tau$, the least-squares estimate of $b$ is the mean aligned residual. Substitution reduces a three-parameter search to one dimension:
+
+$$
+\hat b(\tau)=\frac1m\sum_k[s_2(t_k+\tau)-s_1(t_k)],\qquad
+\hat\tau=\arg\min_\tau\sum_k\|e_k(\tau)-\hat b(\tau)\|^2.
+$$
+
+On a nearly straight constant-speed path, a clock shift and displacement along travel can imitate each other. Turns and acceleration provide the excitation required for identification.
+
+<div class="mm-gallery mm-gallery-3">
+<figure><img src="/blog/images/mathematical-modeling/paper-07.webp" alt="Sensor synchronization result"><figcaption>The objective and synchronized paths should agree on one offset.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/paper-08.webp" alt="Multi-source positioning architecture"><figcaption>Calibration, resampling, filtering, smoothing, diagnosis, and output remain separate.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/paper-11.webp" alt="Aligned source comparison"><figcaption>Source-wise residuals show where a shared state succeeds and fails.</figcaption></figure>
+</div>
+
+## Six-state constant-acceleration filter
+
+At $\Delta t=0.1$ s use $x_k=[p_x,p_y,v_x,v_y,a_x,a_y]^\top$. For one axis,
+
+$$
+F_1=\begin{bmatrix}1&\Delta t&\tfrac12\Delta t^2\\0&1&\Delta t\\0&0&1\end{bmatrix}.
+$$
+
+Measurements observe position only. Prediction and update are
+
+$$
+\hat x_{k|k-1}=F\hat x_{k-1|k-1},\quad P_{k|k-1}=FP_{k-1|k-1}F^\top+Q,
+$$
+
+$$
+K_k=P_{k|k-1}H^\top(HP_{k|k-1}H^\top+R_k)^{-1},\quad
+\hat x_{k|k}=\hat x_{k|k-1}+K_k(z_k-H\hat x_{k|k-1}).
+$$
+
+$Q$ represents unmodeled jerk and $R$ sensor uncertainty. Estimate them from calibration or residuals. RTS smoothing is appropriate offline because future data revise past states; do not describe it as a real-time algorithm.
+
+## Bias is a hypothesis
+
+A nonzero residual mean can arise from noise, interpolation, transient motion, or real fixed bias. Compare no-bias $M_0$ with bias $M_1$ using held-out RMS, stability across blocks, bias size relative to sensor noise, and
+
+$$\mathrm{BIC}=n\log(\mathrm{RSS}/n)+k\log n.$$
+
+Correct only if improvement is repeatable and worth the parameters. A physically plausible effect still requires evidence.
+
+| Assumption | Failure signal | Repair |
+|---|---|---|
+| constant clock offset | residual lag varies | affine or piecewise time map |
+| fixed spatial bias | residual mean changes by segment | state-dependent bias |
+| local constant acceleration | autocorrelated innovations | turning or nonlinear dynamics |
+| independent sensor noise | cross-source correlation | full covariance/common-mode state |
+| exact target coordinates | feasibility changes under perturbation | chance constraint/safety margin |
+
+## Forty-minute architecture exercise
+
+Draw the dependency graph for all four tasks, derive the alignment objective, and list every state, decision, and parameter with units. Remove one assumption at a time and state which equation and validation figure changes. The goal is to prevent code, notation, and prose from describing different models.

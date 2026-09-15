@@ -120,3 +120,49 @@ Draft the abstract in six sentences:
 6. recommendation and operating condition.
 
 Then delete repeated prompt language and any method that never affects a result. Check every number against the final table and every claimed method against the equations. Ask a teammate who has not read the paper to identify the problem, models, main results, validation, and recommendation using only the abstract. Any missing item reveals the next revision.
+
+## Full worked example: four tasks, one abstract
+
+Suppose a prompt asks a team to align two asynchronous location sensors, fuse noisy tracks, determine whether a systematic spatial bias exists, and schedule as many camera or shooting tasks as possible. A weak abstract lists four algorithms. A strong abstract exposes their dependency chain.
+
+First define the shared problem: heterogeneous sensors observe the same moving platform at different sampling rates and with possible clock and spatial offsets. Then state the contribution at the right resolution: continuous-trajectory least-squares alignment estimates clock shift; a constant-acceleration Kalman filter and backward smoother produce a 10 Hz track; residual diagnostics and an information criterion decide whether bias correction is warranted; interval scheduling and a binary program allocate feasible tasks.
+
+The abstract must report results. Reserve grammatical slots for estimated clock shift, fused-position error, improvement over a single-sensor baseline, detected bias magnitude, number of scheduled tasks, and sensitivity range. Replace every empty adjective with one of those quantities before submission.
+
+### Example abstract skeleton
+
+> We study trajectory reconstruction and resource-constrained task scheduling for a mobile platform observed by two asynchronous positioning systems. For the noise-free records, we represent each track by a continuous cubic interpolant and estimate the clock offset by coarse-to-fine least squares. For noisy records, we jointly estimate temporal and spatial offsets, resample both sources to 10 Hz, and fuse them with a six-state constant-acceleration Kalman filter followed by Rauch--Tung--Striebel smoothing. A residual-mean, RMS-improvement, and BIC test prevents unsupported bias correction on field data. Using the reconstructed path, we generate feasible time windows; shooting tasks are solved by earliest-finish interval scheduling and photography tasks by a binary integer program with turning-angle constraints. The fused trajectory reduces held-out error from **[baseline]** to **[result]**, while the selected schedule completes **[count]** tasks and remains unchanged for offset perturbations of **[range]**. The framework separates synchronization, estimation, diagnosis, and decision, and can be extended to additional sensors.
+
+This tells the reader what was built, how modules connect, what evidence will appear, and what remains bounded. It does not spend words on software names or textbook definitions.
+
+## Sentence-level compression
+
+Each sentence should define the setting, state a model, state a result, justify a choice, or bound a conclusion. Combine repeated setup. Prefer “We estimate the time offset by minimizing continuous-trajectory disagreement” over “First we processed the data. Then we interpolated the data. Next we used least squares.”
+
+Keep mathematical nouns but remove implementation debris. “Six-state constant-acceleration Kalman filter” is informative; “Python code using a package” is not. “A BIC test rejects unnecessary bias correction” communicates model selection; “the model is intelligent and effective” communicates nothing.
+
+## Result traceability
+
+Create this table before drafting:
+
+| Prompt requirement | Method phrase | Result slot | Evidence in paper |
+|---|---|---|---|
+| estimate time offset | continuous least-squares alignment | $\hat\tau=$ ... | objective curve and held-out alignment |
+| reconstruct track | Kalman filter + RTS smoother | RMSE ... | trajectory and residual plot |
+| test fixed bias | residual/BIC decision | $\hat b=$ ... or no correction | diagnostic table |
+| maximize tasks | interval + binary optimization | count and resource use | schedule plot |
+
+Every major result should point to evidence in the body. If a number cannot be traced to a table, figure, or calculation, verify or remove it. If a required subproblem has no row, it has probably disappeared from the narrative.
+
+## Failure modes and repairs
+
+- **Background-heavy opening:** reduce the domain story to one sentence and spend the saved words on the contribution.
+- **Method shopping list:** use dependency words such as “after alignment” and “using the fused state.”
+- **No result values:** report one quantity per subproblem and one baseline comparison.
+- **Absolute claims:** replace “proves optimal” with the exact guarantee or empirical budget.
+- **Unexplained novelty:** state what changed relative to a baseline and which failure it repairs.
+- **Inconsistent numbers:** verify the abstract, tables, figures, and conclusion from one final result file.
+
+## Forty-minute writing drill
+
+Use ten minutes to build the traceability table for an existing project. Use ten minutes to write a 250-word abstract without *excellent*, *effective*, *reasonable*, or *accurate*. Use ten minutes to insert concrete numbers and baseline comparisons. Use the final ten minutes to label every sentence as setting, method, result, validation, or implication. Delete repetitions and any sentence with no label. The revised abstract should be shorter but contain more checkable information.
