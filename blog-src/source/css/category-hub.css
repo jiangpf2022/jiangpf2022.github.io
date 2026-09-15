@@ -234,6 +234,38 @@ html.dark {
   text-align: left;
 }
 
+.category-hub-level-guide {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: -7px 0 18px;
+}
+
+.category-hub-level-guide p {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--category-hub-border);
+  border-radius: 10px;
+  color: var(--category-hub-muted);
+  background: var(--category-hub-surface-strong);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.category-hub-level-guide strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--category-hub-text);
+  font-size: 11px;
+}
+
+.category-hub-level-guide small {
+  grid-column: 1 / -1;
+  color: var(--category-hub-muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
 .category-hub-syllabus-table thead {
   background: color-mix(in srgb, var(--category-hub-accent), var(--category-hub-surface-strong) 89%);
 }
@@ -295,6 +327,28 @@ html.dark {
   color: var(--category-hub-muted);
   font-size: 10px;
   font-weight: 750;
+}
+
+.category-hub-syllabus-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 8px;
+  padding: 5px 8px;
+  border: 1px solid color-mix(in srgb, var(--category-hub-cyan), transparent 55%);
+  border-radius: 7px;
+  color: var(--category-hub-text) !important;
+  background: color-mix(in srgb, var(--category-hub-cyan), transparent 88%);
+  font-size: 10px;
+  font-weight: 800;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.category-hub-syllabus-open:hover,
+.category-hub-syllabus-open:focus-visible {
+  border-color: var(--category-hub-cyan);
+  background: color-mix(in srgb, var(--category-hub-cyan), transparent 74%);
 }
 
 .category-hub-syllabus-details {
@@ -828,6 +882,14 @@ html.dark .category-hub-container .category-hub-page-controls button[aria-curren
 }
 
 @media (max-width: 600px) {
+  .category-hub-level-guide {
+    grid-template-columns: 1fr;
+  }
+
+  .category-hub-level-guide small {
+    grid-column: auto;
+  }
+
   .main-content .category-container.category-hub-container {
     gap: 14px;
   }
@@ -922,6 +984,12 @@ html.dark .category-hub-container .category-hub-page-controls button[aria-curren
   }
 
   .category-hub-syllabus-status {
+    font-size: 9px;
+  }
+
+  .category-hub-syllabus-open {
+    margin: 5px 0 0;
+    padding: 3px 5px;
     font-size: 9px;
   }
 

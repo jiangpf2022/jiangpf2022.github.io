@@ -8,7 +8,7 @@ mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 20
-lesson_level: 2
+lesson_level: 3
 review_lock: true
 excerpt: "Prepare the team, time budget, tools, and decision habits for a modeling competition."
 ---

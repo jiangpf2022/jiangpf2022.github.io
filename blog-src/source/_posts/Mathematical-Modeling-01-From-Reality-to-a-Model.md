@@ -20,13 +20,13 @@ Relax. This is our first class; you do not need a solver, a clever algorithm, or
 
 Imagine a commuter who is usually picked up at 6:00 p.m. Today he arrives thirty minutes early, walks toward home, meets the car on the road, and gets home ten minutes ahead of schedule. **How long did he walk?** Write down a guess before you look for a formula. We know neither driving speed nor walking speed. That is exactly why this is a good first modeling question: the right relationship may matter more than the missing numbers.
 
-I want to build this course the way we would work at a board together. I will pose a concrete problem, let you predict, say what we are assuming, make the smallest calculation that can answer it, and ask what observation would overturn the result. The commuter is only our first puzzle. We will also ask how a restaurant should replace dishwater, how a traffic signal gets its timing, and how a campus manager can staff a dining hall. Across all four, the common skill is turning a vague situation into a testable question.
+I want to build this course the way we would work at a board together. I will pose a concrete problem, let you predict, say what we are assuming, make the smallest calculation that can answer it, and ask what observation would overturn the result. The commuter is only our first puzzle. We will also ask how a field team can keep a sample box cool, how an automated campus cart should approach a timed gate, and how a manager can staff a dining hall. Across all four, the common skill is turning a vague situation into a testable question.
 
 Mathematical modeling is not the act of attaching a fashionable algorithm to a dataset. It is the controlled replacement of a real system by a simpler mathematical object that is useful for a stated decision.
 
 Our commuter guess already contains the first modeling question: *what exactly are we trying to determine?* Before solving any of the four examples, let us name the choices we will make in every one of them. Later, when the equations arrive, you can check whether each choice still matches the story.
 
-## The modeling contract
+## What a model must answer
 
 <aside class="mm-key-box" role="note" aria-label="The modeling contract">
   <span class="mm-callout-label">Key idea · The modeling contract</span>
@@ -54,95 +54,67 @@ And how would we know if the model is wrong? Record real arrival times at classe
 
 For a first experiment, take a tiny stop with ten riders at 8:30, a vehicle with eight empty seats arriving at 8:35, and another vehicle arriving ten minutes later. If everybody needs to be in a classroom five minutes after drop-off, eight can catch the first shuttle and two cannot. You do not need a simulation to see why seat capacity matters. If a program says all ten catch the first shuttle, the tiny scenario immediately reveals a missing constraint. After your smallest example works, add several stops, uncertain arrivals, and real travel times. A beginner who can diagnose a ten-person example is better prepared for a thousand-rider dataset than one who starts by importing a sophisticated solver.
 
-The shuttle example gave us five questions to ask about a system. Let us now apply them to a very different one—a basin of water in a restaurant. If the same questions still help when the physical mechanism changes, they are useful modeling habits rather than a checklist tied to one problem.
+The shuttle gave us a purpose, boundary, state, mechanism, and test. Those five questions will also organize the thermal example below. We will keep each physical step beside its corresponding modeling idea, rather than collect unrelated puzzles in a separate chapter.
 
-## Start with a question, not an equation
+## From purpose to state
 
-Imagine you own a small restaurant. Before lunch, you fill a basin with hot water. A worker rinses each dirty plate in cold water and then dips it into this basin. The water must stay warm enough to clean the plates, but it cannot be so hot that the worker burns their hands. Refilling and reheating cost money. **How many plates can this one basin handle before you should replace the water?**
+Imagine a field team loading small, room-temperature sample vials into an insulated box containing a chilled thermal reservoir. The team has agreed on an illustrative upper box-temperature limit of $8\,^{\circ}\mathrm C$ for this classroom exercise. **How many vials can we load before the reservoir reaches that limit?** Take a moment to guess; the point is not to know the answer but to identify what determines it.
 
-You might answer “a hundred” or “a few hundred.” Good: write down your guess. Now tell me what would actually make the basin unusable. Is it that a fixed number of plates has gone through it, or that the water has cooled below a temperature you consider acceptable? The second answer suggests something we can measure after every plate: the water temperature. We call that changing quantity the *state* of the system. The number of plates is an output we infer from the state; it is not what controls the temperature.
+Counting vials alone does not tell us whether the box is cool enough. The changing reservoir temperature $T_n$ is our *state*. The vial count $n$ is an output: it records how many steps occurred. A real storage protocol might also require a limit on *each vial's own temperature*, exposure duration, packing geometry, or contamination. We are not designing a real laboratory procedure here. Our first model answers only a carefully declared question about the **average reservoir temperature**; those other requirements would need separate checks.
 
-There is a second complication. Dirty plates can make the water unhygienic even while it is warm. So the temperature model below answers only the **thermal** part of the question. In a real restaurant, test both the temperature threshold and water cleanliness, and replace the water when either requirement fails. I am telling you the limitation *before* doing the calculation because otherwise an impressively precise plate count would give you false confidence.
+### Draw a boundary before balancing energy
 
-### Draw the boundary in your head
-
-Take the basin and the plate currently being dipped as your system for one washing step. The water begins at temperature $T_n$; the plate, after the cold rinse, begins at $T_p$. We expect the warmer water to give up energy and the colder plate to gain it. If we assume that one dip is fast, heat lost to the surrounding air during that dip is small. If we assume the basin is well mixed, we can represent all its water by one temperature. Neither assumption is automatically true. They make a first calculation possible and tell us what to check later.
-
-“Energy lost by the water equals energy gained by the plate” is the balance for this boundary. Let $M$ be the mass of water in kilograms, $c_w$ the heat capacity of water in joules per kilogram per degree Celsius, $m_p$ the mass of one plate, and $c_p$ its heat capacity. If both reach the same temperature $T_{n+1}$ after the dip, the equation is
+For one loading step, put the reservoir and the newly added vial inside our boundary. Let $C_c$ be the reservoir's effective heat capacity in joules per degree Celsius, $C_v$ the vial's effective heat capacity, and $T_v$ the vial's incoming temperature. We suppose they reach a common temperature $T_{n+1}$ quickly, while heat exchange with the outside air during that one step is negligible. The reservoir gains energy; the warm vial loses energy. Thus
 
 $$
-M c_w(T_n-T_{n+1})=m_p c_p(T_{n+1}-T_p).
+C_c(T_{n+1}-T_n)=C_v(T_v-T_{n+1}),
 $$
 
-Read the left side in words: kilograms of water times energy needed to change one kilogram by one degree times the degrees by which it cooled. The right side says exactly the same thing for the warming plate. Both sides have units of joules. Notice that I did not begin with an algorithm. I began with the heat-transfer story, chose a boundary, and *then* wrote what must balance across it.
-
-Solve this one-line equation for the new water temperature:
+and solving for the new state gives
 
 $$
-T_{n+1}=\frac{M c_wT_n+m_p c_pT_p}{M c_w+m_p c_p}.
+T_{n+1}=\frac{C_cT_n+C_vT_v}{C_c+C_v}.
 $$
 
-This weighted average immediately passes two sanity checks. If the plate has almost no mass, $m_p c_p$ approaches zero and the water barely cools. If we keep increasing the plate's thermal mass, the final temperature moves closer to the plate's starting temperature. If your computation predicts a temperature *higher* than both starting temperatures, it has a sign or implementation error.
+Both sides of the balance are in joules. The weighted average should lie between the old reservoir temperature and the incoming vial temperature. If your code returns a value outside that interval, check the boundary, signs, and units before blaming the software. Also notice that the model is not about a vial “using up” a fixed amount of coldness. Its energy exchange depends on the *current* temperature gap, which changes after every addition.
 
-### Let us put in illustrative numbers
+### Follow the changing state
 
-Suppose the basin holds 20 kilograms of water, initially at $65\,^{\circ}\mathrm C$. Set the minimum acceptable temperature to $45\,^{\circ}\mathrm C$. For a first approximation, use $c_w=4180\,\mathrm{J/(kg\,^{\circ}C)}$. Suppose each plate weighs $0.30\,\mathrm{kg}$, its effective heat capacity is $800\,\mathrm{J/(kg\,^{\circ}C)}$, and it enters the hot basin at $20\,^{\circ}\mathrm C$. These are **teaching numbers**, not measurements of your restaurant. Before trusting the answer, weigh actual plates, measure how much water is in the basin, and record temperatures before and after a few dips.
-
-Here $M c_w=83{,}600\,\mathrm{J/^{\circ}C}$ and $m_p c_p=240\,\mathrm{J/^{\circ}C}$. After the first plate,
+Let $C_c=83{,}600\,\mathrm{J/^{\circ}C}$, $C_v=240\,\mathrm{J/^{\circ}C}$, $T_0=4\,^{\circ}\mathrm C$, and $T_v=20\,^{\circ}\mathrm C$. These are teaching numbers, not measured box specifications. The first step gives
 
 $$
-T_1=\frac{83{,}600(65)+240(20)}{83{,}840}\approx64.87\,^{\circ}\mathrm C.
+T_1=\frac{83{,}600(4)+240(20)}{83{,}840}\approx4.046\,^{\circ}\mathrm C.
 $$
 
-The tiny drop makes sense: the water has far more thermal capacity than one plate. But do not multiply this first temperature drop by the number of plates and assume it remains constant. As the water cools, the difference between water and the next cold plate becomes smaller; every subsequent plate takes a slightly different amount of heat.
-
-We can repeat the update by hand for a few plates or compute it in a loop. To understand the answer before running code, subtract the plate temperature $T_p$ from both sides. With
+The small increase is sensible: one vial has much less thermal capacity than the reservoir. But the next vial will not cause exactly the same increase, because the reservoir is already warmer. Define
 
 $$
-r=\frac{M c_w}{M c_w+m_p c_p}=\frac{83{,}600}{83{,}840}\approx0.997137,
+r=\frac{C_c}{C_c+C_v}=\frac{83{,}600}{83{,}840}\approx0.997137.
 $$
 
-the recurrence becomes $T_{n+1}-T_p=r(T_n-T_p)$. After $n$ identical plates, $T_n=T_p+r^n(T_0-T_p)$. The basin remains above the threshold while
+Subtract $T_v$ from the update equation. It becomes $T_{n+1}-T_v=r(T_n-T_v)$, so repeated identical additions give $T_n=T_v+r^n(T_0-T_v)$. To stay at or below our classroom limit $T_{\max}=8\,^{\circ}\mathrm C$, we need
 
 $$
-r^n\geq\frac{T_{\min}-T_p}{T_0-T_p}=\frac{25}{45}.
+r^n\ge\frac{T_v-T_{\max}}{T_v-T_0}=\frac{12}{16}=0.75.
 $$
 
-Taking logarithms, remembering that $\log r$ is negative and therefore reverses the inequality when we divide by it, gives $n\leq\log(25/45)/\log(r)$. That is roughly **205 plates** for these illustrative numbers. The 206th plate takes the water below our declared threshold. Whether you count a plate washed at exactly the threshold as acceptable should be written down *before* you round your answer.
+Because $0<r<1$, $\log r<0$; dividing by it reverses the inequality. Thus $n\le\log(0.75)/\log(r)\approx100.35$. The integer baseline permits **100 additions**: $T_{100}\approx7.988\,^{\circ}\mathrm C$, whereas $T_{101}\approx8.022\,^{\circ}\mathrm C$. The count is conditional on the chosen temperature limit and every assumption above, not permission to store actual samples without checking a real protocol.
 
-Could we have estimated the count more crudely? The basin can lose about $20(4180)(65-45)=1.672$ million joules before reaching the threshold. If every plate required exactly $0.30(800)(45-20)=6000$ joules, we might divide and say 278 plates. But a plate dipped when the water is still near $65\,^{\circ}\mathrm C$ absorbs **more** than 6000 joules. That 278 is an optimistic upper-bound-style estimate under this simplified setup, not the answer to the mixing model. The disagreement between 278 and 205 teaches us *why* a changing state needs a step-by-step model instead of one division.
+Why not just divide “available thermal capacity” by the energy transferred per vial? Such a shortcut fixes the temperature gap at one value, while the recurrence allows it to shrink. You can use a rough division for an order-of-magnitude check, but not quietly replace a changing state with a constant per-step cost. The lesson is broader than heat: whenever the next event depends on the current state, model the update first and count afterward.
 
-### What would change the recommendation?
+### Test the boundary in the field
 
-Keep the physical question in view. If a heater runs continuously, energy enters the basin; if the room is cold, energy leaves the basin between plates; if plates are different sizes, each dip transfers a different amount of energy. A convenient general statement is
+What would we measure before trusting the number 100? Record the reservoir's mass or stated thermal capacity, incoming vial temperatures, loading times, and thermometer readings at more than one box position. If top and bottom readings disagree substantially, the one-temperature state is inadequate. If the box warms while no vial is inserted, heat leaking through insulation matters too. Leave it closed for a control period equal to ten loading steps, then compare its warming with the loading experiment.
 
-$$
-\text{change in stored energy}=\text{heat added by heater}-\text{heat taken by plates}-\text{heat lost to room}.
-$$
+A useful log has insertion number, elapsed time, reservoir temperature before and after, vial type, and time the lid remained open. Ten careful observations can already test whether a first-step change near $0.046\,^{\circ}\mathrm C$ is plausible. If the measured change is much larger, inspect vial mass, open-lid heat gain, sensor position, and reservoir capacity. Change a parameter only when you can name the missing mechanism. If vials differ, replace the constant $C_v$ with $C_{v,n}$ in each step; if outside heat enters, add an energy term with units of joules. Neither extension should appear merely to make the formula look impressive.
 
-Now that the terms each name a real event, you can decide which to include. If heating is turned off and thirty plates are washed quickly, perhaps room loss is negligible over that short interval. If plates are washed over two hours, it might dominate. A thermometer reading after every tenth plate and a clock can tell us. That is a test of an assumption, not an invitation to add complexity for its own sake.
+Suppose field observations show the average reservoir crosses our limit after 70–90 vials, not 100. The answer is not to publish “100” with more decimal places. The difference tells us the baseline missed something: perhaps opening the lid, weaker insulation, or a smaller usable thermal mass. A recommendation must state the *tested operating range* and which measurements support it. If another requirement stops loading after 40 vials, refining the thermal count from 100 to 98 would not change the decision. This is where a modeler learns when to stop elaborating.
 
-Finally, check units wherever you go. The quantities $M c_w(T_n-T_{n+1})$ and $m_p c_p(T_{n+1}-T_p)$ are both energies; we may equate them. We cannot add a temperature directly to an energy, and we cannot put a quantity measured in joules inside an exponential without making it dimensionless first. Unit checks are cheap, and in beginner models they catch a surprising number of expensive mistakes.
+Finally, imagine the reservoir has half the thermal capacity but starts at the same temperature. The count should fall substantially, although the exact integer need not be exactly half because $r=C_c/(C_c+C_v)$ changes. Predict the direction before calculating. If you can explain why, the mechanism is yours rather than a number you memorized.
 
-### Turn the basin calculation into an actual experiment
+We have framed one physical problem and followed a state update to a threshold. Many modeling questions instead ask us to assign, schedule, or choose. The same habit—translate the ordinary words into quantities with clear jobs—takes us to the dining hall.
 
-If you were standing in that kitchen, what would you measure first? Put a graduated mark on the basin so you can estimate the water volume. Water's density near these temperatures is close enough to one kilogram per litre for a rough classroom estimate, so a twenty-litre fill suggests about twenty kilograms; for a careful calculation, record or measure the actual mass. Put a thermometer in the same representative location each time, stir gently, and record the starting temperature. Weigh a sample of plates instead of using my teaching number. Keep track of what kind of plate is being washed and whether the plate was room temperature or just rinsed in colder water.
-
-Now make a table with columns for dip number, elapsed time, water temperature before the dip, water temperature after the dip, plate type, and whether a heater was on. Ten well-recorded dips can already reveal useful patterns. If the temperature drops by about $0.13\,^{\circ}\mathrm C$ for the first ordinary plate, our first illustrative update has the right order of magnitude. If it drops by a full degree, something in the teaching values or in the model of one dip is wrong. Perhaps the dish is heavier, cold water stays on it, hot water is removed with it, or the basin contains less water than we assumed. Do not “fix” the answer by arbitrarily changing a parameter until you know which mechanism caused the discrepancy.
-
-How would you separate plate cooling from loss to the room? Leave the basin untouched for the same amount of time it would take to wash ten plates, and record how much it cools. That gives a control experiment. If it loses $1\,^{\circ}\mathrm C$ even without plates, then some observed drop during washing is environmental. If it barely cools, the plates probably dominate over that interval. This is the most approachable version of an experimental control: compare a condition with the hypothesized cause to one without it.
-
-What about the cleanliness requirement we set aside? Ask the staff what threshold actually governs replacing the water—temperature, visual dirtiness, a sanitation rule, time in use, or a combination. A thermal count of 205 plates is **not** a sanitation recommendation. If water is cloudy after 40 plates, the real operational limit could be 40. If plates are cleaned by detergent and hot water is refreshed continuously, the kitchen's procedure may have a different limiting mechanism entirely. A model's purpose is to guide a real decision, so measuring the actual stopping rule is part of the mathematics.
-
-Try turning the calculation into a recommendation with uncertainty rather than a single number. Suppose your measurements suggest the basin stays within the temperature range for somewhere between 170 and 230 plates under typical shifts, but water cleanliness triggers replacement between 90 and 120. The practical recommendation is not “the model says 205.” It is “schedule replacement after at most about 90 plates under these observations, and verify hygiene requirements separately.” We would also explain how the range was obtained, how many shifts were measured, and why it may fail on a colder or longer shift. The conclusion changed because we finally asked the full restaurant question rather than only the easier thermal one.
-
-You might be tempted to make the model more detailed than the data support. We could write spatial heat-flow equations for every layer of water, model detergent chemistry, and estimate the thermal properties of each plate. But if staff replace the water after 90 plates due to dirtiness, refining the thermal estimate from 205 to 201 plates will not change the action. This is a good point to stop. An elaborate model is not intrinsically a better model; it is better only when it makes a materially different, testable decision possible.
-
-One final practice question: imagine the basin is half as large but starts at the same temperature. Would the plate limit simply halve? In the constant-per-plate energy shortcut, it would. In the recurrence, the ratio $r=M c_w/(M c_w+m_p c_p)$ also changes, so the exact count is not necessarily half to the nearest plate. Predict that the limit *decreases substantially* first, then calculate it. If you can explain the direction without touching a calculator, you have understood the mechanism; the calculator supplies the precise value afterward.
-
-We have just turned “How many plates?” into a changing temperature and an energy balance. Many modeling questions are not about heat at all: they ask us to assign, schedule, or choose. The next step is to translate those ordinary action words just as carefully as we translated the restaurant's question.
-
-## Translate language into structure
+## Translate words into structure
 
 Turn nouns into sets or parameters, verbs into decisions, and qualifiers into constraints.
 
@@ -164,9 +136,9 @@ Keep two columns labeled *question* and *mathematical representation*. “Can ev
 
 When a prompt has multiple numbered tasks, do not assume the numbers are independent. A forecast of lunchtime arrivals may feed the staffing decision; staffing may feed a cost calculation; those results may feed a recommendation. Make an arrow diagram and label each arrow with what it passes. If the recommendation uses a 12:30 forecast calculated from a feature that is only known after 12:30, you have built a loop through the future. This dependency diagram exposes the mistake before code turns it into a mysteriously excellent accuracy score.
 
-The assignment equations made the manager's rules explicit, but the capacities we used were estimates. The basin calculation likewise depended on a well-mixed tank and identical plates. How do we decide which simplifications are safe to keep and which ones might reverse the recommendation? That is the job of assumptions.
+The assignment equations made the manager's rules explicit, but the capacities we used were estimates. The sample-box calculation likewise depended on a uniform reservoir temperature and identical vials. How do we decide which simplifications are safe to keep and which ones might reverse the recommendation? That is the job of assumptions.
 
-## Assumptions are controlled approximations
+## Make assumptions visible
 
 A useful assumption removes complexity while preserving the mechanism that controls the answer. Classify assumptions as:
 
@@ -177,17 +149,17 @@ A useful assumption removes complexity while preserving the mechanism that contr
 
 Every important assumption should have a reason and a consequence. “Travel speed is constant because the route is short and uncongested; therefore travel time is proportional to distance.” A list of unsupported assumptions is decoration, not modeling.
 
-Return to the basin for a concrete test. We treated the water as one perfectly mixed volume. This means a thermometer near the surface and one near the bottom should report roughly the same temperature, especially just after a plate is dipped. If they report $57\,^{\circ}\mathrm C$ and $43\,^{\circ}\mathrm C$, our one-temperature state is a poor description. A sensible extension might use two layers, but the **measurement** is what justified the extra state. Do not start by inventing layers without checking whether stratification matters.
+Return to the sample box for a concrete test. We treated the chilled reservoir as one uniform volume. A thermometer near the lid and one near the base should report roughly the same temperature after each insertion. If they report $7\,^{\circ}\mathrm C$ and $4\,^{\circ}\mathrm C$, our one-temperature state is a poor description. A sensible extension might use two zones, but the **measurement** is what justifies the extra state. Do not invent spatial detail without checking whether it matters.
 
-We also pretended that all plates weigh $0.30$ kg and arrive at $20\,^{\circ}\mathrm C$. Those values may be roughly right for one kind of dish, but a metal baking tray and a light ceramic saucer will not absorb the same heat. Record plate types, frequencies, and approximate thermal masses $m_pc_p$. For a mixed stack, run the same recurrence with a different $m_pc_p$ for each dip. If order is unknown, run several plausible sequences or sample them from observed frequencies. This is how a static toy model grows into an uncertainty analysis without losing the mechanism you already understand.
+We also pretended that all vials have thermal capacity $240\,\mathrm{J/^{\circ}C}$ and arrive at $20\,^{\circ}\mathrm C$. A small plastic vial and a heavy metal cartridge will exchange different amounts of energy. Record container types, contents, incoming temperatures, and approximate thermal capacities $C_{v,n}$. For a mixed loading sequence, use the corresponding $C_{v,n}$ at each step. If order is unknown, try plausible sequences or sample them from observed frequencies. This grows the toy model into an uncertainty analysis without losing its mechanism.
 
-An assumption ledger is a way to keep promises visible. Put “well-mixed water” in one row, “equal plate thermal mass” in another, and “heater off during the wash” in a third. Beside each, record what makes it plausible, which part of the answer depends on it, and what observation could reject it. If the heater was running, our predicted 205 plates could be far too low. Add measured heater power in watts (joules per second) and the time between plates. Then **power times time** is energy entering the basin, with the same units as the heat transferred to plates. A unit check now tells you how to incorporate the new mechanism.
+An assumption ledger keeps promises visible. Put “uniform reservoir temperature” in one row, “equal vial thermal capacity” in another, and “negligible heat entering while the lid opens” in a third. Beside each, record why it is plausible, which result depends on it, and what observation could reject it. If the box sits in a warm room with its lid open, our predicted 100 vials could be far too high. Estimate incoming heat rate in watts (joules per second) and the time the lid is open. Then **power times time** is heat entering the box, with the same units as heat exchanged with a vial.
 
-Not every assumption needs an elaborate sensitivity plot. If the restaurant only needs to know whether one basin survives 80 plates in a short lunch shift, even a much lower stressed estimate might exceed 80. The decision could be robust. If it needs 200 plates, small changes in heat loss or plate mix may push the answer across the threshold. The level of modeling effort should depend on how close the real decision is to the predicted boundary.
+Not every assumption needs an elaborate sensitivity plot. If the field team needs to load only 20 vials, even a much lower stressed count might exceed 20. That decision could be robust. If it needs to load 95, small changes in heat gain or vial mix may push the answer across the threshold. Modeling effort should depend on how close the real choice is to the predicted boundary.
 
 Once assumptions are visible, we can avoid two opposite mistakes: doing nothing because the real world is messy, or building an enormous model before we know what matters. Begin with the smallest calculation that respects the main mechanism, and add detail only when an observation shows why you need it.
 
-## Solve the simplest credible model first
+## Build a baseline, then extend it
 
 Build models in layers:
 
@@ -197,13 +169,13 @@ Build models in layers:
 
 If a linear model answers the decision robustly, a deep network is not automatically better. Complexity must purchase predictive accuracy, realism, computational tractability, or decision quality. Report that purchase explicitly.
 
-For our basin, the transparent baseline is the no-heater, well-mixed recurrence. The first extension is not “replace it with machine learning”; it is “measure cooling even when no plates are dipped, and account for that loss between dips.” Put a thermometer in the basin, leave it untouched for ten minutes, and watch the temperature fall. If it falls from $65$ to $64.9\,^{\circ}\mathrm C$, room loss may be tiny over a fast batch. If it falls to $60\,^{\circ}\mathrm C$, it is too important to ignore. The more complicated model earns its place only if this difference alters the plate-count decision.
+For our box, the transparent baseline is the uniform-temperature recurrence with no heat leak. The first extension is not “replace it with machine learning”; it is “measure warming while no vials are loaded, and account for that gain between insertions.” Put a thermometer in the closed box and leave it untouched for ten minutes. If it warms from $4$ to $4.1\,^{\circ}\mathrm C$, the loss of cooling may be tiny over a fast batch. If it warms to $6\,^{\circ}\mathrm C$, it is too important to ignore. The extension earns its place only if this difference alters the loading decision.
 
 For the dining hall, a baseline is the demand-capacity balance. An extension could preserve individual arrival times and service-time variability in a discrete-event simulation. You need not know the name to grasp the idea. Keep a clock and a list of customers: when someone arrives, assign them to a free worker or make them wait; when a worker finishes, take the next customer. Repeating the clock events produces each person's wait. Compare predicted waits with real lunchtime observations. If the simulation changes the suggested staffing pattern during peaks, the extension solved a real limitation. If both models agree across the observed range, the simple balance might be sufficient for the manager's current decision.
 
-The basin recurrence and dining-hall capacity balance gave us answers under declared assumptions. Neither answer is evidence that the kitchen or campus will behave exactly as predicted. We now need to test the *whole path* from story to code to decision, not merely admire the final number.
+The box recurrence and dining-hall capacity balance gave us answers under declared assumptions. Neither answer proves that field loading or campus demand will behave exactly as predicted. We now need to test the *whole path* from story to code to decision, not merely admire the final number.
 
-## Validate the chain, not only the final number
+## Validate the entire reasoning chain
 
 Validation has several levels:
 
@@ -227,7 +199,7 @@ Fifth, **decision stability**: what if travel time is five minutes longer than m
 
 Finally, write the result for the person who asked. “Assign one additional eight-seat shuttle to the 8:35 stop arrival, subject to the vehicle budget; on held-out ordinary mornings the predicted on-time fraction rises from 78% to 92%, but the plan falls below 90% when travel is more than five minutes slower.” This is an *illustrative sentence*, not a measured result from Columbia's shuttles. It shows what a conclusion ought to contain: an action, a metric, a comparison, the operating range, and the main failure condition. A bare “accuracy = 92%” does not tell the dispatcher what to do.
 
-If you are new to mathematics, you may worry that these checks make every answer uncertain. They do, in a healthy way. Modeling does not mean being afraid to conclude anything; it means knowing which conclusions are earned. Our commuter answer is exact under a clear symmetry assumption. The two-day theorem guarantees an existence result under continuity but not the location. The basin's plate count is conditional on measured thermal values and stopping rules. The shuttle recommendation can be supported by held-out mornings but still need stress testing for rain. Different problems give different kinds of certainty, and good teaching should not pretend they are all the same.
+If you are new to mathematics, you may worry that these checks make every answer uncertain. They do, in a healthy way. Modeling does not mean being afraid to conclude anything; it means knowing which conclusions are earned. Our commuter answer is exact under a clear symmetry assumption. The two-day theorem guarantees an existence result under continuity but not the location. The box's vial count is conditional on measured thermal values and stopping rules. The shuttle recommendation can be supported by held-out mornings but still need stress testing for rain. Different problems give different kinds of certainty, and good teaching should not pretend they are all the same.
 
 The shuttle validation example was deliberately long. On a live problem you need a compact way to notice a missing decision variable, an unmeasured input, or a test you forgot to design. Use the following questions as a pause before moving from formulation to computation.
 
@@ -245,7 +217,7 @@ If any answer is vague, the model is not ready for optimization.
 
 You have seen a restaurant, a shuttle, and several short definitions. Let us slow down and build one campus decision from its very first sentence. The dining-hall case will let us use the checklist while the variables and constraints are still small enough to check by hand.
 
-## The dining hall: a model from scratch
+## Put the cycle together: the dining hall
 
 Suppose a university wants to reduce the waiting time at a campus dining hall without increasing the weekly labor budget. This sentence is still a **situation**, not a mathematical problem. We must decide who acts, what can be changed, what cannot be changed, and what “better” means.
 
@@ -283,11 +255,11 @@ The baseline assigns enough workers to keep estimated utilization below a chosen
 
 Reserve several days for evaluation. Compare predicted and observed queue length, mean wait, 90th-percentile wait, and the fraction of periods exceeding a service target. Inspect errors by weekday and time of day. A model that is accurate at noon but fails at closing time has a defined operating range, not universal validity.
 
-### Your first deliverable
+**Your first deliverable**
 
 Create a one-page specification for a real system around you. It must include one decision sentence, a boundary diagram, a variable table with units, three assumptions with tests, one baseline, one extension, and two validation metrics. This exercise is deliberately algorithm-free: the purpose is to learn that formulation comes before computation.
 
-### Work one dining-hall period on paper
+**Work one dining-hall period on paper**
 
 That specification can feel abstract, so let us pretend we are standing beside the dining-hall manager at 12:00. In the next half hour, past records suggest that about 60 customers will arrive at the payment station. One worker can serve about 25 customers per half hour under ordinary conditions. The manager can assign either two or three workers. Which arrangement would you try first? Make your own prediction before using a formula.
 
@@ -303,7 +275,7 @@ Try a quick counterexample. Suppose 30 of the 60 customers arrive within the fir
 
 If those timestamps exist, create two plots: cumulative arrivals against cumulative service capacity, and observed wait against predicted wait across several days. The gap between the two cumulative curves is an approximate queue. Measure whether errors cluster at lunch peaks; if so, shorten the time periods or use a stochastic queue. If predicted and observed waits agree under ordinary conditions but not at the first five minutes of lunch, report that precise operating range. A model that identifies its own weak spot is far more useful than one that prints a single unqualified staffing schedule.
 
-### Data, choice, and rule are different kinds of quantities
+**Data, choice, and rule are different kinds of quantities**
 
 Let me spell out a distinction that beginners often learn only after a solver gives nonsense. The 60 arrivals are an *observation or forecast*: we do not get to change yesterday's timestamps. The number of assigned workers is a *decision*: the manager can choose it within staffing rules. The $9$ cost is a *parameter* computed from wages and time. A sentence like “no more than three workers at payment” is a *constraint* on decisions. A queue of 18 at 12:05 is a *state* of the system, created by earlier arrivals and service. These labels are not ceremonial. They tell us which quantities can be optimized and which must be estimated.
 
@@ -311,13 +283,11 @@ You can test your understanding by changing only one quantity at a time. If arri
 
 At this point, I would ask you to explain the case to a classmate without any Greek letters. You should be able to say, “Customers arrive faster than two workers can serve them, so a line builds. A third worker gives average breathing room, but a lunch rush can still create a line. We would check arrival timestamps and the other stations before changing the schedule.” If you can say that, the mathematical symbols have done their job: they clarified a decision rather than replacing it with jargon.
 
-The dining hall was a full workflow: decide, calculate a baseline, and test it. The opening slides use four shorter puzzles to sharpen individual habits. We will take them one at a time—an invariant, a continuity argument, a safety-timing calculation, and an energy balance—then ask which habit each one contributes to the longer workflow.
+The dining hall was a full workflow: decide, calculate a baseline, and test it. We already used a physical balance for the sample box. Three more mathematical lenses sharpen different habits: an invariant can remove unknown speeds, continuity can prove existence without an exact path, and a threshold can separate braking from clearance. They are not new modeling cycles; they are tools for choosing a useful mechanism *inside* the cycle you know.
 
-## Lecture casebook: four problems before any algorithm
+## Reason before computing
 
-The opening lecture deliberately begins with ordinary situations. Each one teaches a different modeling habit. Work through them before reaching for a solver.
-
-### The early commuter
+### Invariants: the early commuter
 
 A commuter is normally picked up at the station at 6:00 p.m. One day he arrives at 5:30, does not phone his wife, and walks toward home along her usual driving route. She leaves at the usual time, meets him on the way, and they arrive home **ten minutes earlier** than on a normal day. How long did he walk? Before reading the answer, choose a number. A lot of people immediately say “thirty minutes,” because he arrived thirty minutes early. But that would require his wife to meet him exactly when she normally reaches the station; she meets him *on the road*, so he stops walking before then.
 
@@ -327,47 +297,35 @@ The meeting must therefore occur five minutes before her normal 6:00 arrival, at
 
 Let me ask you to challenge it. What if the wife speeds up on the way home, or the road is one-way and the return route differs? Then the two saved traversals are no longer equal, so “five plus five” need not hold. What if she gets the news and leaves early? Then her departure schedule has changed, and the usual reference clock no longer works. The conclusion is conditional, as a model's conclusion should be.
 
-This is a lesson about *invariants*: a property that remains usable even when other numerical details are unknown. You can model the full positions $x_{mathrm{wife}}(t)$ and $x_{mathrm{walker}}(t)$, introduce two speeds and a distance, and solve a system of equations. You could also notice the two skipped road segments and solve the problem in three lines. Simplicity here is not laziness: it exposes exactly why the answer is determined.
+This is a lesson about *invariants*: a property that remains usable even when other numerical details are unknown. You can model the full positions $x_{\mathrm{wife}}(t)$ and $x_{\mathrm{walker}}(t)$, introduce two speeds and a distance, and solve a system of equations. You could also notice the two skipped road segments and solve the problem in three lines. Simplicity here is not laziness: it exposes exactly why the answer is determined.
 
-### The two-day journey
+### Continuity: the two-day journey
 
 On Monday, a walker sets out from village $A$ at 9:00 a.m. and reaches village $B$ by 5:00 p.m. On Tuesday, the same walker starts at $B$ at 9:00 a.m. and returns along the same path to $A$ by 5:00 p.m. Must there be a point on the path where the walker was at **the same clock time** on both days? You need not know whether either day's speed is constant. The walker might pause, accelerate, or even backtrack. Take thirty seconds to imagine both journeys before following the proof.
 
 One wonderfully concrete way to see it is to imagine two copies of the walker traveling *simultaneously* on the same path: Monday's copy walks from $A$ to $B$, Tuesday's copy walks from $B$ to $A$. At 9:00 the copies are on opposite ends. By 5:00 their ends have exchanged. If neither teleports and they stay on the same continuous path, they cannot exchange order without meeting. Their meeting point is exactly the position occupied at the same clock time on the two real days. The story is a proof, not a numerical prediction of *where* they met.
 
-If you want mathematical notation, measure distance $x$ from $A$ along the route. Set $f(t)=x_{mathrm{Monday}}(t)-x_{mathrm{Tuesday}}(t)$. At 9:00, $f$ is negative: Monday is at $A$ ($x=0$), Tuesday at $B$ ($x=D$), so $f=-D$. At 5:00 it is positive: Monday at $B$ and Tuesday at $A$, so $f=D$. The intermediate-value theorem says a continuous $f$ that changes sign must take the value zero at some time $t^*$. At that instant the two positions coincide.
+If you want mathematical notation, measure distance $x$ from $A$ along the route. Set $f(t)=x_{\mathrm{Monday}}(t)-x_{\mathrm{Tuesday}}(t)$. At 9:00, $f$ is negative: Monday is at $A$ ($x=0$), Tuesday at $B$ ($x=D$), so $f=-D$. At 5:00 it is positive: Monday at $B$ and Tuesday at $A$, so $f=D$. The intermediate-value theorem says a continuous $f$ that changes sign must take the value zero at some time $t^*$. At that instant the two positions coincide.
 
 Why did I state the starting and ending **clock times**? If Tuesday's trip happens between midnight and 8:00 a.m., it need not share a time interval with Monday's trip, so “same clock time” has a different meaning. If the return journey follows a different road, equal distances from $A$ may refer to different actual places. We must state a common time interval, a shared continuous path, and continuous motion. That is the modeling work hidden beneath a very short theorem.
 
-### Yellow-light duration
+### Thresholds: a cart and a timed gate
 
-You are designing a signal at an intersection. At the moment the green light turns yellow, a driver near the stop line has two possible actions: brake to a stop before the line or continue through the intersection. How long should the yellow light last so that a driver making a reasonable decision is not trapped? This question sounds as if it asks for one number, but the number depends on approach speed, driver response time, comfortable braking, and how far the vehicle must travel to leave the conflict zone.
+Imagine a small automated delivery cart approaching a timed campus service gate. The gate controller announces that its opening phase will end after $T_g$ seconds. At that moment, a cart still outside the marked entrance has two options: stop before the entrance or continue and clear the gate before it begins closing. **How long should the controller keep the gate open so a cart at the edge of the comfortable-stopping region has a feasible continue option?** This is an invented teaching scenario, not an engineering specification for an actual gate; a real operating system would require obstacle sensing, fail-safe behavior, and equipment-specific checks.
 
-First consider stopping. During the driver's reaction time $t_r$, the car has not yet started braking, so at speed $v$ it travels $v t_r$ metres. If the brakes then provide approximately constant deceleration of magnitude $a>0$, the braking distance is $v^2/(2a)$. A driver closer to the line than the sum $v t_r+v^2/(2a)$ when yellow begins cannot stop comfortably before the line. To allow that boundary driver to reach the line at roughly constant speed, the **yellow change interval** in this simple model is
-
-$$
-t_y=t_r+\frac{v}{2a}.
-$$
-
-Now consider a car that has just reached the stop line. To clear an intersection of width $w$, a vehicle of length $L$ needs roughly another $t_c=(w+L)/v$ seconds under the constant-speed assumption. Depending on the signal design, this may be provided by an **all-red clearance interval** or otherwise accounted for; do not casually add it to the yellow interval and call the sum a universal legal standard. The [FHWA Signal Timing Manual](https://ops.fhwa.dot.gov/publications/fhwahop08024/chapter5.htm) treats yellow change and red clearance as related but distinct intervals and discusses approach grade as an additional consideration. In the formulas, $t_r$ is perception-response time in seconds, $v$ speed in metres per second, $a$ comfortable deceleration in metres per second squared, and $w$ and $L$ are lengths in metres. Every term is a time. If you accidentally substitute $v$ in kilometres per hour without converting it, your result is not a valid duration.
-
-Try a small numerical example: $t_r=1.0$ s, $v=15$ m/s, $a=3$ m/s$^2$, $w=12$ m, and $L=5$ m. The yellow calculation is $1.0+15/(2\cdot3)=3.5$ seconds; the separate illustrative clearance calculation is $17/15\approx1.13$ seconds. Before accepting either number, ask what changes if the road is wet or downhill. Effective deceleration falls, so the braking-related time grows. Ask what changes for a longer vehicle: the clearance time grows. The answer to the modeling problem is not an isolated $3.5$; it is a timing recommendation **together with declared assumptions and stress tests**.
-
-### How many plates can one tank wash?
-
-The useful state variable is water temperature, not merely the number of plates. Let a tank contain mass $M$ of water with heat capacity $c_w$. Plate $n$ has mass $m_p$, heat capacity $c_p$, and incoming temperature $T_p$. If mixing is fast and environmental loss during one wash is approximated by fraction $\lambda$, an energy balance gives
+During a controller-to-brake delay $t_d$, the cart rolls at speed $v$ and covers $vt_d$. If braking then produces approximately constant deceleration $a>0$, it needs another $v^2/(2a)$ metres to stop. A cart closer than $d_s=vt_d+v^2/(2a)$ to the entrance cannot meet our assumed comfortable-stop rule. At constant speed, reaching the entrance from that boundary needs
 
 $$
-T_{n+1}=T_a+(1-\lambda)\left[
-\frac{M c_w T_n+m_p c_pT_p}{M c_w+m_pc_p}-T_a
-\right].
+T_{\mathrm{reach}}=\frac{d_s}{v}=t_d+\frac{v}{2a}.
 $$
 
-The maximum plate count is the first $n$ for which $T_n<T_{\min}$, where $T_{\min}$ is the sanitation threshold. A better version also includes hot-water replacement, washing time, detergent effectiveness, and uncertainty in plate mass. The model is useful because the restaurant can estimate all of these quantities and perform a sensitivity analysis instead of accepting one fragile number.
+Reaching the entrance is **not** the same as clearing the opening. If the gate zone is $w$ metres deep and the cart is $L$ metres long, the final part needs about $T_{\mathrm{clear}}=(w+L)/v$. Under our simplified constant-speed continue path, the full opening requirement is $T_g\ge T_{\mathrm{reach}}+T_{\mathrm{clear}}$. A real controller might have a separate clear-zone hold period; keep the two stages explicit rather than hide them inside one unexplained duration.
 
-Each puzzle taught a way to turn ordinary words into a mathematical claim. A competition prompt is rarely as tidy: it combines several claims, data sources, and deliverables. Let us carry the same habits into a larger setting before talking about which software a team might use.
+For classroom numbers $t_d=0.4$ s, $v=2$ m/s, $a=1$ m/s$^2$, $w=3$ m, and $L=0.8$ m, reaching takes $0.4+2/(2\cdot1)=1.4$ s and clearance takes $3.8/2=1.9$ s. The simplified total is $3.3$ s. Every term is measured in seconds; a length divided by speed is time, and $v/a$ is time. Before trusting $3.3$, try slower braking, a longer cart, sensor delay, or an obstacle inside the opening. An obstacle should trigger a fail-safe response, not a more optimistic timing formula. The example teaches how one decision divides into distinct physical stages and stress tests.
 
-## Competition ecology and problem families
+Each lens turned ordinary words into a mathematical claim. A competition prompt is rarely as tidy: it combines several claims, data sources, and deliverables. Let us carry the same habits into that larger setting before talking about software.
+
+## Competition problems and evidence
 
 The lecture groups national-competition prompts into recurring families rather than promising that every problem has one fixed method:
 
@@ -399,7 +357,7 @@ I would encourage a novice team to produce one imperfect but complete chain in t
 
 We have a map of what a team must reason through. Now we can decide where the work should live. Software will not choose the boundary or validate a theorem for us; it can, however, make the calculation, collaboration, and writing reproducible once those jobs are clear.
 
-### The complete working environment
+## Tools for reproducible teamwork
 
 The course toolbox is a pipeline, not a list of brands. Use a shared knowledge base for task ownership; a collaborative document for live writing; Python for data, simulation, and optimization; LaTeX for the final mathematical document; draw.io or PowerPoint for diagrams; and an LLM only as an assistant whose claims and code are checked.
 
@@ -407,13 +365,13 @@ Let us organize the tools around one ordinary team meeting. Three students sit d
 
 Open a shared **Google Doc** or equivalent writing space early, even if its first version is ugly. Put in the working title, a two-sentence problem restatement, a variable table, and blank spaces for results. Why write before the math is finished? Because writing forces you to discover unanswered questions. If a paragraph says “our model predicts the best schedule” but you cannot yet say *what counts as best*, your objective is not fully specified. The document should track the logic of the work, not just receive it on the last night.
 
-Use **Python** when the problem needs repeatable calculations: cleaning a CSV, implementing the basin recurrence, simulating customer arrivals, drawing plots, or running an optimizer. Start with a tiny test that has an answer you can calculate by hand. For our basin, the first plate should leave the water near $64.87\,^{\circ}\mathrm C$ and the new temperature should lie strictly between the initial plate and water temperatures. If Python reports $120\,^{\circ}\mathrm C$, the code failed a physical check. A script that reads raw data and produces the paper's tables is more useful than a notebook full of manually copied intermediate numbers.
+Use **Python** when the problem needs repeatable calculations: cleaning a CSV, implementing the box recurrence, simulating customer arrivals, drawing plots, or running an optimizer. Start with a tiny test that has an answer you can calculate by hand. For our box, the first vial should move the reservoir from $4$ to about $4.046\,^{\circ}\mathrm C$, between the initial reservoir and incoming vial temperatures. If Python reports $30\,^{\circ}\mathrm C$, the code failed a physical check. A script that reads raw data and produces the paper's tables is more useful than a notebook full of copied intermediate numbers.
 
 Use **LaTeX** or Overleaf to compose a long technical report with equations, references, and figures whose numbering stays consistent. The slide asks teams to download the current official contest template and upload it to Overleaf. That is a sensible practice task: compile a small document now, before the contest clock starts, and confirm that every teammate knows how to change a section, add a figure, and resolve a compile error. Do not wait until the last night to discover that your mathematical symbols render incorrectly.
 
 Use **draw.io or PowerPoint** for a clear dependency diagram when the model has several modules. Draw arrows from raw arrival timestamps to the demand forecast, from that forecast to the staffing simulation, and from simulated waits to the recommendation. Write the units or meaning of what travels along every arrow. A nice-looking box diagram with arrows that do not name outputs is decoration; a rough diagram that exposes a missing input is useful.
 
-Finally, you may ask **ChatGPT or DeepSeek** to help brainstorm a baseline, explain unfamiliar mathematics, or draft test code. Treat the output as a suggestion, not as an observation, citation, proof, or validated implementation. If it offers a basin model, check its units and whether it confuses heat capacity with temperature. If it offers a theorem for the two-day journey, check the endpoints and continuity. If it offers a source, open the actual source and make sure it supports the precise claim. The team—not the assistant—owns the result.
+Finally, you may ask **ChatGPT or DeepSeek** to help brainstorm a baseline, explain unfamiliar mathematics, or draft test code. Treat the output as a suggestion, not as an observation, citation, proof, or validated implementation. If it offers a thermal-box model, check its units and whether it confuses heat capacity with temperature. If it offers a theorem for the two-day journey, check the endpoints and continuity. If it offers a source, open the actual source and make sure it supports the precise claim. The team—not the assistant—owns the result.
 
 Here is a concrete handoff ritual that saves beginners a lot of pain. At the end of a work block, each teammate leaves three things in the shared space: **what I produced**, **what I checked**, and **what the next person needs**. “I made a graph” is too vague. “I generated the observed-versus-predicted arrival plot from `arrivals.csv`, verified that time is in local minutes, and the next step is to inspect the noon residual spike” is actionable. The same discipline scales from a two-hour classroom exercise to a three-day competition.
 
@@ -427,44 +385,9 @@ Here is a concrete handoff ritual that saves beginners a lot of pain. At the end
 </div>
 
 
-We have discussed documents, code, figures, and diagrams, but it is easy to mistake a polished deliverable for understanding. So let us return to the yellow-light puzzle and hear how a modeling conversation might actually unfold at a whiteboard: questions first, physical stages second, equation third, and a challenged recommendation last.
+Tools help us make reasoning reproducible, but a polished document does not itself prove understanding. The next habit is to inspect a completed modeling argument backwards—from its conclusion to the evidence and assumptions that support it.
 
-## A live modeling conversation: the yellow light
-
-Let us model one example exactly as it might unfold in class.
-
-**Student:** “Can we just look up the legal yellow-light duration?”
-
-**Instructor:** We can look it up, but that answers a regulatory question, not the modeling question. We want to understand which physical quantities should determine the duration and whether the published value is reasonable for this intersection. For an actual intersection design, comply with the current applicable signal-timing rules; this exercise is about understanding the physical ingredients.
-
-**Student:** “Then the variable is the yellow-light time?”
-
-Exactly. Call it $T_y$. Now ask what a driver must do after the light changes. During the perception-reaction interval $t_r$, the car continues approximately at speed $v$. That covers distance $vt_r$. After braking begins, a constant-deceleration baseline gives braking distance $v^2/(2a)$. A driver standing at the boundary of the comfortable-stopping region is $vt_r+v^2/(2a)$ metres from the stop line. If that driver continues at speed $v$, a simple requirement for reaching the line during yellow is
-
-$$
-vT_y \ge vt_r + \frac{v^2}{2a}.
-$$
-
-Dividing by $v>0$ gives
-
-$$
-T_y\ge t_r+\frac{v}{2a}.
-$$
-
-Before substituting numbers, check dimensions. Every term on the right must be measured in seconds. That one check catches the common mistake of mixing kilometers per hour with meters per second. It also reveals what the formula is saying: reaction adds a fixed time, and weaker braking or higher speed enlarges the no-comfortable-stop region. Crossing the intersection itself is a separate clearance question; it requires distance divided by speed and may motivate an all-red interval. We should not conceal the difference between **getting to the line** and **clearing the conflict zone** inside one ambiguous $L$.
-
-Now challenge the baseline. A downhill grade reduces effective deceleration; wet pavement lowers available friction; drivers have a distribution of reaction times; approaching vehicles do not all travel at exactly the design speed. We do not have to add everything at once. First compute a transparent nominal value. Then evaluate conservative quantiles or scenarios and report how much each assumption changes $T$.
-
-The conclusion should sound like this: “For the declared design speed, reaction-time percentile, effective braking rate, and clearance distance, the model requires at least ___ seconds. Wet-road and downhill scenarios increase the requirement to ___; therefore we recommend ___ with a stated safety margin.” It should not sound like this: “MATLAB outputs 4.31.” The first sentence is a decision supported by a model. The second is an unexplained number.
-
-Here is your final thought experiment: if speed doubles, which term doubles, which term stays fixed, and which term halves? Answering that without recomputing is evidence that you understand the model’s structure.
-
-
-<!-- This lesson's case-by-case teaching is integrated beside each original problem. -->
-
-The whiteboard conversation is the final example for today. We have moved from relationships in a commuter's trip to continuity on a mountain path, energy accounting in a basin, and a safety threshold at a traffic signal. The same questions kept returning: what changes, what stays fixed, and what observation would make the answer unreliable? The course's first practical assignment now asks us to recognize those questions in someone else's completed paper, not to memorize a schedule for this chapter.
-
-## Your first week's work: read, reproduce, generalize
+## Read, reproduce, generalize
 
 The slide deck ends with a practical assignment, and I want to tell you how to do it if this is your first encounter with modeling. Start by reading several strong papers from **one year's official competition archive**. Do not begin by trying to understand every line of algebra. On the first pass, ask: What real problem did the team answer? What were the three or four major steps? Which figure convinced me that the steps worked? What limitation did the authors admit? Write one sentence per answer. If you cannot answer the real-problem question, the paper's mathematics is not yet attached to its purpose in your head.
 
@@ -476,7 +399,7 @@ Next, reproduce **three visualizations** that taught you something. Choose figur
 
 The slides also ask you to reproduce the strongest paper you read. That can sound intimidating. Reproduce **one small result** first: a data summary, a simple baseline, or a hand-checkable intermediate calculation. Write down the inputs and expected output before running any code. If your result disagrees, distinguish missing data, undocumented preprocessing, different random seeds, and your own bug. Only then attempt a larger part of the pipeline. Reproduction is not a contest to copy the largest formula; it is a method for learning which steps in a modeling argument are actually doing work.
 
-For “generalization,” revise an assumption in the reproduced model. If a commuter model treats all travel times as independent, ask what happens on rainy days when delays cluster. If a queue model uses one arrival rate all afternoon, ask what changes when lunchtime peaks. If a plate model assumes a heater is off, ask whether including measured energy input changes its recommendation. Make a prediction **before** modifying the code. Write down what moved, what stayed roughly the same, and what that teaches you about the boundary of the model.
+For “generalization,” revise an assumption in the reproduced model. If a commuter model treats all travel times as independent, ask what happens on rainy days when delays cluster. If a queue model uses one arrival rate all afternoon, ask what changes when lunchtime peaks. If a thermal-box model ignores warm air entering during loading, ask whether adding measured heat gain changes its recommendation. Make a prediction **before** modifying the code. Write down what moved, what stayed roughly the same, and what that teaches you about the model's boundary.
 
 The remaining assignment is operational: let everyone on the team become familiar with the shared notebook, document editor, Python environment, LaTeX, and diagramming tool; find legitimate materials and divide the reading; download the current official LaTeX template and make it compile in Overleaf. Think of these as rehearsal, not administrative busywork. If you know how to share a figure, rerun a script, find a source, and repair a broken equation before a timed competition, you spend the competition answering the actual question rather than fighting the tooling.
 
@@ -486,7 +409,7 @@ Do not worry if your first attempt looks small. A defensible one-page result tha
 
 After practicing with published papers and the course tools, we should check whether the modeling pattern transfers beyond the slide examples. The library question below has different people and constraints but the same need for a precise decision, changing state, simple baseline, and evidence. Try it before moving to the next lecture.
 
-## A final conversation before the next lesson
+## Transfer the method to a new problem
 
 I want to make sure you can use these ideas in a new situation rather than merely recognizing my examples. Imagine a library wants to reduce the number of students turned away from study rooms during exam week. Its first request is “build the best model of room usage.” Stop and ask the librarian three questions. What decision can be changed—hours, bookings, room assignments, or the number of available rooms? What outcome matters—turn-aways, average wait, student satisfaction, or unused room-hours? When is the decision made, and what data are available *then*? Until those answers are clear, “best model” is not a well-defined target.
 
@@ -496,4 +419,4 @@ Begin with a tiny baseline. If each extended room can serve one additional two-h
 
 How would you test the recommendation? Use last week's or last semester's exam-period bookings to simulate what the proposed extension would have done, while being honest that demand can respond to added availability. Compare the same days under the existing schedule and the proposed one; report turn-aways **and** unused room-hours. Stress the result if arrivals rise during finals. If extending rooms one and two works on the data but fails whenever attendance is slightly higher, tell the librarian so. An actionable answer might be “extend rooms one and two first, monitor the hourly turn-away count, and revisit the assignment after one week.” That is a more modest, more useful conclusion than “our model achieves optimum efficiency.”
 
-Can you now say how the library and the hot-water basin are alike? Both began as vague requests; both required choosing a quantity that changes—waiting students or water temperature; both had a stopping or success threshold; and both needed a test that could overturn a recommendation. Can you also say how they differ? A plate cannot choose not to enter the basin, but students may change booking behavior when rooms become available. Physical conservation gives us a strong starting mechanism in one case; human behavior may require more careful observation in the other. Learning modeling means recognizing both the transferable structure and the limits of that analogy.
+Can you now say how the library and the sample box are alike? Both began as vague requests; both required choosing a quantity that changes—waiting students or reservoir temperature; both had a success or stopping threshold; and both needed a test that could overturn a recommendation. Can you also say how they differ? A vial does not change its behavior when the box gets warmer, but students may change booking behavior when rooms become available. Physical conservation gives us a strong starting mechanism in one case; human behavior may require more careful observation in the other. Learning modeling means recognizing both the transferable structure and the limits of that analogy.
