@@ -8,6 +8,7 @@
   }
 
   const config = window.blogReaderConfig || {};
+  const DEVELOPER_USER_ID = "ef797a53-7193-4d0e-b566-5c8f3d33f9fd";
   const COURSE_CATALOG = [
     {
       slug: "mathematical-modeling",
@@ -33,6 +34,7 @@
   const state = {
     client: null,
     session: null,
+    previewAsReader: sessionStorage.getItem("blog-developer-regular-preview") === "true",
     history: [],
     article: null,
     progress: 0,
@@ -240,6 +242,8 @@
         detail: {
           configured: state.configured,
           signedIn: Boolean(state.session),
+          developer: state.session?.user?.id === DEVELOPER_USER_ID,
+          regularPreview: state.previewAsReader,
           syncEnabled: state.syncEnabled,
         },
       }),
@@ -253,6 +257,16 @@
       name: metadata.user_name || metadata.preferred_username || metadata.name || "GitHub User",
       avatar: safeAvatar(metadata.avatar_url),
     };
+  };
+
+  const isDeveloper = () => state.session?.user?.id === DEVELOPER_USER_ID;
+
+  const toggleRegularPreview = () => {
+    if (!isDeveloper()) return;
+    state.previewAsReader = !state.previewAsReader;
+    sessionStorage.setItem("blog-developer-regular-preview", String(state.previewAsReader));
+    renderPanel();
+    broadcastState();
   };
 
   const renderTrigger = () => {
@@ -423,10 +437,14 @@
       <section class="blog-reader-account">
         <div class="blog-reader-profile">
           ${userProfile.avatar ? `<img src="${escapeHtml(userProfile.avatar)}" alt="">` : '<span><i class="fa-brands fa-github"></i></span>'}
-          <div><p>Signed in with GitHub</p><h3>${escapeHtml(userProfile.name)}</h3><span class="blog-reader-profile-level">LV ${experience.level}</span></div>
+          <div><p>Signed in with GitHub</p><h3>${escapeHtml(userProfile.name)}</h3><span class="blog-reader-profile-level">LV ${experience.level}</span>${isDeveloper() ? '<span class="blog-reader-developer-badge">DEVELOPER</span>' : ""}</div>
         </div>
         <button class="blog-reader-secondary" type="button" data-reader-action="signout">Sign Out</button>
       </section>
+      ${isDeveloper() ? `<section class="blog-reader-preview-control" aria-label="Developer view switch">
+        <div><strong>${state.previewAsReader ? "Regular-user preview" : "Developer view"}</strong><small>${state.previewAsReader ? "Draft lessons appear locked, just as they do for other readers." : "You can read lessons awaiting your review."}</small></div>
+        <button type="button" data-reader-action="toggle-preview">${state.previewAsReader ? "Return to Developer View" : "Switch to Regular User View"}</button>
+      </section>` : ""}
       <section class="blog-reader-level-card" aria-label="Learning level and experience">
         <div><span><i class="fa-solid fa-bolt" aria-hidden="true"></i> LEVEL ${experience.level}</span><strong>${formatExperience(experience.current)} <small>/ ${experience.required} EXP</small></strong></div>
         <div class="blog-reader-level-progress"><i style="width:${experience.percentage}%"></i></div>
@@ -466,6 +484,9 @@
   const currentArticle = () => {
     const content = document.querySelector(".article-content.markdown-body");
     if (!content || !/^\/blog\/\d{4}\/\d{2}\/\d{2}\//.test(window.location.pathname)) {
+      return null;
+    }
+    if (content.querySelector('[data-modeling-protected="true"]') && content.dataset.modelingLoaded !== "true") {
       return null;
     }
     const title =
@@ -1198,6 +1219,7 @@
     if (action === "signin") signIn();
     if (action === "signout") signOut();
     if (action === "clear") clearHistory();
+    if (action === "toggle-preview") toggleRegularPreview();
     if (deleteId) deleteHistoryItem(deleteId);
     const historyLink = event.target.closest("[data-reader-history-link]");
     if (historyLink) {
@@ -1231,6 +1253,9 @@
     setCoursePlan,
     getClient: () => state.client,
     getSession: () => state.session,
+    isDeveloper,
+    isRegularPreview: () => state.previewAsReader,
+    toggleRegularPreview,
     getSyncEnabled: () => state.syncEnabled,
     localDateKey,
     decayedMastery,

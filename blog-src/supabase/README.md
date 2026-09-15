@@ -1,0 +1,9 @@
+# Mathematical Modeling review lock
+
+Lesson 1 is public. Lessons 2–18 are awaiting author review. Their current GitHub Pages routes contain only metadata and a lock page; the full generated HTML is in `public.protected_modeling_articles` in the existing Supabase project. Row-level security permits reads only for the verified GitHub OAuth user `jiangpf2022` (Supabase user UUID `ef797a53-7193-4d0e-b566-5c8f3d33f9fd`). The ordinary-user preview switch changes only what that developer sees in the browser; it does not remove their server-side access.
+
+Full Markdown drafts are backed up outside this public repository in OneDrive at `/Users/gavin0576/Library/CloudStorage/OneDrive-个人/Mathematical-Modeling-Private-Drafts`. Do not commit that folder to the public site. `tools/lock-modeling-articles.mjs` was a one-time migration tool and deliberately refuses to run without backup verification.
+
+After reviewing a lesson, publish it in **one commit**: copy its approved Markdown draft back to `source/_posts/`, remove its two-digit lesson number from `lockedLessons` in `source/js/protected-modeling.js`, run `npm run build`, then run `node tools/audit-protected-modeling.mjs '/Users/gavin0576/Library/CloudStorage/OneDrive-个人/Mathematical-Modeling-Private-Drafts'`. Only then commit and push. The published article is served statically; it does not depend on Supabase to render.
+
+This lock controls the **current website and current source files**, not historical disclosure. Lessons 2–18 existed in earlier public Git commits, and their old image assets also remain public. Neither a client-side preview toggle nor Supabase row-level security can erase that history. A truly secret pre-publication workflow would require a separately authorized repository-history and asset migration, potentially affecting existing links and clones.

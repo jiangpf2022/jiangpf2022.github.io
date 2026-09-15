@@ -399,9 +399,12 @@
       <header class="blog-learning-hero">
         <div class="blog-learning-profile">
           ${avatar ? `<img src="${escapeHtml(avatar)}" alt="">` : '<span><i class="fa-brands fa-github" aria-hidden="true"></i></span>'}
-          <div><p class="blog-learning-eyebrow">SEMESTER LEARNING ORBIT</p><h2>${escapeHtml(displayName)}'s Learning Space</h2><span class="blog-learning-level-pill"><b>LV ${experience.level}</b>${Math.round(experience.total)} total EXP <i>·</i> +${Math.round(experience.today)} today</span></div>
+          <div><p class="blog-learning-eyebrow">SEMESTER LEARNING ORBIT</p><h2>${escapeHtml(displayName)}'s Learning Space</h2><span class="blog-learning-level-pill"><b>LV ${experience.level}</b>${Math.round(experience.total)} total EXP <i>·</i> +${Math.round(experience.today)} today</span>${api.isDeveloper?.() ? '<span class="blog-learning-developer-badge">DEVELOPER</span>' : ""}</div>
         </div>
-        <button type="button" class="blog-learning-account" data-learning-action="account"><i class="fa-regular fa-user-gear" aria-hidden="true"></i> Account & History</button>
+        <div class="blog-learning-hero-actions">
+          ${api.isDeveloper?.() ? `<button type="button" class="blog-learning-preview" data-learning-action="toggle-preview">${api.isRegularPreview?.() ? "Return to Developer View" : "Switch to Regular User View"}</button>` : ""}
+          <button type="button" class="blog-learning-account" data-learning-action="account"><i class="fa-regular fa-user-gear" aria-hidden="true"></i> Account & History</button>
+        </div>
       </header>
       <section class="blog-learning-summary" aria-label="Semester study plan overview">
         <article class="is-level"><span>Learning Level</span><strong>${experience.level}</strong><small>LV</small><div><i style="width:${experience.percentage}%"></i></div></article>
@@ -448,6 +451,7 @@
     const action = button.dataset.learningAction;
     if (action === "signin") api?.signIn();
     if (action === "account") document.querySelector(".blog-reader-trigger")?.click();
+    if (action === "toggle-preview") api?.toggleRegularPreview?.();
     if (action === "remove-course" && api) {
       const course = courseBySlug(button.dataset.learningCourse);
       if (!course) return;

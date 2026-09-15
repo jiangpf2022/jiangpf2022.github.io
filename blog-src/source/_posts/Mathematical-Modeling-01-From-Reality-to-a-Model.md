@@ -12,6 +12,10 @@ study_time: 40
 excerpt: "A disciplined route from an ambiguous real question to variables, assumptions, equations, validation, and an actionable conclusion."
 ---
 
+Welcome—come in, take a seat, and make yourself comfortable.
+
+Relax. This is our first class; you do not need a solver, a clever algorithm, or a long list of formulas. Today we will begin with one ordinary commuter puzzle and discover how to turn a situation into a small question we can actually test.
+
 Imagine a commuter who is usually picked up at 6:00 p.m. Today he arrives thirty minutes early, walks toward home, meets the car on the road, and gets home ten minutes ahead of schedule. **How long did he walk?** Write down a guess before you look for a formula. We know neither driving speed nor walking speed. That is exactly why this is a good first modeling question: the right relationship may matter more than the missing numbers.
 
 I want to build this course the way we would work at a board together. I will pose a concrete problem, let you predict, say what we are assuming, make the smallest calculation that can answer it, and ask what observation would overturn the result. The commuter is only our first puzzle. We will also ask how a restaurant should replace dishwater, how a traffic signal gets its timing, and how a campus manager can staff a dining hall. Across all four, the common skill is turning a vague situation into a testable question.

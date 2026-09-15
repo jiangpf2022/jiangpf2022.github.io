@@ -90,6 +90,10 @@
   initialize();
 
   window[managerKey] = {
+    refresh() {
+      this.destroy();
+      initialize();
+    },
     destroy() {
       registrations.forEach((registration) => {
         registration.button.removeEventListener("click", registration.handleToggle);
