@@ -58,18 +58,14 @@ begin
       check (mastery between 0 and 100);
   end if;
 
-  if not exists (
-    select 1 from pg_constraint
-    where conname = 'reading_history_course_slug_allowed'
-      and conrelid = 'public.reading_history'::regclass
-  ) then
-    alter table public.reading_history
-      add constraint reading_history_course_slug_allowed
-      check (
-        course_slug is null
-        or course_slug in ('deep-learning', 'llm-generative-ai', 'robotic')
-      );
-  end if;
+  alter table public.reading_history
+    drop constraint if exists reading_history_course_slug_allowed;
+  alter table public.reading_history
+    add constraint reading_history_course_slug_allowed
+    check (
+      course_slug is null
+      or course_slug in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling')
+    );
 end;
 $$;
 
@@ -236,13 +232,31 @@ where history.user_id = daily_scores.user_id
 
 create table if not exists public.course_plans (
   user_id uuid not null references auth.users(id) on delete cascade,
-  course_slug text not null check (
-    course_slug in ('deep-learning', 'llm-generative-ai', 'robotic')
-  ),
+  course_slug text not null,
   enrolled_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   primary key (user_id, course_slug)
 );
+
+do $$
+declare
+  constraint_row record;
+begin
+  for constraint_row in
+    select conname
+    from pg_constraint
+    where conrelid = 'public.course_plans'::regclass
+      and contype = 'c'
+      and pg_get_constraintdef(oid) like '%course_slug%'
+  loop
+    execute format('alter table public.course_plans drop constraint %I', constraint_row.conname);
+  end loop;
+
+  alter table public.course_plans
+    add constraint course_plans_course_slug_allowed
+    check (course_slug in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling'));
+end;
+$$;
 
 insert into public.course_plans (user_id, course_slug, enrolled_at, updated_at)
 select
@@ -429,7 +443,7 @@ begin
     raise exception 'Invalid article path';
   end if;
 
-  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic') then
+  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling') then
     raise exception 'Invalid course';
   end if;
 
@@ -563,7 +577,7 @@ begin
     raise exception 'Invalid article path';
   end if;
 
-  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic') then
+  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling') then
     raise exception 'Invalid course';
   end if;
 
@@ -651,7 +665,7 @@ begin
     raise exception 'Authentication required';
   end if;
 
-  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic') then
+  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling') then
     raise exception 'Invalid course';
   end if;
 

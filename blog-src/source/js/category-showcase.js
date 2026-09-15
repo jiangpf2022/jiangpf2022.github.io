@@ -2,6 +2,13 @@
   "use strict";
 
   const CATEGORIES = {
+    "Mathematical-Modeling": {
+      name: "Mathematical Modeling",
+      label: "MODELING STUDIO",
+      icon: "fa-solid fa-chart-line",
+      cover: "/blog/images/mathematical-modeling-course.svg",
+      description: "A competition-ready course in modeling, optimization, dynamical systems, forecasting, data analysis, and scientific communication.",
+    },
     "COMS4773W-Computational-Aspects-of-Robotics": {
       name: "COMS4773W Computational Aspects of Robotics",
       label: "ROBOTICS",

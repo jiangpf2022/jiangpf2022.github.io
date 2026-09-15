@@ -10,6 +10,11 @@
   const config = window.blogReaderConfig || {};
   const COURSE_CATALOG = [
     {
+      slug: "mathematical-modeling",
+      name: "Mathematical Modeling",
+      categoryPath: "/blog/categories/Mathematical-Modeling/",
+    },
+    {
       slug: "deep-learning",
       name: "COMS4776W Neural Networks & Deep Learning",
       categoryPath: "/blog/categories/COMS4776W-Neural-Networks-Deep-Learning/",

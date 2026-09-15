@@ -5,6 +5,15 @@
   const HISTORY_DAYS = 13;
   const FORECAST_DAYS = 7;
   const CATEGORIES = {
+    "Mathematical-Modeling": {
+      name: "Mathematical Modeling",
+      eyebrow: "MODELING COURSE",
+      course: { slug: "mathematical-modeling", name: "Mathematical Modeling" },
+      icon: "fa-solid fa-chart-line",
+      cover: "/blog/images/mathematical-modeling-course.svg",
+      description: "A knowledge-first mathematical modeling course rebuilt from the 2026 competition notes. It connects problem abstraction, scientific writing, optimization, dynamical systems, forecasting, data analysis, model validation, and competition practice into one coherent workflow.",
+      topics: ["Optimization", "Dynamic Models", "Data & Communication"],
+    },
     "COMS4776W-Neural-Networks-Deep-Learning": {
       name: "COMS4776W Neural Networks & Deep Learning",
       eyebrow: "COLUMBIA COURSE",
