@@ -402,7 +402,7 @@ inject:
     - <link rel="stylesheet" href="/blog/css/home-typography.css?v=20260913-courses">
     - <link rel="stylesheet" href="/blog/css/category-cards.css?v=20260915-modeling-course">
     - <link rel="stylesheet" href="/blog/css/category-showcase.css?v=20260914-smooth-autoplay">
-    - <link rel="stylesheet" href="/blog/css/category-hub.css?v=20260915-syllabus">
+    - <link rel="stylesheet" href="/blog/css/category-hub.css?v=20260915-compact-pagination">
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
     - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
@@ -423,7 +423,7 @@ inject:
     - <script src="/blog/js/protected-modeling.js?v=20260915-developer-preview2"></script>
     - <script src="/blog/js/modeling-callouts.js?v=20260915-highlight"></script>
     - <script src="/blog/js/learning-dashboard.js?v=20260915-course20"></script>
-    - <script src="/blog/js/category-hub.js?v=20260915-syllabus"></script>
+    - <script src="/blog/js/category-hub.js?v=20260915-compact-pagination"></script>
     - <script src="/blog/js/category-showcase.js?v=20260915-course20"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
