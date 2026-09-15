@@ -129,6 +129,7 @@
 
   const bindInfiniteCarousel = (section, items) => {
     const viewport = section.querySelector("[data-category-viewport]");
+    const progressFill = section.querySelector("[data-category-progress]");
     const cards = [...viewport.querySelectorAll(".home-category-card")];
     const count = items.length;
     let dragging = false;
@@ -139,6 +140,8 @@
     let frame = 0;
     let jumpFrame = 0;
     let autoplayTimer = 0;
+    let progressFrame = 0;
+    let motionFrame = 0;
     let hovering = false;
     let keyboardPaused = false;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -178,17 +181,74 @@
       return cardWidth + gap;
     };
 
-    const stopAutoplay = () => {
-      window.clearTimeout(autoplayTimer);
-      autoplayTimer = 0;
+    const setProgress = (value) => {
+      progressFill?.style.setProperty("--category-autoplay-progress", Math.max(0, Math.min(1, value)));
     };
 
-    const scheduleAutoplay = (delay = 4200) => {
+    const stopAutoplay = () => {
+      window.clearTimeout(autoplayTimer);
+      window.cancelAnimationFrame(progressFrame);
+      autoplayTimer = 0;
+      progressFrame = 0;
+      section.classList.add("is-autoplay-paused");
+    };
+
+    const cancelMotion = () => {
+      window.cancelAnimationFrame(motionFrame);
+      motionFrame = 0;
+      viewport.classList.remove("is-auto-moving");
+      section.classList.remove("is-autoplay-advancing");
+    };
+
+    const animateBy = (distance, duration = 1050, onComplete = () => {}) => {
+      cancelMotion();
+      if (reducedMotion.matches) {
+        viewport.scrollLeft += distance;
+        keepLooping();
+        onComplete();
+        return;
+      }
+      viewport.classList.add("is-auto-moving");
+      section.classList.add("is-autoplay-advancing");
+      let startedAt = 0;
+      let previousEased = 0;
+      const step = (now) => {
+        if (!startedAt) startedAt = now;
+        const elapsed = Math.min(1, (now - startedAt) / duration);
+        const eased = elapsed < 0.5
+          ? 4 * elapsed * elapsed * elapsed
+          : 1 - Math.pow(-2 * elapsed + 2, 3) / 2;
+        viewport.scrollLeft += distance * (eased - previousEased);
+        keepLooping();
+        previousEased = eased;
+        if (elapsed < 1) {
+          motionFrame = window.requestAnimationFrame(step);
+          return;
+        }
+        motionFrame = 0;
+        viewport.classList.remove("is-auto-moving");
+        section.classList.remove("is-autoplay-advancing");
+        onComplete();
+      };
+      motionFrame = window.requestAnimationFrame(step);
+    };
+
+    const scheduleAutoplay = (delay = 5200) => {
       stopAutoplay();
+      setProgress(0);
       if (reducedMotion.matches || !viewport.isConnected) return;
+      section.classList.remove("is-autoplay-paused");
+      const startedAt = performance.now();
+      const updateProgress = (now) => {
+        setProgress((now - startedAt) / delay);
+        if (now - startedAt < delay) progressFrame = window.requestAnimationFrame(updateProgress);
+      };
+      progressFrame = window.requestAnimationFrame(updateProgress);
       autoplayTimer = window.setTimeout(() => {
         if (!document.hidden && !hovering && !keyboardPaused && !dragging) {
-          viewport.scrollBy({ left: cardStep(), behavior: "smooth" });
+          setProgress(1);
+          animateBy(cardStep(), 1050, () => scheduleAutoplay());
+          return;
         }
         scheduleAutoplay();
       }, delay);
@@ -200,15 +260,18 @@
     }, { passive: true });
 
     viewport.addEventListener("wheel", (event) => {
-      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-      event.preventDefault();
       stopAutoplay();
-      viewport.scrollBy({ left: event.deltaY, behavior: "auto" });
+      cancelMotion();
+      if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+        event.preventDefault();
+        viewport.scrollBy({ left: event.deltaY, behavior: "auto" });
+      }
       scheduleAutoplay(6500);
     }, { passive: false });
 
     viewport.addEventListener("pointerdown", (event) => {
       stopAutoplay();
+      cancelMotion();
       keyboardPaused = false;
       if (event.pointerType === "touch" || event.button !== 0) return;
       dragging = true;
@@ -251,8 +314,7 @@
       button.addEventListener("click", () => {
         const direction = Number(button.dataset.categoryDirection) || 1;
         stopAutoplay();
-        viewport.scrollBy({ left: direction * cardStep(), behavior: "smooth" });
-        scheduleAutoplay(6500);
+        animateBy(direction * cardStep(), 900, () => scheduleAutoplay(6500));
       });
     });
 
@@ -262,7 +324,7 @@
     });
     section.addEventListener("mouseleave", () => {
       hovering = false;
-      scheduleAutoplay(1800);
+      scheduleAutoplay();
     });
     section.addEventListener("keydown", () => {
       keyboardPaused = true;
@@ -275,7 +337,7 @@
     });
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) stopAutoplay();
-      else scheduleAutoplay(1800);
+      else scheduleAutoplay();
     });
     reducedMotion.addEventListener?.("change", () => scheduleAutoplay());
 
@@ -309,7 +371,14 @@
           <button type="button" data-category-direction="1" aria-label="Next category"><i class="fa-regular fa-arrow-right" aria-hidden="true"></i></button>
         </div>
       </header>
-      <div class="home-category-showcase__viewport" data-category-viewport tabindex="0" aria-label="Latest categories. Swipe or use the arrow buttons to browse.">${cards}</div>
+      <div class="home-category-showcase__rail">
+        <div class="home-category-showcase__viewport" data-category-viewport tabindex="0" aria-label="Latest categories. Swipe or use the arrow buttons to browse.">${cards}</div>
+        <div class="home-category-showcase__autoplay" aria-hidden="true">
+          <span><i></i> AUTO</span>
+          <span class="home-category-showcase__progress"><i data-category-progress></i></span>
+          <small>NEXT</small>
+        </div>
+      </div>
       <footer><span><i class="fa-regular fa-hand-pointer" aria-hidden="true"></i> Drag or swipe to explore</span><a href="/blog/categories/">View all categories <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a></footer>`;
     list.before(section);
     bindInfiniteCarousel(section, items);
