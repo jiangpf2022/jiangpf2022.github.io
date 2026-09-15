@@ -12,6 +12,14 @@ study_time: 40
 excerpt: "A full competition workflow connecting problem selection, baselines, graph and market case patterns, teamwork, writing, and submission."
 ---
 
+<!-- teaching-opening:start -->
+Welcome—pull up a chair. In this lesson we are going to learn **operating the complete modeling process under time pressure while keeping every claim auditable**. I will not ask you to memorize a finished formula. We will begin with a real question, make a rough prediction, build the smallest model that could answer it, and then challenge the answer together.
+
+Here is our warm-up: **A team must choose among prompts with different data, mathematics, and validation opportunities.** What would you write down first? There is no penalty for an imperfect guess. In fact, making the guess is important, because it gives us something to test when the mathematics arrives. Keep that initial answer in mind; by the end of the lesson you should be able to explain not only what changed, but why.
+
+Competition performance comes from a coherent minimum-complete pipeline, not from collecting the largest number of algorithms. So whenever a symbol appears, read it as a sentence about the real system. Whenever a result appears, ask what evidence would make you trust it. And whenever I say “your turn,” pause before continuing—the small act of predicting is where passive reading turns into learning. 🌞
+<!-- teaching-opening:end -->
+
 Competition performance is a systems problem. Modeling, coding, writing, and verification must advance together, because a brilliant result that cannot be explained or reproduced is not a complete submission.
 
 ## Select a problem with evidence
@@ -257,6 +265,354 @@ The second mock material contains process architecture, time-series comparisons,
 ## Forty-minute studio simulation
 
 Use a fresh prompt. In ten minutes build the requirement and dependency maps; in ten build a baseline and one falsification test; in ten design the result table and figures before computing; in ten conduct a cold-read submission audit. Repeat under a strict file-freeze deadline. The goal is to practice the complete research system, not one algorithm.
+
+
+## A complete mock competition, hour by hour
+
+Let us rehearse the opening of a competition. The prompt gives a large table of noisy measurements, asks us to explain the system, predict future behavior, and recommend a policy. The team’s first temptation is to split the questions among three people and start coding. Resist it for one hour.
+
+### Hour 0–1: build one shared interpretation
+
+Every teammate reads the entire prompt and writes the requested outputs as concrete nouns: a cleaned dataset, an estimated state, a forecast, a decision policy, a sensitivity result. Compare interpretations line by line. Highlight ambiguous words such as “optimal,” “stable,” “important,” and “accurate.” These words do not yet define mathematical criteria.
+
+Create a data dictionary immediately. For every column record unit, observational unit, time stamp meaning, valid range, missing-value code, and whether the value would be known when a future decision is made. Make a row-count ledger after every merge or filter. Losing 30% of the observations silently is not preprocessing; it is an undocumented change to the population.
+
+At the end of the first hour, write a provisional answer to every subproblem in one sentence. The answers may be crude, but they reveal whether the planned modules form a complete chain.
+
+### Hour 1–3: establish the minimum complete pipeline
+
+Build the least sophisticated method that produces every requested output. For noisy graph measurements, this may be anchored least squares. For forecasting, use persistence and seasonal naïve. For a decision problem, construct a feasible heuristic. For evaluation, begin with transparent normalization and equal weights.
+
+Run the full pipeline on a small slice and save the outputs. Check coordinate frames, time order, units, and feasibility by hand. A baseline generated in the first three hours becomes a safety net: every later extension can be compared against it, and the team can still submit a coherent result if an ambitious method fails.
+
+Write the methods skeleton while the baseline is being built. Each subsection should already contain the question, inputs, output, core equation or procedure, and planned validation. Blank spaces expose missing reasoning early enough to fix it.
+
+### Hour 3–8: diagnose before extending
+
+Do not add a neural network, metaheuristic, or complicated weighting scheme merely because it is familiar. Inspect where the baseline fails. Plot residuals against time, scale, geography, and operating regime. Check constraint violations and cases with large regret. Compare training and held-out error. The failure pattern chooses the extension.
+
+If residual variance grows with magnitude, consider a transformation or heteroscedastic model. If a route heuristic violates capacity, improve the representation or repair rule before tuning search parameters. If a ranking changes under tiny weight perturbations, report instability and revisit the indicator system. Each extension should have a named failure mode and a planned ablation.
+
+Maintain a model ledger with columns for version, hypothesis, change, validation design, result, decision, and owner. This prevents the team from remembering only the best-looking run and gives the paper an honest record of why the final model exists.
+
+### Hour 8–16: create evidence, not screenshots
+
+Freeze the evaluation protocol before extensive tuning. Use the same splits, scenarios, budgets, and metrics for every competing method. Run repeated seeds where randomness matters. Save raw metrics in a table from which all summary figures are generated.
+
+Every important claim needs an evidence object. “The alignment is accurate” needs held-out residuals or an external reference. “The algorithm is robust” needs perturbation or scenario results. “The policy is better” needs a baseline under identical constraints. Assign each claim a table, figure, theorem, or diagnostic and put the reference into the draft immediately.
+
+For the pose-graph case, check gauge freedom before trusting the optimizer. Fix one pose or add a justified prior. Verify relative-transform direction and rotation conventions on a three-node graph whose solution can be computed manually. Then inspect residuals by edge type; a low global cost can still hide a few destructive loop closures.
+
+### Hour 16–28: integrate uncertainty and interpretation
+
+Separate parameter uncertainty, data noise, scenario uncertainty, and model-form uncertainty. Not all of them need the same machinery. Bootstrap intervals can describe sampling variation; Monte Carlo scenarios can propagate uncertain inputs; alternative model families can expose structural dependence; robust optimization can protect a decision against a declared uncertainty set.
+
+Translate uncertainty into the decision. If several parameter values produce the same facility locations, the recommendation is stable even if the precise objective varies. If a small plausible change reverses the chosen policy, the honest conclusion is conditional. A sensitivity result is useful when it tells the decision maker what must be measured or monitored next.
+
+Write limitations as boundaries, not apologies. “The model assumes demand scenarios preserve the observed spatial correlation; independent site shocks were not evaluated” is precise and actionable. “Due to limited time, the model may have errors” tells the reader nothing.
+
+### Hour 28–40: make the paper executable
+
+Rerun the analysis from a clean directory. The program should recreate every table and figure from declared inputs. Store random seeds and software versions. Remove manual numbers from prose by generating a result table or at least maintaining a traceability sheet that maps each reported value to an output file and code location.
+
+Audit notation across sections. A symbol must not change meaning between estimation and optimization. Check that every index range is declared, every equation is dimensionally consistent, and every constraint can be read as a real rule. Captions should state the comparison, metric, direction of improvement, and main conclusion.
+
+Ask one teammate who did not write a section to reproduce its central claim. Cross-review is more effective than self-review because authors automatically fill gaps with knowledge that never reached the page.
+
+### Final ninety minutes: freeze and verify
+
+Stop changing the model. Regenerate the PDF, inspect every page, confirm fonts and equations, and check that figures remain readable at actual size. Search for placeholders, stale references, unexplained acronyms, and contradictory numbers. Recalculate a sample of totals and metrics independently.
+
+Read the abstract next to the conclusion. They should report the same methods and numbers at different levels of detail. Read every recommendation next to its assumptions and sensitivity range. Confirm that the title and keywords describe what the paper actually contributes.
+
+The final question is simple: can a skeptical reader trace the path from prompt to data, from data to model, from model to evidence, and from evidence to recommendation? If the answer is yes, the work is competition-ready. If the answer is no, another algorithm will not save it; repair the chain.
+
+## Instructor’s debrief
+
+A strong competition paper usually has fewer ideas than a weak one, but each idea is carried farther. The baseline is explicit. The main extension answers an observed failure. Validation mirrors the deployment situation. Sensitivity changes the interpretation. Figures carry claims. The recommendation is bounded by assumptions.
+
+When you practice, score yourself on completeness before sophistication. Could another team reproduce the result? Can you explain one failed approach and what it taught you? Does each subproblem contribute to the final decision? Can you identify the single assumption most likely to reverse the conclusion? These questions reward modeling maturity rather than algorithm collecting.
+
+For a final exercise, take either mock problem in the course materials and prepare a two-minute oral defense. Spend thirty seconds on the real question, thirty seconds on the model, thirty seconds on validation, and thirty seconds on limitations and recommendation. If any segment feels empty, that is the part of the written solution that needs more work.
+
+## A final team rehearsal
+
+Before the real competition, run one deliberately imperfect rehearsal. Give the team a prompt, a small dataset, and four hours. For the first thirty minutes, nobody is allowed to code. The team must produce the decision sentence, data dictionary, dependency graph, baseline, and validation plan. This constraint feels slow, but it usually saves time by preventing three people from implementing incompatible interpretations.
+
+At the halfway point, stop and conduct a red-team review. One teammate argues that the data are insufficient, one tries to violate the model’s assumptions, and one attempts to reproduce a central number without help. Record every failure. Do not defend the work verbally; improve the artifact so that the answer becomes visible in code, equations, tables, or captions.
+
+In the final hour, change one important input and one modeling assumption. A robust workflow should regenerate the affected outputs without manual repair. Ask which conclusions survive, which weaken, and which reverse. This rehearsal tests far more than programming: it tests whether the model is modular, the evidence is traceable, and the writing tells the same story as the computation.
+
+End with a ten-minute retrospective. Each teammate names one decision that saved time, one interface that caused confusion, and one check that caught a real error. Convert those observations into a shared checklist. The purpose of practice is not to predict the next prompt; it is to build a team process that remains reliable when the prompt is unfamiliar.
+
+There is one more useful role in this rehearsal: the “curious judge.” This person is not trying to catch formatting mistakes. They repeatedly ask, “Why does this equation represent the situation?”, “How do you know this improvement is real?”, and “What would make you change the recommendation?” A team that can answer those questions with evidence has probably built a coherent model. A team that answers with software names has probably skipped part of the reasoning chain.
+
+After the rehearsal, keep the artifacts that are reusable: plotting functions, table styles, solver-audit code, time-aware validation utilities, unit checks, and the paper skeleton. Do not keep a giant black-box template that forces every future problem into the same method. The reusable asset is a disciplined workflow. On competition day, that workflow gives you enough calm to understand the new problem before trying to impress anyone with the solution.
+
+Finally, remember that clarity is not a reduction in mathematical depth. The strongest paper can state a difficult idea in ordinary language, express it precisely in mathematics, verify it computationally, and return to ordinary language with a bounded recommendation. That four-step movement is what the studio is training.
+
+
+<!-- teaching-expansion:start -->
+## Let’s teach this as a full lesson
+
+Today we are learning **operating the complete modeling process under time pressure while keeping every claim auditable**. I want you to imagine that we are working at the same desk: I will ask you to make a prediction before showing the machinery, we will solve a small version by hand, and only then will we let code or a solver scale the idea. Competition performance comes from a coherent minimum-complete pipeline, not from collecting the largest number of algorithms.
+
+There are two ways to read this section. On a first pass, follow the story and answer every “pause and think” question verbally. On a second pass, reproduce the equations, figures, or code and change one assumption. If you only recognize the final formula, you have seen the method; if you can predict how its answer changes, you understand it.
+
+### Classroom case 1: Problem selection
+
+**Here is the problem.** A team must choose among prompts with different data, mathematics, and validation opportunities. Do not rush to an algorithm. First say, in ordinary language, what a successful answer would let someone decide. Then list what is observed, what is unknown, and what is under our control. This thirty-second pause prevents us from turning a convenient column into the wrong target.
+
+> **Pause and think.** If you had to give a defensible rough answer in five minutes, what would you calculate first? Which assumption would make that baseline possible, and what observation would make you stop trusting it?
+
+**Let us build it together.** Score understanding, data access, baseline feasibility, differentiation, and verification risk during the first hours. Write every quantity with a unit and attach each equation or algorithmic step to one sentence in the problem. Before fitting or solving anything, construct one tiny hand-checkable instance. On that instance, predict the direction of the answer. If the code moves in the opposite direction, debug the model before adding complexity.
+
+The next move is to establish a baseline. The baseline is not included because we expect it to win; it tells us how much value the main method actually creates. Keep the same data split, constraints, random budget, and metric for both. Otherwise we are comparing experimental conditions rather than models.
+
+**Now read the result.** Choose the problem for which the team can build and test a complete argument, not the one with the most fashionable vocabulary. Translate the mathematical output back into the nouns and verbs of the original question. State the decision, the evidence supporting it, and the range over which it remains stable. A reader should not need to decode a parameter vector to understand the recommendation.
+
+**How could this answer fool us?** Check unit conversions, sign conventions, unavailable future information, accidental reuse of validation data, and constraints that are satisfied in code but not in reality. Perturb one important input in both directions and explain the response before looking at the plot. This turns sensitivity analysis into a reasoning test instead of a decorative appendix.
+
+**Your turn.** Change one assumption, one data value, and one evaluation criterion. Predict which part of the result should change and which part should remain invariant. Then run or derive the variation and write two sentences explaining any disagreement with your prediction. That disagreement is often where the real lesson is hiding.
+
+### Classroom case 2: Pose graph
+
+**Here is the problem.** Estimate robot poses from noisy relative measurements on a graph. Do not rush to an algorithm. First say, in ordinary language, what a successful answer would let someone decide. Then list what is observed, what is unknown, and what is under our control. This thirty-second pause prevents us from turning a convenient column into the wrong target.
+
+> **Pause and think.** If you had to give a defensible rough answer in five minutes, what would you calculate first? Which assumption would make that baseline possible, and what observation would make you stop trusting it?
+
+**Let us build it together.** Define residuals on edges, fix gauge freedom, use sparse nonlinear least squares, and inspect loop-closure residuals. Write every quantity with a unit and attach each equation or algorithmic step to one sentence in the problem. Before fitting or solving anything, construct one tiny hand-checkable instance. On that instance, predict the direction of the answer. If the code moves in the opposite direction, debug the model before adding complexity.
+
+The next move is to establish a baseline. The baseline is not included because we expect it to win; it tells us how much value the main method actually creates. Keep the same data split, constraints, random budget, and metric for both. Otherwise we are comparing experimental conditions rather than models.
+
+**Now read the result.** A small objective value is meaningful only after frame conventions, anchors, and residual units are verified. Translate the mathematical output back into the nouns and verbs of the original question. State the decision, the evidence supporting it, and the range over which it remains stable. A reader should not need to decode a parameter vector to understand the recommendation.
+
+**How could this answer fool us?** Check unit conversions, sign conventions, unavailable future information, accidental reuse of validation data, and constraints that are satisfied in code but not in reality. Perturb one important input in both directions and explain the response before looking at the plot. This turns sensitivity analysis into a reasoning test instead of a decorative appendix.
+
+**Your turn.** Change one assumption, one data value, and one evaluation criterion. Predict which part of the result should change and which part should remain invariant. Then run or derive the variation and write two sentences explaining any disagreement with your prediction. That disagreement is often where the real lesson is hiding.
+
+### Classroom case 3: Market simulation
+
+**Here is the problem.** Use noisy historical and scenario data to propose a decision policy. Do not rush to an algorithm. First say, in ordinary language, what a successful answer would let someone decide. Then list what is observed, what is unknown, and what is under our control. This thirty-second pause prevents us from turning a convenient column into the wrong target.
+
+> **Pause and think.** If you had to give a defensible rough answer in five minutes, what would you calculate first? Which assumption would make that baseline possible, and what observation would make you stop trusting it?
+
+**Let us build it together.** Separate prediction from action, compare against simple policies, and evaluate regret and constraint violations. Write every quantity with a unit and attach each equation or algorithmic step to one sentence in the problem. Before fitting or solving anything, construct one tiny hand-checkable instance. On that instance, predict the direction of the answer. If the code moves in the opposite direction, debug the model before adding complexity.
+
+The next move is to establish a baseline. The baseline is not included because we expect it to win; it tells us how much value the main method actually creates. Keep the same data split, constraints, random budget, and metric for both. Otherwise we are comparing experimental conditions rather than models.
+
+**Now read the result.** The policy must survive plausible futures rather than merely explain the past. Translate the mathematical output back into the nouns and verbs of the original question. State the decision, the evidence supporting it, and the range over which it remains stable. A reader should not need to decode a parameter vector to understand the recommendation.
+
+**How could this answer fool us?** Check unit conversions, sign conventions, unavailable future information, accidental reuse of validation data, and constraints that are satisfied in code but not in reality. Perturb one important input in both directions and explain the response before looking at the plot. This turns sensitivity analysis into a reasoning test instead of a decorative appendix.
+
+**Your turn.** Change one assumption, one data value, and one evaluation criterion. Predict which part of the result should change and which part should remain invariant. Then run or derive the variation and write two sentences explaining any disagreement with your prediction. That disagreement is often where the real lesson is hiding.
+
+### Classroom case 4: Final audit
+
+**Here is the problem.** Ninety minutes remain before submission. Do not rush to an algorithm. First say, in ordinary language, what a successful answer would let someone decide. Then list what is observed, what is unknown, and what is under our control. This thirty-second pause prevents us from turning a convenient column into the wrong target.
+
+> **Pause and think.** If you had to give a defensible rough answer in five minutes, what would you calculate first? Which assumption would make that baseline possible, and what observation would make you stop trusting it?
+
+**Let us build it together.** Freeze model changes, rerun the paper from a clean environment, trace numbers, inspect captions, and test the PDF. Write every quantity with a unit and attach each equation or algorithmic step to one sentence in the problem. Before fitting or solving anything, construct one tiny hand-checkable instance. On that instance, predict the direction of the answer. If the code moves in the opposite direction, debug the model before adding complexity.
+
+The next move is to establish a baseline. The baseline is not included because we expect it to win; it tells us how much value the main method actually creates. Keep the same data split, constraints, random budget, and metric for both. Otherwise we are comparing experimental conditions rather than models.
+
+**Now read the result.** A reproducible modest model beats an impressive result that cannot be regenerated or explained. Translate the mathematical output back into the nouns and verbs of the original question. State the decision, the evidence supporting it, and the range over which it remains stable. A reader should not need to decode a parameter vector to understand the recommendation.
+
+**How could this answer fool us?** Check unit conversions, sign conventions, unavailable future information, accidental reuse of validation data, and constraints that are satisfied in code but not in reality. Perturb one important input in both directions and explain the response before looking at the plot. This turns sensitivity analysis into a reasoning test instead of a decorative appendix.
+
+**Your turn.** Change one assumption, one data value, and one evaluation criterion. Predict which part of the result should change and which part should remain invariant. Then run or derive the variation and write two sentences explaining any disagreement with your prediction. That disagreement is often where the real lesson is hiding.
+
+## Slow-motion concept clinics
+
+The cases give us motion; the following clinics give us control. Each clinic revisits one idea from a different angle so that it becomes something you can use in a new problem rather than a definition you can only repeat.
+
+### Concept clinic 1: prompt translation
+
+Let us slow down at **prompt translation**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats prompt translation as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: operating the complete modeling process under time pressure while keeping every claim auditable. Competition performance comes from a coherent minimum-complete pipeline, not from collecting the largest number of algorithms. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use prompt translation to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 2: baseline pipeline
+
+Let us slow down at **baseline pipeline**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats baseline pipeline as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: operating the complete modeling process under time pressure while keeping every claim auditable. Competition performance comes from a coherent minimum-complete pipeline, not from collecting the largest number of algorithms. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use baseline pipeline to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 3: team interfaces
+
+Let us slow down at **team interfaces**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats team interfaces as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: operating the complete modeling process under time pressure while keeping every claim auditable. Competition performance comes from a coherent minimum-complete pipeline, not from collecting the largest number of algorithms. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use team interfaces to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 4: model ledger
+
+Let us slow down at **model ledger**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats model ledger as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: operating the complete modeling process under time pressure while keeping every claim auditable. Competition performance comes from a coherent minimum-complete pipeline, not from collecting the largest number of algorithms. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use model ledger to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 5: evidence trace
+
+Let us slow down at **evidence trace**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats evidence trace as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: operating the complete modeling process under time pressure while keeping every claim auditable. Competition performance comes from a coherent minimum-complete pipeline, not from collecting the largest number of algorithms. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use evidence trace to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 6: submission audit
+
+Let us slow down at **submission audit**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats submission audit as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: operating the complete modeling process under time pressure while keeping every claim auditable. Competition performance comes from a coherent minimum-complete pipeline, not from collecting the largest number of algorithms. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use submission audit to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+## Guided practice with full answers
+
+We have already seen the ideas once. Now we will circle back, because understanding usually appears on the second encounter. These practices are deliberately conversational: try each prompt before reading the next paragraph, then compare your reasoning with the instructor’s route.
+
+### Guided practice 1: teach back Problem selection
+
+Let us revisit **Problem selection**, but this time you are doing the talking. The situation is still this: A team must choose among prompts with different data, mathematics, and validation opportunities. Cover the solution above and write a four-line problem card containing the decision or target, the data, the hard rules, and the success metric. If one of those lines is missing, you are not ready to calculate yet.
+
+**Question 1 — what is the smallest credible model?** Strip away every feature that is not needed for a first answer. Keep the mechanism represented by this route: Score understanding, data access, baseline feasibility, differentiation, and verification risk during the first hours. The word *credible* matters. A baseline may be simple, but it cannot violate the central physics, chronology, conservation rule, or decision constraint. State what this baseline deliberately ignores.
+
+**Question 2 — what would you compute by hand?** Create a tiny instance with two or three observations, states, alternatives, or time steps. Work through it without a library. Record one intermediate value, not just the final answer. That intermediate value becomes an excellent unit test because it isolates the meaning of one step from the rest of the pipeline.
+
+**Question 3 — what deserves a figure?** Do not plot everything produced by the program. Plot the comparison that could change a reader’s belief: observed versus predicted, feasible versus infeasible, baseline versus proposed method, nominal versus stressed scenario, or raw versus transformed data. Label units and write a one-sentence expected pattern before generating the figure.
+
+**Question 4 — what is the answer in ordinary language?** A mathematically correct interpretation is: Choose the problem for which the team can build and test a complete argument, not the one with the most fashionable vocabulary. Now add scope. Say where the conclusion is supported, where it is an extrapolation, and which uncertainty is not represented. This is how we prevent a local numerical result from turning into an unlimited claim.
+
+**Instructor’s challenge.** Imagine that the most influential input is wrong by 20%. Predict whether the decision changes smoothly, crosses a threshold, or becomes infeasible. Then test $-20%$, the nominal value, and $+20%$. Three carefully chosen points often teach more than one hundred unexplained simulations. If the response is surprising, inspect the active rule or dominant mechanism rather than immediately blaming the solver.
+
+**Communication drill.** Explain Problem selection in ninety seconds to a teammate: begin with the real question, name the mathematical object only after the question is clear, give one piece of quantitative evidence, and end with one limitation. This short oral version is excellent preparation for writing the abstract and conclusion. It also reveals whether you understand the chain or have only memorized its notation.
+
+### Guided practice 2: teach back Pose graph
+
+Let us revisit **Pose graph**, but this time you are doing the talking. The situation is still this: Estimate robot poses from noisy relative measurements on a graph. Cover the solution above and write a four-line problem card containing the decision or target, the data, the hard rules, and the success metric. If one of those lines is missing, you are not ready to calculate yet.
+
+**Question 1 — what is the smallest credible model?** Strip away every feature that is not needed for a first answer. Keep the mechanism represented by this route: Define residuals on edges, fix gauge freedom, use sparse nonlinear least squares, and inspect loop-closure residuals. The word *credible* matters. A baseline may be simple, but it cannot violate the central physics, chronology, conservation rule, or decision constraint. State what this baseline deliberately ignores.
+
+**Question 2 — what would you compute by hand?** Create a tiny instance with two or three observations, states, alternatives, or time steps. Work through it without a library. Record one intermediate value, not just the final answer. That intermediate value becomes an excellent unit test because it isolates the meaning of one step from the rest of the pipeline.
+
+**Question 3 — what deserves a figure?** Do not plot everything produced by the program. Plot the comparison that could change a reader’s belief: observed versus predicted, feasible versus infeasible, baseline versus proposed method, nominal versus stressed scenario, or raw versus transformed data. Label units and write a one-sentence expected pattern before generating the figure.
+
+**Question 4 — what is the answer in ordinary language?** A mathematically correct interpretation is: A small objective value is meaningful only after frame conventions, anchors, and residual units are verified. Now add scope. Say where the conclusion is supported, where it is an extrapolation, and which uncertainty is not represented. This is how we prevent a local numerical result from turning into an unlimited claim.
+
+**Instructor’s challenge.** Imagine that the most influential input is wrong by 20%. Predict whether the decision changes smoothly, crosses a threshold, or becomes infeasible. Then test $-20%$, the nominal value, and $+20%$. Three carefully chosen points often teach more than one hundred unexplained simulations. If the response is surprising, inspect the active rule or dominant mechanism rather than immediately blaming the solver.
+
+**Communication drill.** Explain Pose graph in ninety seconds to a teammate: begin with the real question, name the mathematical object only after the question is clear, give one piece of quantitative evidence, and end with one limitation. This short oral version is excellent preparation for writing the abstract and conclusion. It also reveals whether you understand the chain or have only memorized its notation.
+
+### Guided practice 3: teach back Market simulation
+
+Let us revisit **Market simulation**, but this time you are doing the talking. The situation is still this: Use noisy historical and scenario data to propose a decision policy. Cover the solution above and write a four-line problem card containing the decision or target, the data, the hard rules, and the success metric. If one of those lines is missing, you are not ready to calculate yet.
+
+**Question 1 — what is the smallest credible model?** Strip away every feature that is not needed for a first answer. Keep the mechanism represented by this route: Separate prediction from action, compare against simple policies, and evaluate regret and constraint violations. The word *credible* matters. A baseline may be simple, but it cannot violate the central physics, chronology, conservation rule, or decision constraint. State what this baseline deliberately ignores.
+
+**Question 2 — what would you compute by hand?** Create a tiny instance with two or three observations, states, alternatives, or time steps. Work through it without a library. Record one intermediate value, not just the final answer. That intermediate value becomes an excellent unit test because it isolates the meaning of one step from the rest of the pipeline.
+
+**Question 3 — what deserves a figure?** Do not plot everything produced by the program. Plot the comparison that could change a reader’s belief: observed versus predicted, feasible versus infeasible, baseline versus proposed method, nominal versus stressed scenario, or raw versus transformed data. Label units and write a one-sentence expected pattern before generating the figure.
+
+**Question 4 — what is the answer in ordinary language?** A mathematically correct interpretation is: The policy must survive plausible futures rather than merely explain the past. Now add scope. Say where the conclusion is supported, where it is an extrapolation, and which uncertainty is not represented. This is how we prevent a local numerical result from turning into an unlimited claim.
+
+**Instructor’s challenge.** Imagine that the most influential input is wrong by 20%. Predict whether the decision changes smoothly, crosses a threshold, or becomes infeasible. Then test $-20%$, the nominal value, and $+20%$. Three carefully chosen points often teach more than one hundred unexplained simulations. If the response is surprising, inspect the active rule or dominant mechanism rather than immediately blaming the solver.
+
+**Communication drill.** Explain Market simulation in ninety seconds to a teammate: begin with the real question, name the mathematical object only after the question is clear, give one piece of quantitative evidence, and end with one limitation. This short oral version is excellent preparation for writing the abstract and conclusion. It also reveals whether you understand the chain or have only memorized its notation.
+
+### Guided practice 4: teach back Final audit
+
+Let us revisit **Final audit**, but this time you are doing the talking. The situation is still this: Ninety minutes remain before submission. Cover the solution above and write a four-line problem card containing the decision or target, the data, the hard rules, and the success metric. If one of those lines is missing, you are not ready to calculate yet.
+
+**Question 1 — what is the smallest credible model?** Strip away every feature that is not needed for a first answer. Keep the mechanism represented by this route: Freeze model changes, rerun the paper from a clean environment, trace numbers, inspect captions, and test the PDF. The word *credible* matters. A baseline may be simple, but it cannot violate the central physics, chronology, conservation rule, or decision constraint. State what this baseline deliberately ignores.
+
+**Question 2 — what would you compute by hand?** Create a tiny instance with two or three observations, states, alternatives, or time steps. Work through it without a library. Record one intermediate value, not just the final answer. That intermediate value becomes an excellent unit test because it isolates the meaning of one step from the rest of the pipeline.
+
+**Question 3 — what deserves a figure?** Do not plot everything produced by the program. Plot the comparison that could change a reader’s belief: observed versus predicted, feasible versus infeasible, baseline versus proposed method, nominal versus stressed scenario, or raw versus transformed data. Label units and write a one-sentence expected pattern before generating the figure.
+
+**Question 4 — what is the answer in ordinary language?** A mathematically correct interpretation is: A reproducible modest model beats an impressive result that cannot be regenerated or explained. Now add scope. Say where the conclusion is supported, where it is an extrapolation, and which uncertainty is not represented. This is how we prevent a local numerical result from turning into an unlimited claim.
+
+**Instructor’s challenge.** Imagine that the most influential input is wrong by 20%. Predict whether the decision changes smoothly, crosses a threshold, or becomes infeasible. Then test $-20%$, the nominal value, and $+20%$. Three carefully chosen points often teach more than one hundred unexplained simulations. If the response is surprising, inspect the active rule or dominant mechanism rather than immediately blaming the solver.
+
+**Communication drill.** Explain Final audit in ninety seconds to a teammate: begin with the real question, name the mathematical object only after the question is clear, give one piece of quantitative evidence, and end with one limitation. This short oral version is excellent preparation for writing the abstract and conclusion. It also reveals whether you understand the chain or have only memorized its notation.
+
+## Put the lesson on the board
+
+A modeling pipeline is only as reliable as the information passed between its steps. The following short board exercises make those interfaces explicit and give you practical tests you can reuse in a competition.
+
+### Board exercise 1: connect prompt translation to baseline pipeline
+
+Draw two boxes labeled **prompt translation** and **baseline pipeline**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from prompt translation to baseline pipeline; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind operating the complete modeling process under time pressure while keeping every claim auditable to remain auditable.
+
+### Board exercise 2: connect baseline pipeline to team interfaces
+
+Draw two boxes labeled **baseline pipeline** and **team interfaces**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from baseline pipeline to team interfaces; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind operating the complete modeling process under time pressure while keeping every claim auditable to remain auditable.
+
+### Board exercise 3: connect team interfaces to model ledger
+
+Draw two boxes labeled **team interfaces** and **model ledger**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from team interfaces to model ledger; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind operating the complete modeling process under time pressure while keeping every claim auditable to remain auditable.
+
+### Board exercise 4: connect model ledger to evidence trace
+
+Draw two boxes labeled **model ledger** and **evidence trace**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from model ledger to evidence trace; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind operating the complete modeling process under time pressure while keeping every claim auditable to remain auditable.
+
+### Board exercise 5: connect evidence trace to submission audit
+
+Draw two boxes labeled **evidence trace** and **submission audit**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from evidence trace to submission audit; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind operating the complete modeling process under time pressure while keeping every claim auditable to remain auditable.
+
+### Board exercise 6: connect submission audit to prompt translation
+
+Draw two boxes labeled **submission audit** and **prompt translation**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from submission audit to prompt translation; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind operating the complete modeling process under time pressure while keeping every claim auditable to remain auditable.
+
+## A real 40-minute teaching route
+
+Use the first five minutes to restate the problem without mathematical vocabulary. Spend the next eight minutes rebuilding the baseline and checking one tiny example by hand. Use twelve minutes for the main method and its assumptions, then eight minutes to interpret the figures and challenge the result with a perturbation. Reserve the final seven minutes for a teach-back: close the article and explain the chain from data to decision in your own words.
+
+Your concrete output is a complete competition package with a runnable pipeline, model ledger, assumption table, verified figures, sensitivity results, contribution log, and final PDF audit checklist. It should be understandable to a teammate who has not read this lesson. Include one thing that worked, one failure you diagnosed, and one assumption whose influence you measured. That final reflection is not extra homework; it is the step that converts recognition into transferable modeling skill.
+<!-- teaching-expansion:end -->
 
 ## First mock submission: evidence audit
 

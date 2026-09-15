@@ -12,6 +12,14 @@ study_time: 40
 excerpt: "How to choose plots, diagrams, color, and layout so that every figure proves one part of the modeling argument."
 ---
 
+<!-- teaching-opening:start -->
+Welcome—pull up a chair. In this lesson we are going to learn **using a figure as evidence rather than decoration**. I will not ask you to memorize a finished formula. We will begin with a real question, make a rough prediction, build the smallest model that could answer it, and then challenge the answer together.
+
+Here is our warm-up: **Three algorithms are tested on twenty instances with different scales.** What would you write down first? There is no penalty for an imperfect guess. In fact, making the guess is important, because it gives us something to test when the mathematics arrives. Keep that initial answer in mind; by the end of the lesson you should be able to explain not only what changed, but why.
+
+Readers usually meet the figure before they read the surrounding paragraph, so the visual must carry a precise claim on its own. So whenever a symbol appears, read it as a sentence about the real system. Whenever a result appears, ask what evidence would make you trust it. And whenever I say “your turn,” pause before continuing—the small act of predicting is where passive reading turns into learning. 🌞
+<!-- teaching-opening:end -->
+
 A competition figure has a job: reveal data structure, explain the model, or verify a result. Decoration is optional; evidence is not.
 
 ## Two kinds of figures
@@ -237,6 +245,304 @@ Biological figures should preserve material balance and compartment boundaries. 
 <figure><img src="/blog/images/mathematical-modeling/visual-67.webp" alt="Grid classification map"><figcaption>Grid classes require cell definitions and thresholds.</figcaption></figure>
 <figure><img src="/blog/images/mathematical-modeling/visual-68.webp" alt="Multi-panel model figure"><figcaption>Every panel in a composite must advance the argument.</figcaption></figure>
 </div>
+
+
+## Figure critique studio: from “pretty” to persuasive
+
+Suppose a team shows us a line chart with two methods. The blue line is usually below the orange line, so the caption says, “Our method performs better.” I would stop the class here and ask five questions.
+
+First, better according to which metric? If the vertical axis is runtime, lower is better; if it is accuracy, higher is better. A title cannot substitute for an axis label with units. Second, are the curves averages over repeated trials or single runs? If they are averages, where is the variation? Third, were both methods evaluated on the same instances? Pairing matters because one difficult instance can shift both values. Fourth, where is the simple baseline? Fifth, does the displayed range exaggerate a tiny difference?
+
+Let us repair the figure. Store results in tidy form with one row per instance, method, and repetition. Compute paired differences on the same instance. Plot the distribution of those differences or show each paired observation with a connecting line. Add a zero-reference line, because zero now has a direct meaning: neither method wins. Report the median or mean difference with an interval and mention the number of independent instances in the caption.
+
+Now the caption can carry an argument: “Across 20 test instances and 30 independent seeds per instance, Method A reduces median runtime by 18% relative to Method B; the paired 95% bootstrap interval is [12%, 23%]. The advantage narrows on the three smallest instances.” That sentence tells us the comparison, scale, uncertainty, sample structure, and limitation.
+
+### Critique a spatial map
+
+Next, imagine an interpolated risk map colored from green to red. The map looks smooth and convincing, but the monitoring stations are not shown. What could go wrong? A large unobserved region may receive a confident-looking color only because the interpolation routine always returns a number.
+
+The repair has three layers. Show the observation locations as points. Mask or hatch regions that are too far from supporting data. Then validate spatially by holding out stations or blocks rather than random individual rows. If nearby observations leak into both training and testing, the reported error can be much too optimistic.
+
+Color deserves its own decision. Use a sequential palette for low-to-high magnitude, a diverging palette only when there is a meaningful center such as zero, and a categorical palette for unordered classes. Avoid rainbow maps: equal numerical steps do not appear as equal perceptual steps, and artificial boundaries can dominate the reader’s attention. Check that the figure remains interpretable in grayscale and under common color-vision deficiencies.
+
+### Critique a framework diagram
+
+Finally, look at a pipeline diagram containing boxes named “Data,” “Model,” “Optimization,” and “Result.” It is neat, but it communicates almost nothing. Which data? What transformation? Which model output becomes which optimization input? Is validation inside or outside the training loop?
+
+Replace vague arrows with typed information: cleaned observations, estimated parameters, predicted scenario distribution, decision variables, and validated policy metrics. Use one visual grammar consistently—rectangles for operations, documents or cylinders for stored data, and diamonds only for actual branching decisions. If a feedback arrow exists, say whether it represents iterative optimization, online updating, or human revision.
+
+Here is the classroom test: choose one number in the final results table and trace it backward through the diagram. At each arrow, name the file or mathematical object that crosses the interface. If you cannot complete the trace, the diagram is decorating the paper rather than documenting the model.
+
+### A production routine you can repeat
+
+Start every figure with a one-sentence claim written in plain text. Sketch the comparison on paper. Choose the visual encoding only after deciding which quantities must be compared. Generate the figure from saved data through a script; do not manually move points or recolor a single inconvenient bar. Export at the final page size, then read the printed PDF rather than trusting a large monitor.
+
+Before submission, cover the surrounding paragraph and ask a teammate to interpret the figure. If they identify the intended comparison, units, uncertainty, and conclusion, the figure is working. If they merely say “the blue one is better,” the visual still needs context. A strong scientific figure does not just attract the eye; it reduces the amount of trust the reader must place in the author.
+
+One last habit is worth keeping: save the exact table used to draw each figure. When a judge asks why one point is unusual, you should be able to move from the rendered mark back to the observation, transformation, and source record. Visual evidence becomes trustworthy when it is traceable in both directions—from data to picture and from picture back to data.
+
+
+<!-- teaching-expansion:start -->
+## Let’s teach this as a full lesson
+
+Today we are learning **using a figure as evidence rather than decoration**. I want you to imagine that we are working at the same desk: I will ask you to make a prediction before showing the machinery, we will solve a small version by hand, and only then will we let code or a solver scale the idea. Readers usually meet the figure before they read the surrounding paragraph, so the visual must carry a precise claim on its own.
+
+There are two ways to read this section. On a first pass, follow the story and answer every “pause and think” question verbally. On a second pass, reproduce the equations, figures, or code and change one assumption. If you only recognize the final formula, you have seen the method; if you can predict how its answer changes, you understand it.
+
+### Classroom case 1: Algorithm comparison
+
+**Here is the problem.** Three algorithms are tested on twenty instances with different scales. Do not rush to an algorithm. First say, in ordinary language, what a successful answer would let someone decide. Then list what is observed, what is unknown, and what is under our control. This thirty-second pause prevents us from turning a convenient column into the wrong target.
+
+> **Pause and think.** If you had to give a defensible rough answer in five minutes, what would you calculate first? Which assumption would make that baseline possible, and what observation would make you stop trusting it?
+
+**Let us build it together.** Plot paired or normalized performance, show uncertainty across repeated runs, and include the simplest baseline. Write every quantity with a unit and attach each equation or algorithmic step to one sentence in the problem. Before fitting or solving anything, construct one tiny hand-checkable instance. On that instance, predict the direction of the answer. If the code moves in the opposite direction, debug the model before adding complexity.
+
+The next move is to establish a baseline. The baseline is not included because we expect it to win; it tells us how much value the main method actually creates. Keep the same data split, constraints, random budget, and metric for both. Otherwise we are comparing experimental conditions rather than models.
+
+**Now read the result.** A bar chart of raw means hides instance difficulty; a paired distribution reveals consistency and failure cases. Translate the mathematical output back into the nouns and verbs of the original question. State the decision, the evidence supporting it, and the range over which it remains stable. A reader should not need to decode a parameter vector to understand the recommendation.
+
+**How could this answer fool us?** Check unit conversions, sign conventions, unavailable future information, accidental reuse of validation data, and constraints that are satisfied in code but not in reality. Perturb one important input in both directions and explain the response before looking at the plot. This turns sensitivity analysis into a reasoning test instead of a decorative appendix.
+
+**Your turn.** Change one assumption, one data value, and one evaluation criterion. Predict which part of the result should change and which part should remain invariant. Then run or derive the variation and write two sentences explaining any disagreement with your prediction. That disagreement is often where the real lesson is hiding.
+
+### Classroom case 2: Time-series intervention
+
+**Here is the problem.** A policy begins halfway through a noisy seasonal series. Do not rush to an algorithm. First say, in ordinary language, what a successful answer would let someone decide. Then list what is observed, what is unknown, and what is under our control. This thirty-second pause prevents us from turning a convenient column into the wrong target.
+
+> **Pause and think.** If you had to give a defensible rough answer in five minutes, what would you calculate first? Which assumption would make that baseline possible, and what observation would make you stop trusting it?
+
+**Let us build it together.** Mark the intervention, preserve temporal order, show the counterfactual or baseline, and visualize residual uncertainty. Write every quantity with a unit and attach each equation or algorithmic step to one sentence in the problem. Before fitting or solving anything, construct one tiny hand-checkable instance. On that instance, predict the direction of the answer. If the code moves in the opposite direction, debug the model before adding complexity.
+
+The next move is to establish a baseline. The baseline is not included because we expect it to win; it tells us how much value the main method actually creates. Keep the same data split, constraints, random budget, and metric for both. Otherwise we are comparing experimental conditions rather than models.
+
+**Now read the result.** The figure should distinguish trend, seasonality, and intervention effect rather than inviting a before-after illusion. Translate the mathematical output back into the nouns and verbs of the original question. State the decision, the evidence supporting it, and the range over which it remains stable. A reader should not need to decode a parameter vector to understand the recommendation.
+
+**How could this answer fool us?** Check unit conversions, sign conventions, unavailable future information, accidental reuse of validation data, and constraints that are satisfied in code but not in reality. Perturb one important input in both directions and explain the response before looking at the plot. This turns sensitivity analysis into a reasoning test instead of a decorative appendix.
+
+**Your turn.** Change one assumption, one data value, and one evaluation criterion. Predict which part of the result should change and which part should remain invariant. Then run or derive the variation and write two sentences explaining any disagreement with your prediction. That disagreement is often where the real lesson is hiding.
+
+### Classroom case 3: Spatial risk map
+
+**Here is the problem.** Risk values are measured at irregular locations and interpolated over a city. Do not rush to an algorithm. First say, in ordinary language, what a successful answer would let someone decide. Then list what is observed, what is unknown, and what is under our control. This thirty-second pause prevents us from turning a convenient column into the wrong target.
+
+> **Pause and think.** If you had to give a defensible rough answer in five minutes, what would you calculate first? Which assumption would make that baseline possible, and what observation would make you stop trusting it?
+
+**Let us build it together.** Display sample locations, state the interpolation rule, use a perceptually ordered color map, and mask unsupported regions. Write every quantity with a unit and attach each equation or algorithmic step to one sentence in the problem. Before fitting or solving anything, construct one tiny hand-checkable instance. On that instance, predict the direction of the answer. If the code moves in the opposite direction, debug the model before adding complexity.
+
+The next move is to establish a baseline. The baseline is not included because we expect it to win; it tells us how much value the main method actually creates. Keep the same data split, constraints, random budget, and metric for both. Otherwise we are comparing experimental conditions rather than models.
+
+**Now read the result.** A smooth map is not extra data; uncertainty grows away from observations and must be visible. Translate the mathematical output back into the nouns and verbs of the original question. State the decision, the evidence supporting it, and the range over which it remains stable. A reader should not need to decode a parameter vector to understand the recommendation.
+
+**How could this answer fool us?** Check unit conversions, sign conventions, unavailable future information, accidental reuse of validation data, and constraints that are satisfied in code but not in reality. Perturb one important input in both directions and explain the response before looking at the plot. This turns sensitivity analysis into a reasoning test instead of a decorative appendix.
+
+**Your turn.** Change one assumption, one data value, and one evaluation criterion. Predict which part of the result should change and which part should remain invariant. Then run or derive the variation and write two sentences explaining any disagreement with your prediction. That disagreement is often where the real lesson is hiding.
+
+### Classroom case 4: Model framework
+
+**Here is the problem.** A multi-stage paper combines preprocessing, estimation, optimization, and validation. Do not rush to an algorithm. First say, in ordinary language, what a successful answer would let someone decide. Then list what is observed, what is unknown, and what is under our control. This thirty-second pause prevents us from turning a convenient column into the wrong target.
+
+> **Pause and think.** If you had to give a defensible rough answer in five minutes, what would you calculate first? Which assumption would make that baseline possible, and what observation would make you stop trusting it?
+
+**Let us build it together.** Draw data and decision flow with typed arrows, separate training from evaluation, and label feedback loops. Write every quantity with a unit and attach each equation or algorithmic step to one sentence in the problem. Before fitting or solving anything, construct one tiny hand-checkable instance. On that instance, predict the direction of the answer. If the code moves in the opposite direction, debug the model before adding complexity.
+
+The next move is to establish a baseline. The baseline is not included because we expect it to win; it tells us how much value the main method actually creates. Keep the same data split, constraints, random budget, and metric for both. Otherwise we are comparing experimental conditions rather than models.
+
+**Now read the result.** A framework diagram succeeds when a reader can trace one input to one reported conclusion without guessing. Translate the mathematical output back into the nouns and verbs of the original question. State the decision, the evidence supporting it, and the range over which it remains stable. A reader should not need to decode a parameter vector to understand the recommendation.
+
+**How could this answer fool us?** Check unit conversions, sign conventions, unavailable future information, accidental reuse of validation data, and constraints that are satisfied in code but not in reality. Perturb one important input in both directions and explain the response before looking at the plot. This turns sensitivity analysis into a reasoning test instead of a decorative appendix.
+
+**Your turn.** Change one assumption, one data value, and one evaluation criterion. Predict which part of the result should change and which part should remain invariant. Then run or derive the variation and write two sentences explaining any disagreement with your prediction. That disagreement is often where the real lesson is hiding.
+
+## Slow-motion concept clinics
+
+The cases give us motion; the following clinics give us control. Each clinic revisits one idea from a different angle so that it becomes something you can use in a new problem rather than a definition you can only repeat.
+
+### Concept clinic 1: claim-first design
+
+Let us slow down at **claim-first design**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats claim-first design as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: using a figure as evidence rather than decoration. Readers usually meet the figure before they read the surrounding paragraph, so the visual must carry a precise claim on its own. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use claim-first design to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 2: chart selection
+
+Let us slow down at **chart selection**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats chart selection as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: using a figure as evidence rather than decoration. Readers usually meet the figure before they read the surrounding paragraph, so the visual must carry a precise claim on its own. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use chart selection to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 3: uncertainty encoding
+
+Let us slow down at **uncertainty encoding**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats uncertainty encoding as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: using a figure as evidence rather than decoration. Readers usually meet the figure before they read the surrounding paragraph, so the visual must carry a precise claim on its own. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use uncertainty encoding to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 4: color semantics
+
+Let us slow down at **color semantics**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats color semantics as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: using a figure as evidence rather than decoration. Readers usually meet the figure before they read the surrounding paragraph, so the visual must carry a precise claim on its own. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use color semantics to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 5: caption writing
+
+Let us slow down at **caption writing**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats caption writing as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: using a figure as evidence rather than decoration. Readers usually meet the figure before they read the surrounding paragraph, so the visual must carry a precise claim on its own. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use caption writing to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+### Concept clinic 6: reproducibility
+
+Let us slow down at **reproducibility**, because this is a place where a short formula can hide a long modeling decision. Ask four questions: What does this object mean in the real system? What information is required to construct it? Which assumption makes the construction legitimate? What observable symptom would tell us the assumption failed?
+
+A beginner often treats reproducibility as a box to tick. In a strong solution it acts as an interface between reasoning and evidence. Explain it once without notation, once with notation or an algorithm, and once through a concrete diagnostic. Those three descriptions should agree. If they do not, the notation may be correct while the story is not.
+
+Connect it to today’s central goal: using a figure as evidence rather than decoration. Readers usually meet the figure before they read the surrounding paragraph, so the visual must carry a precise claim on its own. The practical check is to remove or perturb this component and observe which claim changes. If nothing changes, it may be unnecessary. If everything changes unpredictably, the model depends on it more strongly than the paper currently admits.
+
+When writing, avoid “we use reproducibility to improve the model.” Say exactly what enters, what operation occurs, what leaves, and which metric or constraint it affects. Then report a value, plot, residual, comparison, or theorem that lets the reader verify the claim.
+
+## Guided practice with full answers
+
+We have already seen the ideas once. Now we will circle back, because understanding usually appears on the second encounter. These practices are deliberately conversational: try each prompt before reading the next paragraph, then compare your reasoning with the instructor’s route.
+
+### Guided practice 1: teach back Algorithm comparison
+
+Let us revisit **Algorithm comparison**, but this time you are doing the talking. The situation is still this: Three algorithms are tested on twenty instances with different scales. Cover the solution above and write a four-line problem card containing the decision or target, the data, the hard rules, and the success metric. If one of those lines is missing, you are not ready to calculate yet.
+
+**Question 1 — what is the smallest credible model?** Strip away every feature that is not needed for a first answer. Keep the mechanism represented by this route: Plot paired or normalized performance, show uncertainty across repeated runs, and include the simplest baseline. The word *credible* matters. A baseline may be simple, but it cannot violate the central physics, chronology, conservation rule, or decision constraint. State what this baseline deliberately ignores.
+
+**Question 2 — what would you compute by hand?** Create a tiny instance with two or three observations, states, alternatives, or time steps. Work through it without a library. Record one intermediate value, not just the final answer. That intermediate value becomes an excellent unit test because it isolates the meaning of one step from the rest of the pipeline.
+
+**Question 3 — what deserves a figure?** Do not plot everything produced by the program. Plot the comparison that could change a reader’s belief: observed versus predicted, feasible versus infeasible, baseline versus proposed method, nominal versus stressed scenario, or raw versus transformed data. Label units and write a one-sentence expected pattern before generating the figure.
+
+**Question 4 — what is the answer in ordinary language?** A mathematically correct interpretation is: A bar chart of raw means hides instance difficulty; a paired distribution reveals consistency and failure cases. Now add scope. Say where the conclusion is supported, where it is an extrapolation, and which uncertainty is not represented. This is how we prevent a local numerical result from turning into an unlimited claim.
+
+**Instructor’s challenge.** Imagine that the most influential input is wrong by 20%. Predict whether the decision changes smoothly, crosses a threshold, or becomes infeasible. Then test $-20%$, the nominal value, and $+20%$. Three carefully chosen points often teach more than one hundred unexplained simulations. If the response is surprising, inspect the active rule or dominant mechanism rather than immediately blaming the solver.
+
+**Communication drill.** Explain Algorithm comparison in ninety seconds to a teammate: begin with the real question, name the mathematical object only after the question is clear, give one piece of quantitative evidence, and end with one limitation. This short oral version is excellent preparation for writing the abstract and conclusion. It also reveals whether you understand the chain or have only memorized its notation.
+
+### Guided practice 2: teach back Time-series intervention
+
+Let us revisit **Time-series intervention**, but this time you are doing the talking. The situation is still this: A policy begins halfway through a noisy seasonal series. Cover the solution above and write a four-line problem card containing the decision or target, the data, the hard rules, and the success metric. If one of those lines is missing, you are not ready to calculate yet.
+
+**Question 1 — what is the smallest credible model?** Strip away every feature that is not needed for a first answer. Keep the mechanism represented by this route: Mark the intervention, preserve temporal order, show the counterfactual or baseline, and visualize residual uncertainty. The word *credible* matters. A baseline may be simple, but it cannot violate the central physics, chronology, conservation rule, or decision constraint. State what this baseline deliberately ignores.
+
+**Question 2 — what would you compute by hand?** Create a tiny instance with two or three observations, states, alternatives, or time steps. Work through it without a library. Record one intermediate value, not just the final answer. That intermediate value becomes an excellent unit test because it isolates the meaning of one step from the rest of the pipeline.
+
+**Question 3 — what deserves a figure?** Do not plot everything produced by the program. Plot the comparison that could change a reader’s belief: observed versus predicted, feasible versus infeasible, baseline versus proposed method, nominal versus stressed scenario, or raw versus transformed data. Label units and write a one-sentence expected pattern before generating the figure.
+
+**Question 4 — what is the answer in ordinary language?** A mathematically correct interpretation is: The figure should distinguish trend, seasonality, and intervention effect rather than inviting a before-after illusion. Now add scope. Say where the conclusion is supported, where it is an extrapolation, and which uncertainty is not represented. This is how we prevent a local numerical result from turning into an unlimited claim.
+
+**Instructor’s challenge.** Imagine that the most influential input is wrong by 20%. Predict whether the decision changes smoothly, crosses a threshold, or becomes infeasible. Then test $-20%$, the nominal value, and $+20%$. Three carefully chosen points often teach more than one hundred unexplained simulations. If the response is surprising, inspect the active rule or dominant mechanism rather than immediately blaming the solver.
+
+**Communication drill.** Explain Time-series intervention in ninety seconds to a teammate: begin with the real question, name the mathematical object only after the question is clear, give one piece of quantitative evidence, and end with one limitation. This short oral version is excellent preparation for writing the abstract and conclusion. It also reveals whether you understand the chain or have only memorized its notation.
+
+### Guided practice 3: teach back Spatial risk map
+
+Let us revisit **Spatial risk map**, but this time you are doing the talking. The situation is still this: Risk values are measured at irregular locations and interpolated over a city. Cover the solution above and write a four-line problem card containing the decision or target, the data, the hard rules, and the success metric. If one of those lines is missing, you are not ready to calculate yet.
+
+**Question 1 — what is the smallest credible model?** Strip away every feature that is not needed for a first answer. Keep the mechanism represented by this route: Display sample locations, state the interpolation rule, use a perceptually ordered color map, and mask unsupported regions. The word *credible* matters. A baseline may be simple, but it cannot violate the central physics, chronology, conservation rule, or decision constraint. State what this baseline deliberately ignores.
+
+**Question 2 — what would you compute by hand?** Create a tiny instance with two or three observations, states, alternatives, or time steps. Work through it without a library. Record one intermediate value, not just the final answer. That intermediate value becomes an excellent unit test because it isolates the meaning of one step from the rest of the pipeline.
+
+**Question 3 — what deserves a figure?** Do not plot everything produced by the program. Plot the comparison that could change a reader’s belief: observed versus predicted, feasible versus infeasible, baseline versus proposed method, nominal versus stressed scenario, or raw versus transformed data. Label units and write a one-sentence expected pattern before generating the figure.
+
+**Question 4 — what is the answer in ordinary language?** A mathematically correct interpretation is: A smooth map is not extra data; uncertainty grows away from observations and must be visible. Now add scope. Say where the conclusion is supported, where it is an extrapolation, and which uncertainty is not represented. This is how we prevent a local numerical result from turning into an unlimited claim.
+
+**Instructor’s challenge.** Imagine that the most influential input is wrong by 20%. Predict whether the decision changes smoothly, crosses a threshold, or becomes infeasible. Then test $-20%$, the nominal value, and $+20%$. Three carefully chosen points often teach more than one hundred unexplained simulations. If the response is surprising, inspect the active rule or dominant mechanism rather than immediately blaming the solver.
+
+**Communication drill.** Explain Spatial risk map in ninety seconds to a teammate: begin with the real question, name the mathematical object only after the question is clear, give one piece of quantitative evidence, and end with one limitation. This short oral version is excellent preparation for writing the abstract and conclusion. It also reveals whether you understand the chain or have only memorized its notation.
+
+### Guided practice 4: teach back Model framework
+
+Let us revisit **Model framework**, but this time you are doing the talking. The situation is still this: A multi-stage paper combines preprocessing, estimation, optimization, and validation. Cover the solution above and write a four-line problem card containing the decision or target, the data, the hard rules, and the success metric. If one of those lines is missing, you are not ready to calculate yet.
+
+**Question 1 — what is the smallest credible model?** Strip away every feature that is not needed for a first answer. Keep the mechanism represented by this route: Draw data and decision flow with typed arrows, separate training from evaluation, and label feedback loops. The word *credible* matters. A baseline may be simple, but it cannot violate the central physics, chronology, conservation rule, or decision constraint. State what this baseline deliberately ignores.
+
+**Question 2 — what would you compute by hand?** Create a tiny instance with two or three observations, states, alternatives, or time steps. Work through it without a library. Record one intermediate value, not just the final answer. That intermediate value becomes an excellent unit test because it isolates the meaning of one step from the rest of the pipeline.
+
+**Question 3 — what deserves a figure?** Do not plot everything produced by the program. Plot the comparison that could change a reader’s belief: observed versus predicted, feasible versus infeasible, baseline versus proposed method, nominal versus stressed scenario, or raw versus transformed data. Label units and write a one-sentence expected pattern before generating the figure.
+
+**Question 4 — what is the answer in ordinary language?** A mathematically correct interpretation is: A framework diagram succeeds when a reader can trace one input to one reported conclusion without guessing. Now add scope. Say where the conclusion is supported, where it is an extrapolation, and which uncertainty is not represented. This is how we prevent a local numerical result from turning into an unlimited claim.
+
+**Instructor’s challenge.** Imagine that the most influential input is wrong by 20%. Predict whether the decision changes smoothly, crosses a threshold, or becomes infeasible. Then test $-20%$, the nominal value, and $+20%$. Three carefully chosen points often teach more than one hundred unexplained simulations. If the response is surprising, inspect the active rule or dominant mechanism rather than immediately blaming the solver.
+
+**Communication drill.** Explain Model framework in ninety seconds to a teammate: begin with the real question, name the mathematical object only after the question is clear, give one piece of quantitative evidence, and end with one limitation. This short oral version is excellent preparation for writing the abstract and conclusion. It also reveals whether you understand the chain or have only memorized its notation.
+
+## Put the lesson on the board
+
+A modeling pipeline is only as reliable as the information passed between its steps. The following short board exercises make those interfaces explicit and give you practical tests you can reuse in a competition.
+
+### Board exercise 1: connect claim-first design to chart selection
+
+Draw two boxes labeled **claim-first design** and **chart selection**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from claim-first design to chart selection; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind using a figure as evidence rather than decoration to remain auditable.
+
+### Board exercise 2: connect chart selection to uncertainty encoding
+
+Draw two boxes labeled **chart selection** and **uncertainty encoding**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from chart selection to uncertainty encoding; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind using a figure as evidence rather than decoration to remain auditable.
+
+### Board exercise 3: connect uncertainty encoding to color semantics
+
+Draw two boxes labeled **uncertainty encoding** and **color semantics**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from uncertainty encoding to color semantics; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind using a figure as evidence rather than decoration to remain auditable.
+
+### Board exercise 4: connect color semantics to caption writing
+
+Draw two boxes labeled **color semantics** and **caption writing**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from color semantics to caption writing; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind using a figure as evidence rather than decoration to remain auditable.
+
+### Board exercise 5: connect caption writing to reproducibility
+
+Draw two boxes labeled **caption writing** and **reproducibility**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from caption writing to reproducibility; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind using a figure as evidence rather than decoration to remain auditable.
+
+### Board exercise 6: connect reproducibility to claim-first design
+
+Draw two boxes labeled **reproducibility** and **claim-first design**. Put the information produced by the first box on the arrow between them, including units, dimensions, time availability, and uncertainty. This arrow is where many polished-looking solutions quietly break. Ask whether the second box receives exactly what it assumes.
+
+Now make one intentional mistake: change a unit, reverse an index, leak a future observation, omit a constraint, or reuse fitted preprocessing on the full dataset. Predict the symptom. Would you see an impossible value, suspiciously good validation, a rank reversal, a nonconvergent solver, or no obvious warning at all? Write a test that catches the mistake automatically.
+
+Finally, restore the correct pipeline and create one sentence for the paper: “We pass ___ from reproducibility to claim-first design; this quantity is constructed using ___ and validated by ___.” Fill every blank with something concrete. That sentence is short, but it forces the architecture behind using a figure as evidence rather than decoration to remain auditable.
+
+## A real 40-minute teaching route
+
+Use the first five minutes to restate the problem without mathematical vocabulary. Spend the next eight minutes rebuilding the baseline and checking one tiny example by hand. Use twelve minutes for the main method and its assumptions, then eight minutes to interpret the figures and challenge the result with a perturbation. Reserve the final seven minutes for a teach-back: close the article and explain the chain from data to decision in your own words.
+
+Your concrete output is a figure set in which every panel has one claim, readable units, an uncertainty statement, a baseline, and a caption that explains what the reader should conclude. It should be understandable to a teammate who has not read this lesson. Include one thing that worked, one failure you diagnosed, and one assumption whose influence you measured. That final reflection is not extra homework; it is the step that converts recognition into transferable modeling skill.
+<!-- teaching-expansion:end -->
 
 ## Forty-minute production exercise
 
