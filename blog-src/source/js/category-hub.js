@@ -11,7 +11,7 @@
       course: { slug: "mathematical-modeling", name: "Mathematical Modeling" },
       icon: "fa-solid fa-chart-line",
       cover: "/blog/images/mathematical-modeling-nyc.webp",
-      description: "A 20-lesson learning path, organized from first models through optimization, differential equations, time series, data analysis, full cases, and scientific writing. Lesson 1 is open; lessons awaiting author review stay locked until their teaching drafts are complete.",
+      description: "A 20-lesson learning path from first models to optimization, differential equations, data, competition cases, and scientific writing. Lesson 1 is published; lessons 2–20 are in development. The author can preview working drafts before release.",
       topics: ["20 Guided Lessons", "Zero to Competition", "Models & Evidence"],
     },
     "COMS4776W-Neural-Networks-Deep-Learning": {
@@ -83,6 +83,29 @@
     },
   };
 
+  const MODELING_SYLLABUS = [
+    [1, "From Reality to a Model", 1, "Turn a vague problem into a purpose, boundary, variables, assumptions, equations, a solution, validation, and an actionable conclusion."],
+    [2, "Visual Evidence", 2, "Choose charts, diagrams, colors, and layouts so that every figure supports a specific modeling claim."],
+    [3, "Linear, Quadratic & Conic Optimization", 1, "Formulate and solve linear programs, quadratic programs, and second-order cone programs."],
+    [4, "Advanced Convex Optimization", 3, "Explore more general convex formulations and the algorithms beyond the introductory models."],
+    [5, "Multi-Objective & Robust Optimization", 1, "Balance competing goals and make decisions that remain useful under uncertainty."],
+    [6, "Intelligent Optimization", 1, "Understand genetic algorithms, particle swarm optimization, and simulated annealing."],
+    [7, "Pose Graph Optimization", 2, "Work through a complete pose-graph optimization case from problem formulation to interpretation."],
+    [8, "Differential Equations 101", 1, "Build basic differential-equation models from rates of change and initial conditions."],
+    [9, "Differential Equations II", 1, "Extend basic models and learn to compare their predictions with observations."],
+    [10, "Advanced Differential Equations", 2, "Study more complex dynamics and the assumptions required to model them."],
+    [11, "Competition ODE Cases", 3, "Analyze advanced differential-equation cases from mathematical-modeling competitions."],
+    [12, "Time Series 101", 1, "Introduce time-indexed data, trends, seasonality, and forecasting baselines."],
+    [13, "Advanced Time Series", 2, "Build and assess richer forecasts under changing patterns and uncertainty."],
+    [14, "Data Preparation 101", 1, "Clean, organize, and document data before fitting a model."],
+    [15, "Advanced Data Analysis", 2, "Extract and validate useful evidence from complex datasets."],
+    [16, "Evaluation Models 101", 1, "Design indicators and combine them into a transparent, defensible evaluation."],
+    [17, "Financial Market Volatility", 3, "Investigate a full modeling case on fluctuations in financial markets."],
+    [18, "Writing the Abstract", 1, "Communicate the problem, method, evidence, results, and limitations concisely."],
+    [19, "Writing the Main Text", 1, "Organize assumptions, derivations, results, and discussion into a readable report."],
+    [20, "Competition Mindset & Preparation", 2, "Prepare a team workflow, make decisions under time pressure, and finish a coherent submission."],
+  ];
+
   let catalogPromise = null;
   let renderVersion = 0;
 
@@ -96,7 +119,7 @@
 
   const reader = () => window.__blogReadingHistory;
   const availableToReader = (article) =>
-    !article.reviewLock || (article.lessonNumber === 2 && reader()?.isDeveloper?.() && !reader()?.isRegularPreview?.());
+    !article.reviewLock || (article.lessonNumber >= 2 && reader()?.isDeveloper?.() && !reader()?.isRegularPreview?.());
   const average = (items, selector) =>
     items.length ? Math.round(items.reduce((sum, item) => sum + selector(item), 0) / items.length) : 0;
 
@@ -248,6 +271,24 @@
       <div class="category-hub-hero-count"><strong>${articleCount}</strong><span>${config.name === "Mathematical Modeling" ? "planned lessons" : `published<br>article${articleCount === 1 ? "" : "s"}`}</span></div>
     </section>`;
 
+  const modelingSyllabusMarkup = (articles) => {
+    const byNumber = new Map(articles.map((article) => [Number(article.lessonNumber), article]));
+    return `<section class="category-hub-syllabus" aria-labelledby="modeling-syllabus-heading">
+      <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">THE COMPLETE COURSE</p><h2 id="modeling-syllabus-heading">20-Lesson Syllabus</h2></div><span>1 published · 19 in development</span></div>
+      <p class="category-hub-syllabus-intro">Start with a question you can actually model. Then move from evidence and optimization to dynamic systems, data, case studies, and communicating your results. Lessons in development are available as working previews to the author only.</p>
+      <div class="category-hub-syllabus-grid">${MODELING_SYLLABUS.map(([number, title, level, focus]) => {
+        const article = byNumber.get(number);
+        const path = article ? safePath(article.path) : "";
+        return `<article class="category-hub-syllabus-item ${number === 1 ? "is-published" : "is-developing"}">
+          <div class="category-hub-syllabus-top"><span>LESSON ${String(number).padStart(2, "0")}</span><span class="category-hub-syllabus-level">LEVEL ${level}</span></div>
+          <h3>${path ? `<a href="${escapeHtml(path)}">${escapeHtml(title)}</a>` : escapeHtml(title)}</h3>
+          <p>${escapeHtml(focus)}</p>
+          <div class="category-hub-syllabus-bottom"><span class="category-hub-syllabus-status"><i class="fa-solid ${number === 1 ? "fa-circle-check" : "fa-hammer"}" aria-hidden="true"></i> ${number === 1 ? "Published" : "In Development"}</span>${path ? `<a href="${escapeHtml(path)}" aria-label="Open lesson ${number}">View <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</div>
+        </article>`;
+      }).join("")}</div>
+    </section>`;
+  };
+
   const metricMarkup = (label, value, suffix, icon, warning = false) => `
     <article class="category-hub-metric ${warning ? "is-warning" : ""}">
       <i class="${icon}" aria-hidden="true"></i><div><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}<small>${escapeHtml(suffix)}</small></strong></div>
@@ -294,20 +335,23 @@
 
   const articleCardMarkup = (article, config, enrolled) => {
     const locked = !availableToReader(article);
-    const completion = enrolled && !locked ? article.completion : 0;
-    const mastery = enrolled && !locked ? article.currentMastery : 0;
-    const needsReview = enrolled && !locked && mastery < 50;
-    const status = locked ? "Awaiting Review" : !enrolled ? "Lesson" : completion >= 100 ? "Completed" : completion > 0 ? "In Progress" : "Not Started";
+    const trackable = !locked && !(config.name === "Mathematical Modeling" && article.reviewLock);
+    const completion = enrolled && trackable ? article.completion : 0;
+    const mastery = enrolled && trackable ? article.currentMastery : 0;
+    const needsReview = enrolled && trackable && mastery < 50;
+    const status = config.name === "Mathematical Modeling" && article.lessonNumber > 1
+      ? locked ? "In Development" : "Working Preview"
+      : locked ? "Awaiting Review" : !enrolled ? "Lesson" : completion >= 100 ? "Completed" : completion > 0 ? "In Progress" : "Not Started";
     const cover = article.cover || config.cover;
     return `
       <article class="category-hub-article ${needsReview ? "is-warning" : ""} ${locked ? "is-review-locked" : ""}">
         <a class="category-hub-article-cover" href="${escapeHtml(safePath(article.path))}" style="--article-cover:url('${escapeHtml(cover)}')"><span>${escapeHtml(status)}</span></a>
         <div class="category-hub-article-body">
-          <p class="category-hub-article-date">${config.name === "Mathematical Modeling" && article.lessonNumber ? `Lesson ${String(article.lessonNumber).padStart(2, "0")} · Level ${article.lessonLevel || 1}` : escapeHtml(formatArticleDate(article.date))}${!locked && article.studyTime ? ` · ${escapeHtml(article.studyTime)} min guided lesson` : ""}</p>
+          <p class="category-hub-article-date">${config.name === "Mathematical Modeling" && article.lessonNumber ? `Lesson ${String(article.lessonNumber).padStart(2, "0")} · Level ${article.lessonLevel || 1}` : escapeHtml(formatArticleDate(article.date))}${trackable && article.studyTime ? ` · ${escapeHtml(article.studyTime)} min guided lesson` : ""}</p>
           <h3><a href="${escapeHtml(safePath(article.path))}">${escapeHtml(article.title)}</a></h3>
           <p>${escapeHtml(article.excerpt || "Open this article to explore the complete notes and references.")}</p>
-          ${enrolled && !locked ? `<div class="category-hub-article-progress"><span><b>Progress ${completion}%</b><b class="${needsReview ? "is-warning" : ""}">Mastery ${mastery}%</b></span><div><i style="width:${completion}%"></i></div></div>` : ""}
-          <a class="category-hub-open" href="${escapeHtml(safePath(article.path))}">${locked ? "View Review Status" : enrolled && completion > 0 ? "Continue Lesson" : "Open Article"} <i class="fa-regular ${locked ? "fa-lock" : "fa-arrow-right"}" aria-hidden="true"></i></a>
+          ${enrolled && trackable ? `<div class="category-hub-article-progress"><span><b>Progress ${completion}%</b><b class="${needsReview ? "is-warning" : ""}">Mastery ${mastery}%</b></span><div><i style="width:${completion}%"></i></div></div>` : ""}
+          <a class="category-hub-open" href="${escapeHtml(safePath(article.path))}">${locked ? "View Development Status" : enrolled && completion > 0 ? "Continue Lesson" : "Open Article"} <i class="fa-regular ${locked ? "fa-lock" : "fa-arrow-right"}" aria-hidden="true"></i></a>
         </div>
       </article>`;
   };
@@ -393,13 +437,15 @@
       };
     });
     const available = enriched.filter(availableToReader);
-    const series = enrolled ? aggregateSeries(available, events) : [];
+    const trackable = config.name === "Mathematical Modeling" ? available.filter((article) => !article.reviewLock) : available;
+    const series = enrolled ? aggregateSeries(trackable, events) : [];
 
     mount.innerHTML = `
       ${heroMarkup(config, enriched.length, session, enrolled)}
-      ${config.course ? courseOverviewMarkup(available, enrolled, series) : readingOverviewMarkup(enriched, session)}
+      ${config.name === "Mathematical Modeling" ? modelingSyllabusMarkup(enriched) : ""}
+      ${config.course ? courseOverviewMarkup(trackable, enrolled, series) : readingOverviewMarkup(enriched, session)}
       <section class="category-hub-curriculum">
-        <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">${config.course ? "COURSE CONTENT" : "CATEGORY LIBRARY"}</p><h2>${config.course ? "Learning Path" : "All Articles"}</h2></div><span>${config.name === "Mathematical Modeling" ? `${available.length} available · ${enriched.length - available.length} awaiting review` : `${enriched.length} published`}</span></div>
+        <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">${config.course ? "COURSE CONTENT" : "CATEGORY LIBRARY"}</p><h2>${config.course ? "Learning Path" : "All Articles"}</h2></div><span>${config.name === "Mathematical Modeling" ? "1 published · 19 in development" : `${enriched.length} published`}</span></div>
         <div class="category-hub-article-grid">${enriched.map((article) => articleCardMarkup(article, config, Boolean(config.course && enrolled))).join("")}</div>
       </section>`;
     mount.dataset.categoryHubReady = "true";

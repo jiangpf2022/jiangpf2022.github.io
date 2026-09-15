@@ -21,6 +21,43 @@
   const reader = () => window.__blogReadingHistory;
   const canRead = () => Boolean(reader()?.isDeveloper?.() && !reader()?.isRegularPreview?.());
 
+  const escapeHtml = (value) => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+
+  // The private article table has no rows for the new 20-lesson edition yet.
+  // Show the author its real editorial outline, never a mismatched copied article.
+  const showDevelopmentPreview = async (content, path, version) => {
+    try {
+      const response = await fetch("/blog/category-hub.json", { cache: "no-store" });
+      if (!response.ok) throw new Error("Catalog unavailable");
+      const catalog = await response.json();
+      const entries = Array.isArray(catalog) ? catalog : catalog.articles || [];
+      const lesson = entries.find((item) => item.path === path);
+      if (version !== requestVersion || !canRead() || activeContent !== content) return;
+      const title = lesson?.title || "Mathematical Modeling lesson";
+      const topic = lesson?.excerpt || "This lesson is being developed for the revised course.";
+      content.innerHTML = `<div class="mm-protected-article mm-development-preview" data-modeling-preview="true">
+        <div class="mm-lock-symbol" aria-hidden="true"><i class="fa-solid fa-pen-to-square"></i></div>
+        <p class="mm-lock-eyebrow">AUTHOR WORKING PREVIEW · NOT PUBLISHED</p>
+        <h2>${escapeHtml(title)}</h2>
+        <p>${escapeHtml(topic)}</p>
+        <p>This is the lesson outline, not a finished teaching article. The full draft is still being rewritten in your private OneDrive folder; older text has not been pasted here under a new topic. Readers in ordinary-user mode see the development lock until you approve publication.</p>
+      </div>`;
+      content.dataset.modelingLoaded = "true";
+      document.body.classList.remove("mm-locked-page");
+      document.body.classList.add("mm-development-page");
+      const toc = lockedViews.get(content)?.toc;
+      if (toc) toc.innerHTML = "";
+      window.__articleTocToggle?.refresh?.();
+      reader()?.refreshPage?.();
+    } catch (_error) {
+      if (version !== requestVersion || !canRead() || activeContent !== content) return;
+      content.innerHTML = `<div class="mm-protected-article mm-development-preview" data-modeling-preview="true"><h2>Author working preview</h2><p>This lesson is being written. Its outline could not be loaded; please refresh to try again.</p></div>`;
+      content.dataset.modelingLoaded = "true";
+      document.body.classList.remove("mm-locked-page");
+      document.body.classList.add("mm-development-page");
+    }
+  };
+
   const lockMarkup = `
     <h2>Lesson awaiting review</h2>
     <div class="mm-protected-article" data-modeling-protected="true">
@@ -41,6 +78,7 @@
     content.innerHTML = view.content;
     delete content.dataset.modelingLoaded;
     document.body.classList.add("mm-locked-page");
+    document.body.classList.remove("mm-development-page");
     if (view.toc) view.toc.innerHTML = view.tocHtml;
     window.__articleTocToggle?.refresh?.();
     reader()?.refreshPage?.();
@@ -58,7 +96,10 @@
 
   const showDraft = async (content, path, version) => {
     const client = reader()?.getClient?.();
-    if (!client) return;
+    if (!client) {
+      if (path.startsWith("/blog/2026/09/15/")) await showDevelopmentPreview(content, path, version);
+      return;
+    }
     const { data, error } = await client
       .from(table)
       .select("content_html,toc_html")
@@ -66,21 +107,20 @@
       .single();
     if (version !== requestVersion || !canRead() || activeContent !== content) return;
     if (error || !data?.content_html) {
-      if (path.startsWith("/blog/2026/09/15/")) {
-        const message = content.querySelector(".mm-protected-article p:last-child");
-        if (message) message.textContent = "The 20-lesson edition is being rewritten and will open after author review.";
-      } else {
-        announceLoadError(content);
-      }
+      if (path.startsWith("/blog/2026/09/15/")) await showDevelopmentPreview(content, path, version);
+      else announceLoadError(content);
       return;
     }
 
     try {
       const html = await decodeGzipBase64(data.content_html);
       if (version !== requestVersion || !canRead() || activeContent !== content) return;
-      content.innerHTML = html;
+      content.innerHTML = path.startsWith("/blog/2026/09/15/")
+        ? `<div class="mm-draft-banner" role="note"><strong>Author working draft — not published.</strong> Content may still be incomplete; verify the topic before releasing this lesson.</div>${html}`
+        : html;
       content.dataset.modelingLoaded = "true";
       document.body.classList.remove("mm-locked-page");
+      document.body.classList.remove("mm-development-page");
       content.querySelectorAll("img[data-src]").forEach((image) => {
         image.src = image.dataset.src;
         image.loading = "lazy";
@@ -99,6 +139,12 @@
 
   const decorateLinks = () => {
     document.querySelectorAll('a[href*="Mathematical-Modeling-"]').forEach((link) => {
+      if (canRead() && link.classList.contains("mm-locked-link")) {
+        link.classList.remove("mm-locked-link");
+        link.querySelector(".mm-lock-badge")?.remove();
+        delete link.dataset.modelingLockDecorated;
+      }
+      if (canRead()) return;
       if (link.dataset.modelingLockDecorated || link.querySelector("img")) return;
       const path = new URL(link.href, window.location.origin).pathname;
       if (!isProtected(path) || !link.textContent.trim().startsWith("Mathematical Modeling ")) return;
@@ -121,6 +167,7 @@
     if (!isProtected(path) || !content) {
       activeContent = null;
       document.body.classList.remove("mm-locked-page");
+      document.body.classList.remove("mm-development-page");
       return;
     }
     activeContent = content;
