@@ -420,7 +420,7 @@ inject:
     - <script src="/blog/js/reading-history.js?v=20260914-history-loop"></script>
     - <script src="/blog/js/learning-dashboard.js?v=20260914-levels"></script>
     - <script src="/blog/js/category-hub.js?v=20260914-history-loop"></script>
-    - <script src="/blog/js/category-showcase.js?v=20260914-history-loop"></script>
+    - <script src="/blog/js/category-showcase.js?v=20260914-autoplay"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 

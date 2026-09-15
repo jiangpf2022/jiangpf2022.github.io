@@ -138,6 +138,10 @@
     let startScroll = 0;
     let frame = 0;
     let jumpFrame = 0;
+    let autoplayTimer = 0;
+    let hovering = false;
+    let keyboardPaused = false;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const metrics = () => {
       if (cards.length < count * 3) return null;
@@ -168,6 +172,28 @@
       else if (viewport.scrollLeft >= value.lastStart - 2) jumpBy(-value.setWidth);
     };
 
+    const cardStep = () => {
+      const cardWidth = cards[count]?.getBoundingClientRect().width || viewport.clientWidth;
+      const gap = parseFloat(getComputedStyle(viewport).columnGap) || 0;
+      return cardWidth + gap;
+    };
+
+    const stopAutoplay = () => {
+      window.clearTimeout(autoplayTimer);
+      autoplayTimer = 0;
+    };
+
+    const scheduleAutoplay = (delay = 4200) => {
+      stopAutoplay();
+      if (reducedMotion.matches || !viewport.isConnected) return;
+      autoplayTimer = window.setTimeout(() => {
+        if (!document.hidden && !hovering && !keyboardPaused && !dragging) {
+          viewport.scrollBy({ left: cardStep(), behavior: "smooth" });
+        }
+        scheduleAutoplay();
+      }, delay);
+    };
+
     viewport.addEventListener("scroll", () => {
       window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(keepLooping);
@@ -176,10 +202,14 @@
     viewport.addEventListener("wheel", (event) => {
       if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
       event.preventDefault();
+      stopAutoplay();
       viewport.scrollBy({ left: event.deltaY, behavior: "auto" });
+      scheduleAutoplay(6500);
     }, { passive: false });
 
     viewport.addEventListener("pointerdown", (event) => {
+      stopAutoplay();
+      keyboardPaused = false;
       if (event.pointerType === "touch" || event.button !== 0) return;
       dragging = true;
       moved = false;
@@ -205,9 +235,11 @@
       if (viewport.hasPointerCapture(pointerId)) viewport.releasePointerCapture(pointerId);
       pointerId = null;
       keepLooping();
+      scheduleAutoplay(6500);
     };
     viewport.addEventListener("pointerup", finishDrag);
     viewport.addEventListener("pointercancel", finishDrag);
+    viewport.addEventListener("touchend", () => scheduleAutoplay(6500), { passive: true });
     viewport.addEventListener("click", (event) => {
       if (!moved) return;
       event.preventDefault();
@@ -217,16 +249,40 @@
 
     section.querySelectorAll("[data-category-direction]").forEach((button) => {
       button.addEventListener("click", () => {
-        const cardWidth = cards[count]?.getBoundingClientRect().width || viewport.clientWidth;
-        const gap = parseFloat(getComputedStyle(viewport).columnGap) || 0;
         const direction = Number(button.dataset.categoryDirection) || 1;
-        viewport.scrollBy({ left: direction * (cardWidth + gap), behavior: "smooth" });
+        stopAutoplay();
+        viewport.scrollBy({ left: direction * cardStep(), behavior: "smooth" });
+        scheduleAutoplay(6500);
       });
     });
+
+    section.addEventListener("mouseenter", () => {
+      hovering = true;
+      stopAutoplay();
+    });
+    section.addEventListener("mouseleave", () => {
+      hovering = false;
+      scheduleAutoplay(1800);
+    });
+    section.addEventListener("keydown", () => {
+      keyboardPaused = true;
+      stopAutoplay();
+    });
+    section.addEventListener("focusout", (event) => {
+      if (event.relatedTarget && section.contains(event.relatedTarget)) return;
+      keyboardPaused = false;
+      scheduleAutoplay(2500);
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopAutoplay();
+      else scheduleAutoplay(1800);
+    });
+    reducedMotion.addEventListener?.("change", () => scheduleAutoplay());
 
     const observer = new ResizeObserver(centerLoop);
     observer.observe(viewport);
     window.requestAnimationFrame(centerLoop);
+    scheduleAutoplay();
   };
 
   const renderHomeShowcase = async () => {
