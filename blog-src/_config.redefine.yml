@@ -200,11 +200,7 @@ navbar:
     #   icon: fa-regular fa-chart-bar
     About Me: 
       icon: fa-regular fa-user
-      submenus:
-        CV-Resume: https://jiangpf2022.github.io/blog/files/cv.pdf
-        Github: https://github.com/jiangpf2022
-        # Blog: https://ohevan.com
-        # Friends: /friends
+      path: https://jiangpf2022.github.io/
     My Learning:
       path: /learning/
       icon: fa-solid fa-user-graduate

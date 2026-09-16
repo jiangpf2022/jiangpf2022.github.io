@@ -50,6 +50,7 @@ jobs:
           cp -R _site-home/. site-artifact/
           cp -R blog-src/public/. site-artifact/blog/
           cp -R blog-src/public/files/. site-artifact/files/
+          cp _site-home/files/cv.pdf site-artifact/files/cv.pdf
 
       - name: Generate combined sitemap
         run: node scripts/generate-sitemap.js site-artifact
