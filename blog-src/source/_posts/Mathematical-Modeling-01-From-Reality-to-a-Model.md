@@ -16,11 +16,11 @@ excerpt: "A disciplined route from an ambiguous real question to variables, assu
 
 Welcome—come in, take a seat, and make yourself comfortable.
 
-Relax. This is our first class; you do not need a solver, a clever algorithm, or a long list of formulas. Today we will begin with one ordinary commuter puzzle and discover how to turn a situation into a small question we can actually test.
+Relax. This is the first blog post in the series; you do not need a solver, a clever algorithm, or a long list of formulas. We will begin with one ordinary commuter puzzle and discover how to turn a situation into a small question we can actually test.
 
 Imagine a commuter who is usually picked up at 6:00 p.m. Today he arrives thirty minutes early, walks toward home, meets the car on the road, and gets home ten minutes ahead of schedule. **How long did he walk?** Write down a guess before you look for a formula. We know neither driving speed nor walking speed. That is exactly why this is a good first modeling question: the right relationship may matter more than the missing numbers.
 
-I want to build this course the way we would work at a board together. I will pose a concrete problem, let you predict, say what we are assuming, make the smallest calculation that can answer it, and ask what observation would overturn the result. The commuter is only our first puzzle. We will also ask how a field team can keep a sample box cool, how an automated campus cart should approach a timed gate, and how a manager can staff a dining hall. Across all four, the common skill is turning a vague situation into a testable question.
+Think of this post as a guided walk through a few real-looking problems. I will pose a concrete question, invite you to predict, make the assumptions visible, work through the smallest useful calculation, and ask what observation would overturn the result. The commuter is only our first puzzle. We will also ask how a field team can keep a sample box cool, how an automated campus cart should approach a timed gate, and how a manager can staff a dining hall. Across all four, the common skill is turning a vague situation into a testable question.
 
 Mathematical modeling is not the act of attaching a fashionable algorithm to a dataset. It is the controlled replacement of a real system by a simpler mathematical object that is useful for a stated decision.
 
@@ -58,7 +58,7 @@ The shuttle gave us a purpose, boundary, state, mechanism, and test. Those five 
 
 ## From purpose to state
 
-Imagine a field team loading small, room-temperature sample vials into an insulated box containing a chilled thermal reservoir. The team has agreed on an illustrative upper box-temperature limit of $8\,^{\circ}\mathrm C$ for this classroom exercise. **How many vials can we load before the reservoir reaches that limit?** Take a moment to guess; the point is not to know the answer but to identify what determines it.
+Imagine a field team loading small, room-temperature sample vials into an insulated box containing a chilled thermal reservoir. For this illustrative example, we choose an upper box-temperature limit of $8\,^{\circ}\mathrm C$. **How many vials can we load before the reservoir reaches that limit?** Take a moment to guess; the point is not to know the answer but to identify what determines it.
 
 Counting vials alone does not tell us whether the box is cool enough. The changing reservoir temperature $T_n$ is our *state*. The vial count $n$ is an output: it records how many steps occurred. A real storage protocol might also require a limit on *each vial's own temperature*, exposure duration, packing geometry, or contamination. We are not designing a real laboratory procedure here. Our first model answers only a carefully declared question about the **average reservoir temperature**; those other requirements would need separate checks.
 
@@ -80,7 +80,7 @@ Both sides of the balance are in joules. The weighted average should lie between
 
 ### Follow the changing state
 
-Let $C_c=83{,}600\,\mathrm{J/^{\circ}C}$, $C_v=240\,\mathrm{J/^{\circ}C}$, $T_0=4\,^{\circ}\mathrm C$, and $T_v=20\,^{\circ}\mathrm C$. These are teaching numbers, not measured box specifications. The first step gives
+Let $C_c=83{,}600\,\mathrm{J/^{\circ}C}$, $C_v=240\,\mathrm{J/^{\circ}C}$, $T_0=4\,^{\circ}\mathrm C$, and $T_v=20\,^{\circ}\mathrm C$. These are illustrative numbers, not measured box specifications. The first step gives
 
 $$
 T_1=\frac{83{,}600(4)+240(20)}{83{,}840}\approx4.046\,^{\circ}\mathrm C.
@@ -92,7 +92,7 @@ $$
 r=\frac{C_c}{C_c+C_v}=\frac{83{,}600}{83{,}840}\approx0.997137.
 $$
 
-Subtract $T_v$ from the update equation. It becomes $T_{n+1}-T_v=r(T_n-T_v)$, so repeated identical additions give $T_n=T_v+r^n(T_0-T_v)$. To stay at or below our classroom limit $T_{\max}=8\,^{\circ}\mathrm C$, we need
+Subtract $T_v$ from the update equation. It becomes $T_{n+1}-T_v=r(T_n-T_v)$, so repeated identical additions give $T_n=T_v+r^n(T_0-T_v)$. To stay at or below our chosen limit $T_{\max}=8\,^{\circ}\mathrm C$, we need
 
 $$
 r^n\ge\frac{T_v-T_{\max}}{T_v-T_0}=\frac{12}{16}=0.75.
@@ -100,7 +100,7 @@ $$
 
 Because $0<r<1$, $\log r<0$; dividing by it reverses the inequality. Thus $n\le\log(0.75)/\log(r)\approx100.35$. The integer baseline permits **100 additions**: $T_{100}\approx7.988\,^{\circ}\mathrm C$, whereas $T_{101}\approx8.022\,^{\circ}\mathrm C$. The count is conditional on the chosen temperature limit and every assumption above, not permission to store actual samples without checking a real protocol.
 
-Why not just divide “available thermal capacity” by the energy transferred per vial? Such a shortcut fixes the temperature gap at one value, while the recurrence allows it to shrink. You can use a rough division for an order-of-magnitude check, but not quietly replace a changing state with a constant per-step cost. The lesson is broader than heat: whenever the next event depends on the current state, model the update first and count afterward.
+Why not just divide “available thermal capacity” by the energy transferred per vial? Such a shortcut fixes the temperature gap at one value, while the recurrence allows it to shrink. You can use a rough division for an order-of-magnitude check, but not quietly replace a changing state with a constant per-step cost. The idea reaches beyond heat: whenever the next event depends on the current state, model the update first and count afterward.
 
 ### Test the boundary in the field
 
@@ -116,15 +116,18 @@ We have framed one physical problem and followed a state update to a threshold. 
 
 ## Translate words into structure
 
-Turn nouns into sets or parameters, verbs into decisions, and qualifiers into constraints.
+<aside class="mm-key-box mm-theory-box" role="note" aria-label="Translate ordinary language into a model">
+  <span class="mm-callout-label">Guiding idea · From words to math</span>
+  <p><strong>Nouns</strong> become sets, states, or parameters; <strong>verbs</strong> become decisions or changes; <strong>qualifiers</strong> become objectives, constraints, or uncertainty.</p>
+  <ul>
+    <li>“Assign workers to tasks” suggests binary variables <code>x<sub>ij</sub> ∈ {0, 1}</code>.</li>
+    <li>“At most one” becomes a sum bounded by one; “minimize total time” becomes an objective.</li>
+    <li>“For every day” creates a time index; “uncertain demand” calls for scenarios or distributions.</li>
+  </ul>
+  <p>Before any equations, write one <strong>input–output sentence</strong>: “Given ___, estimate or choose ___ so that ___.”</p>
+</aside>
 
-- “Assign workers to tasks” suggests binary variables $x_{ij}\in\{0,1\}$.
-- “At most one” becomes a sum bounded by one.
-- “Minimize total time” becomes an objective over selected decisions.
-- “For every day” creates a time index.
-- “Uncertain demand” requires scenarios, distributions, or uncertainty sets.
-
-For every subproblem, write an **input–output sentence**: “Given ___, estimate/choose ___ so that ___.” This small step often reveals dependencies between questions and prevents circular reasoning.
+This translation is a diagnostic, not a word-substitution trick. If the sentence cannot say what is known, what you may choose, and what success looks like, the equations are not ready. It also reveals dependencies between subproblems and prevents circular reasoning.
 
 Let us translate an ordinary staffing request without skipping any steps. A manager says: “I have four workers and three stations—payment, food preparation, and pickup. At lunchtime each station must have at least one worker. Where should the fourth worker go so that customers wait less?” At first, the manager does not have an objective function. She has people, stations, a staffing rule, and a wish.
 
@@ -140,14 +143,18 @@ The assignment equations made the manager's rules explicit, but the capacities w
 
 ## Make assumptions visible
 
-A useful assumption removes complexity while preserving the mechanism that controls the answer. Classify assumptions as:
+<aside class="mm-key-box mm-theory-box" role="note" aria-label="Assumptions are controlled approximations">
+  <span class="mm-callout-label">Guiding idea · Controlled approximation</span>
+  <p><strong>A useful assumption removes complexity without erasing the mechanism that controls the answer.</strong> Name its reason, its consequence, and the observation that would challenge it.</p>
+  <ul>
+    <li><strong>Structural:</strong> interactions, independence, network topology, or state definition.</li>
+    <li><strong>Parametric:</strong> constants, bounds, distributions, or rates.</li>
+    <li><strong>Operational:</strong> resource availability, policy, timing, or implementation rules.</li>
+    <li><strong>Measurement:</strong> noise, missingness, resolution, or sensor bias.</li>
+  </ul>
+</aside>
 
-- **Structural:** interactions, independence, network topology, or state definition;
-- **Parametric:** constants, bounds, distributions, or rates;
-- **Operational:** resource availability, policy, timing, or implementation rules;
-- **Measurement:** noise, missingness, resolution, or sensor bias.
-
-Every important assumption should have a reason and a consequence. “Travel speed is constant because the route is short and uncongested; therefore travel time is proportional to distance.” A list of unsupported assumptions is decoration, not modeling.
+For example, “travel speed is constant because the route is short and uncongested; therefore travel time is proportional to distance.” That sentence states both a reason and a mathematical consequence. A list of unsupported assumptions is decoration, not modeling.
 
 Return to the sample box for a concrete test. We treated the chilled reservoir as one uniform volume. A thermometer near the lid and one near the base should report roughly the same temperature after each insertion. If they report $7\,^{\circ}\mathrm C$ and $4\,^{\circ}\mathrm C$, our one-temperature state is a poor description. A sensible extension might use two zones, but the **measurement** is what justifies the extra state. Do not invent spatial detail without checking whether it matters.
 
@@ -161,13 +168,17 @@ Once assumptions are visible, we can avoid two opposite mistakes: doing nothing 
 
 ## Build a baseline, then extend it
 
-Build models in layers:
+<aside class="mm-key-box mm-theory-box" role="note" aria-label="Build models in layers">
+  <span class="mm-callout-label">Guiding idea · Earn complexity</span>
+  <p><strong>Build in layers instead of beginning with the most elaborate model.</strong></p>
+  <ol>
+    <li>Start with a transparent baseline you can check by hand.</li>
+    <li>Extend it to address the baseline's largest observed failure.</li>
+    <li>Compare both under the same conditions and keep the extension only if it matters.</li>
+  </ol>
+</aside>
 
-1. a transparent baseline;
-2. one extension that addresses the baseline's largest failure;
-3. a comparison showing whether the extension matters.
-
-If a linear model answers the decision robustly, a deep network is not automatically better. Complexity must purchase predictive accuracy, realism, computational tractability, or decision quality. Report that purchase explicitly.
+If a linear model already answers the decision robustly, a deep network is not automatically better. Complexity must purchase predictive accuracy, realism, computational tractability, or decision quality. Report that purchase explicitly. The box gives the rule; the thermal box and dining-hall examples below show how to apply it.
 
 For our box, the transparent baseline is the uniform-temperature recurrence with no heat leak. The first extension is not “replace it with machine learning”; it is “measure warming while no vials are loaded, and account for that gain between insertions.” Put a thermometer in the closed box and leave it untouched for ten minutes. If it warms from $4$ to $4.1\,^{\circ}\mathrm C$, the loss of cooling may be tiny over a fast batch. If it warms to $6\,^{\circ}\mathrm C$, it is too important to ignore. The extension earns its place only if this difference alters the loading decision.
 
@@ -177,13 +188,19 @@ The box recurrence and dining-hall capacity balance gave us answers under declar
 
 ## Validate the entire reasoning chain
 
-Validation has several levels:
+<aside class="mm-key-box mm-theory-box" role="note" aria-label="Five levels of model validation">
+  <span class="mm-callout-label">Guiding idea · Five levels of validation</span>
+  <p><strong>A plausible final number is not enough.</strong> Check the model at five different levels:</p>
+  <ol>
+    <li><strong>Implementation:</strong> does the code solve the equations written?</li>
+    <li><strong>Internal:</strong> do units, bounds, conservation laws, and limiting cases hold?</li>
+    <li><strong>Empirical:</strong> does it reproduce observations it was not fitted to?</li>
+    <li><strong>Comparative:</strong> does it improve on a baseline under the same test?</li>
+    <li><strong>Decision:</strong> would plausible uncertainty change the recommendation?</li>
+  </ol>
+</aside>
 
-- **implementation:** does the code solve the equations written?
-- **internal:** do units, bounds, conservation laws, and limiting cases hold?
-- **empirical:** does the model reproduce held-out or historical observations?
-- **comparative:** does it improve on a baseline under the same test?
-- **decision:** would plausible uncertainty change the recommendation?
+These checks ask different questions. Passing the first does not imply passing the fifth, so we will walk through them one by one with the shuttle example.
 
 The final report should close the loop: question $\rightarrow$ abstraction $\rightarrow$ solution $\rightarrow$ evidence $\rightarrow$ decision. COMAP describes mathematical modeling competitions as an unscripted combination of modeling, problem solving, and writing; the deliverable is therefore an argument, not just a program ([official MCM/ICM instructions](https://www.contest.comap.com/undergraduate/contests/mcm/instructions.html)).
 
@@ -199,7 +216,7 @@ Fifth, **decision stability**: what if travel time is five minutes longer than m
 
 Finally, write the result for the person who asked. “Assign one additional eight-seat shuttle to the 8:35 stop arrival, subject to the vehicle budget; on held-out ordinary mornings the predicted on-time fraction rises from 78% to 92%, but the plan falls below 90% when travel is more than five minutes slower.” This is an *illustrative sentence*, not a measured result from Columbia's shuttles. It shows what a conclusion ought to contain: an action, a metric, a comparison, the operating range, and the main failure condition. A bare “accuracy = 92%” does not tell the dispatcher what to do.
 
-If you are new to mathematics, you may worry that these checks make every answer uncertain. They do, in a healthy way. Modeling does not mean being afraid to conclude anything; it means knowing which conclusions are earned. Our commuter answer is exact under a clear symmetry assumption. The two-day theorem guarantees an existence result under continuity but not the location. The box's vial count is conditional on measured thermal values and stopping rules. The shuttle recommendation can be supported by held-out mornings but still need stress testing for rain. Different problems give different kinds of certainty, and good teaching should not pretend they are all the same.
+If you are new to mathematics, you may worry that these checks make every answer uncertain. They do, in a healthy way. Modeling does not mean being afraid to conclude anything; it means knowing which conclusions are earned. Our commuter answer is exact under a clear symmetry assumption. The two-day theorem guarantees an existence result under continuity but not the location. The box's vial count is conditional on measured thermal values and stopping rules. The shuttle recommendation can be supported by held-out mornings but still need stress testing for rain. Different problems give different kinds of certainty, and this post should not pretend they are all the same.
 
 The shuttle validation example was deliberately long. On a live problem you need a compact way to notice a missing decision variable, an unmeasured input, or a test you forgot to design. Use the following questions as a pause before moving from formulation to computation.
 
@@ -215,7 +232,7 @@ Before proceeding, be able to answer:
 
 If any answer is vague, the model is not ready for optimization.
 
-You have seen a restaurant, a shuttle, and several short definitions. Let us slow down and build one campus decision from its very first sentence. The dining-hall case will let us use the checklist while the variables and constraints are still small enough to check by hand.
+You have seen a sample box, a shuttle, and several short definitions. Let us slow down and build one campus decision from its very first sentence. The dining-hall case will let us use the checklist while the variables and constraints are still small enough to check by hand.
 
 ## Put the cycle together: the dining hall
 
@@ -297,7 +314,7 @@ The meeting must therefore occur five minutes before her normal 6:00 arrival, at
 
 Let me ask you to challenge it. What if the wife speeds up on the way home, or the road is one-way and the return route differs? Then the two saved traversals are no longer equal, so “five plus five” need not hold. What if she gets the news and leaves early? Then her departure schedule has changed, and the usual reference clock no longer works. The conclusion is conditional, as a model's conclusion should be.
 
-This is a lesson about *invariants*: a property that remains usable even when other numerical details are unknown. You can model the full positions $x_{\mathrm{wife}}(t)$ and $x_{\mathrm{walker}}(t)$, introduce two speeds and a distance, and solve a system of equations. You could also notice the two skipped road segments and solve the problem in three lines. Simplicity here is not laziness: it exposes exactly why the answer is determined.
+This is a useful example of *invariants*: properties that remain usable even when other numerical details are unknown. You can model the full positions $x_{\mathrm{wife}}(t)$ and $x_{\mathrm{walker}}(t)$, introduce two speeds and a distance, and solve a system of equations. You could also notice the two skipped road segments and solve the problem in three lines. Simplicity here is not laziness: it exposes exactly why the answer is determined.
 
 ### Continuity: the two-day journey
 
@@ -311,7 +328,7 @@ Why did I state the starting and ending **clock times**? If Tuesday's trip happe
 
 ### Thresholds: a cart and a timed gate
 
-Imagine a small automated delivery cart approaching a timed campus service gate. The gate controller announces that its opening phase will end after $T_g$ seconds. At that moment, a cart still outside the marked entrance has two options: stop before the entrance or continue and clear the gate before it begins closing. **How long should the controller keep the gate open so a cart at the edge of the comfortable-stopping region has a feasible continue option?** This is an invented teaching scenario, not an engineering specification for an actual gate; a real operating system would require obstacle sensing, fail-safe behavior, and equipment-specific checks.
+Imagine a small automated delivery cart approaching a timed campus service gate. The gate controller announces that its opening phase will end after $T_g$ seconds. At that moment, a cart still outside the marked entrance has two options: stop before the entrance or continue and clear the gate before it begins closing. **How long should the controller keep the gate open so a cart at the edge of the comfortable-stopping region has a feasible continue option?** This is an invented example, not an engineering specification for an actual gate; a real operating system would require obstacle sensing, fail-safe behavior, and equipment-specific checks.
 
 During a controller-to-brake delay $t_d$, the cart rolls at speed $v$ and covers $vt_d$. If braking then produces approximately constant deceleration $a>0$, it needs another $v^2/(2a)$ metres to stop. A cart closer than $d_s=vt_d+v^2/(2a)$ to the entrance cannot meet our assumed comfortable-stop rule. At constant speed, reaching the entrance from that boundary needs
 
@@ -321,13 +338,13 @@ $$
 
 Reaching the entrance is **not** the same as clearing the opening. If the gate zone is $w$ metres deep and the cart is $L$ metres long, the final part needs about $T_{\mathrm{clear}}=(w+L)/v$. Under our simplified constant-speed continue path, the full opening requirement is $T_g\ge T_{\mathrm{reach}}+T_{\mathrm{clear}}$. A real controller might have a separate clear-zone hold period; keep the two stages explicit rather than hide them inside one unexplained duration.
 
-For classroom numbers $t_d=0.4$ s, $v=2$ m/s, $a=1$ m/s$^2$, $w=3$ m, and $L=0.8$ m, reaching takes $0.4+2/(2\cdot1)=1.4$ s and clearance takes $3.8/2=1.9$ s. The simplified total is $3.3$ s. Every term is measured in seconds; a length divided by speed is time, and $v/a$ is time. Before trusting $3.3$, try slower braking, a longer cart, sensor delay, or an obstacle inside the opening. An obstacle should trigger a fail-safe response, not a more optimistic timing formula. The example teaches how one decision divides into distinct physical stages and stress tests.
+For illustrative numbers $t_d=0.4$ s, $v=2$ m/s, $a=1$ m/s$^2$, $w=3$ m, and $L=0.8$ m, reaching takes $0.4+2/(2\cdot1)=1.4$ s and clearance takes $3.8/2=1.9$ s. The simplified total is $3.3$ s. Every term is measured in seconds; a length divided by speed is time, and $v/a$ is time. Before trusting $3.3$, try slower braking, a longer cart, sensor delay, or an obstacle inside the opening. An obstacle should trigger a fail-safe response, not a more optimistic timing formula. The example shows how one decision divides into distinct physical stages and stress tests.
 
 Each lens turned ordinary words into a mathematical claim. A competition prompt is rarely as tidy: it combines several claims, data sources, and deliverables. Let us carry the same habits into that larger setting before talking about software.
 
 ## Competition problems and evidence
 
-The lecture groups national-competition prompts into recurring families rather than promising that every problem has one fixed method:
+The course slides group national-competition prompts into recurring families rather than promising that every problem has one fixed method:
 
 - **A-type problems** often emphasize engineering physics, optimization, and differential equations.
 - **B-type problems** often combine evaluation, optimization, and dynamic models.
@@ -339,7 +356,7 @@ Imagine opening a competition prompt for the first time. It may describe a river
 
 Only then ask whether you need a differential equation, an optimization problem, an evaluation index, or a forecast. Sometimes you need several—but in a dependency order. You may first fit a flow model from measurements, then predict concentration, then choose a cleanup location using those predictions. If you start with the cleanup optimizer without a defensible prediction, you optimize numbers you have invented. The category labels A, B, and C are shortcuts about *common styles of problems*, not commands to use specific software packages.
 
-The lecture also mentions award probabilities and a staged evaluation process. Treat the percentages in classroom slides as historical orientation, not a guarantee for any particular year or region. Local or regional reviewers first select strong solutions; some advance to national review. A team is not only competing on the final number. Reviewers need to follow what question you answered, why your assumptions are reasonable, how your model was solved, and how you checked it. An extremely clever calculation that nobody can reproduce is a fragile submission.
+The slides also mention award probabilities and a staged evaluation process. Treat those percentages as historical orientation, not a guarantee for any particular year or region. Local or regional reviewers first select strong solutions; some advance to national review. A team is not only competing on the final number. Reviewers need to follow what question you answered, why your assumptions are reasonable, how your model was solved, and how you checked it. An extremely clever calculation that nobody can reproduce is a fragile submission.
 
 What should you do when a prompt contains a whole paragraph of background context? Read once without writing equations. On the second pass, underline words that signal a target (“predict,” “minimize,” “recommend”), numbers with units, hard requirements (“must,” “cannot,” “at most”), uncertainty (“approximately,” “may,” “varies”), and time order (“before,” “after,” “next year”). On the third pass, put the tasks on arrows. This is not a ritual; it separates the problem from the decorative details and catches hidden dependencies between parts.
 
@@ -373,7 +390,7 @@ Use **draw.io or PowerPoint** for a clear dependency diagram when the model has 
 
 Finally, you may ask **ChatGPT or DeepSeek** to help brainstorm a baseline, explain unfamiliar mathematics, or draft test code. Treat the output as a suggestion, not as an observation, citation, proof, or validated implementation. If it offers a thermal-box model, check its units and whether it confuses heat capacity with temperature. If it offers a theorem for the two-day journey, check the endpoints and continuity. If it offers a source, open the actual source and make sure it supports the precise claim. The team—not the assistant—owns the result.
 
-Here is a concrete handoff ritual that saves beginners a lot of pain. At the end of a work block, each teammate leaves three things in the shared space: **what I produced**, **what I checked**, and **what the next person needs**. “I made a graph” is too vague. “I generated the observed-versus-predicted arrival plot from `arrivals.csv`, verified that time is in local minutes, and the next step is to inspect the noon residual spike” is actionable. The same discipline scales from a two-hour classroom exercise to a three-day competition.
+Here is a concrete handoff ritual that saves beginners a lot of pain. At the end of a work block, each teammate leaves three things in the shared space: **what I produced**, **what I checked**, and **what the next person needs**. “I made a graph” is too vague. “I generated the observed-versus-predicted arrival plot from `arrivals.csv`, verified that time is in local minutes, and the next step is to inspect the noon residual spike” is actionable. The same discipline scales from a short worked example to a three-day competition.
 
 <div class="mm-gallery mm-gallery-3">
 <figure><img src="/blog/images/mathematical-modeling/modeling-08.webp" alt="Python development environment"><figcaption>Python is the executable layer: every result should be reproducible from raw data.</figcaption></figure>
@@ -405,9 +422,9 @@ The remaining assignment is operational: let everyone on the team become familia
 
 Here is a feasible calendar if you have a week. On day one, each person scans two papers and posts a one-page summary. On day two, discuss which claims are well evidenced and select one paper to reproduce. Days three and four go to one baseline and three figures, with each figure attached to a written claim. On day five, change one assumption and check the sensitivity. On day six, compile a short report in the official template. On day seven, teach the whole pipeline to another teammate in five minutes. If nobody can explain the evidence path orally, revise the report before calling it done.
 
-Do not worry if your first attempt looks small. A defensible one-page result that answers a real question, shows a baseline, and explains a measured limitation is already a modeling achievement. Every later lecture will give you additional mathematical machinery. This first lecture gives you the habits that make that machinery trustworthy.
+Do not worry if your first attempt looks small. A defensible one-page result that answers a real question, shows a baseline, and explains a measured limitation is already a modeling achievement. Later blog posts will add mathematical machinery; this first post gives you the habits that make it trustworthy.
 
-After practicing with published papers and the course tools, we should check whether the modeling pattern transfers beyond the slide examples. The library question below has different people and constraints but the same need for a precise decision, changing state, simple baseline, and evidence. Try it before moving to the next lecture.
+After practicing with published papers and the course tools, we should check whether the modeling pattern transfers beyond the slide examples. The library question below has different people and constraints but the same need for a precise decision, changing state, simple baseline, and evidence. Try it before moving to the next post.
 
 ## Transfer the method to a new problem
 

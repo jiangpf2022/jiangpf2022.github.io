@@ -6,7 +6,7 @@ const paginate = require("hexo-pagination");
 
 hexo.extend.generator.register("index", function generateCurrentIndex(locals) {
   const posts = locals.posts
-    .filter((post) => !post.categories.some((category) => category.name === "Mathematical Modeling Draft Archive"))
+    .filter((post) => !post.translation_of && !post.categories.some((category) => category.name === "Mathematical Modeling Draft Archive"))
     .sort(this.config.index_generator.order_by);
   posts.data.sort((a, b) => (b.sticky || 0) - (a.sticky || 0));
   return paginate(this.config.index_generator.path || "", posts, {

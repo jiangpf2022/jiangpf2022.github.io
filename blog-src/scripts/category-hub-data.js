@@ -19,6 +19,7 @@ const blogAsset = (value) => {
 hexo.extend.generator.register("category-hub-data", (locals) => {
   const articles = locals.posts
     .sort("date", -1)
+    .filter((post) => !post.translation_of)
     .map((post) => {
       const content = normalizeText(post.excerpt || post.description || post.content);
       return {

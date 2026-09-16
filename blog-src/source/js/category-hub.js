@@ -12,8 +12,8 @@
       course: { slug: "mathematical-modeling", name: "Mathematical Modeling" },
       icon: "fa-solid fa-chart-line",
       cover: "/blog/images/mathematical-modeling-nyc.webp",
-      description: "A growing learning path from first models to optimization, differential equations, data, competition cases, and scientific writing. Published lessons are open now; working drafts remain under author review.",
-      topics: ["Guided Lessons", "Zero to Competition", "Models & Evidence"],
+      description: "A growing blog path from first models to optimization, differential equations, data, competition cases, and scientific writing. Published posts are open now; working drafts remain under author review.",
+      topics: ["Guided Blogs", "Zero to Competition", "Models & Evidence"],
     },
     "COMS4776W-Neural-Networks-Deep-Learning": {
       name: "COMS4776W Neural Networks & Deep Learning",
@@ -271,9 +271,9 @@
         <h1>${escapeHtml(config.name)}</h1>
         <p class="category-hub-description">${escapeHtml(config.description)}</p>
         <div class="category-hub-topics">${config.topics.map((topic) => `<span>${escapeHtml(topic)}</span>`).join("")}</div>
-        ${config.course ? `<div class="category-hub-plan-row">${planButtonMarkup(session, enrolled)}<small>${enrolled ? "All current and future lessons are included in My Learning." : "One choice adds every lesson in this course."}</small></div>` : ""}
+        ${config.course ? `<div class="category-hub-plan-row">${planButtonMarkup(session, enrolled)}<small>${enrolled ? "All current and future posts are included in My Learning." : "One choice adds every post in this course."}</small></div>` : ""}
       </div>
-      <div class="category-hub-hero-count"><strong>${articleCount}</strong><span>${config.name === "Mathematical Modeling" ? `published<br>lesson${articleCount === 1 ? "" : "s"}` : `published<br>article${articleCount === 1 ? "" : "s"}`}</span></div>
+      <div class="category-hub-hero-count"><strong>${articleCount}</strong><span>${config.name === "Mathematical Modeling" ? `published<br>post${articleCount === 1 ? "" : "s"}` : `published<br>article${articleCount === 1 ? "" : "s"}`}</span></div>
     </section>`;
 
   const modelingSyllabusMarkup = (articles) => {
@@ -282,7 +282,7 @@
     for (const article of articles) {
       const number = Number(article.lessonNumber);
       if (Number.isInteger(number) && number > 0 && !rows.some((row) => row[0] === number)) {
-        rows.push([number, String(article.title || `Lesson ${number}`).replace(/^Mathematical Modeling \d+\s*[-–:]\s*/, ""), Number(article.lessonLevel) || 1, article.excerpt || "Additional lesson in this growing course."]);
+        rows.push([number, String(article.title || `Blog ${number}`).replace(/^Mathematical Modeling \d+\s*[-–:]\s*/, ""), Number(article.lessonLevel) || 1, article.excerpt || "Additional post in this growing course."]);
       }
     }
     rows.sort((a, b) => a[0] - b[0]);
@@ -293,11 +293,11 @@
     const developmentCount = rows.length - publishedCount;
     return `<section class="category-hub-syllabus" aria-labelledby="modeling-syllabus-heading">
       <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">COURSE ROADMAP</p><h2 id="modeling-syllabus-heading">Course Syllabus</h2></div><span>${publishedCount} published · ${developmentCount} in development</span></div>
-      <div class="category-hub-level-guide" aria-label="Lesson level guide">
+      <div class="category-hub-level-guide" aria-label="Blog level guide">
         <p><strong>Level 1 · Foundations</strong> Build the essential ideas from scratch, with guided examples and no advanced prerequisites.</p>
         <p><strong>Level 2 · Applied Practice</strong> Connect several techniques and work through richer modeling cases.</p>
         <p><strong>Level 3 · Advanced Study</strong> Tackle more demanding methods, cases, and competition decisions.</p>
-        <small>Higher-level course content may be paid in the future. No payment is required for lessons currently published.</small>
+        <small>Higher-level course content may be paid in the future. No payment is required for posts currently published.</small>
       </div>
       <table class="category-hub-syllabus-table">
         <thead><tr><th scope="col">No.</th><th scope="col">Topic &amp; Focus</th><th scope="col">Level</th><th scope="col">Status</th></tr></thead>
@@ -308,7 +308,7 @@
         return `<tr class="${published ? "is-published" : ""}"><th scope="row">${String(number).padStart(2, "0")}</th>
           <td><span class="category-hub-syllabus-topic">${path ? `<a href="${escapeHtml(path)}">${escapeHtml(title)}</a>` : escapeHtml(title)}</span><span class="category-hub-syllabus-focus">${escapeHtml(focus)}</span><details class="category-hub-syllabus-details"><summary>Focus</summary>${escapeHtml(focus)}</details></td>
           <td class="category-hub-syllabus-level">${level}</td>
-          <td><span class="category-hub-syllabus-status">${published ? "Published" : "In Development"}</span>${published ? `<a class="category-hub-syllabus-open" href="${escapeHtml(path)}" aria-label="Open lesson ${number}: ${escapeHtml(title)}">Open <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td></tr>`;
+          <td><span class="category-hub-syllabus-status">${published ? "Published" : "In Development"}</span>${published ? `<a class="category-hub-syllabus-open" href="${escapeHtml(path)}" aria-label="Open blog ${number}: ${escapeHtml(title)}">Open <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td></tr>`;
       }).join("")}</tbody>
       </table>
     </section>`;
@@ -357,12 +357,12 @@
         <div class="category-hub-metrics">
           ${metricMarkup("Completion", completion, "%", "fa-regular fa-chart-line-up")}
           ${metricMarkup("Current Mastery", mastery, "%", warning ? "fa-solid fa-triangle-exclamation" : "fa-regular fa-brain", warning)}
-          ${metricMarkup("Lessons Completed", completed, ` / ${items.length}`, "fa-regular fa-circle-check")}
+          ${metricMarkup("Blogs Completed", completed, ` / ${items.length}`, "fa-regular fa-circle-check")}
           ${metricMarkup("Needs Review", enrolled ? items.filter((item) => item.currentMastery < 50).length : 0, "", "fa-regular fa-bell", warning)}
         </div>
         <div class="category-hub-curve-card">
           <header><div><span>Retention Analysis</span><strong>${enrolled ? `${mastery}% mastery today` : "Course not yet in your plan"}</strong></div><p>Solid: history <b>·</b> Dotted: 7-day forecast</p></header>
-          ${enrolled && series.length ? chartMarkup(series, "course") : '<div class="category-hub-empty-chart"><i class="fa-regular fa-chart-line" aria-hidden="true"></i><strong>Your retention curve will appear here</strong><span>Join the course and complete lesson checkpoints to build the analysis.</span></div>'}
+          ${enrolled && series.length ? chartMarkup(series, "course") : '<div class="category-hub-empty-chart"><i class="fa-regular fa-chart-line" aria-hidden="true"></i><strong>Your retention curve will appear here</strong><span>Join the course and complete blog checkpoints to build the analysis.</span></div>'}
         </div>
       </section>`;
   };
@@ -393,17 +393,17 @@
     const needsReview = enrolled && trackable && mastery < 50;
     const status = config.name === "Mathematical Modeling" && article.lessonNumber > 1
       ? locked ? "In Development" : "Working Preview"
-      : locked ? "Awaiting Review" : !enrolled ? "Lesson" : completion >= 100 ? "Completed" : completion > 0 ? "In Progress" : "Not Started";
+      : locked ? "Awaiting Review" : !enrolled ? "Blog" : completion >= 100 ? "Completed" : completion > 0 ? "In Progress" : "Not Started";
     const cover = article.cover || config.cover;
     return `
       <article class="category-hub-article ${needsReview ? "is-warning" : ""} ${locked ? "is-review-locked" : ""}">
         <a class="category-hub-article-cover" href="${escapeHtml(safePath(article.path))}" style="--article-cover:url('${escapeHtml(cover)}')"><span>${escapeHtml(status)}</span></a>
         <div class="category-hub-article-body">
-          <p class="category-hub-article-date">${config.name === "Mathematical Modeling" && article.lessonNumber ? `Lesson ${String(article.lessonNumber).padStart(2, "0")} · Level ${article.lessonLevel || 1}` : escapeHtml(formatArticleDate(article.date))}${trackable && article.studyTime ? ` · ${escapeHtml(article.studyTime)} min guided lesson` : ""}</p>
+          <p class="category-hub-article-date">${config.name === "Mathematical Modeling" && article.lessonNumber ? `Blog ${String(article.lessonNumber).padStart(2, "0")} · Level ${article.lessonLevel || 1}` : escapeHtml(formatArticleDate(article.date))}${trackable && article.studyTime ? ` · ${escapeHtml(article.studyTime)} min guided post` : ""}</p>
           <h3><a href="${escapeHtml(safePath(article.path))}">${escapeHtml(article.title)}</a></h3>
           <p>${escapeHtml(article.excerpt || "Open this article to explore the complete notes and references.")}</p>
           ${enrolled && trackable ? `<div class="category-hub-article-progress"><span><b>Progress ${completion}%</b><b class="${needsReview ? "is-warning" : ""}">Mastery ${mastery}%</b></span><div><i style="width:${completion}%"></i></div></div>` : ""}
-          <a class="category-hub-open" href="${escapeHtml(safePath(article.path))}">${locked ? "View Development Status" : enrolled && completion > 0 ? "Continue Lesson" : "Open Article"} <i class="fa-regular ${locked ? "fa-lock" : "fa-arrow-right"}" aria-hidden="true"></i></a>
+          <a class="category-hub-open" href="${escapeHtml(safePath(article.path))}">${locked ? "View Development Status" : enrolled && completion > 0 ? "Continue Blog" : "Open Article"} <i class="fa-regular ${locked ? "fa-lock" : "fa-arrow-right"}" aria-hidden="true"></i></a>
         </div>
       </article>`;
   };

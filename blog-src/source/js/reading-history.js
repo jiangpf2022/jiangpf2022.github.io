@@ -9,6 +9,22 @@
 
   const config = window.blogReaderConfig || {};
   const DEVELOPER_USER_ID = "ef797a53-7193-4d0e-b566-5c8f3d33f9fd";
+  const modelingOneEnglishPath = "/blog/2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model/";
+  const modelingOneChinesePath = "/blog/2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model-zh/";
+  const modelingOneEnglishChapters = [
+    "What-a-model-must-answer",
+    "From-purpose-to-state",
+    "Translate-words-into-structure",
+    "Make-assumptions-visible",
+    "Build-a-baseline-then-extend-it",
+    "Validate-the-entire-reasoning-chain",
+    "Put-the-cycle-together-the-dining-hall",
+    "Reason-before-computing",
+    "Competition-problems-and-evidence",
+    "Tools-for-reproducible-teamwork",
+    "Read-reproduce-generalize",
+    "Transfer-the-method-to-a-new-problem",
+  ];
   const COURSE_CATALOG = [
     {
       slug: "mathematical-modeling",
@@ -493,11 +509,13 @@
       document.querySelector("h1.article-title-cover")?.textContent.trim() ||
       document.querySelector(".article-title h1")?.textContent.trim() ||
       document.title.replace(/\s+-\s+Gavin0576's Blog$/, "");
+    const isChineseTranslation = window.location.pathname === modelingOneChinesePath;
+    const path = isChineseTranslation ? modelingOneEnglishPath : window.location.pathname;
     return {
       content,
-      path: window.location.pathname,
-      title,
-      url: `${window.location.origin}${window.location.pathname}`,
+      path,
+      title: isChineseTranslation ? "Mathematical Modeling 1 - From Reality to a Model" : title,
+      url: window.location.origin + path,
       course: courseForPage(),
     };
   };
@@ -679,7 +697,9 @@
 
     state.learning.chapters = headings.map((heading, index) => {
       const nextHeading = headings[index + 1] || null;
-      const baseKey = heading.id || `chapter-${index + 1}`;
+      const baseKey = window.location.pathname === modelingOneChinesePath
+        ? (modelingOneEnglishChapters[index] || "chapter-" + (index + 1))
+        : (heading.id || "chapter-" + (index + 1));
       let key = baseKey;
       let duplicate = 2;
       while (usedKeys.has(key)) key = `${baseKey}-${duplicate++}`;
@@ -777,6 +797,7 @@
         if (!entry || typeof entry !== "object") return;
         chapter.completed = Boolean(entry.completed);
         chapter.mastery = Math.max(0, Math.min(100, Number(entry.mastery) || 0));
+        chapter.weight = Math.max(1, Number(entry.weight) || chapter.weight);
         chapter.reviewedAt = entry.reviewed_at || (chapter.completed ? data?.last_read_at : null);
       });
       state.learningError = "";
