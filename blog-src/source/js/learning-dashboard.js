@@ -14,6 +14,7 @@
     { slug: "deep-learning", name: "COMS4776W Neural Networks & Deep Learning", icon: "fa-solid fa-network-wired" },
     { slug: "llm-generative-ai", name: "COMS6998E LLM-Based Generative AI", icon: "fa-solid fa-sparkles" },
     { slug: "robotic", name: "COMS4773W Computational Aspects of Robotics", icon: "fa-solid fa-robot" },
+    { slug: "databases", name: "COMS W4111 Introduction to Databases", icon: "fa-solid fa-database" },
   ];
   let loading = false;
   let selectedCurve = "all";
@@ -366,7 +367,7 @@
       .sort((a, b) => safePostPath(a.post_path).localeCompare(safePostPath(b.post_path)));
     const courseItems = catalog
       .filter((post) => activeCourseSlugs.has(post.course_slug))
-      .sort((a, b) => a.course_slug === "mathematical-modeling" && b.course_slug === "mathematical-modeling"
+      .sort((a, b) => a.course_slug === b.course_slug
         ? (a.lessonNumber || 999) - (b.lessonNumber || 999)
         : 0)
       .map((post) => ({

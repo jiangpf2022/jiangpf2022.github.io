@@ -64,7 +64,7 @@ begin
     add constraint reading_history_course_slug_allowed
     check (
       course_slug is null
-      or course_slug in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling')
+      or course_slug in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling', 'databases')
     );
 end;
 $$;
@@ -254,7 +254,7 @@ begin
 
   alter table public.course_plans
     add constraint course_plans_course_slug_allowed
-    check (course_slug in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling'));
+    check (course_slug in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling', 'databases'));
 end;
 $$;
 
@@ -443,7 +443,7 @@ begin
     raise exception 'Invalid article path';
   end if;
 
-  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling') then
+  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling', 'databases') then
     raise exception 'Invalid course';
   end if;
 
@@ -577,7 +577,7 @@ begin
     raise exception 'Invalid article path';
   end if;
 
-  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling') then
+  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling', 'databases') then
     raise exception 'Invalid course';
   end if;
 
@@ -665,7 +665,7 @@ begin
     raise exception 'Authentication required';
   end if;
 
-  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling') then
+  if p_course_slug is null or p_course_slug not in ('deep-learning', 'llm-generative-ai', 'robotic', 'mathematical-modeling', 'databases') then
     raise exception 'Invalid course';
   end if;
 

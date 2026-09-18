@@ -46,6 +46,11 @@
       name: "COMS4773W Computational Aspects of Robotics",
       categoryPath: "/blog/categories/COMS4773W-Computational-Aspects-of-Robotics/",
     },
+    {
+      slug: "databases",
+      name: "COMS W4111 Introduction to Databases",
+      categoryPath: "/blog/categories/COMS-W4111-Introduction-to-Databases/",
+    },
   ];
   const state = {
     client: null,

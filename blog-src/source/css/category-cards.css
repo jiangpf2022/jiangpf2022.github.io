@@ -131,6 +131,10 @@
   background-image: url("/blog/images/robotics-1/rigid-body-transformations-cover.webp");
 }
 
+.category-list-container .all-category-list-link[href$="/COMS-W4111-Introduction-to-Databases/"] {
+  background-image: url("/blog/images/coms-w4111-introduction-to-databases.jpg");
+}
+
 .category-list-container .all-category-list-link[href$="/Paper-Reading/"] {
   background-image: url("/blog/images/2024-6-4-2.png");
 }

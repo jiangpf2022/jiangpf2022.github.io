@@ -30,6 +30,13 @@
       cover: "/blog/images/columbia-neural-networks-deep-learning-cover.png",
       description: "Mathematical foundations, optimization, representation learning, and the architecture of modern neural networks.",
     },
+    "COMS-W4111-Introduction-to-Databases": {
+      name: "COMS W4111 Introduction to Databases",
+      label: "DATABASE SYSTEMS",
+      icon: "fa-solid fa-database",
+      cover: "/blog/images/coms-w4111-introduction-to-databases.jpg",
+      description: "Database-system foundations, relational design, SQL, ER modeling, relational algebra, joins, and query optimization.",
+    },
     "Paper-Reading": {
       name: "Paper Reading",
       label: "RESEARCH LIBRARY",

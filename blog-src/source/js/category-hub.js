@@ -42,6 +42,15 @@
       description: "A computational study of robot geometry, coordinate frames, kinematics, sensing, planning, and control. The course builds the mathematical tools needed to connect physical motion with reliable algorithms.",
       topics: ["Robot Geometry", "Kinematics", "Motion Planning"],
     },
+    "COMS-W4111-Introduction-to-Databases": {
+      name: "COMS W4111 Introduction to Databases",
+      eyebrow: "COLUMBIA COURSE",
+      course: { slug: "databases", name: "COMS W4111 Introduction to Databases" },
+      icon: "fa-solid fa-database",
+      cover: "/blog/images/coms-w4111-introduction-to-databases.jpg",
+      description: "A structured introduction to database systems, relational design, SQL, entity-relationship modeling, keys, relational algebra, joins, and the optimizer decisions that turn declarative questions into efficient execution plans.",
+      topics: ["Relational Model", "Database Design", "SQL & Algebra"],
+    },
     "Paper-Reading": {
       name: "Paper Reading",
       eyebrow: "RESEARCH LIBRARY",
