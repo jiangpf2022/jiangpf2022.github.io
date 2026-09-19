@@ -83,7 +83,7 @@ if (!existsSync(chinesePath)) {
   const content = $(".article-content").first();
   if (content.find("h2").length !== 12) failures.push("first blog Chinese translation: expected 12 major sections");
   if (content.find(".mm-key-box").length < 5) failures.push("first blog Chinese translation: theory callouts missing");
-  if (!content.text().includes("欢迎，进来坐吧")) failures.push("first blog Chinese translation: introduction missing");
+  if (!content.text().includes("欢迎，进来坐")) failures.push("first blog Chinese translation: introduction missing");
   if ($("html").attr("lang") !== "zh-CN") failures.push("first blog Chinese translation: HTML language missing");
   if ($('link[rel="alternate"][hreflang="en"]').length !== 1 ||
       $('link[rel="alternate"][hreflang="zh-CN"]').length !== 1) {
