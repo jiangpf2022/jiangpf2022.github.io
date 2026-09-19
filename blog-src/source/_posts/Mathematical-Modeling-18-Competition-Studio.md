@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 18 - Competition Studio
+title: 18 - Competition Studio
 date: 2026-09-14 19:59:01
 categories: Mathematical Modeling Draft Archive
 tags:

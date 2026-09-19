@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 13 - Forecasting Models
+title: 13 - Forecasting Models
 date: 2026-09-14 20:00:04
 categories: Mathematical Modeling Draft Archive
 tags:

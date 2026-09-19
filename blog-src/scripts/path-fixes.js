@@ -7,9 +7,9 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
   const chinesePost = '2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model-zh/';
   const renderedPath = String(data?.path || '');
   const isChinese = renderedPath.includes(chinesePost) ||
-    html.includes('property="og:title" content="数学建模 1 - 从现实问题到数学模型"');
+    html.includes('property="og:title" content="1 - 从现实问题到数学模型"');
   const isEnglish = !isChinese && (renderedPath.includes(bilingualPost) ||
-    html.includes('property="og:title" content="Mathematical Modeling 1 - From Reality to a Model"'));
+    html.includes('property="og:title" content="1 - From Reality to a Model"'));
   if (isEnglish || isChinese) {
     const site = 'https://jiangpf2022.github.io/blog/';
     const canonicalPath = isChinese ? chinesePost : bilingualPost;

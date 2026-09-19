@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 11 - Populations and Compartments
+title: 11 - Populations and Compartments
 date: 2026-09-14 20:00:06
 categories: Mathematical Modeling Draft Archive
 tags:

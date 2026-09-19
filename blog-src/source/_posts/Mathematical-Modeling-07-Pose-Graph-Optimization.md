@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 7 - Pose Graph Optimization
+title: 7 - Pose Graph Optimization
 date: 2026-09-15 18:00:14
 categories: Mathematical Modeling
 tags:

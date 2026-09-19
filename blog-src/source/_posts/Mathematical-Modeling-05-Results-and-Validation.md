@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 5 - Results and Validation
+title: 5 - Results and Validation
 date: 2026-09-14 20:00:12
 categories: Mathematical Modeling Draft Archive
 tags:

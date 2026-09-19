@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 16 - Dimension Reduction and Clustering
+title: 16 - Dimension Reduction and Clustering
 date: 2026-09-14 19:59:03
 categories: Mathematical Modeling Draft Archive
 tags:

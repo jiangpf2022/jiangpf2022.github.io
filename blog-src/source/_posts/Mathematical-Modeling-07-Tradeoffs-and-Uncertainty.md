@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 7 - Trade-offs and Uncertainty
+title: 7 - Trade-offs and Uncertainty
 date: 2026-09-14 20:00:10
 categories: Mathematical Modeling Draft Archive
 tags:

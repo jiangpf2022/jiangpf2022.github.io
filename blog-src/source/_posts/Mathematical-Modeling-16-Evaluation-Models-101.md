@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 16 - Evaluation Models 101
+title: 16 - Evaluation Models 101
 date: 2026-09-15 18:00:05
 categories: Mathematical Modeling
 tags:

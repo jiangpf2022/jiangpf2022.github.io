@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 15 - Regression and Inference
+title: 15 - Regression and Inference
 date: 2026-09-14 19:59:04
 categories: Mathematical Modeling Draft Archive
 tags:

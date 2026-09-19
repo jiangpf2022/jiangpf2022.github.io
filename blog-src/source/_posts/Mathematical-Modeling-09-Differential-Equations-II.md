@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 9 - Differential Equations II
+title: 9 - Differential Equations II
 date: 2026-09-15 18:00:12
 categories: Mathematical Modeling
 tags:

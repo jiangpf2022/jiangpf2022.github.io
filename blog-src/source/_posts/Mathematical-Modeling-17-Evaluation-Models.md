@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 17 - Evaluation Models
+title: 17 - Evaluation Models
 date: 2026-09-14 19:59:02
 categories: Mathematical Modeling Draft Archive
 tags:

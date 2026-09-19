@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 1 - From Reality to a Model
+title: 1 - From Reality to a Model
 date: 2026-09-14 20:00:16
 categories: Mathematical Modeling
 lesson_number: 1

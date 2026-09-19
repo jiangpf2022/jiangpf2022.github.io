@@ -327,7 +327,7 @@
         return `<tr class="${published ? "is-published" : ""}"><th scope="row">${String(number).padStart(2, "0")}</th>
           <td><span class="category-hub-syllabus-topic">${path ? `<a href="${escapeHtml(path)}">${escapeHtml(title)}</a>` : escapeHtml(title)}</span><span class="category-hub-syllabus-focus">${escapeHtml(focus)}</span><details class="category-hub-syllabus-details"><summary>Focus</summary>${escapeHtml(focus)}</details></td>
           <td class="category-hub-syllabus-level">${level}</td>
-          <td><span class="category-hub-syllabus-status">${published ? "Published" : "In Development"}</span>${published ? `<a class="category-hub-syllabus-open" href="${escapeHtml(path)}" aria-label="Open blog ${number}: ${escapeHtml(title)}">Open <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td>
+          <td><span class="category-hub-syllabus-status">${published ? "Published" : '<i class="fa-solid fa-lock" aria-hidden="true"></i> Locked · In Development'}</span>${published ? `<a class="category-hub-syllabus-open" href="${escapeHtml(path)}" aria-label="Open blog ${number}: ${escapeHtml(title)}">Open <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td>
           <td class="category-hub-syllabus-order">${readingOrder.get(number) || ""}</td></tr>`;
       }).join("")}</tbody>
       </table>
@@ -425,24 +425,25 @@
   };
 
   const articleCardMarkup = (article, config, enrolled) => {
+    const unpublished = config.name === "Mathematical Modeling" && article.reviewLock;
     const locked = !availableToReader(article);
-    const trackable = !locked && !(config.name === "Mathematical Modeling" && article.reviewLock);
+    const trackable = !locked && !unpublished;
     const completion = enrolled && trackable ? article.completion : 0;
     const mastery = enrolled && trackable ? article.currentMastery : 0;
     const needsReview = enrolled && trackable && mastery < 50;
-    const status = config.name === "Mathematical Modeling" && article.lessonNumber > 1
-      ? locked ? "In Development" : "Working Preview"
+    const status = unpublished
+      ? locked ? "Locked · In Development" : "Unpublished Preview"
       : locked ? "Awaiting Review" : !enrolled ? "Blog" : completion >= 100 ? "Completed" : completion > 0 ? "In Progress" : "Not Started";
     const cover = article.cover || config.cover;
     return `
-      <article class="category-hub-article ${needsReview ? "is-warning" : ""} ${locked ? "is-review-locked" : ""}">
-        <a class="category-hub-article-cover" href="${escapeHtml(safePath(article.path))}" style="--article-cover:url('${escapeHtml(cover)}')"><span>${escapeHtml(status)}</span></a>
+      <article class="category-hub-article ${needsReview ? "is-warning" : ""} ${unpublished ? "is-unpublished" : ""} ${locked ? "is-review-locked" : ""}">
+        <a class="category-hub-article-cover" href="${escapeHtml(safePath(article.path))}" style="--article-cover:url('${escapeHtml(cover)}')"><span>${unpublished ? '<i class="fa-solid fa-lock" aria-hidden="true"></i> ' : ""}${escapeHtml(status)}</span></a>
         <div class="category-hub-article-body">
           <p class="category-hub-article-date">${config.name === "Mathematical Modeling" && article.lessonNumber ? `Blog ${String(article.lessonNumber).padStart(2, "0")} · Level ${article.lessonLevel || 1}` : escapeHtml(formatArticleDate(article.date))}${trackable && article.studyTime ? ` · ${escapeHtml(article.studyTime)} min guided post` : ""}</p>
           <h3><a href="${escapeHtml(safePath(article.path))}">${escapeHtml(article.title)}</a></h3>
           <p>${escapeHtml(article.excerpt || "Open this article to explore the complete notes and references.")}</p>
           ${enrolled && trackable ? `<div class="category-hub-article-progress"><span><b>Progress ${completion}%</b><b class="${needsReview ? "is-warning" : ""}">Mastery ${mastery}%</b></span><div><i style="width:${completion}%"></i></div></div>` : ""}
-          <a class="category-hub-open" href="${escapeHtml(safePath(article.path))}">${locked ? "View Development Status" : enrolled && completion > 0 ? "Continue Blog" : "Open Article"} <i class="fa-regular ${locked ? "fa-lock" : "fa-arrow-right"}" aria-hidden="true"></i></a>
+          <a class="category-hub-open" href="${escapeHtml(safePath(article.path))}">${unpublished ? locked ? "View Locked Blog" : "Preview Unpublished Blog" : enrolled && completion > 0 ? "Continue Blog" : "Open Article"} <i class="fa-regular ${unpublished ? locked ? "fa-lock" : "fa-eye" : "fa-arrow-right"}" aria-hidden="true"></i></a>
         </div>
       </article>`;
   };

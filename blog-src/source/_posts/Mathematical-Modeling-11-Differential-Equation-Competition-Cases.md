@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 11 - Differential-Equation Competition Cases
+title: 11 - Differential-Equation Competition Cases
 date: 2026-09-15 18:00:10
 categories: Mathematical Modeling
 tags:

@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 8 - Differential Equations 101
+title: 8 - Differential Equations 101
 date: 2026-09-15 18:00:13
 categories: Mathematical Modeling
 tags:

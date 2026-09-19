@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 5 - Multi-Objective & Robust Optimization
+title: 5 - Multi-Objective & Robust Optimization
 date: 2026-09-15 18:00:16
 categories: Mathematical Modeling
 tags:

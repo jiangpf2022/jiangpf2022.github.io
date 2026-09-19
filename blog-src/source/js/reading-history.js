@@ -519,7 +519,7 @@
     return {
       content,
       path,
-      title: isChineseTranslation ? "Mathematical Modeling 1 - From Reality to a Model" : title,
+      title: isChineseTranslation ? "1 - From Reality to a Model" : title,
       url: window.location.origin + path,
       course: courseForPage(),
     };

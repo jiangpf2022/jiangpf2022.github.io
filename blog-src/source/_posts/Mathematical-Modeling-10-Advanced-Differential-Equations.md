@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 10 - Advanced Differential Equations
+title: 10 - Advanced Differential Equations
 date: 2026-09-15 18:00:11
 categories: Mathematical Modeling
 tags:

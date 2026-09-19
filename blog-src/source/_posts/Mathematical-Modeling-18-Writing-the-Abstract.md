@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 18 - Writing the Abstract
+title: 18 - Writing the Abstract
 date: 2026-09-15 18:00:03
 categories: Mathematical Modeling
 tags:

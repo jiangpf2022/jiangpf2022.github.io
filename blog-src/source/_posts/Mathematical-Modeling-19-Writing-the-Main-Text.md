@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 19 - Writing the Main Text
+title: 19 - Writing the Main Text
 date: 2026-09-15 18:00:02
 categories: Mathematical Modeling
 tags:

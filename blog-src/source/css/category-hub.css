@@ -346,6 +346,10 @@ html.dark {
   font-weight: 750;
 }
 
+.category-hub-syllabus-status i {
+  margin-right: 3px;
+}
+
 .category-hub-syllabus-open {
   display: inline-flex;
   align-items: center;
@@ -782,6 +786,16 @@ html.dark .category-hub-container .category-hub-page-controls button[aria-curren
 .category-hub-article.is-warning {
   border-color: color-mix(in srgb, var(--category-hub-danger), transparent 50%);
   box-shadow: 0 13px 31px color-mix(in srgb, var(--category-hub-danger), transparent 84%);
+}
+
+.category-hub-article.is-unpublished {
+  border-color: color-mix(in srgb, var(--category-hub-accent), transparent 48%);
+}
+
+.category-hub-article.is-unpublished .category-hub-article-cover {
+  background-image:
+    linear-gradient(180deg, rgba(3, 13, 30, 0.24), rgba(3, 13, 30, 0.73)),
+    var(--article-cover);
 }
 
 .category-hub-article-cover {

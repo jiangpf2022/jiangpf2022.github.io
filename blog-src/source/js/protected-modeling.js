@@ -140,16 +140,18 @@
   const decorateLinks = () => {
     document.querySelectorAll('a[href*="Mathematical-Modeling-"]').forEach((link) => {
       if (canRead() && link.classList.contains("mm-locked-link")) {
-        link.classList.remove("mm-locked-link");
+        link.classList.remove("mm-locked-link", "mm-locked-image-link");
         link.querySelector(".mm-lock-badge")?.remove();
         delete link.dataset.modelingLockDecorated;
       }
       if (canRead()) return;
-      if (link.dataset.modelingLockDecorated || link.querySelector("img")) return;
+      if (link.dataset.modelingLockDecorated) return;
       const path = new URL(link.href, window.location.origin).pathname;
-      if (!isProtected(path) || !link.textContent.trim().startsWith("Mathematical Modeling ")) return;
+      const title = link.textContent.trim();
+      if (!isProtected(path) || !(link.closest(".category-hub-syllabus-topic") || /^(?:Mathematical Modeling\s+)?\d+\s*[-–:]/.test(title))) return;
       link.dataset.modelingLockDecorated = "true";
       link.classList.add("mm-locked-link");
+      if (link.querySelector("img")) link.classList.add("mm-locked-image-link");
       const badge = document.createElement("span");
       badge.className = "mm-lock-badge";
       badge.setAttribute("aria-label", "Awaiting author review");

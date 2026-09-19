@@ -1,5 +1,5 @@
 ---
-title: 数学建模 1 - 从现实问题到数学模型
+title: 1 - 从现实问题到数学模型
 date: 2026-09-14 20:00:16
 categories: Mathematical Modeling
 translation_of: /blog/2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model/

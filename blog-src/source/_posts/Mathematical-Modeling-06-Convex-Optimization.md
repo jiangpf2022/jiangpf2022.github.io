@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 6 - Convex Optimization
+title: 6 - Convex Optimization
 date: 2026-09-14 20:00:11
 categories: Mathematical Modeling Draft Archive
 tags:

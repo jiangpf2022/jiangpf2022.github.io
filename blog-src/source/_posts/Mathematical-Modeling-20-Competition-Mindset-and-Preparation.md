@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 20 - Competition Mindset & Preparation
+title: 20 - Competition Mindset & Preparation
 date: 2026-09-15 18:00:01
 categories: Mathematical Modeling
 tags:

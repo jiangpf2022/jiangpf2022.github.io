@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 6 - Intelligent Optimization
+title: 6 - Intelligent Optimization
 date: 2026-09-15 18:00:15
 categories: Mathematical Modeling
 tags:

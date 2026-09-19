@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 12 - Time Series 101
+title: 12 - Time Series 101
 date: 2026-09-15 18:00:09
 categories: Mathematical Modeling
 tags:

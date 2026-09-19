@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 17 - Financial Market Volatility
+title: 17 - Financial Market Volatility
 date: 2026-09-15 18:00:04
 categories: Mathematical Modeling
 tags:

@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 10 - Differential Equations
+title: 10 - Differential Equations
 date: 2026-09-14 20:00:07
 categories: Mathematical Modeling Draft Archive
 tags:

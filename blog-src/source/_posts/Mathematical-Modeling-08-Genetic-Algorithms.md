@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 8 - Genetic Algorithms
+title: 8 - Genetic Algorithms
 date: 2026-09-14 20:00:09
 categories: Mathematical Modeling Draft Archive
 tags:

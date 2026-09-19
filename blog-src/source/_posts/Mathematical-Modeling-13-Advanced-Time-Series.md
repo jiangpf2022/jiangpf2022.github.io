@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 13 - Advanced Time Series
+title: 13 - Advanced Time Series
 date: 2026-09-15 18:00:08
 categories: Mathematical Modeling
 tags:

@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 3 - Linear, Quadratic & Conic Optimization
+title: 3 - Linear, Quadratic & Conic Optimization
 date: 2026-09-15 18:00:18
 categories: Mathematical Modeling
 tags:

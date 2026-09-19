@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 15 - Advanced Data Analysis
+title: 15 - Advanced Data Analysis
 date: 2026-09-15 18:00:06
 categories: Mathematical Modeling
 tags:

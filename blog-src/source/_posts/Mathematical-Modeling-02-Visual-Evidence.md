@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 2 - Visual Evidence
+title: 2 - Visual Evidence
 date: 2026-09-14 20:00:15
 categories: Mathematical Modeling
 tags:

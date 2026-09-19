@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 14 - Data Preparation 101
+title: 14 - Data Preparation 101
 date: 2026-09-15 18:00:07
 categories: Mathematical Modeling
 tags:

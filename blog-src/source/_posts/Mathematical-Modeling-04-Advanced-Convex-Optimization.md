@@ -1,5 +1,5 @@
 ---
-title: Mathematical Modeling 4 - Advanced Convex Optimization
+title: 4 - Advanced Convex Optimization
 date: 2026-09-15 18:00:17
 categories: Mathematical Modeling
 tags:
