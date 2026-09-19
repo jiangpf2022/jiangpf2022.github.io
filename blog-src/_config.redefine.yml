@@ -419,7 +419,7 @@ inject:
     - <script src="/blog/js/modeling-language-switch.js?v=20260915-bilingual1"></script>
     - <script src="/blog/js/learning-dashboard.js?v=20260919-modeling-ai"></script>
     - <script src="/blog/js/category-hub.js?v=20260919-level-guide"></script>
-    - <script src="/blog/js/category-showcase.js?v=20260919-random-feed"></script>
+    - <script src="/blog/js/category-showcase.js?v=20260919-public-feed"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 

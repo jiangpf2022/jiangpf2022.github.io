@@ -137,7 +137,8 @@
     const selectedPaths = new Set();
     const counts = new Map();
     const candidates = shuffled(catalog.filter((article) =>
-      article.path && article.title && !(article.categories || []).includes("Mathematical Modeling Draft Archive")));
+      article.path && article.title && !article.reviewLock &&
+      !(article.categories || []).includes("Mathematical Modeling Draft Archive")));
     for (const cap of [1, 2]) {
       for (const article of shuffled(candidates)) {
         if (selected.length >= limit) return selected;
