@@ -31,7 +31,7 @@
 
   const reader = () => window.__blogReadingHistory;
   const availableToReader = (item) =>
-    !item.reviewLock || (item.lessonNumber === 2 && reader()?.isDeveloper?.() && !reader()?.isRegularPreview?.());
+    !item.reviewLock || (item.post_path?.includes("/Mathematical-Modeling-02-Visual-Evidence/") && reader()?.isDeveloper?.() && !reader()?.isRegularPreview?.());
   const courseBySlug = (slug) => COURSES.find((course) => course.slug === slug) || null;
   const courseByName = (name) => COURSES.find((course) => course.name === name) || null;
 

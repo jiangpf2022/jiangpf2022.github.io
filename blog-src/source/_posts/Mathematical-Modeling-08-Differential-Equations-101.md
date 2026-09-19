@@ -1,5 +1,5 @@
 ---
-title: 8 - Differential Equations 101
+title: 9 - Differential Equations 101
 date: 2026-09-15 18:00:13
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 8
+lesson_number: 9
 lesson_level: 1
 review_lock: true
 excerpt: "Turn a changing state and a rate law into the first useful differential-equation model."

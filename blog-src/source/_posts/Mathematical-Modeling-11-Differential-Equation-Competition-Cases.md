@@ -1,5 +1,5 @@
 ---
-title: 11 - Differential-Equation Competition Cases
+title: 12 - Differential-Equation Competition Cases
 date: 2026-09-15 18:00:10
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 11
+lesson_number: 12
 lesson_level: 3
 review_lock: true
 excerpt: "Build complete original cases from a physical mechanism to tested decisions."

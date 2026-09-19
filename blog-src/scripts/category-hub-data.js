@@ -32,6 +32,9 @@ hexo.extend.generator.register("category-hub-data", (locals) => {
         lessonNumber: Number(post.lesson_number) || null,
         lessonLevel: Number(post.lesson_level) || null,
         reviewLock: Boolean(post.review_lock),
+        targetRelease: post.target_release instanceof Date
+          ? post.target_release.toISOString().slice(0, 10)
+          : String(post.target_release || "").slice(0, 10) || null,
         excerpt: content.length > 220 ? `${content.slice(0, 217).trim()}...` : content,
         categories: post.categories.map((category) => category.name),
       };

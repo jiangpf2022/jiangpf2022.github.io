@@ -6,7 +6,7 @@ const sourceDir = path.resolve("source/_posts");
 const publicDir = path.resolve("public");
 const failures = [];
 const names = readdirSync(sourceDir).filter((name) =>
-  /^Mathematical-Modeling-(0[1-9]|1[0-9]|20)-[A-Za-z0-9-]+\.md$/.test(name)
+  /^Mathematical-Modeling-(0[1-9]|1[0-9]|2[01])-[A-Za-z0-9-]+\.md$/.test(name)
 );
 
 const current = new Map();
@@ -14,17 +14,21 @@ const archives = new Map();
 for (const name of names) {
   const markdown = readFileSync(path.join(sourceDir, name), "utf8");
   if (/^translation_of:/m.test(markdown)) continue;
-  const match = /^date:\s*(2026-09-(?:14|15))/m.exec(markdown);
-  const lesson = /^Mathematical-Modeling-(\d{2})-/.exec(name)?.[1];
-  if (!match || !lesson) continue;
-  if (markdown.includes("categories: Mathematical Modeling Draft Archive")) archives.set(lesson, { name, markdown });
+  const match = /^date:\s*2026-09-(\d{2})/m.exec(markdown);
+  const fileNumber = /^Mathematical-Modeling-(\d{2})-/.exec(name)?.[1];
+  const lesson = /^lesson_number:\s*(\d+)/m.exec(markdown)?.[1];
+  if (!match || !fileNumber) continue;
+  const date = match[1];
+  if (markdown.includes("categories: Mathematical Modeling Draft Archive")) archives.set(fileNumber, { name, markdown, date });
   else if (markdown.includes("categories: Mathematical Modeling")) {
-    if (current.has(lesson)) failures.push(`duplicate current lesson ${lesson}`);
-    current.set(lesson, { name, markdown });
+    if (!lesson) { failures.push(`${name}: missing lesson_number`); continue; }
+    const number = String(Number(lesson)).padStart(2, "0");
+    if (current.has(number)) failures.push(`duplicate current blog ${number}`);
+    current.set(number, { name, markdown, date });
   }
 }
 
-if (current.size !== 20) failures.push(`expected 20 current lessons, found ${current.size}`);
+if (current.size !== 21) failures.push(`expected 21 current blogs, found ${current.size}`);
 if (archives.size !== 16) failures.push(`expected 16 legacy private URLs, found ${archives.size}`);
 
 const checkPage = (name, markdown, date, shouldLock) => {
@@ -57,16 +61,17 @@ const checkPage = (name, markdown, date, shouldLock) => {
   }
 };
 
-for (let number = 1; number <= 20; number++) {
+for (let number = 1; number <= 21; number++) {
   const no = String(number).padStart(2, "0");
   const post = current.get(no);
-  if (!post) { failures.push(`missing current lesson ${no}`); continue; }
+  if (!post) { failures.push(`missing current blog ${no}`); continue; }
   if (number > 1 && !post.markdown.includes(`lesson_level: `)) failures.push(`${post.name}: missing level`);
-  checkPage(post.name, post.markdown, number <= 2 ? "14" : "15", number > 1);
+  if (!post.markdown.includes(`title: ${number} - `)) failures.push(`${post.name}: title and blog number differ`);
+  checkPage(post.name, post.markdown, post.date, number > 1);
 }
 for (let number = 3; number <= 18; number++) {
   const post = archives.get(String(number).padStart(2, "0"));
-  if (post) checkPage(post.name, post.markdown, "14", true);
+  if (post) checkPage(post.name, post.markdown, post.date, true);
 }
 
 const chineseName = "Mathematical-Modeling-01-From-Reality-to-a-Model-zh";
@@ -108,5 +113,5 @@ if (failures.length) {
   console.error(failures.join("\n"));
   process.exitCode = 1;
 } else {
-  console.log("20 current routes checked (1 open, 19 review-locked); 16 legacy URLs preserved; internal links and assets resolved.");
+  console.log("21 current routes checked (1 open, 20 review-locked); 16 legacy URLs preserved; internal links and assets resolved.");
 }

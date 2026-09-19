@@ -1,5 +1,5 @@
 ---
-title: 15 - Advanced Data Analysis
+title: 16 - Advanced Data Analysis
 date: 2026-09-15 18:00:06
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 15
+lesson_number: 16
 lesson_level: 2
 review_lock: true
 excerpt: "Connect regression diagnostics, dimension reduction, and clustering to defensible conclusions."

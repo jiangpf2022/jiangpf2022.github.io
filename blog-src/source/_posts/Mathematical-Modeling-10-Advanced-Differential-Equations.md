@@ -1,5 +1,5 @@
 ---
-title: 10 - Advanced Differential Equations
+title: 11 - Advanced Differential Equations
 date: 2026-09-15 18:00:11
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 10
+lesson_number: 11
 lesson_level: 2
 review_lock: true
 excerpt: "Work with boundary conditions, distributed systems, stiffness, and sensitivity."

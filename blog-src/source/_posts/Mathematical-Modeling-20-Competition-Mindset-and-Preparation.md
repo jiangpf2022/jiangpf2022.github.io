@@ -1,5 +1,5 @@
 ---
-title: 20 - Competition Mindset & Preparation
+title: 21 - Competition Mindset & Preparation
 date: 2026-09-15 18:00:01
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 20
+lesson_number: 21
 lesson_level: 3
 review_lock: true
 excerpt: "Prepare the team, time budget, tools, and decision habits for a modeling competition."

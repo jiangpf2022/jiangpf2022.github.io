@@ -6,7 +6,7 @@
     return;
   }
 
-  const protectedRoute = /^\/blog\/2026\/09\/(?:14|15)\/Mathematical-Modeling-(0[2-9]|1[0-9]|20)-[A-Za-z0-9-]+\/$/;
+  const protectedRoute = /^\/blog\/2026\/09\/(?:14|15|19)\/Mathematical-Modeling-(0[2-9]|1[0-9]|20)-[A-Za-z0-9-]+\/$/;
   // Remove a lesson number here only when its reviewed Markdown is published.
   const lockedLessons = new Set(["02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]);
   const table = "protected_modeling_articles";
@@ -23,7 +23,7 @@
 
   const escapeHtml = (value) => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
-  // The private article table has no rows for the new 20-lesson edition yet.
+  // Newer roadmap entries may not have private article rows yet.
   // Show the author its real editorial outline, never a mismatched copied article.
   const showDevelopmentPreview = async (content, path, version) => {
     try {
@@ -97,7 +97,7 @@
   const showDraft = async (content, path, version) => {
     const client = reader()?.getClient?.();
     if (!client) {
-      if (path.startsWith("/blog/2026/09/15/")) await showDevelopmentPreview(content, path, version);
+      if (/^\/blog\/2026\/09\/(?:15|19)\//.test(path)) await showDevelopmentPreview(content, path, version);
       return;
     }
     const { data, error } = await client
@@ -107,7 +107,7 @@
       .single();
     if (version !== requestVersion || !canRead() || activeContent !== content) return;
     if (error || !data?.content_html) {
-      if (path.startsWith("/blog/2026/09/15/")) await showDevelopmentPreview(content, path, version);
+      if (/^\/blog\/2026\/09\/(?:15|19)\//.test(path)) await showDevelopmentPreview(content, path, version);
       else announceLoadError(content);
       return;
     }
@@ -115,7 +115,7 @@
     try {
       const html = await decodeGzipBase64(data.content_html);
       if (version !== requestVersion || !canRead() || activeContent !== content) return;
-      content.innerHTML = path.startsWith("/blog/2026/09/15/")
+      content.innerHTML = /^\/blog\/2026\/09\/(?:15|19)\//.test(path)
         ? `<div class="mm-draft-banner" role="note"><strong>Author working draft — not published.</strong> Content may still be incomplete; verify the topic before releasing this lesson.</div>${html}`
         : html;
       content.dataset.modelingLoaded = "true";

@@ -1,5 +1,5 @@
 ---
-title: 3 - Linear, Quadratic & Conic Optimization
+title: 4 - Linear, Quadratic & Conic Optimization
 date: 2026-09-15 18:00:18
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 3
+lesson_number: 4
 lesson_level: 1
 review_lock: true
 excerpt: "Build LP, QP, and SOCP formulations from original, hand-checkable decisions."

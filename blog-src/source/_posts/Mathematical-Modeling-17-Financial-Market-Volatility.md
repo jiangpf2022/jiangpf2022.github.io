@@ -1,5 +1,5 @@
 ---
-title: 17 - Financial Market Volatility
+title: 18 - Financial Market Volatility
 date: 2026-09-15 18:00:04
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 17
+lesson_number: 18
 lesson_level: 3
 review_lock: true
 excerpt: "Analyze a synthetic market-volatility case without confusing forecasts with investment advice."

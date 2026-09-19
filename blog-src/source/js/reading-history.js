@@ -441,7 +441,7 @@
         <section class="blog-reader-signin">
           <div class="blog-reader-orbit" aria-hidden="true"><i class="fa-brands fa-github"></i></div>
           <h3>Save your reading progress</h3>
-          <p>Sign in with GitHub to sync recent articles, chapter completion, and mastery across your devices.</p>
+          <p>Existing members can sign in with GitHub to sync recent articles, chapter completion, and mastery across devices. New accounts are currently added by the administrator only.</p>
           <button class="blog-reader-primary" type="button" data-reader-action="signin">
             <i class="fa-brands fa-github"></i><span>Continue with GitHub</span>
           </button>

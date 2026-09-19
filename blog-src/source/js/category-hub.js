@@ -95,31 +95,32 @@
 
   const MODELING_SYLLABUS = [
     [1, "From Reality to a Model", 1, "Turn a vague problem into a purpose, boundary, variables, assumptions, equations, a solution, validation, and an actionable conclusion."],
-    [2, "Visual Evidence", 2, "Choose charts, diagrams, colors, and layouts so that every figure supports a specific modeling claim."],
-    [3, "Linear, Quadratic & Conic Optimization", 1, "Formulate and solve linear programs, quadratic programs, and second-order cone programs."],
-    [4, "Advanced Convex Optimization", 3, "Explore more general convex formulations and the algorithms beyond the introductory models."],
-    [5, "Multi-Objective & Robust Optimization", 1, "Balance competing goals and make decisions that remain useful under uncertainty."],
-    [6, "Intelligent Optimization", 1, "Understand genetic algorithms, particle swarm optimization, and simulated annealing."],
-    [7, "Pose Graph Optimization", 2, "Work through a complete pose-graph optimization case from problem formulation to interpretation."],
-    [8, "Differential Equations 101", 1, "Build basic differential-equation models from rates of change and initial conditions."],
-    [9, "Differential Equations II", 1, "Extend basic models and learn to compare their predictions with observations."],
-    [10, "Advanced Differential Equations", 2, "Study more complex dynamics and the assumptions required to model them."],
-    [11, "Competition ODE Cases", 3, "Analyze advanced differential-equation cases from mathematical-modeling competitions."],
-    [12, "Time Series 101", 1, "Introduce time-indexed data, trends, seasonality, and forecasting baselines."],
-    [13, "Advanced Time Series", 2, "Build and assess richer forecasts under changing patterns and uncertainty."],
-    [14, "Data Preparation 101", 1, "Clean, organize, and document data before fitting a model."],
-    [15, "Advanced Data Analysis", 2, "Extract and validate useful evidence from complex datasets."],
-    [16, "Evaluation Models 101", 1, "Design indicators and combine them into a transparent, defensible evaluation."],
-    [17, "Financial Market Volatility", 3, "Investigate a full modeling case on fluctuations in financial markets."],
-    [18, "Writing the Abstract", 1, "Communicate the problem, method, evidence, results, and limitations concisely."],
-    [19, "Writing the Main Text", 1, "Organize assumptions, derivations, results, and discussion into a readable report."],
-    [20, "Competition Mindset & Preparation", 3, "Prepare a team workflow, make decisions under time pressure, and finish a coherent submission."],
+    [2, "AI as a Modeling Sparring Partner", 1, "Use AI to challenge assumptions, inspect ideas, and test a model while keeping judgment and evidence in human hands."],
+    [3, "Visual Evidence", 2, "Choose charts, diagrams, colors, and layouts so that every figure supports a specific modeling claim."],
+    [4, "Linear, Quadratic & Conic Optimization", 1, "Formulate and solve linear programs, quadratic programs, and second-order cone programs."],
+    [5, "Advanced Convex Optimization", 3, "Explore more general convex formulations and the algorithms beyond the introductory models."],
+    [6, "Multi-Objective & Robust Optimization", 1, "Balance competing goals and make decisions that remain useful under uncertainty."],
+    [7, "Intelligent Optimization", 1, "Understand genetic algorithms, particle swarm optimization, and simulated annealing."],
+    [8, "Pose Graph Optimization", 2, "Work through a complete pose-graph optimization case from problem formulation to interpretation."],
+    [9, "Differential Equations 101", 1, "Build basic differential-equation models from rates of change and initial conditions."],
+    [10, "Differential Equations II", 1, "Extend basic models and learn to compare their predictions with observations."],
+    [11, "Advanced Differential Equations", 2, "Study more complex dynamics and the assumptions required to model them."],
+    [12, "Competition ODE Cases", 3, "Analyze advanced differential-equation cases from mathematical-modeling competitions."],
+    [13, "Time Series 101", 1, "Introduce time-indexed data, trends, seasonality, and forecasting baselines."],
+    [14, "Advanced Time Series", 2, "Build and assess richer forecasts under changing patterns and uncertainty."],
+    [15, "Data Preparation 101", 1, "Clean, organize, and document data before fitting a model."],
+    [16, "Advanced Data Analysis", 2, "Extract and validate useful evidence from complex datasets."],
+    [17, "Evaluation Models 101", 1, "Design indicators and combine them into a transparent, defensible evaluation."],
+    [18, "Financial Market Volatility", 3, "Investigate a full modeling case on fluctuations in financial markets."],
+    [19, "Writing the Abstract", 1, "Communicate the problem, method, evidence, results, and limitations concisely."],
+    [20, "Writing the Main Text", 1, "Organize assumptions, derivations, results, and discussion into a readable report."],
+    [21, "Competition Mindset & Preparation", 3, "Prepare a team workflow, make decisions under time pressure, and finish a coherent submission."],
   ];
   const MODELING_TYPES = [
-    { id: "experience", label: "Experience", lessons: [1, 20] },
-    { id: "models", label: "Models", lessons: [3, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16] },
-    { id: "writing", label: "Writing", lessons: [2, 18, 19] },
-    { id: "cases", label: "Case Studies", lessons: [7, 11, 17] },
+    { id: "experience", label: "Experience", lessons: [1, 2, 21] },
+    { id: "models", label: "Models", lessons: [4, 5, 6, 7, 9, 10, 11, 13, 14, 15, 16, 17] },
+    { id: "writing", label: "Writing", lessons: [3, 19, 20] },
+    { id: "cases", label: "Case Studies", lessons: [8, 12, 18] },
   ];
 
   let catalogPromise = null;
@@ -306,7 +307,11 @@
       const article = byNumber.get(number);
       return article && !article.reviewLock && safePath(article.path);
     }).map(([number]) => number);
-    const readingOrder = new Map(publishedNumbers.map((number, index) => [number, index + 1]));
+    const readingNumbers = rows.filter(([number]) => {
+      const article = byNumber.get(number);
+      return article && safePath(article.path) && (!article.reviewLock || article.targetRelease);
+    }).map(([number]) => number);
+    const readingOrder = new Map(readingNumbers.map((number, index) => [number, index + 1]));
     const publishedCount = publishedNumbers.length;
     const developmentCount = rows.length - publishedCount;
     return `<section class="category-hub-syllabus" aria-labelledby="modeling-syllabus-heading">
@@ -324,10 +329,14 @@
         const article = byNumber.get(number);
         const path = article ? safePath(article.path) : "";
         const published = Boolean(path && article && !article.reviewLock);
+        const releaseDate = article?.targetRelease ? new Date(`${article.targetRelease}T00:00:00`) : null;
+        const plannedStatus = releaseDate && !Number.isNaN(releaseDate.getTime())
+          ? `Planned by ${releaseDate.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`
+          : null;
         return `<tr class="${published ? "is-published" : ""}"><th scope="row">${String(number).padStart(2, "0")}</th>
           <td><span class="category-hub-syllabus-topic">${path ? `<a href="${escapeHtml(path)}">${escapeHtml(title)}</a>` : escapeHtml(title)}</span><span class="category-hub-syllabus-focus">${escapeHtml(focus)}</span><details class="category-hub-syllabus-details"><summary>Focus</summary>${escapeHtml(focus)}</details></td>
           <td class="category-hub-syllabus-level">${level}</td>
-          <td><span class="category-hub-syllabus-status">${published ? "Published" : '<i class="fa-solid fa-lock" aria-hidden="true"></i> Locked · In Development'}</span>${published ? `<a class="category-hub-syllabus-open" href="${escapeHtml(path)}" aria-label="Open blog ${number}: ${escapeHtml(title)}">Open <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td>
+          <td><span class="category-hub-syllabus-status">${published ? "Published" : plannedStatus ? `<i class="fa-solid fa-lock" aria-hidden="true"></i> ${escapeHtml(plannedStatus)}` : '<i class="fa-solid fa-lock" aria-hidden="true"></i> Locked · In Development'}</span>${published ? `<a class="category-hub-syllabus-open" href="${escapeHtml(path)}" aria-label="Open blog ${number}: ${escapeHtml(title)}">Open <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td>
           <td class="category-hub-syllabus-order">${readingOrder.get(number) || ""}</td></tr>`;
       }).join("")}</tbody>
       </table>
@@ -431,8 +440,12 @@
     const completion = enrolled && trackable ? article.completion : 0;
     const mastery = enrolled && trackable ? article.currentMastery : 0;
     const needsReview = enrolled && trackable && mastery < 50;
+    const targetRelease = article.targetRelease ? new Date(`${article.targetRelease}T00:00:00`) : null;
+    const plannedStatus = targetRelease && !Number.isNaN(targetRelease.getTime())
+      ? `Planned by ${targetRelease.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`
+      : null;
     const status = unpublished
-      ? locked ? "Locked · In Development" : "Unpublished Preview"
+      ? plannedStatus || (locked ? "Locked · In Development" : "Unpublished Preview")
       : locked ? "Awaiting Review" : !enrolled ? "Blog" : completion >= 100 ? "Completed" : completion > 0 ? "In Progress" : "Not Started";
     const cover = article.cover || config.cover;
     return `

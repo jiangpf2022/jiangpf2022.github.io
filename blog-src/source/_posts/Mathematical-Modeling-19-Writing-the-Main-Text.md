@@ -1,5 +1,5 @@
 ---
-title: 19 - Writing the Main Text
+title: 20 - Writing the Main Text
 date: 2026-09-15 18:00:02
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 19
+lesson_number: 20
 lesson_level: 1
 review_lock: true
 excerpt: "Write a modeling paper whose assumptions, equations, results, and checks form one argument."

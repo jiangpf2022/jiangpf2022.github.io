@@ -1,5 +1,5 @@
 ---
-title: 5 - Multi-Objective & Robust Optimization
+title: 6 - Multi-Objective & Robust Optimization
 date: 2026-09-15 18:00:16
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 5
+lesson_number: 6
 lesson_level: 1
 review_lock: true
 excerpt: "Compare competing goals and uncertain resources without hiding trade-offs."

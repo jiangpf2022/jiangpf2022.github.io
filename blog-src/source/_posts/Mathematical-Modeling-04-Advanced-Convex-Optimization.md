@@ -1,5 +1,5 @@
 ---
-title: 4 - Advanced Convex Optimization
+title: 5 - Advanced Convex Optimization
 date: 2026-09-15 18:00:17
 categories: Mathematical Modeling
 tags:
@@ -7,7 +7,7 @@ tags:
 mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
-lesson_number: 4
+lesson_number: 5
 lesson_level: 3
 review_lock: true
 excerpt: "Study convex guarantees, duality, and advanced methods from geometric and computational viewpoints."
