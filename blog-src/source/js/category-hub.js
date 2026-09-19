@@ -115,10 +115,17 @@
     [19, "Writing the Main Text", 1, "Organize assumptions, derivations, results, and discussion into a readable report."],
     [20, "Competition Mindset & Preparation", 3, "Prepare a team workflow, make decisions under time pressure, and finish a coherent submission."],
   ];
+  const MODELING_TYPES = [
+    { id: "experience", label: "Experience", lessons: [1, 20] },
+    { id: "models", label: "Models", lessons: [3, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16] },
+    { id: "writing", label: "Writing", lessons: [2, 18, 19] },
+    { id: "cases", label: "Case Studies", lessons: [7, 11, 17] },
+  ];
 
   let catalogPromise = null;
   let renderVersion = 0;
   const learningPages = new Map();
+  let selectedModelingType = "experience";
   let renderedLearningPath = null;
   let learningSwipe = null;
   let suppressSwipeClickUntil = 0;
@@ -295,21 +302,24 @@
       }
     }
     rows.sort((a, b) => a[0] - b[0]);
-    const publishedCount = rows.filter(([number]) => {
+    const publishedNumbers = rows.filter(([number]) => {
       const article = byNumber.get(number);
       return article && !article.reviewLock && safePath(article.path);
-    }).length;
+    }).map(([number]) => number);
+    const readingOrder = new Map(publishedNumbers.map((number, index) => [number, index + 1]));
+    const publishedCount = publishedNumbers.length;
     const developmentCount = rows.length - publishedCount;
     return `<section class="category-hub-syllabus" aria-labelledby="modeling-syllabus-heading">
-      <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">COURSE ROADMAP</p><h2 id="modeling-syllabus-heading">Course Syllabus</h2></div><span>${publishedCount} published · ${developmentCount} in development</span></div>
+      <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">PUBLISHING ROADMAP</p><h2 id="modeling-syllabus-heading">Update Plan</h2></div><span>${publishedCount} published · ${developmentCount} in development</span></div>
       <div class="category-hub-level-guide" aria-label="Blog level guide">
         <p><strong>Level 1 · Foundations</strong> Build the essential ideas from scratch, with guided examples and no advanced prerequisites.</p>
         <p><strong>Level 2 · Applied Practice</strong> Connect several techniques and work through richer modeling cases.</p>
         <p><strong>Level 3 · Advanced Study</strong> Tackle more demanding methods, cases, and competition decisions.</p>
         <small>Higher-level course content may be paid in the future. No payment is required for posts currently published.</small>
       </div>
+      <div class="category-hub-syllabus-scroll" tabindex="0" aria-label="Update plan table; scroll horizontally on narrow screens">
       <table class="category-hub-syllabus-table">
-        <thead><tr><th scope="col">No.</th><th scope="col">Topic &amp; Focus</th><th scope="col">Level</th><th scope="col">Status</th></tr></thead>
+        <thead><tr><th scope="col">No.</th><th scope="col">Topic &amp; Focus</th><th scope="col">Level</th><th scope="col">Status</th><th scope="col">Recommended Reading Order</th></tr></thead>
         <tbody>${rows.map(([number, title, level, focus]) => {
         const article = byNumber.get(number);
         const path = article ? safePath(article.path) : "";
@@ -317,11 +327,22 @@
         return `<tr class="${published ? "is-published" : ""}"><th scope="row">${String(number).padStart(2, "0")}</th>
           <td><span class="category-hub-syllabus-topic">${path ? `<a href="${escapeHtml(path)}">${escapeHtml(title)}</a>` : escapeHtml(title)}</span><span class="category-hub-syllabus-focus">${escapeHtml(focus)}</span><details class="category-hub-syllabus-details"><summary>Focus</summary>${escapeHtml(focus)}</details></td>
           <td class="category-hub-syllabus-level">${level}</td>
-          <td><span class="category-hub-syllabus-status">${published ? "Published" : "In Development"}</span>${published ? `<a class="category-hub-syllabus-open" href="${escapeHtml(path)}" aria-label="Open blog ${number}: ${escapeHtml(title)}">Open <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td></tr>`;
+          <td><span class="category-hub-syllabus-status">${published ? "Published" : "In Development"}</span>${published ? `<a class="category-hub-syllabus-open" href="${escapeHtml(path)}" aria-label="Open blog ${number}: ${escapeHtml(title)}">Open <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td>
+          <td class="category-hub-syllabus-order">${readingOrder.get(number) || ""}</td></tr>`;
       }).join("")}</tbody>
       </table>
+      </div>
     </section>`;
   };
+
+  const modelingTypeFor = (article) => MODELING_TYPES.find((type) => type.lessons.includes(Number(article.lessonNumber)))?.id || "experience";
+  const modelingTypeTabsMarkup = (articles) => `<nav class="category-hub-modeling-types" aria-label="Mathematical modeling article types">
+    ${MODELING_TYPES.map((type) => `<button type="button" data-modeling-type="${type.id}" aria-pressed="${type.id === selectedModelingType}"><span>${type.label}</span><small>${articles.filter((article) => modelingTypeFor(article) === type.id).length}</small></button>`).join("")}
+  </nav>`;
+  const learningPageKey = (config) => config.name === "Mathematical Modeling" ? `${config.name}:${selectedModelingType}` : config.name;
+  const learningViewArticles = (view) => view.config.name === "Mathematical Modeling"
+    ? view.articles.filter((article) => modelingTypeFor(article) === selectedModelingType)
+    : view.articles;
 
   const learningPageControlsMarkup = (page, totalPages) => {
     if (totalPages <= 1) return "";
@@ -337,14 +358,23 @@
   const renderLearningPage = (page, scrollToPath = false) => {
     const view = renderedLearningPath;
     if (!view || pageConfig()?.name !== view.config.name) return;
-    const totalPages = Math.max(1, Math.ceil(view.articles.length / LEARNING_PAGE_SIZE));
+    const visibleArticles = learningViewArticles(view);
+    const totalPages = Math.max(1, Math.ceil(visibleArticles.length / LEARNING_PAGE_SIZE));
     const currentPage = Math.max(1, Math.min(totalPages, page));
-    learningPages.set(view.config.name, currentPage);
+    learningPages.set(learningPageKey(view.config), currentPage);
     const section = document.querySelector(".category-hub-curriculum");
     const grid = section?.querySelector(".category-hub-article-grid");
     if (!grid) return;
-    grid.innerHTML = view.articles.slice((currentPage - 1) * LEARNING_PAGE_SIZE, currentPage * LEARNING_PAGE_SIZE)
+    grid.innerHTML = visibleArticles.slice((currentPage - 1) * LEARNING_PAGE_SIZE, currentPage * LEARNING_PAGE_SIZE)
       .map((article) => articleCardMarkup(article, view.config, view.enrolled)).join("");
+    if (view.config.name === "Mathematical Modeling") {
+      section.querySelectorAll("[data-modeling-type]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.modelingType === selectedModelingType));
+      });
+      const count = section.querySelector("[data-modeling-type-count]");
+      const publishedCount = visibleArticles.filter((article) => !article.reviewLock).length;
+      if (count) count.textContent = `${publishedCount} published · ${visibleArticles.length - publishedCount} in development`;
+    }
     section.querySelector(".category-hub-page-controls")?.remove();
     grid.insertAdjacentHTML("afterend", learningPageControlsMarkup(currentPage, totalPages));
     if (scrollToPath) section.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
@@ -500,23 +530,35 @@
     const available = enriched.filter(availableToReader);
     const trackable = config.name === "Mathematical Modeling" ? available.filter((article) => !article.reviewLock) : available;
     const series = enrolled ? aggregateSeries(trackable, events) : [];
+    const curriculumMarkup = `<section class="category-hub-curriculum">
+      <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">${config.course ? "COURSE CONTENT" : "CATEGORY LIBRARY"}</p><h2>${config.name === "Mathematical Modeling" ? "Browse Posts" : config.course ? "Learning Path" : "All Articles"}</h2></div><span ${config.name === "Mathematical Modeling" ? 'data-modeling-type-count=""' : ""}>${config.name === "Mathematical Modeling" ? "" : `${enriched.length} published`}</span></div>
+      ${config.name === "Mathematical Modeling" ? modelingTypeTabsMarkup(enriched) : ""}
+      <div class="category-hub-article-grid">${!config.course ? enriched.map((article) => articleCardMarkup(article, config, false)).join("") : ""}</div>
+    </section>`;
 
     mount.innerHTML = `
       ${heroMarkup(config, config.name === "Mathematical Modeling" ? enriched.filter((article) => !article.reviewLock).length : enriched.length, session, enrolled)}
+      ${config.name === "Mathematical Modeling" ? curriculumMarkup : ""}
       ${config.name === "Mathematical Modeling" ? modelingSyllabusMarkup(enriched) : ""}
       ${config.course ? courseOverviewMarkup(trackable, enrolled, series) : readingOverviewMarkup(enriched, session)}
-      <section class="category-hub-curriculum">
-        <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">${config.course ? "COURSE CONTENT" : "CATEGORY LIBRARY"}</p><h2>${config.course ? "Learning Path" : "All Articles"}</h2></div><span>${config.name === "Mathematical Modeling" ? `${enriched.filter((article) => !article.reviewLock).length} published · ${enriched.filter((article) => article.reviewLock).length} in development` : `${enriched.length} published`}</span></div>
-        <div class="category-hub-article-grid">${!config.course ? enriched.map((article) => articleCardMarkup(article, config, false)).join("") : ""}</div>
-      </section>`;
+      ${config.name === "Mathematical Modeling" ? "" : curriculumMarkup}`;
     renderedLearningPath = config.course ? { config, articles: enriched, enrolled: Boolean(enrolled) } : null;
-    if (config.course) renderLearningPage(learningPages.get(config.name) || 1);
+    if (config.course) renderLearningPage(learningPages.get(learningPageKey(config)) || 1);
     mount.dataset.categoryHubReady = "true";
     document.querySelector(".category-paginator")?.setAttribute("hidden", "");
     window.requestAnimationFrame(() => window.dispatchEvent(new Event("scroll")));
   };
 
   document.addEventListener("click", async (event) => {
+    const modelingTypeButton = event.target.closest("[data-modeling-type]");
+    if (modelingTypeButton && pageConfig()?.name === "Mathematical Modeling") {
+      const type = modelingTypeButton.dataset.modelingType;
+      if (MODELING_TYPES.some((item) => item.id === type)) {
+        selectedModelingType = type;
+        renderLearningPage(1);
+      }
+      return;
+    }
     const pageButton = event.target.closest("[data-learning-page]");
     if (pageButton) {
       renderLearningPage(Number(pageButton.dataset.learningPage), true);
@@ -564,8 +606,8 @@
     if (Math.abs(deltaX) < 55 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
     const config = pageConfig();
     if (!config?.course) return;
-    const currentPage = learningPages.get(config.name) || 1;
-    const totalPages = Math.ceil((renderedLearningPath?.articles.length || 0) / LEARNING_PAGE_SIZE);
+    const currentPage = learningPages.get(learningPageKey(config)) || 1;
+    const totalPages = Math.ceil((renderedLearningPath ? learningViewArticles(renderedLearningPath).length : 0) / LEARNING_PAGE_SIZE);
     const nextPage = currentPage + (deltaX < 0 ? 1 : -1);
     if (nextPage < 1 || nextPage > totalPages) return;
     suppressSwipeClickUntil = performance.now() + 350;

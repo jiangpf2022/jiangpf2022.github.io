@@ -234,6 +234,16 @@ html.dark {
   text-align: left;
 }
 
+.category-hub-syllabus-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.category-hub-syllabus-scroll:focus-visible {
+  outline: 2px solid var(--category-hub-accent);
+  outline-offset: 3px;
+}
+
 .category-hub-level-guide {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -319,6 +329,13 @@ html.dark {
 
 .category-hub-syllabus-table .category-hub-syllabus-level {
   color: var(--category-hub-muted);
+  font-weight: 800;
+  text-align: center;
+}
+
+.category-hub-syllabus-table .category-hub-syllabus-order {
+  color: var(--category-hub-accent);
+  font-size: 13px;
   font-weight: 800;
   text-align: center;
 }
@@ -628,6 +645,58 @@ html.dark {
   scroll-margin-top: 92px;
 }
 
+.category-hub-modeling-types {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  margin: 0 0 22px;
+}
+
+.category-hub-container .category-hub-modeling-types button {
+  display: flex;
+  min-width: 0;
+  min-height: 64px;
+  padding: 9px 10px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+  border: 1px solid var(--category-hub-border);
+  border-radius: 13px;
+  color: var(--category-hub-text);
+  background: var(--category-hub-surface-strong);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.category-hub-modeling-types button small {
+  color: var(--category-hub-muted);
+  font-size: 10px;
+}
+
+.category-hub-container .category-hub-modeling-types button[aria-pressed="true"] {
+  border-color: transparent;
+  color: #fff;
+  background: linear-gradient(115deg, #3858be, #7855be);
+}
+
+.category-hub-modeling-types button[aria-pressed="true"] small {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.category-hub-container .category-hub-modeling-types button:hover {
+  transform: translateY(-2px);
+}
+
+.category-hub-container .category-hub-modeling-types button:focus-visible {
+  outline: 2px solid var(--category-hub-accent);
+  outline-offset: 2px;
+}
+
 .category-hub-article-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -930,7 +999,7 @@ html.dark .category-hub-container .category-hub-page-controls button[aria-curren
   }
 
   .category-hub-syllabus-table {
-    table-layout: fixed;
+    min-width: 620px;
     font-size: 10px;
   }
 
@@ -947,8 +1016,22 @@ html.dark .category-hub-container .category-hub-page-controls button[aria-curren
     width: 36px;
   }
 
-  .category-hub-syllabus-table th:last-child {
+  .category-hub-syllabus-table th:nth-child(4) {
     width: 78px;
+  }
+
+  .category-hub-syllabus-table th:last-child {
+    width: 110px;
+  }
+
+  .category-hub-modeling-types {
+    gap: 5px;
+  }
+
+  .category-hub-container .category-hub-modeling-types button {
+    min-height: 59px;
+    padding: 7px 3px;
+    font-size: 10px;
   }
 
   .category-hub-syllabus-topic {
