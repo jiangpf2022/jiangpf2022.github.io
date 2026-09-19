@@ -1,5 +1,6 @@
 ---
 title: Robotics 1 - Rigid-Body Transformations
+published: false
 date: 2026-09-13 22:40:54
 categories: COMS4773W Computational Aspects of Robotics
 tags:

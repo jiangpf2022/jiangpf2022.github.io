@@ -13,7 +13,6 @@
     },
     { slug: "deep-learning", name: "COMS4776W Neural Networks & Deep Learning", icon: "fa-solid fa-network-wired" },
     { slug: "llm-generative-ai", name: "COMS6998E LLM-Based Generative AI", icon: "fa-solid fa-sparkles" },
-    { slug: "robotic", name: "COMS4773W Computational Aspects of Robotics", icon: "fa-solid fa-robot" },
     { slug: "databases", name: "COMS W4111 Introduction to Databases", icon: "fa-solid fa-database" },
   ];
   let loading = false;

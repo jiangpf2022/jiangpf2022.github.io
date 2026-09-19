@@ -405,11 +405,6 @@
   --course-accent-2: #d15ad8;
 }
 
-.blog-learning-course[data-course="robotic"] {
-  --course-accent: #1aaebf;
-  --course-accent-2: #4c82ed;
-}
-
 .blog-learning-course[data-course="databases"] {
   --course-accent: #22a67a;
   --course-accent-2: #3987dc;

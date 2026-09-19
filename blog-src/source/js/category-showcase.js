@@ -9,13 +9,6 @@
       cover: "/blog/images/mathematical-modeling-nyc.webp",
       description: "A growing, zero-to-competition path from the first model through visual evidence, optimization, dynamical systems, forecasting, data analysis, case studies, and scientific writing. New posts open after author review.",
     },
-    "COMS4773W-Computational-Aspects-of-Robotics": {
-      name: "COMS4773W Computational Aspects of Robotics",
-      label: "ROBOTICS",
-      icon: "fa-solid fa-robot",
-      cover: "/blog/images/robotics-1/rigid-body-transformations-cover.webp",
-      description: "Robot geometry, coordinate frames, kinematics, planning, and control from a computational perspective.",
-    },
     "COMS6998E-LLM-Based-Generative-AI": {
       name: "COMS6998E LLM-Based Generative AI",
       label: "GENERATIVE AI",
@@ -126,6 +119,73 @@
   const formatUpdated = (timestamp) => {
     if (!timestamp) return "Course collection";
     return `Updated ${new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(new Date(timestamp))}`;
+  };
+
+  // The homepage is a discovery feed, not the date-sorted archive. Start with
+  // one article per category, then permit a second only when space remains.
+  const shuffled = (items) => {
+    const result = [...items];
+    for (let index = result.length - 1; index > 0; index -= 1) {
+      const other = Math.floor(Math.random() * (index + 1));
+      [result[index], result[other]] = [result[other], result[index]];
+    }
+    return result;
+  };
+
+  const pickHomeArticles = (catalog, limit) => {
+    const selected = [];
+    const selectedPaths = new Set();
+    const counts = new Map();
+    const candidates = shuffled(catalog.filter((article) =>
+      article.path && article.title && !(article.categories || []).includes("Mathematical Modeling Draft Archive")));
+    for (const cap of [1, 2]) {
+      for (const article of shuffled(candidates)) {
+        if (selected.length >= limit) return selected;
+        if (selectedPaths.has(article.path)) continue;
+        const categories = [...new Set(article.categories?.length ? article.categories : ["Other"])];
+        if (categories.some((category) => (counts.get(category) || 0) >= cap)) continue;
+        selected.push(article);
+        selectedPaths.add(article.path);
+        categories.forEach((category) => counts.set(category, (counts.get(category) || 0) + 1));
+      }
+    }
+    return selected;
+  };
+
+  const homeArticleMarkup = (article) => {
+    const title = escapeHtml(article.title);
+    const path = escapeHtml(article.path);
+    const cover = article.cover ? `<div id="home-article-thumbnail" class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large"><a href="${path}"><img src="${escapeHtml(article.cover)}" alt="${title}" class="w-full h-full object-cover dark:brightness-75 transition-all" loading="lazy"></a></div>` : "";
+    const categories = (article.categoryLinks || []).map((item) => `<li><a href="${escapeHtml(item.path)}">${escapeHtml(item.name)}</a>&nbsp;</li>`).join("");
+    const tags = (article.tags || []).slice(0, 3).map((item, index) => `<li>${index ? "| " : ""}<a href="${escapeHtml(item.path)}">${escapeHtml(item.name)}</a>&nbsp;</li>`).join("");
+    const date = escapeHtml(String(article.date || "").slice(0, 10));
+    return `<li class="home-article-item">
+      ${cover}
+      <div class="flex flex-col gap-5 px-7 pb-7 ${cover ? "pt-5" : "pt-7"}">
+        <h3 class="home-article-title"><a href="${path}">${title}</a></h3>
+        <div class="home-article-content markdown-body"><p>${escapeHtml(article.excerpt || "")}</p></div>
+        <div class="home-article-meta-info-container">
+          <div class="home-article-meta-info">
+            <span><i class="fa-solid fa-calendars"></i>&nbsp;<span class="home-article-date" data-date="${escapeHtml(article.date || "")}">${date}</span></span>
+            ${categories ? `<span class="home-article-category"><i class="fa-solid fa-folders"></i>&nbsp;<ul>${categories}</ul></span>` : ""}
+            ${tags ? `<span class="home-article-tag"><i class="fa-solid fa-tags"></i>&nbsp;<ul>${tags}</ul></span>` : ""}
+          </div>
+          <a href="${path}">Read more<span class="seo-reader-text">${title}</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+        </div>
+      </div>
+    </li>`;
+  };
+
+  const renderHomeArticles = (list, catalog) => {
+    if (window.location.pathname !== "/blog/" || list.dataset.randomizedFeed || !catalog.length) return;
+    const picks = pickHomeArticles(catalog, list.children.length || 10);
+    if (!picks.length) return;
+    list.innerHTML = picks.map(homeArticleMarkup).join("");
+    list.dataset.randomizedFeed = "true";
+    const paginator = list.nextElementSibling;
+    if (paginator?.classList.contains("home-paginator")) {
+      paginator.innerHTML = '<a class="home-feed-archive-link" href="/blog/archives/">Browse all articles <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>';
+    }
   };
 
   const cardMarkup = (item, duplicate = false) => `
@@ -366,6 +426,7 @@
     if (!list || document.querySelector(".home-category-showcase")) return;
     const catalog = await loadCatalog();
     if (!list.isConnected || document.querySelector(".home-category-showcase")) return;
+    renderHomeArticles(list, catalog);
     const stats = categoryStats(catalog);
     const items = fallbackOrder
       .map((slug, fallbackIndex) => ({ slug, fallbackIndex, ...CATEGORIES[slug], ...stats.get(slug) }))
@@ -379,7 +440,7 @@
     section.setAttribute("aria-labelledby", "home-category-showcase-title");
     section.innerHTML = `
       <header class="home-category-showcase__header">
-        <div><span>LEARNING COLLECTIONS</span><h2 id="home-category-showcase-title">Explore Categories</h2><p>Browse the latest course notes and research collections before diving into individual articles.</p></div>
+        <div><span>LEARNING COLLECTIONS</span><h2 id="home-category-showcase-title"><a href="/blog/categories/">Explore Categories <i class="fa-regular fa-arrow-up-right" aria-hidden="true"></i></a></h2><p>Browse the latest course notes and research collections before diving into individual articles.</p></div>
         <div class="home-category-showcase__controls" aria-label="Category carousel controls">
           <button type="button" data-category-direction="-1" aria-label="Previous category"><i class="fa-regular fa-arrow-left" aria-hidden="true"></i></button>
           <button type="button" data-category-direction="1" aria-label="Next category"><i class="fa-regular fa-arrow-right" aria-hidden="true"></i></button>

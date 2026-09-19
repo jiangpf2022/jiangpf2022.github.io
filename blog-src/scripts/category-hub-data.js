@@ -37,6 +37,14 @@ hexo.extend.generator.register("category-hub-data", (locals) => {
           : String(post.target_release || "").slice(0, 10) || null,
         excerpt: content.length > 220 ? `${content.slice(0, 217).trim()}...` : content,
         categories: post.categories.map((category) => category.name),
+        categoryLinks: post.categories.map((category) => ({
+          name: category.name,
+          path: blogAsset(category.path),
+        })),
+        tags: post.tags.map((tag) => ({
+          name: tag.name,
+          path: blogAsset(tag.path),
+        })),
       };
     });
 

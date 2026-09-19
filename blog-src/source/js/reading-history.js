@@ -42,11 +42,6 @@
       categoryPath: "/blog/categories/COMS6998E-LLM-Based-Generative-AI/",
     },
     {
-      slug: "robotic",
-      name: "COMS4773W Computational Aspects of Robotics",
-      categoryPath: "/blog/categories/COMS4773W-Computational-Aspects-of-Robotics/",
-    },
-    {
       slug: "databases",
       name: "COMS W4111 Introduction to Databases",
       categoryPath: "/blog/categories/COMS-W4111-Introduction-to-Databases/",
@@ -879,7 +874,8 @@
       state.error = "Reading history could not be loaded. Please try again later.";
     } else {
       state.error = "";
-      state.history = data || [];
+      // Keep stored progress intact, but do not link to an unpublished article.
+      state.history = (data || []).filter((item) => !normalizePath(item.post_path).includes("/Robotics-1-Rigid-Body-Transformations/"));
     }
     if (state.panelOpen) renderPanel();
   };
