@@ -44,8 +44,15 @@
   margin-inline: 0.08em;
 }
 
-.article-content mjx-container[display="true"] {
+.article-content mjx-container[jax="SVG"][display="true"] {
   padding-block: 0.12rem;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.article-content mjx-container[display="true"] > svg {
+  display: block;
+  margin-inline: auto;
 }
 
 .robotics-figure-pair {

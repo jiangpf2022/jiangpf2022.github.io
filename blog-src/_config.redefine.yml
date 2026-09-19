@@ -402,7 +402,7 @@ inject:
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
     - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
-    - <link rel="stylesheet" href="/blog/css/robotics-figures.css?v=20260914">
+    - <link rel="stylesheet" href="/blog/css/robotics-figures.css?v=20260919-formulas">
     - <link rel="stylesheet" href="/blog/css/mathematical-modeling-course.css?v=20260915-course20">
     - <link rel="stylesheet" href="/blog/css/modeling-language-switch.css?v=20260915-bilingual1">
     - <link rel="stylesheet" href="/blog/css/article-attachments.css?v=20260914">

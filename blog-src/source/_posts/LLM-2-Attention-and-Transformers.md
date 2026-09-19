@@ -70,15 +70,22 @@ ELMo, *Embeddings from Language Models*, is an important bridge from static word
 
 Why can this be trained without labeled sentiment or entity data? A sentence is its own source of targets. The forward language model predicts the next token from its prefix; the backward model predicts a token from its suffix. A simplified training objective is
 
+<div class="llm-math-display">
 $$
-\max_{\theta}\sum_{i=1}^{N}\left[\log p_{\theta}(w_i\mid w_1,\ldots,w_{i-1})+\log p_{\theta}(w_i\mid w_{i+1},\ldots,w_N)\right].
+\begin{aligned}
+\max_{\theta}\sum_{i=1}^{N}\bigl[&\log p_{\theta}(w_i\mid w_1,\ldots,w_{i-1})\\
+&+\log p_{\theta}(w_i\mid w_{i+1},\ldots,w_N)\bigr].
+\end{aligned}
 $$
+</div>
 
 The forward and backward models are trained with their own directional objectives; their internal states are then combined into a representation for a downstream task. ELMo does not have to use only its top layer. If $h_{i,0}$ is an initial token representation and $h_{i,1},\ldots,h_{i,L}$ are bidirectional layer states, a task can learn weights $s_0,\ldots,s_L$ and a scale $\gamma$:
 
+<div class="llm-math-display">
 $$
-\operatorname{ELMo}_i=\gamma\sum_{\ell=0}^{L}s_\ell h_{i,\ell},\qquad s_\ell\geq0,\quad\sum_\ell s_\ell=1.
+\operatorname{ELMo}_i=\gamma\sum_{\ell=0}^{L}s_\ell h_{i,\ell},\qquad s_\ell\geq0,\quad\sum_{\ell=0}^{L}s_\ell=1.
 $$
+</div>
 
 Different layers can contribute different information. A named-entity recognizer may value different features than a sentiment classifier. ELMo therefore makes two ideas concrete: **pretrain on unlabeled text**, then **reuse context-sensitive states** for a separate task. Its limitation for our next step is that recurrent processing still passes information through sequential state updates. Attention offers a more direct route between distant positions.
 
@@ -102,11 +109,15 @@ $$
 
 If $x_i\in\mathbb R^{d}$, then $W^Q,W^K\in\mathbb R^{d\times d_k}$ and $W^V\in\mathbb R^{d\times d_v}$. Thus $q_i,k_j\in\mathbb R^{d_k}$ and $v_j\in\mathbb R^{d_v}$. The score is a compatibility measure,
 
+<div class="llm-math-display">
 $$
-s_{ij}=\frac{q_i^{\mathsf T}k_j}{\sqrt{d_k}},\qquad
-\alpha_{ij}=\frac{\exp(s_{ij})}{\sum_{m\in\mathcal A_i}\exp(s_{im})},\qquad
-a_i=\sum_{j\in\mathcal A_i}\alpha_{ij}v_j.
+\begin{aligned}
+s_{ij}&=\frac{q_i^{\mathsf T}k_j}{\sqrt{d_k}},\\
+\alpha_{ij}&=\frac{\exp(s_{ij})}{\sum_{m\in\mathcal A_i}\exp(s_{im})},\\
+a_i&=\sum_{j\in\mathcal A_i}\alpha_{ij}v_j.
+\end{aligned}
 $$
+</div>
 
 $\mathcal A_i$ is the set of positions allowed for query $i$. In a bidirectional encoder it may include the whole sentence; in a causal decoder it includes only positions up to $i$. The denominator $\sqrt{d_k}$ keeps dot-product magnitudes from growing with key dimension. Without scaling, large scores can drive the softmax toward a near-one-hot distribution too early, leaving weak gradients for most alternatives.
 
@@ -130,10 +141,14 @@ In a left-to-right language model, the legal set $\mathcal A_3=\{1,2,3\}$ exclud
 
 One head learns one set of projections and produces one weighted summary. With $H$ heads, we repeat the calculation using different learned matrices, concatenate the outputs, and project back to model width:
 
+<div class="llm-math-display">
 $$
-\operatorname{head}_h=\operatorname{Attention}(XW_h^Q,XW_h^K,XW_h^V),\qquad
-\operatorname{MHA}(X)=\operatorname{Concat}(\operatorname{head}_1,\ldots,\operatorname{head}_H)W^O.
+\begin{aligned}
+\operatorname{head}_h&=\operatorname{Attention}(XW_h^Q,XW_h^K,XW_h^V),\\
+\operatorname{MHA}(X)&=\operatorname{Concat}(\operatorname{head}_1,\ldots,\operatorname{head}_H)W^O.
+\end{aligned}
 $$
+</div>
 
 If each head has value width $d_v$, concatenation has width $Hd_v$, so $W^O\in\mathbb R^{Hd_v\times d}$ returns to the $d$-dimensional residual stream. The slides draw eight heads as an example, not as a universal requirement. Different heads can learn different comparisons or positions, although they are not guaranteed to correspond neatly to human concepts such as “syntax head” and “pronoun head.”
 
@@ -189,11 +204,15 @@ This distinction explains both the Transformer’s training advantage and a pers
 
 Put $N$ token representations into a matrix $X\in\mathbb R^{N\times d}$, one token per row. Instead of invoking the same learned projections separately for every position, multiply whole matrices:
 
+<div class="llm-math-display">
 $$
-Q=XW^Q\in\mathbb R^{N\times d_k},\qquad
-K=XW^K\in\mathbb R^{N\times d_k},\qquad
-V=XW^V\in\mathbb R^{N\times d_v}.
+\begin{aligned}
+Q&=XW^Q\in\mathbb R^{N\times d_k},\\
+K&=XW^K\in\mathbb R^{N\times d_k},\\
+V&=XW^V\in\mathbb R^{N\times d_v}.
+\end{aligned}
 $$
+</div>
 
 Then $QK^{\mathsf T}\in\mathbb R^{N\times N}$. Entry $(i,j)$ is exactly the query–key dot product $q_i^{\mathsf T}k_j$ from the previous section. Apply softmax across **each row**, because row $i$ represents the alternatives available to query $i$. The result is an $N\times N$ weight matrix $P$; multiplying $PV$ produces $N\times d_v$ outputs. This is the same weighted-sum operation as before, now expressed in matrix operations that accelerators handle efficiently.
 
@@ -205,9 +224,14 @@ For **cross-attention**, do not force the source and target lengths to be equal.
 
 For causal self-attention, add a matrix $M$ **before** softmax:
 
+<div class="llm-math-display">
 $$
-P=\operatorname{softmax}_{\rm row}\!\left(\frac{QK^{\mathsf T}}{\sqrt{d_k}}+M\right),\qquad A=PV,
+\begin{aligned}
+P&=\operatorname{softmax}_{\mathrm{row}}\!\left(\frac{QK^{\mathsf T}}{\sqrt{d_k}}+M\right),\\
+A&=PV,
+\end{aligned}
 $$
+</div>
 
 where $M_{ij}=0$ if $j\leq i$ and $M_{ij}=-\infty$ if $j>i$. Since $\exp(-\infty)=0$, every future position gets weight zero. In actual floating-point code a very negative finite value or a masked-softmax kernel may be used instead. The semantic requirement is the same: a query at time $i$ cannot read keys from $i+1$ onward.
 
@@ -226,7 +250,7 @@ Do not turn this into the false claim that “Transformers are always slow for l
 The slide first describes one $Q,K,V$ triple and then several heads. In an implementation, the head projections are usually computed in large fused or batched operations. Conceptually, head $h$ has $Q_h,K_h,V_h$ and computes
 
 $$
-A_h=\operatorname{softmax}_{\rm row}\!\left(\frac{Q_hK_h^{\mathsf T}}{\sqrt{d_k}}+M\right)V_h.
+A_h=\operatorname{softmax}_{\mathrm{row}}\!\left(\frac{Q_hK_h^{\mathsf T}}{\sqrt{d_k}}+M\right)V_h.
 $$
 
 The head outputs concatenate along the feature dimension, then $W^O$ maps back to width $d$. If $d=768$, $H=12$, and all heads share a $64$-dimensional value width, concatenation has $12\times64=768$ features before $W^O$. The specific split is an architecture choice. The mask applies separately to every causal head; having more heads never grants access to forbidden future positions.
@@ -253,10 +277,14 @@ $$
 
 There is one $d$-dimensional position vector for every supported index. The slide’s shorthand $1\times N$ is not the shape of the full vector table; the position vectors must match the token-embedding width to be added. $P$ can be learned, or positions can be encoded with fixed sinusoidal functions. In the original Transformer, with even/odd feature indices $2k$ and $2k+1$,
 
+<div class="llm-math-display">
 $$
-P_{i,2k}=\sin\!\left(i/10000^{2k/d}\right),\qquad
-P_{i,2k+1}=\cos\!\left(i/10000^{2k/d}\right).
+\begin{aligned}
+P_{i,2k}&=\sin\!\left(i/10000^{2k/d}\right),\\
+P_{i,2k+1}&=\cos\!\left(i/10000^{2k/d}\right).
+\end{aligned}
 $$
+</div>
 
 The different frequencies supply multiple scales of position. This is not the only modern choice, but it is the one pictured in the original architecture. The position signal is **added**, not appended, in the slide’s example, so the model width stays $d$.
 
@@ -266,10 +294,14 @@ The different frequencies supply multiple scales of position. This is not the on
 
 After the final block, a decoder-only language model has a contextual vector $h_i\in\mathbb R^d$ at each position. To predict a token, it needs one score for each vocabulary entry. An **unembedding** matrix $U\in\mathbb R^{d\times V}$ and optional bias $b\in\mathbb R^V$ produce logits and probabilities:
 
+<div class="llm-math-display">
 $$
-z_i=h_iU+b\in\mathbb R^V,\qquad
-p(w_{i+1}=j\mid w_{\leq i})=\frac{e^{z_{i,j}}}{\sum_{m=1}^{V}e^{z_{i,m}}}.
+\begin{aligned}
+z_i&=h_iU+b\in\mathbb R^V,\\
+p(w_{i+1}=j\mid w_{\leq i})&=\frac{e^{z_{i,j}}}{\sum_{m=1}^{V}e^{z_{i,m}}}.
+\end{aligned}
 $$
+</div>
 
 Logits are unnormalized scores; softmax turns them into a distribution. If $V=50{,}000$, there are 50,000 logits for that position—not 50,000 generated words. During training, cross-entropy rewards high probability on the actual next token. At inference, decoding chooses or samples one token and appends it to the context.
 
@@ -303,11 +335,15 @@ This gives information and gradients a direct path through deep stacks. It does 
 
 Layer normalization operates on **one token’s feature vector** at a time, not across all tokens in a sentence. For $x\in\mathbb R^d$,
 
+<div class="llm-math-display">
 $$
-\mu=\frac1d\sum_{r=1}^{d}x_r,\qquad
-\sigma^2=\frac1d\sum_{r=1}^{d}(x_r-\mu)^2,\qquad
-\operatorname{LN}(x)_r=\gamma_r\frac{x_r-\mu}{\sqrt{\sigma^2+\epsilon}}+\beta_r.
+\begin{aligned}
+\mu&=\frac1d\sum_{r=1}^{d}x_r,\\
+\sigma^2&=\frac1d\sum_{r=1}^{d}(x_r-\mu)^2,\\
+\operatorname{LN}(x)_r&=\gamma_r\frac{x_r-\mu}{\sqrt{\sigma^2+\epsilon}}+\beta_r.
+\end{aligned}
 $$
+</div>
 
 The small $\epsilon$ prevents division by zero. Learned $\gamma$ and $\beta$ can rescale and shift normalized coordinates; normalization does not force every subsequent representation to remain permanently zero-mean and unit-variance. Unlike batch normalization, the calculation does not depend on other examples in the minibatch. That makes it a natural component for variable-length text and token-wise processing.
 
@@ -329,10 +365,14 @@ This division of labor is worth remembering: attention asks **which other positi
 
 In the lecture’s post-norm notation, a self-attention block can be summarized as
 
+<div class="llm-math-display">
 $$
-O=\operatorname{LN}\bigl(X+\operatorname{MHA}(X)\bigr),\qquad
-H=\operatorname{LN}\bigl(O+\operatorname{FFN}(O)\bigr).
+\begin{aligned}
+O&=\operatorname{LN}\bigl(X+\operatorname{MHA}(X)\bigr),\\
+H&=\operatorname{LN}\bigl(O+\operatorname{FFN}(O)\bigr).
+\end{aligned}
 $$
+</div>
 
 For a decoder, $\operatorname{MHA}$ uses a causal mask; in an encoder, it normally sees the full input. An original encoder–decoder decoder also inserts a cross-attention sublayer between self-attention and the FFN. We have now accounted for the token and position inputs, Q/K/V projections, attention weights, multiple heads, residual additions, normalization, position-wise nonlinearity, and the output vocabulary head. The remaining architectural change in this lecture is to replace the dense FFN with conditionally selected experts.
 
