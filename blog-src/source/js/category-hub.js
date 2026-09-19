@@ -96,7 +96,7 @@
   const MODELING_SYLLABUS = [
     [1, "From Reality to a Model", 1, "Turn a vague problem into a purpose, boundary, variables, assumptions, equations, a solution, validation, and an actionable conclusion."],
     [2, "AI as a Modeling Sparring Partner", 1, "Use AI to challenge assumptions, inspect ideas, and test a model while keeping judgment and evidence in human hands."],
-    [3, "Visual Evidence", 2, "Choose charts, diagrams, colors, and layouts so that every figure supports a specific modeling claim."],
+    [3, "Visual Evidence", 1, "Choose charts, diagrams, colors, and layouts so that every figure supports a specific modeling claim."],
     [4, "Linear, Quadratic & Conic Optimization", 1, "Formulate and solve linear programs, quadratic programs, and second-order cone programs."],
     [5, "Advanced Convex Optimization", 3, "Explore more general convex formulations and the algorithms beyond the introductory models."],
     [6, "Multi-Objective & Robust Optimization", 1, "Balance competing goals and make decisions that remain useful under uncertainty."],
@@ -317,9 +317,9 @@
     return `<section class="category-hub-syllabus" aria-labelledby="modeling-syllabus-heading">
       <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">PUBLISHING ROADMAP</p><h2 id="modeling-syllabus-heading">Update Plan</h2></div><span>${publishedCount} published · ${developmentCount} in development</span></div>
       <div class="category-hub-level-guide" aria-label="Blog level guide">
-        <p><strong>Level 1 · Foundations</strong> Build the essential ideas from scratch, with guided examples and no advanced prerequisites.</p>
-        <p><strong>Level 2 · Applied Practice</strong> Connect several techniques and work through richer modeling cases.</p>
-        <p><strong>Level 3 · Advanced Study</strong> Tackle more demanding methods, cases, and competition decisions.</p>
+        <p><strong>Level 1 · From Zero</strong> For first-time contestants with no modeling background. Start with problem framing, basic models, data, validation, and clear writing, then practice completing a full submission. Preparation target: CUMCM provincial second or third prize, or MCM/ICM H award.</p>
+        <p><strong>Level 2 · Competitive Practice</strong> For advancing contestants who already know all Level 1 material. Learn to choose and combine methods, test assumptions more rigorously, interpret results, and refine a model under competition time pressure. Preparation target: CUMCM provincial first prize or MCM/ICM M award.</p>
+        <p><strong>Level 3 · Top-Award Preparation</strong> For teams aiming at the highest awards, with all Level 1 and Level 2 knowledge as prerequisites. Develop original approaches, handle difficult trade-offs and uncertainty, validate thoroughly, and present a convincing final paper. Preparation target: CUMCM national first or second prize, or MCM/ICM O or F award.</p>
         <small>Higher-level course content may be paid in the future. No payment is required for posts currently published.</small>
       </div>
       <div class="category-hub-syllabus-scroll" tabindex="0" aria-label="Update plan table; scroll horizontally on narrow screens">

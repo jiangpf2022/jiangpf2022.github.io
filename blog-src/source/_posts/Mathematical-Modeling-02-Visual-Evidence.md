@@ -10,7 +10,7 @@ mathjax: true
 cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 40
 lesson_number: 3
-lesson_level: 2
+lesson_level: 1
 review_lock: true
 target_release: "2026-09-25"
 excerpt: "How to choose plots, diagrams, color, and layout so that every figure proves one part of the modeling argument."

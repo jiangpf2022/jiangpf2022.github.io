@@ -5,7 +5,7 @@ const draftsDir = process.argv[2] && path.resolve(process.argv[2]);
 if (!draftsDir) throw new Error("Provide the private OneDrive v2 draft directory.");
 
 const course = [
-  [2, "Visual Evidence", 2, ["Scientific Figures", "Communication"], "Make figures answer claims with fair comparisons, units, uncertainty, and readable captions."],
+  [2, "Visual Evidence", 1, ["Scientific Figures", "Communication"], "Make figures answer claims with fair comparisons, units, uncertainty, and readable captions."],
   [3, "Linear, Quadratic & Conic Optimization", 1, ["Linear Programming", "Quadratic Programming", "SOCP"], "Build LP, QP, and SOCP formulations from original, hand-checkable decisions."],
   [4, "Advanced Convex Optimization", 3, ["Convex Optimization", "Duality", "Proximal Algorithms"], "Study convex guarantees, duality, and advanced methods from geometric and computational viewpoints."],
   [5, "Multi-Objective & Robust Optimization", 1, ["Pareto", "Robust Optimization"], "Compare competing goals and uncertain resources without hiding trade-offs."],
