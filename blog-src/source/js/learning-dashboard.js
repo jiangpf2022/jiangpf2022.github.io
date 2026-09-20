@@ -33,6 +33,13 @@
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
 
+  const savedFragment = (item) => {
+    if (!item.content_html || !window.DOMPurify) return `<blockquote>${escapeHtml(item.quote_text)}</blockquote>`;
+    return `<div class="blog-learning-saved-fragment article-content markdown-body">${DOMPurify.sanitize(item.content_html, {
+      ADD_TAGS: ["mjx-container"], ADD_ATTR: ["jax", "display"],
+    })}</div>`;
+  };
+
   const reader = () => window.__blogReadingHistory;
   const availableToReader = (item) =>
     !item.reviewLock || (item.post_path?.includes("/Mathematical-Modeling-02-Visual-Evidence/") && reader()?.isDeveloper?.() && !reader()?.isRegularPreview?.());
@@ -325,7 +332,7 @@
     }
     const needle = savedQuery.trim().toLocaleLowerCase();
     const matches = savedPassages.filter((item) =>
-      [item.post_title, item.chapter_title, item.quote_text].some((value) =>
+      [item.post_title, item.chapter_title, item.quote_text, item.note_text].some((value) =>
         String(value || "").toLocaleLowerCase().includes(needle)));
     const pages = Math.max(1, Math.ceil(matches.length / SAVED_PAGE_SIZE));
     savedPage = Math.max(0, Math.min(savedPage, pages - 1));
@@ -335,7 +342,8 @@
           const href = `${safePostPath(item.post_path)}?bookmark=${encodeURIComponent(item.id)}`;
           return `<article class="blog-learning-saved-card">
             <div class="blog-learning-saved-meta"><span>${escapeHtml(item.chapter_title || "Saved passage")}</span><time>${escapeHtml(formatAddedDate(item.created_at))}</time></div>
-            <blockquote>${escapeHtml(item.quote_text)}</blockquote>
+            ${savedFragment(item)}
+            ${item.note_text ? `<div class="blog-learning-saved-note"><span><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Your note</span><p>${escapeHtml(item.note_text)}</p></div>` : ""}
             <footer><a href="${escapeHtml(href)}" aria-label="Open saved passage in ${escapeHtml(item.post_title)}">${escapeHtml(item.post_title)} <i class="fa-regular fa-arrow-up-right" aria-hidden="true"></i></a><button type="button" data-learning-bookmark-delete="${escapeHtml(item.id)}" aria-label="Remove saved passage from ${escapeHtml(item.post_title)}"><i class="fa-regular fa-trash-can" aria-hidden="true"></i></button></footer>
           </article>`;
         }).join("")}</div>`
@@ -392,7 +400,7 @@
         loadCourseCatalog(),
         api.loadExperience(),
         client.from("article_bookmarks")
-          .select("id,post_path,post_title,quote_text,chapter_title,created_at")
+          .select("id,post_path,post_title,quote_text,chapter_title,content_html,note_text,created_at")
           .eq("user_id", session.user.id)
           .order("created_at", { ascending: false })
           .limit(1000),

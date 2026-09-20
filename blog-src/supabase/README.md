@@ -4,6 +4,8 @@
 
 `article-bookmarks.sql` creates the private `article_bookmarks` table used by the article bookmark button and My Learning. It has been applied to the Blog Reader Supabase project. Row-level security permits each authenticated reader to view, add, and delete only their own passages; bookmarks are separate from reading-history and course-plan rows. If deploying the site against a different Supabase project, run this migration there before enabling the button.
 
+`article-bookmark-annotations.sql` adds optional notes, an HTML snapshot, and the inclusive start/end content-block positions to an existing bookmarks table. It has been applied to the live Blog Reader project. Existing text-only bookmarks remain readable. New snapshots are sanitized both before storage and before display; only the bookmark owner can read them through the existing RLS policies.
+
 ## Mathematical Modeling review lock
 
 Lesson 1 is public. Lesson 2 has its existing owner-only draft in `public.protected_modeling_articles`. The new 20-lesson edition's lessons 3–20 have routes and short public outlines, but **no revised full article bodies in Supabase yet**. In developer view, `jiangpf2022` sees a clearly labeled working-outline preview instead of the lock; regular-user view and other accounts still see a lock. This must not be mistaken for access to finished lesson text. Older lesson 3–18 drafts remain on their legacy URLs and in the OneDrive backup; do not silently render those topic-mismatched texts under the new lesson titles.

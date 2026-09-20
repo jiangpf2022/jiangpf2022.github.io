@@ -9,6 +9,10 @@ create table if not exists public.article_bookmarks (
   chapter_title text not null default '',
   start_offset integer not null check (start_offset >= 0),
   end_offset integer not null check (end_offset > start_offset),
+  start_block integer check (start_block >= 0),
+  end_block integer check (end_block >= start_block),
+  content_html text not null default '' check (char_length(content_html) <= 300000),
+  note_text text not null default '' check (char_length(note_text) <= 2000),
   created_at timestamptz not null default now(),
   unique (user_id, post_path, start_offset, end_offset)
 );
