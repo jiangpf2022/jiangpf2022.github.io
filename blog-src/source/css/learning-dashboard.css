@@ -1086,7 +1086,7 @@
 
 .blog-learning-saved-header {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 18px;
   margin-bottom: 18px;
@@ -1109,6 +1109,41 @@
   color: var(--learning-muted);
   font-size: 13px;
 }
+
+.blog-learning-saved-all {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border: 1px solid var(--learning-border);
+  border-radius: 11px;
+  color: var(--learning-accent) !important;
+  background: var(--learning-surface-strong);
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none !important;
+}
+
+.blog-learning-saved-fold > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--learning-border);
+  border-radius: 12px;
+  color: var(--learning-text);
+  background: var(--learning-surface-strong);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  list-style: none;
+}
+.blog-learning-saved-fold > summary::-webkit-details-marker { display: none; }
+.blog-learning-saved-fold[open] > summary { margin-bottom: 13px; }
+.blog-learning-saved-fold[open] > summary i { transform: rotate(180deg); }
+.blog-learning-saved-fold > summary i { transition: transform 0.2s ease; }
 
 .blog-learning-saved-header label {
   min-width: min(260px, 100%);
@@ -1235,7 +1270,41 @@
   font-size: 13px;
   line-height: 1.55;
   white-space: pre-wrap;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
+
+.blog-learning-saved-editor[hidden] { display: none; }
+.blog-learning-saved-editor { margin-top: 12px; }
+.blog-learning-saved-editor label { display: block; color: var(--learning-muted); font-size: 12px; font-weight: 750; }
+.blog-learning-saved-editor textarea {
+  display: block;
+  width: 100%;
+  min-height: 84px;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid var(--learning-border);
+  border-radius: 10px;
+  color: var(--learning-text);
+  background: var(--learning-surface-strong);
+  resize: vertical;
+  font: inherit;
+  font-weight: 400;
+}
+.blog-learning-saved-editor textarea:focus { outline: 2px solid var(--learning-accent); outline-offset: 1px; }
+.blog-learning-saved-editor > div { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.blog-learning-saved-editor button {
+  padding: 7px 11px;
+  border: 1px solid var(--learning-border);
+  border-radius: 8px;
+  color: var(--learning-accent);
+  background: var(--learning-surface-strong);
+  cursor: pointer;
+}
+.blog-learning-saved-editor button:disabled { cursor: wait; opacity: 0.55; }
+.blog-learning-saved-editor [role="status"] { color: var(--learning-muted); font-size: 11px; }
 
 .blog-learning-saved-card footer {
   margin-top: auto;

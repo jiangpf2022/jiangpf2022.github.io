@@ -23,6 +23,7 @@ create index if not exists article_bookmarks_user_recent_idx
 alter table public.article_bookmarks enable row level security;
 
 grant select, insert, delete on table public.article_bookmarks to authenticated;
+grant update (note_text) on table public.article_bookmarks to authenticated;
 
 create policy "Readers can view their own bookmarks"
 on public.article_bookmarks for select
@@ -38,3 +39,9 @@ create policy "Readers can delete their own bookmarks"
 on public.article_bookmarks for delete
 to authenticated
 using ((select auth.uid()) = user_id);
+
+create policy "Readers can edit their own bookmark notes"
+on public.article_bookmarks for update
+to authenticated
+using ((select auth.uid()) = user_id)
+with check ((select auth.uid()) = user_id);

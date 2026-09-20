@@ -21,9 +21,7 @@
   let catalogPromise = null;
   let savedPassages = [];
   let savedPassagesError = "";
-  let savedQuery = "";
-  let savedPage = 0;
-  const SAVED_PAGE_SIZE = 6;
+  const SAVED_PREVIEW_SIZE = 3;
 
   const escapeHtml = (value) =>
     String(value ?? "")
@@ -32,13 +30,6 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
-
-  const savedFragment = (item) => {
-    if (!item.content_html || !window.DOMPurify) return `<blockquote>${escapeHtml(item.quote_text)}</blockquote>`;
-    return `<div class="blog-learning-saved-fragment article-content markdown-body">${DOMPurify.sanitize(item.content_html, {
-      ADD_TAGS: ["mjx-container"], ADD_ATTR: ["jax", "display"],
-    })}</div>`;
-  };
 
   const reader = () => window.__blogReadingHistory;
   const availableToReader = (item) =>
@@ -313,44 +304,39 @@
   const savedPassagesMarkup = () => `
     <section class="blog-learning-saved" id="blog-learning-saved-passages" aria-label="Saved passages">
       <header class="blog-learning-saved-header">
-        <div><p class="blog-learning-eyebrow">YOUR PERSONAL LIBRARY</p><h3><i class="fa-solid fa-bookmark" aria-hidden="true"></i> Saved Passages</h3><p>Passages you chose from articles, independent of course plans.</p></div>
-        <label><span class="sr-only">Search saved passages</span><input type="search" data-learning-bookmark-search placeholder="Search saved passages" value="${escapeHtml(savedQuery)}"></label>
+        <div><p class="blog-learning-eyebrow">YOUR PERSONAL LIBRARY</p><h3><i class="fa-solid fa-bookmark" aria-hidden="true"></i> Saved Passages</h3><p>Your recent bookmarks stay compact here.</p></div>
+        <a class="blog-learning-saved-all" href="/blog/bookmarks/">View All Bookmarks <i class="fa-regular fa-arrow-up-right" aria-hidden="true"></i></a>
       </header>
-      <div data-learning-bookmark-list></div>
-      <div data-learning-bookmark-pager></div>
+      <details class="blog-learning-saved-fold">
+        <summary><span data-learning-bookmark-count>Recent bookmarks</span><i class="fa-regular fa-chevron-down" aria-hidden="true"></i></summary>
+        <div data-learning-bookmark-list></div>
+      </details>
     </section>`;
 
   const renderSavedPassages = () => {
     const section = document.querySelector("#blog-learning-saved-passages");
     if (!section) return;
     const list = section.querySelector("[data-learning-bookmark-list]");
-    const pager = section.querySelector("[data-learning-bookmark-pager]");
     if (savedPassagesError) {
       list.innerHTML = `<p class="blog-learning-saved-empty">${escapeHtml(savedPassagesError)}</p>`;
-      pager.innerHTML = "";
       return;
     }
-    const needle = savedQuery.trim().toLocaleLowerCase();
-    const matches = savedPassages.filter((item) =>
-      [item.post_title, item.chapter_title, item.quote_text, item.note_text].some((value) =>
-        String(value || "").toLocaleLowerCase().includes(needle)));
-    const pages = Math.max(1, Math.ceil(matches.length / SAVED_PAGE_SIZE));
-    savedPage = Math.max(0, Math.min(savedPage, pages - 1));
-    const visible = matches.slice(savedPage * SAVED_PAGE_SIZE, (savedPage + 1) * SAVED_PAGE_SIZE);
+    section.querySelector("[data-learning-bookmark-count]").textContent = savedPassages.length
+      ? `${savedPassages.length} saved passage${savedPassages.length === 1 ? "" : "s"} · ${Math.min(savedPassages.length, SAVED_PREVIEW_SIZE)} recent`
+      : "No saved passages yet";
+    const visible = savedPassages.slice(0, SAVED_PREVIEW_SIZE);
     list.innerHTML = visible.length
       ? `<div class="blog-learning-saved-grid">${visible.map((item) => {
           const href = `${safePostPath(item.post_path)}?bookmark=${encodeURIComponent(item.id)}`;
           return `<article class="blog-learning-saved-card">
             <div class="blog-learning-saved-meta"><span>${escapeHtml(item.chapter_title || "Saved passage")}</span><time>${escapeHtml(formatAddedDate(item.created_at))}</time></div>
-            ${savedFragment(item)}
+            <blockquote>${escapeHtml(item.quote_text)}</blockquote>
             ${item.note_text ? `<div class="blog-learning-saved-note"><span><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Your note</span><p>${escapeHtml(item.note_text)}</p></div>` : ""}
-            <footer><a href="${escapeHtml(href)}" aria-label="Open saved passage in ${escapeHtml(item.post_title)}">${escapeHtml(item.post_title)} <i class="fa-regular fa-arrow-up-right" aria-hidden="true"></i></a><button type="button" data-learning-bookmark-delete="${escapeHtml(item.id)}" aria-label="Remove saved passage from ${escapeHtml(item.post_title)}"><i class="fa-regular fa-trash-can" aria-hidden="true"></i></button></footer>
+            <footer><a href="${escapeHtml(href)}" aria-label="Open saved passage in ${escapeHtml(item.post_title)}">${escapeHtml(item.post_title)} <i class="fa-regular fa-arrow-up-right" aria-hidden="true"></i></a><button type="button" data-learning-bookmark-edit="${escapeHtml(item.id)}">${item.note_text ? "Edit note" : "Add note"}</button></footer>
+            <form class="blog-learning-saved-editor" data-learning-bookmark-form="${escapeHtml(item.id)}" hidden><label>Note<textarea maxlength="2000">${escapeHtml(item.note_text)}</textarea></label><div><button type="submit">Save note</button><button type="button" data-learning-bookmark-cancel>Cancel</button><span role="status"></span></div></form>
           </article>`;
         }).join("")}</div>`
-      : `<p class="blog-learning-saved-empty">${savedQuery ? "No saved passages match that search." : "No saved passages yet. Open an article and use Bookmark Passage to save a section you want to revisit."}</p>`;
-    pager.innerHTML = matches.length > SAVED_PAGE_SIZE
-      ? `<div class="blog-learning-saved-pager"><span>${matches.length} passages · Page ${savedPage + 1} of ${pages}</span><div><button type="button" data-learning-bookmark-page="-1" ${savedPage === 0 ? "disabled" : ""}>Previous</button><button type="button" data-learning-bookmark-page="1" ${savedPage >= pages - 1 ? "disabled" : ""}>Next</button></div></div>`
-      : matches.length ? `<div class="blog-learning-saved-pager"><span>${matches.length} saved passage${matches.length === 1 ? "" : "s"}</span></div>` : "";
+      : '<p class="blog-learning-saved-empty">Open an article and use Bookmark Passage to save something worth revisiting.</p>';
   };
 
   const activateCurve = (key) => {
@@ -400,7 +386,7 @@
         loadCourseCatalog(),
         api.loadExperience(),
         client.from("article_bookmarks")
-          .select("id,post_path,post_title,quote_text,chapter_title,content_html,note_text,created_at")
+          .select("id,post_path,post_title,quote_text,chapter_title,note_text,created_at")
           .eq("user_id", session.user.id)
           .order("created_at", { ascending: false })
           .limit(1000),
@@ -529,28 +515,15 @@
   };
 
   document.addEventListener("click", async (event) => {
-    const pageButton = event.target.closest("[data-learning-bookmark-page]");
-    if (pageButton) {
-      savedPage += Number(pageButton.dataset.learningBookmarkPage) || 0;
-      renderSavedPassages();
+    const editButton = event.target.closest("[data-learning-bookmark-edit]");
+    if (editButton) {
+      const form = editButton.closest(".blog-learning-saved-card")?.querySelector("[data-learning-bookmark-form]");
+      if (form) { form.hidden = false; form.querySelector("textarea").focus(); }
       return;
     }
-    const deleteButton = event.target.closest("[data-learning-bookmark-delete]");
-    if (deleteButton) {
-      const api = reader();
-      const session = api?.getSession?.();
-      if (!session || !window.confirm("Remove this saved passage?")) return;
-      deleteButton.disabled = true;
-      const id = deleteButton.dataset.learningBookmarkDelete;
-      const { error } = await api.getClient().from("article_bookmarks")
-        .delete().eq("id", id).eq("user_id", session.user.id);
-      if (error) {
-        deleteButton.disabled = false;
-        window.alert("Could not remove this passage. Please try again.");
-      } else {
-        savedPassages = savedPassages.filter((item) => item.id !== id);
-        renderSavedPassages();
-      }
+    const cancelButton = event.target.closest("[data-learning-bookmark-cancel]");
+    if (cancelButton) {
+      cancelButton.closest("[data-learning-bookmark-form]").hidden = true;
       return;
     }
     const curveButton = event.target.closest("[data-learning-curve]");
@@ -582,10 +555,29 @@
     }
   });
 
-  document.addEventListener("input", (event) => {
-    if (!event.target.matches("[data-learning-bookmark-search]")) return;
-    savedQuery = event.target.value;
-    savedPage = 0;
+  document.addEventListener("submit", async (event) => {
+    const form = event.target.closest("[data-learning-bookmark-form]");
+    if (!form) return;
+    event.preventDefault();
+    const api = reader();
+    const session = api?.getSession?.();
+    if (!session) return;
+    const id = form.dataset.learningBookmarkForm;
+    const note = form.querySelector("textarea").value.trim();
+    const status = form.querySelector('[role="status"]');
+    const save = form.querySelector('[type="submit"]');
+    save.disabled = true;
+    status.textContent = "Saving…";
+    let data;
+    let error;
+    try {
+      ({ data, error } = await api.getClient().from("article_bookmarks")
+        .update({ note_text: note }).eq("id", id).eq("user_id", session.user.id).select("id"));
+    } catch (_error) { error = _error; }
+    save.disabled = false;
+    if (error || !data?.length) { status.textContent = "Could not save. Please try again."; return; }
+    const item = savedPassages.find((entry) => entry.id === id);
+    if (item) item.note_text = note;
     renderSavedPassages();
   });
 
