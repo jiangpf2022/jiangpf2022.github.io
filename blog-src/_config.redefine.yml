@@ -406,7 +406,7 @@ inject:
     - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260914-history-loop">
     - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260920-bookmark-library">
     - <link rel="stylesheet" href="/blog/css/bookmarks-library.css?v=20260920-bookmark-library">
-    - <link rel="stylesheet" href="/blog/css/article-bookmarks.css?v=20260920-annotated-bookmarks">
+    - <link rel="stylesheet" href="/blog/css/article-bookmarks.css?v=20260920-draggable-bookmark">
     - <link rel="stylesheet" href="/blog/css/protected-modeling.css?v=20260919-modeling-locks">
   # Inject custom footer html code
   footer:
@@ -420,7 +420,7 @@ inject:
     - <script src="/blog/js/protected-modeling.js?v=20260919-modeling-ai"></script>
     - <script src="/blog/js/modeling-callouts.js?v=20260915-bilingual1"></script>
     - <script src="/blog/js/modeling-language-switch.js?v=20260915-bilingual1"></script>
-    - <script src="/blog/js/article-bookmarks.js?v=20260920-annotated-bookmarks"></script>
+    - <script src="/blog/js/article-bookmarks.js?v=20260920-draggable-bookmark"></script>
     - <script src="/blog/js/learning-dashboard.js?v=20260920-bookmark-library"></script>
     - <script src="/blog/js/bookmarks-library.js?v=20260920-bookmark-library"></script>
     - <script src="/blog/js/category-hub.js?v=20260919-level-guide"></script>

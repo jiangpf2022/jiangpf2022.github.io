@@ -1,13 +1,20 @@
 .blog-bookmark-control {
   position: fixed;
-  z-index: 90;
+  z-index: 1004;
   top: 42%;
   right: max(16px, env(safe-area-inset-right));
   color: #263b61;
   font-family: inherit;
 }
 
+.blog-bookmark-control.has-custom-position { right: auto; bottom: auto; }
+html.blog-reader-panel-open .blog-bookmark-control { visibility: hidden; pointer-events: none; }
+
+html.blog-bookmark-dragging,
+html.blog-bookmark-dragging * { cursor: grabbing !important; user-select: none !important; }
+
 .blog-bookmark-trigger {
+  position: relative;
   display: grid;
   width: 48px;
   height: 48px;
@@ -19,9 +26,14 @@
   background-image: linear-gradient(135deg, #427bd0, #7454b8) !important;
   box-shadow: 0 10px 26px rgba(33, 67, 135, .3);
   font-size: 19px;
-  cursor: pointer;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
   transition: transform .18s ease, box-shadow .18s ease;
 }
+
+.blog-bookmark-trigger.is-dragging { cursor: grabbing; transform: scale(1.06); transition: box-shadow .12s ease; }
+.blog-bookmark-trigger::after { content: "⋮"; position: absolute; right: 3px; bottom: 0; opacity: .72; font-size: 11px; line-height: 1; pointer-events: none; }
 
 .blog-bookmark-trigger:hover,
 .blog-bookmark-trigger:focus-visible,
@@ -31,11 +43,11 @@
   outline: 2px solid rgba(126, 171, 255, .6);
   outline-offset: 3px;
 }
+.blog-bookmark-trigger.is-dragging:hover,
+.blog-bookmark-trigger.is-dragging:focus-visible { transform: scale(1.06); }
 
 .blog-bookmark-toast {
-  position: absolute;
-  top: 2px;
-  right: calc(100% + 10px);
+  position: fixed;
   width: max-content;
   max-width: min(310px, calc(100vw - 85px));
   padding: 9px 12px;
@@ -49,10 +61,12 @@
 .blog-bookmark-toast[hidden] { display: none !important; }
 
 .blog-bookmark-panel {
-  position: absolute;
-  top: 0;
-  right: calc(100% + 12px);
+  position: fixed;
+  box-sizing: border-box;
   width: min(340px, calc(100vw - 84px));
+  max-height: calc(100vh - 24px);
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
   padding: 17px;
   border: 1px solid rgba(92, 139, 205, .34);
   border-radius: 17px;
@@ -148,6 +162,6 @@
 @media (max-width: 640px) {
   .blog-bookmark-control { top: auto; bottom: max(100px, calc(90px + env(safe-area-inset-bottom))); right: 12px; }
   .blog-bookmark-trigger { width: 44px; height: 44px; }
-  .blog-bookmark-panel { top: auto; bottom: 0; right: calc(100% + 9px); }
+  .blog-bookmark-control.has-custom-position { top: auto; bottom: auto; right: auto; }
 }
 @media print { .blog-bookmark-control { display: none !important; } }

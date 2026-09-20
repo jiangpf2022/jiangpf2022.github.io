@@ -9,6 +9,7 @@
   const MAX_HTML = 300000;
   const MAX_NOTE = 2000;
   const MAX_BLOCKS = 25;
+  const POSITION_KEY = "blog-bookmark-trigger-position";
   const ignored = ".blog-reader-plan-control, .blog-reader-chapter-checkpoint, .mm-protected-article, .mm-development-preview, script, style";
   const cleanOptions = { ADD_TAGS: ["mjx-container"], ADD_ATTR: ["jax", "display"] };
   let content = null;
@@ -20,6 +21,71 @@
   let saving = false;
   let revealVersion = 0;
   let skipClick = false;
+  let triggerDrag = null;
+  let suppressToggleClick = false;
+
+  const clamp = (value, minimum, maximum) => Math.max(minimum, Math.min(maximum, value));
+  const placePopover = () => {
+    if (!control) return;
+    const trigger = control.querySelector("[data-bookmark-toggle]");
+    const anchor = trigger.getBoundingClientRect();
+    const position = (element, gap) => {
+      if (element.hidden) return;
+      element.style.maxHeight = "";
+      const width = element.offsetWidth;
+      const roomLeft = anchor.left - gap - 12;
+      const roomRight = window.innerWidth - anchor.right - gap - 12;
+      const preferLeft = anchor.left > window.innerWidth / 2;
+      const side = preferLeft && roomLeft >= width ? "left"
+        : roomRight >= width ? "right" : roomLeft >= width ? "left" : null;
+      if (side) {
+        const left = side === "left" ? anchor.left - width - gap : anchor.right + gap;
+        element.style.left = `${clamp(left, 12, Math.max(12, window.innerWidth - width - 12))}px`;
+        element.style.top = `${clamp(anchor.top, 12, Math.max(12, window.innerHeight - element.offsetHeight - 12))}px`;
+        return;
+      }
+      const roomAbove = anchor.top - gap - 12;
+      const roomBelow = window.innerHeight - anchor.bottom - gap - 12;
+      const below = roomBelow >= roomAbove;
+      element.style.maxHeight = `${Math.max(120, below ? roomBelow : roomAbove)}px`;
+      const top = below ? anchor.bottom + gap : anchor.top - element.offsetHeight - gap;
+      element.style.left = `${clamp(anchor.left + anchor.width / 2 - width / 2, 12, Math.max(12, window.innerWidth - width - 12))}px`;
+      element.style.top = `${clamp(top, 12, Math.max(12, window.innerHeight - element.offsetHeight - 12))}px`;
+    };
+    position(control.querySelector("[data-bookmark-panel]"), 10);
+    position(control.querySelector("[data-bookmark-toast]"), 10);
+  };
+  const setControlPosition = (centerX, centerY, persist = false) => {
+    if (!control) return;
+    const trigger = control.querySelector("[data-bookmark-toggle]");
+    const halfWidth = trigger.offsetWidth / 2;
+    const halfHeight = trigger.offsetHeight / 2;
+    const x = clamp(centerX, halfWidth + 12, Math.max(halfWidth + 12, window.innerWidth - halfWidth - 12));
+    const y = clamp(centerY, halfHeight + 12, Math.max(halfHeight + 12, window.innerHeight - halfHeight - 12));
+    control.classList.add("has-custom-position");
+    control.style.left = `${Math.round(x - halfWidth)}px`;
+    control.style.top = `${Math.round(y - halfHeight)}px`;
+    control.style.right = "auto";
+    control.style.bottom = "auto";
+    if (persist) {
+      try {
+        localStorage.setItem(POSITION_KEY, JSON.stringify({ x: x / window.innerWidth, y: y / window.innerHeight }));
+      } catch (_error) { /* Private browsing can disable storage. */ }
+    }
+    placePopover();
+  };
+  const restoreControlPosition = () => {
+    if (!control) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem(POSITION_KEY));
+      if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)
+        && saved.x > 0 && saved.x < 1 && saved.y > 0 && saved.y < 1) {
+        setControlPosition(saved.x * window.innerWidth, saved.y * window.innerHeight);
+        return;
+      }
+    } catch (_error) { /* Use the CSS default position. */ }
+    placePopover();
+  };
 
   const reader = () => window.__blogReadingHistory;
   const articlePath = () => /^\/blog\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/$/.test(location.pathname)
@@ -58,7 +124,7 @@
     const panel = control.querySelector("[data-bookmark-panel]");
     const toast = control.querySelector("[data-bookmark-toast]");
     trigger.setAttribute("aria-expanded", String(selecting));
-    trigger.title = selecting ? "Close bookmark tool" : "Bookmark a passage";
+    trigger.title = selecting ? "Close bookmark tool (drag to move)" : "Bookmark a passage (drag to move)";
     panel.hidden = !selecting;
     toast.hidden = selecting || !message;
     toast.textContent = !selecting ? message : "";
@@ -70,6 +136,7 @@
       ? "Click the first content block, then the last. Or drag-select text. Images and formulas can be selected by clicking them."
       : endBlock === null ? "Start chosen. Click the last block, or save this block."
         : `${count} content block${count === 1 ? "" : "s"} selected. Add a note if you like, then save.`);
+    placePopover();
   };
   const choose = (first, last = null) => {
     startBlock = first;
@@ -255,6 +322,8 @@
   };
   const refreshPage = () => {
     revealVersion += 1;
+    triggerDrag = null;
+    document.documentElement.classList.remove("blog-bookmark-dragging");
     clearMarks();
     control?.remove();
     control = null;
@@ -268,7 +337,7 @@
     content = article;
     control = document.createElement("div");
     control.className = "blog-bookmark-control";
-    control.innerHTML = `<button type="button" class="blog-bookmark-trigger" data-bookmark-toggle aria-label="Bookmark a passage" aria-expanded="false" title="Bookmark a passage"><i class="fa-regular fa-bookmark" aria-hidden="true"></i></button>
+    control.innerHTML = `<button type="button" class="blog-bookmark-trigger" data-bookmark-toggle aria-label="Bookmark a passage" aria-description="Drag to move this button" aria-expanded="false" title="Bookmark a passage (drag to move)"><i class="fa-regular fa-bookmark" aria-hidden="true"></i></button>
       <span class="blog-bookmark-toast" data-bookmark-toast role="status" hidden></span>
       <div class="blog-bookmark-panel" data-bookmark-panel hidden>
         <strong>Save a passage</strong>
@@ -280,12 +349,59 @@
       </div>`;
     document.body.appendChild(control);
     renderControl();
+    restoreControlPosition();
     if (new URLSearchParams(location.search).has("bookmark")) setTimeout(revealSavedPassage, 350);
   };
+
+  document.addEventListener("pointerdown", (event) => {
+    const trigger = event.target.closest("[data-bookmark-toggle]");
+    if (!trigger || !control?.contains(trigger) || (event.button !== undefined && event.button !== 0)) return;
+    const rect = trigger.getBoundingClientRect();
+    triggerDrag = {
+      trigger,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      grabOffsetX: event.clientX - (rect.left + rect.width / 2),
+      grabOffsetY: event.clientY - (rect.top + rect.height / 2),
+      moved: false,
+    };
+    try { trigger.setPointerCapture?.(event.pointerId); } catch (_error) { /* Document listeners still handle dragging. */ }
+  });
+  document.addEventListener("pointermove", (event) => {
+    if (!triggerDrag || triggerDrag.pointerId !== event.pointerId) return;
+    if (!triggerDrag.moved && Math.hypot(event.clientX - triggerDrag.startX, event.clientY - triggerDrag.startY) < 6) return;
+    triggerDrag.moved = true;
+    event.preventDefault();
+    triggerDrag.trigger.classList.add("is-dragging");
+    document.documentElement.classList.add("blog-bookmark-dragging");
+    setControlPosition(event.clientX - triggerDrag.grabOffsetX, event.clientY - triggerDrag.grabOffsetY);
+  }, { passive: false });
+  const finishTriggerDrag = (event) => {
+    if (!triggerDrag || triggerDrag.pointerId !== event.pointerId) return;
+    const { trigger, moved } = triggerDrag;
+    if (moved) {
+      const rect = trigger.getBoundingClientRect();
+      setControlPosition(rect.left + rect.width / 2, rect.top + rect.height / 2, true);
+      suppressToggleClick = true;
+      setTimeout(() => { suppressToggleClick = false; }, 400);
+    }
+    try {
+      if (trigger.hasPointerCapture?.(event.pointerId)) trigger.releasePointerCapture(event.pointerId);
+    } catch (_error) { /* The pointer may have already been released. */ }
+    trigger.classList.remove("is-dragging");
+    document.documentElement.classList.remove("blog-bookmark-dragging");
+    triggerDrag = null;
+  };
+  document.addEventListener("pointerup", finishTriggerDrag);
+  document.addEventListener("pointercancel", finishTriggerDrag);
+  window.addEventListener("resize", restoreControlPosition, { passive: true });
+  window.visualViewport?.addEventListener("resize", restoreControlPosition, { passive: true });
 
   document.addEventListener("click", (event) => {
     const toggle = event.target.closest("[data-bookmark-toggle]");
     if (toggle && control?.contains(toggle)) {
+      if (suppressToggleClick) { suppressToggleClick = false; event.preventDefault(); return; }
       if (!reader()?.getClient?.()) return renderControl("The account service is unavailable. Try again later.");
       if (!reader()?.getSession?.()) return reader()?.signIn?.();
       selecting = !selecting;
