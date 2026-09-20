@@ -305,7 +305,7 @@ $$
 
 <div class="mm-gallery mm-gallery-3">
 <figure><img src="/blog/images/mathematical-modeling/modeling-04.webp" alt="竞赛建模的知识结构"><figcaption>竞赛把数学、计算、领域知识与写作连成一条论证。</figcaption></figure>
-<figure><img src="/blog/images/mathematical-modeling/modeling-06.webp" alt="共享知识空间"><figcaption>共享笔记存放问题地图、假设和任务分工。</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/modeling-06.webp" alt="共享知识空间"><figcaption>平时积累的笔记与见解，可以在备赛时成为团队共享的知识库。</figcaption></figure>
 <figure><img src="/blog/images/mathematical-modeling/modeling-07.webp" alt="协作文档空间"><figcaption>协作文档让团队始终写同一份当前版本。</figcaption></figure>
 </div>
 
@@ -313,9 +313,9 @@ $$
 
 ## 可复现的团队工具
 
-建模时会用到不少工具，别把它看成“每个软件都要会”的采购清单。它们各做一件事：共享笔记放问题和分工，协作文档写大家都能看到的当前版本，Python 负责能重跑的数据与计算，LaTeX 负责长篇技术报告，draw.io 或 PowerPoint 帮我们画清模块关系；语言模型可以帮忙，但给出的东西要自己核对。
+建模时会用到不少工具，别把它看成“每个软件都要会”的采购清单。它们各做一件事：Notion 这样的共享笔记适合慢慢积累想法，协作文档用来写大家都能看到的当前稿件，Python 负责能重跑的数据与计算，LaTeX 负责长篇技术报告，draw.io 或 PowerPoint 帮我们画清模块关系；语言模型可以帮忙，但给出的东西要自己核对。
 
-想象三位队友刚拿到题目、数据和截止时间，坐在一起的第一件事是什么？在 Notion 或别的共享笔记里，把真正要回答的问题、几个子问题、缺的数据和负责人写下来。用不用 Notion 不重要；重要的是三个人面对同一张不断更新的问题地图，而不是各自凭记忆解着三个不同版本的题。
+Notion 不必等到比赛那天才打开。平时上课、读论文，或读完这篇博客后，若你对某个假设有了自己的见解，发现一个好用的例子，或者想起一种检验模型的办法，都可以随手记进去。笔记不需要一开始就写得完整；标明它来自哪里、自己理解到哪一步、还有什么没想通，过后才容易接着讨论。到了备赛或正式组队时，把这些笔记共享给队友，再一起整理成题目地图：这次真正要回答什么、有哪些待查的数据、谁来试哪种方法。这样 Notion 更像一份大家共同维护的知识库，而不只是临时分工表。正式论文则继续放在协作文档里写，两者各有用处。
 
 写作的文档也可以现在就打开。Google Doc 或同类工具里，先放一个临时标题、两句自己的问题重述、一张变量表，结果部分空着也没关系。写得出来，往往说明你真的想明白了；写着“模型求出了最优排班”，却说不清“最优”的指标，就说明目标还没定好。论文应该伴着推理一起长出来，不必等最后一晚再把结果一股脑塞进去。
 

@@ -368,7 +368,7 @@ I would encourage a novice team to produce one imperfect but complete chain in t
 
 <div class="mm-gallery mm-gallery-3">
 <figure><img src="/blog/images/mathematical-modeling/modeling-04.webp" alt="The connected skills used in modeling competitions"><figcaption>The competition joins mathematics, computation, domain knowledge, and writing.</figcaption></figure>
-<figure><img src="/blog/images/mathematical-modeling/modeling-06.webp" alt="Notion modeling workspace"><figcaption>Notion can hold the problem map, decisions, reading notes, and division of work.</figcaption></figure>
+<figure><img src="/blog/images/mathematical-modeling/modeling-06.webp" alt="Notion modeling workspace"><figcaption>Everyday notes and insights can become a shared knowledge base when the team prepares together.</figcaption></figure>
 <figure><img src="/blog/images/mathematical-modeling/modeling-07.webp" alt="Collaborative document workspace"><figcaption>A shared document gives the team one current version of the narrative.</figcaption></figure>
 </div>
 
@@ -376,9 +376,9 @@ We have a map of what a team must reason through. Now we can decide where the wo
 
 ## Tools for reproducible teamwork
 
-A modeling team's toolbox is a pipeline, not a list of brands. Use a shared knowledge base for task ownership; a collaborative document for live writing; Python for data, simulation, and optimization; LaTeX for the final mathematical document; draw.io or PowerPoint for diagrams; and an LLM only as an assistant whose claims and code are checked.
+A modeling team's toolbox is not a list of brands to master. A shared notebook such as Notion helps ideas accumulate over time; a collaborative document holds the current draft; Python handles repeatable data work, simulation, and optimization; LaTeX helps with a long mathematical report; draw.io or PowerPoint helps make relationships visible; and an LLM remains an assistant whose claims and code we check.
 
-Let us organize the tools around one ordinary team meeting. Three students sit down with a modeling question, some data, and a deadline. One person writes the question and its subproblems in **Notion** or another shared notebook. The point is not the brand: it is that everyone can see the same current problem map, who owns each task, what data are missing, and which assumption has not yet been tested. If the question map lives only in one person's head, the other two can spend a day solving incompatible versions of the problem.
+**Notion** can be useful long before a team sits down with a competition question. After a class, a paper, or this blog, you might notice a good example, question an assumption, or think of a way to test a model. Put the thought in a shared notebook while it is still fresh. It need not be polished: note where it came from, what you understand so far, and what remains uncertain. When the team prepares together, those small entries become material everyone can read and discuss. For a particular problem, the team can then organize them into a map of questions, missing data, possible methods, and responsibilities. The notebook is a growing shared knowledge base, not merely a last-minute task board; the report itself belongs in the collaborative writing document.
 
 Open a shared **Google Doc** or equivalent writing space early, even if its first version is ugly. Put in the working title, a two-sentence problem restatement, a variable table, and blank spaces for results. Why write before the math is finished? Because writing forces you to discover unanswered questions. If a paragraph says “our model predicts the best schedule” but you cannot yet say *what counts as best*, your objective is not fully specified. The document should track the logic of the work, not just receive it on the last night.
 
