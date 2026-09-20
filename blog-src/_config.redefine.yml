@@ -404,7 +404,8 @@ inject:
     - <link rel="stylesheet" href="/blog/css/modeling-language-switch.css?v=20260915-bilingual1">
     - <link rel="stylesheet" href="/blog/css/article-attachments.css?v=20260914">
     - <link rel="stylesheet" href="/blog/css/reading-history.css?v=20260914-history-loop">
-    - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260918-database-course">
+    - <link rel="stylesheet" href="/blog/css/learning-dashboard.css?v=20260919-saved-passages">
+    - <link rel="stylesheet" href="/blog/css/article-bookmarks.css?v=20260919-saved-passages">
     - <link rel="stylesheet" href="/blog/css/protected-modeling.css?v=20260919-modeling-locks">
   # Inject custom footer html code
   footer:
@@ -417,7 +418,8 @@ inject:
     - <script src="/blog/js/protected-modeling.js?v=20260919-modeling-ai"></script>
     - <script src="/blog/js/modeling-callouts.js?v=20260915-bilingual1"></script>
     - <script src="/blog/js/modeling-language-switch.js?v=20260915-bilingual1"></script>
-    - <script src="/blog/js/learning-dashboard.js?v=20260919-modeling-ai"></script>
+    - <script src="/blog/js/article-bookmarks.js?v=20260919-saved-passages"></script>
+    - <script src="/blog/js/learning-dashboard.js?v=20260919-saved-passages"></script>
     - <script src="/blog/js/category-hub.js?v=20260919-level-guide"></script>
     - <script src="/blog/js/category-showcase.js?v=20260919-public-feed"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end

@@ -1,0 +1,94 @@
+.blog-bookmark-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+  padding: 12px 14px;
+  border: 1px solid rgba(92, 139, 205, 0.24);
+  border-radius: 16px;
+  background: linear-gradient(120deg, rgba(228, 241, 255, 0.84), rgba(242, 235, 255, 0.72));
+  box-shadow: 0 8px 24px rgba(45, 88, 156, 0.08);
+}
+
+.dark-mode .blog-bookmark-control {
+  border-color: rgba(144, 193, 255, 0.24);
+  background: linear-gradient(120deg, rgba(34, 66, 108, 0.66), rgba(62, 43, 103, 0.6));
+}
+
+.blog-bookmark-control button {
+  display: inline-flex;
+  min-height: 40px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid rgba(62, 107, 188, 0.4);
+  border-radius: 11px;
+  color: #f8fbff;
+  background: linear-gradient(120deg, #426fbd, #7955af);
+  box-shadow: 0 5px 14px rgba(48, 74, 142, 0.2);
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.blog-bookmark-control button:hover,
+.blog-bookmark-control button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(48, 74, 142, 0.28);
+  outline: 2px solid rgba(126, 171, 255, 0.45);
+  outline-offset: 2px;
+}
+
+.blog-bookmark-control button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.blog-bookmark-hint {
+  color: #415a7d;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.dark-mode .blog-bookmark-hint {
+  color: #d4e4ff;
+}
+
+.blog-bookmark-control.is-selecting {
+  border-color: rgba(105, 119, 227, 0.5);
+  box-shadow: 0 0 0 3px rgba(120, 130, 240, 0.12);
+}
+
+::highlight(saved-passage) {
+  color: inherit;
+  background-color: rgba(255, 199, 85, 0.6);
+}
+
+.dark-mode ::highlight(saved-passage) {
+  background-color: rgba(232, 172, 68, 0.45);
+}
+
+.article-content .blog-bookmark-revealed {
+  border-radius: 6px;
+  box-shadow: 0 0 0 5px rgba(255, 196, 78, 0.22);
+}
+
+@media (max-width: 640px) {
+  .blog-bookmark-control {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .blog-bookmark-control button {
+    width: 100%;
+  }
+}
+
+@media print {
+  .blog-bookmark-control {
+    display: none !important;
+  }
+}

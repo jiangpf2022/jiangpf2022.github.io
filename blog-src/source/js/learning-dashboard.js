@@ -19,6 +19,11 @@
   let selectedCurve = "all";
   let activeCourseSlugs = new Set();
   let catalogPromise = null;
+  let savedPassages = [];
+  let savedPassagesError = "";
+  let savedQuery = "";
+  let savedPage = 0;
+  const SAVED_PAGE_SIZE = 6;
 
   const escapeHtml = (value) =>
     String(value ?? "")
@@ -211,7 +216,7 @@
       <span class="blog-learning-auth-icon"><i class="fa-brands fa-github" aria-hidden="true"></i></span>
       <p class="blog-learning-eyebrow">PRIVATE STUDY SPACE</p>
       <h2>Sign in to view My Learning</h2>
-      <p>Your course plans, chapter completion, and mastery curves are visible only to your GitHub account.</p>
+      <p>Your course plans, saved passages, chapter completion, and mastery curves are visible only to your GitHub account.</p>
       <button type="button" data-learning-action="signin"><i class="fa-brands fa-github" aria-hidden="true"></i> Continue with GitHub</button>
     </section>
   `;
@@ -298,6 +303,48 @@
     `;
   };
 
+  const savedPassagesMarkup = () => `
+    <section class="blog-learning-saved" id="blog-learning-saved-passages" aria-label="Saved passages">
+      <header class="blog-learning-saved-header">
+        <div><p class="blog-learning-eyebrow">YOUR PERSONAL LIBRARY</p><h3><i class="fa-solid fa-bookmark" aria-hidden="true"></i> Saved Passages</h3><p>Passages you chose from articles, independent of course plans.</p></div>
+        <label><span class="sr-only">Search saved passages</span><input type="search" data-learning-bookmark-search placeholder="Search saved passages" value="${escapeHtml(savedQuery)}"></label>
+      </header>
+      <div data-learning-bookmark-list></div>
+      <div data-learning-bookmark-pager></div>
+    </section>`;
+
+  const renderSavedPassages = () => {
+    const section = document.querySelector("#blog-learning-saved-passages");
+    if (!section) return;
+    const list = section.querySelector("[data-learning-bookmark-list]");
+    const pager = section.querySelector("[data-learning-bookmark-pager]");
+    if (savedPassagesError) {
+      list.innerHTML = `<p class="blog-learning-saved-empty">${escapeHtml(savedPassagesError)}</p>`;
+      pager.innerHTML = "";
+      return;
+    }
+    const needle = savedQuery.trim().toLocaleLowerCase();
+    const matches = savedPassages.filter((item) =>
+      [item.post_title, item.chapter_title, item.quote_text].some((value) =>
+        String(value || "").toLocaleLowerCase().includes(needle)));
+    const pages = Math.max(1, Math.ceil(matches.length / SAVED_PAGE_SIZE));
+    savedPage = Math.max(0, Math.min(savedPage, pages - 1));
+    const visible = matches.slice(savedPage * SAVED_PAGE_SIZE, (savedPage + 1) * SAVED_PAGE_SIZE);
+    list.innerHTML = visible.length
+      ? `<div class="blog-learning-saved-grid">${visible.map((item) => {
+          const href = `${safePostPath(item.post_path)}?bookmark=${encodeURIComponent(item.id)}`;
+          return `<article class="blog-learning-saved-card">
+            <div class="blog-learning-saved-meta"><span>${escapeHtml(item.chapter_title || "Saved passage")}</span><time>${escapeHtml(formatAddedDate(item.created_at))}</time></div>
+            <blockquote>${escapeHtml(item.quote_text)}</blockquote>
+            <footer><a href="${escapeHtml(href)}" aria-label="Open saved passage in ${escapeHtml(item.post_title)}">${escapeHtml(item.post_title)} <i class="fa-regular fa-arrow-up-right" aria-hidden="true"></i></a><button type="button" data-learning-bookmark-delete="${escapeHtml(item.id)}" aria-label="Remove saved passage from ${escapeHtml(item.post_title)}"><i class="fa-regular fa-trash-can" aria-hidden="true"></i></button></footer>
+          </article>`;
+        }).join("")}</div>`
+      : `<p class="blog-learning-saved-empty">${savedQuery ? "No saved passages match that search." : "No saved passages yet. Open an article and use Bookmark Passage to save a section you want to revisit."}</p>`;
+    pager.innerHTML = matches.length > SAVED_PAGE_SIZE
+      ? `<div class="blog-learning-saved-pager"><span>${matches.length} passages · Page ${savedPage + 1} of ${pages}</span><div><button type="button" data-learning-bookmark-page="-1" ${savedPage === 0 ? "disabled" : ""}>Previous</button><button type="button" data-learning-bookmark-page="1" ${savedPage >= pages - 1 ? "disabled" : ""}>Next</button></div></div>`
+      : matches.length ? `<div class="blog-learning-saved-pager"><span>${matches.length} saved passage${matches.length === 1 ? "" : "s"}</span></div>` : "";
+  };
+
   const activateCurve = (key) => {
     selectedCurve = key === "all" || activeCourseSlugs.has(key) ? key : "all";
     document.querySelectorAll("[data-learning-curve]").forEach((button) => {
@@ -334,8 +381,9 @@
     let historyResult;
     let catalog;
     let experience;
+    let bookmarksResult;
     try {
-      [planResult, historyResult, catalog, experience] = await Promise.all([
+      [planResult, historyResult, catalog, experience, bookmarksResult] = await Promise.all([
         client.from("course_plans").select("course_slug,enrolled_at").order("enrolled_at", { ascending: false }),
         client
           .from("reading_history")
@@ -343,6 +391,11 @@
           .limit(1000),
         loadCourseCatalog(),
         api.loadExperience(),
+        client.from("article_bookmarks")
+          .select("id,post_path,post_title,quote_text,chapter_title,created_at")
+          .eq("user_id", session.user.id)
+          .order("created_at", { ascending: false })
+          .limit(1000),
       ]);
     } catch (_error) {
       planResult = { error: new Error("Course catalog unavailable") };
@@ -396,6 +449,10 @@
     }
 
     const metadata = session.user.user_metadata || {};
+    const reviewLockedPaths = new Set(catalog.filter((post) => post.reviewLock).map((post) => post.post_path));
+    savedPassages = (bookmarksResult?.data || []).filter((item) =>
+      !reviewLockedPaths.has(safePostPath(item.post_path)) || (api.isDeveloper?.() && !api.isRegularPreview?.()));
+    savedPassagesError = bookmarksResult?.error ? "Saved passages could not be loaded right now. Please refresh and try again." : "";
     const displayName = metadata.user_name || metadata.preferred_username || metadata.name || "GitHub User";
     const avatar = typeof metadata.avatar_url === "string" && /^https:\/\/avatars\.githubusercontent\.com\//.test(metadata.avatar_url)
       ? metadata.avatar_url
@@ -432,6 +489,7 @@
         <article><span>Current Mastery</span><strong>${totalMastery}</strong><small>%</small></article>
       </section>
       ${reviewWarningMarkup(available)}
+      ${savedPassagesMarkup()}
       <section class="blog-learning-curve-lab">
         <header>
           <div><p class="blog-learning-eyebrow">RETENTION VIEW</p><h3>Forgetting Curves</h3></div>
@@ -458,10 +516,35 @@
     `;
     loading = false;
     activateCurve(selectedCurve);
+    renderSavedPassages();
     refreshScrollIndicator();
   };
 
   document.addEventListener("click", async (event) => {
+    const pageButton = event.target.closest("[data-learning-bookmark-page]");
+    if (pageButton) {
+      savedPage += Number(pageButton.dataset.learningBookmarkPage) || 0;
+      renderSavedPassages();
+      return;
+    }
+    const deleteButton = event.target.closest("[data-learning-bookmark-delete]");
+    if (deleteButton) {
+      const api = reader();
+      const session = api?.getSession?.();
+      if (!session || !window.confirm("Remove this saved passage?")) return;
+      deleteButton.disabled = true;
+      const id = deleteButton.dataset.learningBookmarkDelete;
+      const { error } = await api.getClient().from("article_bookmarks")
+        .delete().eq("id", id).eq("user_id", session.user.id);
+      if (error) {
+        deleteButton.disabled = false;
+        window.alert("Could not remove this passage. Please try again.");
+      } else {
+        savedPassages = savedPassages.filter((item) => item.id !== id);
+        renderSavedPassages();
+      }
+      return;
+    }
     const curveButton = event.target.closest("[data-learning-curve]");
     if (curveButton) {
       activateCurve(curveButton.dataset.learningCurve);
@@ -489,6 +572,13 @@
         loadDashboard();
       }
     }
+  });
+
+  document.addEventListener("input", (event) => {
+    if (!event.target.matches("[data-learning-bookmark-search]")) return;
+    savedQuery = event.target.value;
+    savedPage = 0;
+    renderSavedPassages();
   });
 
   document.addEventListener("blog-reader:state", loadDashboard);

@@ -1073,3 +1073,189 @@
 .dark .blog-learning-legacy-records a {
   background: rgba(25, 44, 76, 0.65);
 }
+.blog-learning-saved {
+  margin: 22px 0;
+  padding: 24px;
+  border: 1px solid var(--learning-border);
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--learning-surface-strong), var(--learning-surface));
+  box-shadow: 0 16px 40px rgba(24, 57, 110, 0.09);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.blog-learning-saved-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.blog-learning-saved-header h3 {
+  margin: 0 !important;
+  color: var(--learning-text) !important;
+  font-size: 1.35rem !important;
+}
+
+.blog-learning-saved-header h3 i {
+  margin-right: 7px;
+  color: var(--learning-accent);
+  font-size: 0.95em;
+}
+
+.blog-learning-saved-header p:last-child {
+  margin: 6px 0 0 !important;
+  color: var(--learning-muted);
+  font-size: 13px;
+}
+
+.blog-learning-saved-header label {
+  min-width: min(260px, 100%);
+}
+
+.blog-learning-saved-header .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.blog-learning-saved-header input {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--learning-border);
+  border-radius: 12px;
+  color: var(--learning-text);
+  background: var(--learning-surface-strong);
+  outline: none;
+}
+
+.blog-learning-saved-header input:focus {
+  border-color: var(--learning-accent);
+  box-shadow: 0 0 0 3px rgba(102, 145, 240, 0.15);
+}
+
+.blog-learning-saved-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.blog-learning-saved-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid var(--learning-border);
+  border-radius: 17px;
+  background: var(--learning-surface);
+}
+
+.blog-learning-saved-meta,
+.blog-learning-saved-card footer,
+.blog-learning-saved-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.blog-learning-saved-meta {
+  color: var(--learning-muted);
+  font-size: 11px;
+}
+
+.blog-learning-saved-meta span {
+  overflow: hidden;
+  color: var(--learning-accent);
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.blog-learning-saved-card blockquote {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 58px;
+  margin: 13px 0 !important;
+  padding: 0 0 0 12px !important;
+  border-left: 3px solid var(--learning-accent) !important;
+  color: var(--learning-text) !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.blog-learning-saved-card footer {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--learning-border);
+}
+
+.blog-learning-saved-card footer a {
+  overflow: hidden;
+  color: var(--learning-accent);
+  font-size: 12px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.blog-learning-saved-card footer button,
+.blog-learning-saved-pager button {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--learning-border);
+  border-radius: 9px;
+  color: var(--learning-muted);
+  background: var(--learning-surface-strong);
+  cursor: pointer;
+}
+
+.blog-learning-saved-card footer button:hover,
+.blog-learning-saved-pager button:hover:not(:disabled) {
+  color: var(--learning-accent);
+  border-color: var(--learning-accent);
+}
+
+.blog-learning-saved-pager {
+  margin-top: 14px;
+  color: var(--learning-muted);
+  font-size: 12px;
+}
+
+.blog-learning-saved-pager div {
+  display: flex;
+  gap: 8px;
+}
+
+.blog-learning-saved-pager button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.blog-learning-saved-empty {
+  margin: 0 !important;
+  padding: 22px;
+  border: 1px dashed var(--learning-border);
+  border-radius: 14px;
+  color: var(--learning-muted);
+  background: var(--learning-surface);
+  font-size: 13px;
+}
+
+@media (max-width: 720px) {
+  .blog-learning-saved-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .blog-learning-saved-grid {
+    grid-template-columns: 1fr;
+  }
+}
