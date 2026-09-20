@@ -1205,11 +1205,12 @@
 }
 .blog-learning-saved-fragment > :first-child { margin-top: 0 !important; }
 .blog-learning-saved-fragment > :last-child { margin-bottom: 0 !important; }
-.blog-learning-saved-fragment img {
+#blog-learning-saved-passages .blog-learning-saved-fragment img {
   display: block;
-  width: auto;
-  max-width: min(100%, 360px);
-  max-height: 270px;
+  width: auto !important;
+  height: auto !important;
+  max-width: min(100%, 420px) !important;
+  max-height: 260px !important;
   margin: 10px auto;
   object-fit: contain;
 }
