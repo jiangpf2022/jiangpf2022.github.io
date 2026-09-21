@@ -19,7 +19,6 @@
   let search = "";
   let loadedUserId = null;
   let requestId = 0;
-  const expanded = new Set();
 
   const reader = () => window.__blogReadingHistory;
   const mount = () => document.querySelector("#blog-bookmarks-library");
@@ -51,21 +50,18 @@
     : `<blockquote>${escapeHtml(item.quote_text)}</blockquote>`;
 
   const card = (item) => {
-    const open = expanded.has(item.id);
     const href = `${safePostPath(item.post_path)}?bookmark=${encodeURIComponent(item.id)}`;
     return `<article class="blog-bookmarks-card" data-bookmark-id="${escapeHtml(item.id)}">
       <div class="blog-bookmarks-card-meta"><span>${escapeHtml(courseFor(item))}</span><time datetime="${escapeHtml(item.created_at)}">${escapeHtml(formatDate(item.created_at))}</time></div>
       <h3>${escapeHtml(item.post_title)}</h3>
       ${item.chapter_title ? `<p class="blog-bookmarks-chapter">${escapeHtml(item.chapter_title)}</p>` : ""}
-      <p class="blog-bookmarks-excerpt">${escapeHtml(item.quote_text)}</p>
-      ${item.note_text ? `<p class="blog-bookmarks-note-preview"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> ${escapeHtml(item.note_text)}</p>` : ""}
+      <div class="blog-bookmarks-detail">${fragment(item)}</div>
+      ${item.note_text ? `<div class="blog-bookmarks-note"><span><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> My note</span><p>${escapeHtml(item.note_text)}</p></div>` : ""}
       <div class="blog-bookmarks-actions">
-        <button type="button" data-bookmark-expand="${escapeHtml(item.id)}" aria-expanded="${open}">${open ? "Hide saved content" : "Show saved content"}</button>
         <button type="button" data-bookmark-edit="${escapeHtml(item.id)}">${item.note_text ? "Edit note" : "Add note"}</button>
         <a href="${escapeHtml(href)}">Open article <i class="fa-regular fa-arrow-up-right" aria-hidden="true"></i></a>
         <button type="button" class="blog-bookmarks-remove" data-bookmark-remove="${escapeHtml(item.id)}" aria-label="Remove bookmark from ${escapeHtml(item.post_title)}"><i class="fa-regular fa-trash-can" aria-hidden="true"></i></button>
       </div>
-      <div class="blog-bookmarks-detail" ${open ? "" : "hidden"}>${open ? fragment(item) : ""}</div>
       <form class="blog-bookmarks-editor" data-bookmark-form="${escapeHtml(item.id)}" hidden>
         <label>My note<textarea maxlength="2000">${escapeHtml(item.note_text)}</textarea></label>
         <div><button type="submit">Save note</button><button type="button" data-bookmark-cancel>Cancel</button><span role="status"></span></div>
@@ -180,16 +176,6 @@
     const cardElement = event.target.closest("[data-bookmark-id]");
     if (!cardElement) return;
     const id = cardElement.dataset.bookmarkId;
-    if (event.target.closest("[data-bookmark-expand]")) {
-      expanded.has(id) ? expanded.delete(id) : expanded.add(id);
-      const detail = cardElement.querySelector(".blog-bookmarks-detail");
-      const item = bookmarks.find((entry) => entry.id === id);
-      detail.hidden = !expanded.has(id);
-      detail.innerHTML = expanded.has(id) && item ? fragment(item) : "";
-      const button = cardElement.querySelector("[data-bookmark-expand]");
-      button.setAttribute("aria-expanded", String(expanded.has(id)));
-      button.textContent = expanded.has(id) ? "Hide saved content" : "Show saved content";
-    }
     if (event.target.closest("[data-bookmark-edit]")) {
       const form = cardElement.querySelector("[data-bookmark-form]");
       form.hidden = false;
@@ -215,7 +201,6 @@
         button.disabled = false;
       } else {
         bookmarks = bookmarks.filter((item) => item.id !== id);
-        expanded.delete(id);
         renderResults();
       }
     }

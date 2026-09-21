@@ -72,20 +72,6 @@
 .blog-bookmarks-card-meta span { color: var(--bookmark-accent); font-weight: 750; }
 .blog-bookmarks-card h3 { margin: 7px 0 3px !important; color: var(--bookmark-text) !important; font-size: 1rem !important; line-height: 1.35 !important; }
 .blog-bookmarks-chapter { margin: 0 0 10px !important; color: var(--bookmark-muted); font-size: 12px; }
-.blog-bookmarks-excerpt,
-.blog-bookmarks-note-preview {
-  display: -webkit-box;
-  overflow: hidden;
-  margin: 10px 0 !important;
-  color: var(--bookmark-text);
-  font-size: 13px;
-  line-height: 1.6;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-.blog-bookmarks-excerpt { padding-left: 12px; border-left: 3px solid var(--bookmark-accent); }
-.blog-bookmarks-note-preview { color: var(--bookmark-muted); -webkit-line-clamp: 2; white-space: pre-wrap; }
-.blog-bookmarks-note-preview i { color: var(--bookmark-accent); }
 .blog-bookmarks-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--bookmark-border); }
 .blog-bookmarks-actions button,
 .blog-bookmarks-actions a,
@@ -112,7 +98,7 @@
 .blog-bookmarks-actions .blog-bookmarks-remove { margin-left: auto; color: var(--bookmark-muted) !important; }
 #blog-bookmarks-library button:disabled { cursor: wait; opacity: .6; }
 .blog-bookmarks-detail { overflow-x: auto; margin-top: 15px; padding: 16px; border: 1px solid var(--bookmark-border); border-radius: 12px; background: var(--bookmark-strong); }
-.blog-bookmarks-fragment { max-height: 800px; overflow: auto; color: var(--bookmark-text); font-size: 14px; line-height: 1.65; }
+.blog-bookmarks-fragment { color: var(--bookmark-text); font-size: 14px; line-height: 1.65; }
 .blog-bookmarks-fragment > :first-child { margin-top: 0 !important; }
 .blog-bookmarks-fragment > :last-child { margin-bottom: 0 !important; }
 .blog-bookmarks-fragment img { display: block; width: auto !important; height: auto !important; max-width: min(100%, 430px) !important; max-height: 300px !important; margin: 11px auto; object-fit: contain; }
@@ -121,6 +107,9 @@
 .blog-bookmarks-fragment mjx-container[display="true"],
 .blog-bookmarks-fragment pre { display: block; max-width: 100%; overflow-x: auto; }
 .blog-bookmarks-fragment blockquote { color: var(--bookmark-text); }
+.blog-bookmarks-note { margin-top: 12px; padding: 12px 14px; border-left: 3px solid var(--bookmark-accent); border-radius: 0 10px 10px 0; background: var(--bookmark-strong); }
+.blog-bookmarks-note span { color: var(--bookmark-accent); font-size: 11px; font-weight: 750; }
+.blog-bookmarks-note p { margin: 6px 0 0 !important; color: var(--bookmark-text); font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
 .blog-bookmarks-editor,
 .blog-bookmarks-confirm { margin-top: 13px; padding: 13px; border: 1px solid var(--bookmark-border); border-radius: 11px; background: var(--bookmark-strong); }
 .blog-bookmarks-editor label { display: block; color: var(--bookmark-muted); font-size: 12px; font-weight: 750; }
