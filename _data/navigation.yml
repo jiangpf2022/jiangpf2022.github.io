@@ -18,9 +18,15 @@ main:
   - title: "Societies"
     url: "/#-societies"
 
-  - title: "CV Resume"
+  - title: "Academic CV"
     url: "https://jiangpf2022.github.io/files/cv.pdf"
-  
+
+  - title: "AI Resume"
+    url: "https://jiangpf2022.github.io/files/resume-ai.pdf"
+
+  - title: "Quant Resume"
+    url: "https://jiangpf2022.github.io/files/resume-quant.pdf"
+
 
   # - title: "Internships"
   #   url: "/#-internships"
