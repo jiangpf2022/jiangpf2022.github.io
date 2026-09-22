@@ -42,6 +42,15 @@
       description: "A structured introduction to database systems, relational design, SQL, entity-relationship modeling, keys, relational algebra, joins, and the optimizer decisions that turn declarative questions into efficient execution plans.",
       topics: ["Relational Model", "Database Design", "SQL & Algebra"],
     },
+    "Options-Trading-101": {
+      name: "Options Trading 101",
+      eyebrow: "DERIVATIVES COURSE",
+      course: { slug: "options-trading-101", name: "Options Trading 101" },
+      icon: "fa-solid fa-chart-candlestick",
+      cover: "/blog/images/options-trading-101-cover.svg",
+      description: "A practical introduction to how option markets work: two-sided quoting, fair value and edge, futures and option contracts, payoff engineering, put-call parity, volatility, Greeks, and dynamic hedging.",
+      topics: ["Market Making", "Options Pricing", "Greeks & Hedging"],
+    },
     "Paper-Reading": {
       name: "Paper Reading",
       eyebrow: "RESEARCH LIBRARY",

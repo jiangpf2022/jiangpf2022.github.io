@@ -46,6 +46,11 @@
       name: "COMS W4111 Introduction to Databases",
       categoryPath: "/blog/categories/COMS-W4111-Introduction-to-Databases/",
     },
+    {
+      slug: "options-trading-101",
+      name: "Options Trading 101",
+      categoryPath: "/blog/categories/Options-Trading-101/",
+    },
   ];
   const state = {
     client: null,

@@ -14,6 +14,7 @@
     { slug: "deep-learning", name: "COMS4776W Neural Networks & Deep Learning", icon: "fa-solid fa-network-wired" },
     { slug: "llm-generative-ai", name: "COMS6998E LLM-Based Generative AI", icon: "fa-solid fa-sparkles" },
     { slug: "databases", name: "COMS W4111 Introduction to Databases", icon: "fa-solid fa-database" },
+    { slug: "options-trading-101", name: "Options Trading 101", icon: "fa-solid fa-chart-candlestick" },
   ];
   let loading = false;
   let selectedCurve = "all";

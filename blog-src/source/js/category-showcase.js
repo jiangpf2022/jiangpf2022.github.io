@@ -30,6 +30,13 @@
       cover: "/blog/images/coms-w4111-introduction-to-databases.jpg",
       description: "Database-system foundations, relational design, SQL, ER modeling, relational algebra, joins, and query optimization.",
     },
+    "Options-Trading-101": {
+      name: "Options Trading 101",
+      label: "DERIVATIVES & MARKETS",
+      icon: "fa-solid fa-chart-candlestick",
+      cover: "/blog/images/options-trading-101-cover.svg",
+      description: "Market making, futures and options, payoff structures, no-arbitrage pricing, volatility, Greeks, and dynamic risk management.",
+    },
     "Paper-Reading": {
       name: "Paper Reading",
       label: "RESEARCH LIBRARY",

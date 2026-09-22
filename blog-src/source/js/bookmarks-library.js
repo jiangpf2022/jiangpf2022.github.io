@@ -6,6 +6,7 @@
     "COMS4776W Neural Networks & Deep Learning",
     "COMS6998E LLM-Based Generative AI",
     "COMS W4111 Introduction to Databases",
+    "Options Trading 101",
     "EECS182 Deep Neural Networks",
     "MATH113 Introduction to Abstract Algebra",
     "CS182 Machine Learning",
