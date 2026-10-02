@@ -336,10 +336,52 @@
         return `<tr class="${published ? "is-published" : ""}"><th scope="row">${String(number).padStart(2, "0")}</th>
           <td><span class="category-hub-syllabus-topic">${path ? `<a href="${escapeHtml(path)}">${escapeHtml(title)}</a>` : escapeHtml(title)}</span><span class="category-hub-syllabus-focus">${escapeHtml(focus)}</span><details class="category-hub-syllabus-details"><summary>Focus</summary>${escapeHtml(focus)}</details></td>
           <td class="category-hub-syllabus-level">${level}</td>
-          <td><span class="category-hub-syllabus-status">${published ? "Published" : plannedStatus ? `<i class="fa-solid fa-lock" aria-hidden="true"></i> ${escapeHtml(plannedStatus)}` : '<i class="fa-solid fa-lock" aria-hidden="true"></i> Locked · In Development'}</span>${published ? `<a class="category-hub-syllabus-open" href="${escapeHtml(path)}" aria-label="Open blog ${number}: ${escapeHtml(title)}">Open <i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td>
+          <td><span class="category-hub-syllabus-status">${published ? "Published" : plannedStatus ? `<i class="fa-solid fa-lock" aria-hidden="true"></i> ${escapeHtml(plannedStatus)}` : '<i class="fa-solid fa-lock" aria-hidden="true"></i> Locked · In Development'}</span>${published ? `<a class="category-hub-syllabus-open is-icon-only" href="${escapeHtml(path)}" aria-label="Open blog ${number}: ${escapeHtml(title)}" title="Open ${escapeHtml(title)}"><i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a>` : ""}</td>
           <td class="category-hub-syllabus-order">${readingOrder.get(number) || ""}</td></tr>`;
       }).join("")}</tbody>
       </table>
+      </div>
+    </section>`;
+  };
+
+  const inferredArticleNumber = (article) => {
+    const explicit = Number(article.lessonNumber);
+    if (Number.isInteger(explicit) && explicit > 0) return explicit;
+    const match = String(article.title || "").match(/^(?:LLM|Deep Learning|Database|Options|Robotics|Blog|Lecture|Session)\s+(\d+)\b/i);
+    return match ? Number(match[1]) : null;
+  };
+
+  const syllabusArticles = (articles) => [...articles].sort((a, b) => {
+    const aNumber = inferredArticleNumber(a);
+    const bNumber = inferredArticleNumber(b);
+    if (aNumber !== null || bNumber !== null) {
+      if (aNumber === null) return 1;
+      if (bNumber === null) return -1;
+      if (aNumber !== bNumber) return aNumber - bNumber;
+    }
+    return new Date(a.date) - new Date(b.date);
+  });
+
+  const categorySyllabusMarkup = (articles, config) => {
+    const rows = syllabusArticles(articles);
+    const syllabusId = `category-syllabus-${config.course?.slug || config.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    return `<section class="category-hub-syllabus category-hub-syllabus-generic" aria-labelledby="${escapeHtml(syllabusId)}">
+      <div class="category-hub-section-heading"><div><p class="category-hub-eyebrow">${config.course ? "COURSE SYLLABUS" : "READING SYLLABUS"}</p><h2 id="${escapeHtml(syllabusId)}">Syllabus</h2></div><span>${rows.length} article${rows.length === 1 ? "" : "s"} · use the arrow to open</span></div>
+      <div class="category-hub-syllabus-scroll" tabindex="0" aria-label="${escapeHtml(config.name)} syllabus; scroll horizontally on narrow screens">
+        <table class="category-hub-syllabus-table is-compact">
+          <thead><tr><th scope="col">No.</th><th scope="col">Article &amp; Focus</th><th scope="col">Published</th><th scope="col">Reading</th><th scope="col" class="category-hub-syllabus-action-heading">Open</th></tr></thead>
+          <tbody>${rows.map((article, index) => {
+            const path = safePath(article.path);
+            const number = inferredArticleNumber(article) || index + 1;
+            const focus = article.excerpt || "Open the article to explore this topic.";
+            const readingTime = article.studyTime ? `${escapeHtml(article.studyTime)} min` : "Self-paced";
+            return `<tr class="is-published"><th scope="row">${String(number).padStart(2, "0")}</th>
+              <td><span class="category-hub-syllabus-topic"><a href="${escapeHtml(path)}">${escapeHtml(article.title)}</a></span><span class="category-hub-syllabus-focus">${escapeHtml(focus)}</span><details class="category-hub-syllabus-details"><summary>Focus</summary>${escapeHtml(focus)}</details></td>
+              <td><span class="category-hub-syllabus-status">${escapeHtml(formatArticleDate(article.date))}</span></td>
+              <td class="category-hub-syllabus-reading">${readingTime}</td>
+              <td class="category-hub-syllabus-action"><a class="category-hub-syllabus-open is-icon-only" href="${escapeHtml(path)}" aria-label="Open article ${number}: ${escapeHtml(article.title)}" title="Open ${escapeHtml(article.title)}"><i class="fa-regular fa-arrow-right" aria-hidden="true"></i></a></td></tr>`;
+          }).join("")}</tbody>
+        </table>
       </div>
     </section>`;
   };
@@ -554,6 +596,7 @@
       ${heroMarkup(config, config.name === "Mathematical Modeling" ? enriched.filter((article) => !article.reviewLock).length : enriched.length, session, enrolled)}
       ${config.name === "Mathematical Modeling" ? curriculumMarkup : ""}
       ${config.name === "Mathematical Modeling" ? modelingSyllabusMarkup(enriched) : ""}
+      ${config.name === "Mathematical Modeling" ? "" : categorySyllabusMarkup(enriched, config)}
       ${config.course ? courseOverviewMarkup(trackable, enrolled, series) : readingOverviewMarkup(enriched, session)}
       ${config.name === "Mathematical Modeling" ? "" : curriculumMarkup}`;
     renderedLearningPath = config.course ? { config, articles: enriched, enrolled: Boolean(enrolled) } : null;

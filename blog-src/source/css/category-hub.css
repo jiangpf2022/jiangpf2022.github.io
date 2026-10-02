@@ -372,6 +372,74 @@ html.dark {
   background: color-mix(in srgb, var(--category-hub-cyan), transparent 74%);
 }
 
+.category-hub-syllabus-open.is-icon-only {
+  width: 30px;
+  height: 30px;
+  margin-left: 8px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.category-hub-syllabus-open.is-icon-only:hover,
+.category-hub-syllabus-open.is-icon-only:focus-visible {
+  color: #fff !important;
+  background: var(--category-hub-accent);
+  transform: translateX(3px);
+}
+
+.category-hub-syllabus-table .category-hub-syllabus-reading {
+  color: var(--category-hub-muted);
+  font-size: 10px;
+  font-weight: 750;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.category-hub-syllabus-table .category-hub-syllabus-action,
+.category-hub-syllabus-action-heading {
+  text-align: center;
+}
+
+.category-hub-syllabus-table.is-compact .category-hub-syllabus-action,
+.category-hub-syllabus-table.is-compact .category-hub-syllabus-action-heading {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  background: var(--category-hub-surface-strong);
+  box-shadow: -10px 0 16px -14px rgba(19, 41, 77, 0.72);
+}
+
+.category-hub-syllabus-table.is-compact .category-hub-syllabus-action-heading {
+  background: color-mix(in srgb, var(--category-hub-accent), var(--category-hub-surface-strong) 89%);
+}
+
+.category-hub-syllabus-table.is-compact tr.is-published .category-hub-syllabus-action {
+  background: color-mix(in srgb, var(--category-hub-cyan), var(--category-hub-surface-strong) 94%);
+}
+
+.category-hub-syllabus-table .category-hub-syllabus-action .category-hub-syllabus-open {
+  margin: 0 auto;
+}
+
+.category-hub-syllabus-table.is-compact th:first-child {
+  width: 54px;
+}
+
+.category-hub-syllabus-table.is-compact th:nth-child(3) {
+  width: 118px;
+}
+
+.category-hub-syllabus-table.is-compact th:nth-child(4) {
+  width: 82px;
+}
+
+.category-hub-syllabus-table.is-compact th:last-child {
+  width: 58px;
+}
+
 .category-hub-syllabus-details {
   display: none;
 }
@@ -1088,6 +1156,18 @@ html.dark .category-hub-container .category-hub-page-controls button[aria-curren
     margin: 5px 0 0;
     padding: 3px 5px;
     font-size: 9px;
+  }
+
+  .category-hub-syllabus-open.is-icon-only {
+    width: 28px;
+    height: 28px;
+    margin: 4px auto 0;
+    padding: 0;
+    font-size: 11px;
+  }
+
+  .category-hub-syllabus-table.is-compact {
+    min-width: 560px;
   }
 
   .category-hub-section-heading {

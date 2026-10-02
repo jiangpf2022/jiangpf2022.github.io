@@ -472,7 +472,12 @@
     if (!container) return;
     container.querySelectorAll(".all-category-list-item").forEach((item) => {
       const link = item.querySelector(".all-category-list-link");
-      const config = CATEGORIES[categorySlug(link?.href)];
+      const slug = categorySlug(link?.href);
+      if (slug === "Mathematical-Modeling-Draft-Archive") {
+        item.hidden = true;
+        return;
+      }
+      const config = CATEGORIES[slug];
       if (!link || !config || link.querySelector(".category-card-copy")) return;
       link.textContent = "";
       link.insertAdjacentHTML("beforeend", `
