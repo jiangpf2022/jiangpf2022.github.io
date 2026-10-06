@@ -188,6 +188,8 @@ Hardening deserves special attention. Average test accuracy does not reveal sens
 
 Continuous learning should not mean blindly training on recent traffic. Feedback can be delayed, biased, manipulated, or affected by the model's own prior decisions. A safe loop validates new data, compares candidate and current models, preserves rollback, and monitors post-deployment drift.
 
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q2</span><span>Put the ML lifecycle in order</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Arrange these steps from first to last: Monitoring, Model deployment, Retraining, Data preprocessing, Model training.</p><div class="llm-quiz-answer"><strong>Answer.</strong> Data preprocessing → Model training → Model deployment → Monitoring → Retraining. Monitoring closes the loop: production evidence determines whether retraining is justified.</div></div></details>
+
 
 ### Bottlenecks
 
@@ -234,6 +236,10 @@ R^2=1-\frac{\operatorname{RSS}}{\operatorname{TSS}}.
 $$
 
 RSS and MSE measure sample prediction error. $R^2$ measures explained sample variance relative to the constant predictor $\bar y$; it does not by itself prove generalization.
+
+Because $R^2=1-\operatorname{RSS}/\operatorname{TSS}$, the unexplained amount is $\operatorname{RSS}=(1-R^2)\operatorname{TSS}$ and the explained amount is $R^2\operatorname{TSS}$. The proportion explained is $R^2$ itself; do not confuse a proportion with an amount.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q1</span><span>Interpret $R^2$ and TSS</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> A sales regression reports $R^2=0.60$ and $\operatorname{TSS}=0.90$. Find the explained amount, unexplained amount, and explained proportion.</p><div class="llm-quiz-answer"><strong>Answer.</strong> Explained amount: $0.60\times0.90=0.54$. Unexplained amount: $(1-0.60)\times0.90=0.36$. Explained proportion: $0.60$, or 60%.</div></div></details>
 
 <figure class="llm1-figure llm1-figure--wide">
   <img src="/blog/images/llm1-lecture-1/llm1-slide-042-02.webp" alt="Linear regression and residual error, slide 42, figure 2" loading="lazy" decoding="async">
@@ -328,6 +334,8 @@ Bias is not simply “the model made an error once.” It is a systematic error 
   <img src="/blog/images/llm1-lecture-1/llm1-slide-048-01.webp" alt="Bias and variance intuition, slide 48, figure 1" loading="lazy" decoding="async">
   <figcaption>The target diagram separates low versus high bias from low versus high variance.</figcaption>
 </figure>
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q5</span><span>Separate bias from variance</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which claims are true? (A) A complex model trained on much more representative data can have lower variance. (B) Increasing capacity alone reduces high variance. (C) More data necessarily fixes high bias. (D) Bias can arise from assumptions that are too simple.</p><div class="llm-quiz-answer"><strong>Answer.</strong> A and D. More data often stabilizes a high-capacity model, but capacity alone can increase variance, and additional samples do not repair a systematically inappropriate model family.</div></div></details>
 
 
 ### Error Decomposition
@@ -509,6 +517,8 @@ $$
 $$
 
 Precision conditions on predicted positives: when the system alerts, how often is it right? Recall conditions on actual positives: of the events we needed to find, how many did we find? Specificity asks the analogous question for negatives.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q3</span><span>Read a contamination confusion matrix</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> A detector has $TP=100$, $FP=300$, $FN=250$, and $TN=350$ across 1,000 samples. Find the number correctly classified, $P(\text{contaminated}\mid\text{predicted negative})$, precision, and $F_1$.</p><div class="llm-quiz-answer"><strong>Answer.</strong> Correct: $TP+TN=450$. Miss risk among predicted negatives: $250/(250+350)=41.67\%$. Precision: $100/(100+300)=25\%$. Recall is $100/350$, so $F_1\approx0.27$.</div></div></details>
 
 
 ### Imbalanced Data
@@ -821,6 +831,8 @@ Cost also depends on time: faster hardware can be competitive even at a higher h
   <figcaption>ResNet-50 training cost and duration for an eight-GPU VM versus a TPU pod.</figcaption>
 </figure>
 
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q4</span><span>Read a cloud cost benchmark</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> A benchmark table compares K80 and V100 training on AWS and GCP. It shows higher total cost for both GPU types on AWS, different wall-clock times for the same GPU across providers, and K80 on GCP as the least expensive run below 25 seconds. Which observations are supported?</p><div class="llm-quiz-answer"><strong>Answer.</strong> All three stated observations. Compare <em>total run cost</em>, not hourly price alone, and never assume that the same GPU guarantees the same wall-clock time: host CPUs, storage, software, and virtualization also matter.</div></div></details>
+
 
 ### Memory Paths
 
@@ -1022,6 +1034,8 @@ In **synchronous SGD**, all required workers compute from the same parameter ver
 
 Choosing $K<P$ reduces sensitivity to the slowest workers but uses fewer samples per update and may waste cancelled computation. K-batch policies better exploit fast workers, yet can overweight their data if shards are not statistically interchangeable.
 
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q6</span><span>Order synchronous variants by training time</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> With $1&lt;K&lt;P$ and all else equal, order K-batch sync, K-sync, and fully sync by increasing time for the same number of epochs.</p><div class="llm-quiz-answer"><strong>Answer.</strong> K-batch sync → K-sync → fully sync. K-batch sync accepts the first $K$ completed batches, K-sync waits for $K$ distinct learners, and fully sync waits for all $P$ learners.</div></div></details>
+
 
 ### Async and Staleness
 
@@ -1058,6 +1072,12 @@ Staleness is especially harmful when parameters move rapidly or gradients from d
   <img src="/blog/images/llm1-lecture-1/llm1-slide-084-02.webp" alt="Convergence-runtime trade-off, slide 84, figure 2" loading="lazy" decoding="async">
   <figcaption>Synchronous training may take longer but reach a lower final loss.</figcaption>
 </figure>
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q7</span><span>Order asynchronous variants</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> With $1&lt;K&lt;P$, order Async, K-batch async, and K-async by increasing training time.</p><div class="llm-quiz-answer"><strong>Answer.</strong> Async → K-batch async → K-async. A single arrival can trigger Async; K-batch async waits for any $K$ completed batches; K-async requires contributions from $K$ learners.</div></div></details>
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q8</span><span>Check boundary cases for $K$</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Mark these in order: (1) at $K=P$, K-batch sync equals Sync; (2) at $K=P$, K-sync equals K-batch sync; (3) at $K=P$, K-batch async equals Async; (4) at $K=1$, K-batch async and K-async behave like Async; (5) with $K&gt;1$, stale gradients can occur in both K-batch sync and K-batch async.</p><div class="llm-quiz-answer"><strong>Answer.</strong> False, False, False, True, False. “$K$ batches” and “$K$ distinct learners” are different conditions; synchronous variants compute from one current version, whereas asynchronous variants can accept stale work.</div></div></details>
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q9</span><span>Calculate gradient staleness</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> The server starts at $W_{100}$. Six arriving gradients were computed at versions $98,99,97,100,102,101$ and are applied one by one. Write each update's staleness and summarize it.</p><div class="llm-quiz-answer"><strong>Answer.</strong> The server versions before the updates are $100,101,102,103,104,105$, so staleness is $2,2,5,3,2,4$. Maximum $=5$, minimum $=2$, mean $=3$. For example, $W_{103}=W_{102}-\alpha\nabla J(W_{97})$ has staleness $102-97=5$.</div></div></details>
 
 
 ### Ring All-Reduce
@@ -1191,6 +1211,16 @@ $$
 
 The factor $1/P$ is the key bandwidth benefit: aggregate work remains substantial, but it is evenly distributed instead of bottlenecked at one reducer. Ring all-reduce is still synchronous; it changes the communication pattern, not the requirement that all workers agree before the next update.
 
+If a training design alternates a centralized parameter-server exchange with ring all-reduce, averaging the two communication volumes gives a term proportional to
+
+$$
+N(P-1)\left(1+\frac{1}{P}\right).
+$$
+
+It still grows linearly in aggregate traffic with $P$, even though the ring portion avoids concentrating that traffic on one server.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q11</span><span>Compare parameter-server and ring traffic</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> For an alternating parameter-server/ring scheme on $P$ learners and an $N$-value gradient, which are true? (A) Mean communication is proportional to $N(P-1)(1+1/P)$. (B) Its communication becomes practically independent of $P$. (C) Ring-only generally scales better by distributing the bottleneck. (D) Aggregate cost of the alternating scheme remains linear in $P$.</p><div class="llm-quiz-answer"><strong>Answer.</strong> A, C, and D. Ring all-reduce balances traffic per learner; it does not make aggregate communication independent of the number of learners.</div></div></details>
+
 A physical cluster is not always a one-dimensional ring. A two-dimensional torus creates horizontal and vertical rings so that collective communication can better follow the hardware's links.
 
 <figure class="llm1-figure llm1-figure--wide">
@@ -1233,6 +1263,10 @@ Distributed overhead can be estimated by comparing distributed iteration time wi
 
 Strong scaling fixes the total workload and adds workers; weak scaling grows the workload with worker count. They answer different questions and should be labeled. Repeated runs, warm caches, a sufficiently large test set, and disclosed preprocessing prevent noise or hidden work from dominating the conclusion.
 
+For a dataset of $D$ examples, global batch $B_{\rm global}$, and measured epoch time $T$, the epoch throughput is $D/T$. With $P$ GPUs and local batch $b$, $B_{\rm global}=Pb$ and the number of steps per epoch is $D/(Pb)$. Scaling efficiency at $P$ devices relative to a reference run is speedup divided by the device-count ratio.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q10</span><span>Compute throughput and scaling efficiency</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> A dataset has 131,072 examples, each GPU processes 64 examples per step, and a server contains 8 GPUs. Report the measured throughput for epoch times 2.96 s on 256 GPUs and 0.82 s on 1,024 GPUs. The benchmark's efficiency falls below 75% at 1,024 GPUs; is the claim “efficiency stays above 85% through 256 GPUs” supported?</p><div class="llm-quiz-answer"><strong>Answer.</strong> $131072/2.96=44{,}281.08$ examples/s and $131072/0.82=159{,}843.90$ examples/s. The quiz data do <em>not</em> support the above-85%-through-256 claim; the below-75%-at-1,024 claim is true.</div></div></details>
+
 ### ResNet Case Study
 
 The ImageNet/ResNet-50 table illustrates why one number is insufficient:
@@ -1252,5 +1286,7 @@ The ImageNet/ResNet-50 table illustrates why one number is insufficient:
 Some reported scaling efficiencies are about 90%, 95%, 80%, 87.9%, and 84.75%, depending on the experiment. But the table also shows accuracy changes, different batch sizes, frameworks, networks, and accelerators. A faster headline time may use more hardware or end at lower accuracy.
 
 The practical reading is not “the last row wins.” Ask how much hardware was consumed, whether accuracy targets match, whether the global batch changed optimization, how the network was provisioned, and whether the measurement includes input and validation. Only then can the experiments support a fair systems conclusion.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q12</span><span>Identify a large-batch scaling curve</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Four ResNet training curves A–D correspond to 8, 128, 64, and 256 servers. Match them using the quiz's measured convergence and timing patterns.</p><div class="llm-quiz-answer"><strong>Answer.</strong> A = 8 servers, B = 128, C = 64, D = 256. The important method is to use both the wall-clock axis and the optimization behavior: more servers can shorten each epoch while the larger global batch changes the curve itself.</div></div></details>
 
 Lecture 1 closes with preparation for Lecture 2: GCP, Colab, course coupons, cloud clusters, and the first homework around September 12. The broader lesson is already established: model quality and system performance must be designed and measured together. A training method is successful only when it reaches the required quality reliably, reproducibly, and at an acceptable resource cost.

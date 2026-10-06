@@ -89,6 +89,8 @@ $$
 
 Different layers can contribute different information. A named-entity recognizer may value different features than a sentiment classifier. ELMo therefore makes two ideas concrete: **pretrain on unlabeled text**, then **reuse context-sensitive states** for a separate task. Its limitation for our next step is that recurrent processing still passes information through sequential state updates. Attention offers a more direct route between distant positions.
 
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q19</span><span>Recognize ELMo's contextual representation</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> True or false: ELMo forms a contextual representation by combining jointly trained left-to-right and right-to-left LSTM states.</p><div class="llm-quiz-answer"><strong>Answer.</strong> True. The directional language-model objectives are trained together and their states are combined for each token; this is different from one static lookup vector per word.</div></div></details>
+
 ## Attention
 
 ### Why Selective Context Matters
@@ -98,6 +100,8 @@ Consider the slide pair “The cat drank the milk because it was hungry” and �
 <figure class="llm1-figure llm1-figure--half"><img src="/blog/images/llm2-lecture-2/attention-pronouns.jpg" alt="Attention weights from it toward cat or milk under different continuations" loading="lazy" decoding="async"><figcaption>The salient earlier word changes with the sentence continuation. Course slide 13.</figcaption></figure>
 
 Attention implements this idea as a **weighted sum**. For a current position $i$, assign scores $s_{ij}$ to candidate context positions $j$, turn scores into nonnegative weights that sum to one, and average their information vectors. In the simplest pedagogical version, the score could be $x_i^{\mathsf T}x_j$ and the value could be the original vector $x_j$. This is helpful intuition but too restrictive: the features useful for *finding* information need not be the same as the information we want to *retrieve*.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q15</span><span>State what self-attention returns</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> At one position, is self-attention's output a weighted sum of queries, keys, values, or logits?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Values. Queries and keys determine the weights; those weights combine the value vectors.</div></div></details>
 
 ### Queries, Keys, and Values
 
@@ -164,6 +168,8 @@ A classic sequence-to-sequence model encodes an input sentence with an RNN, LSTM
 
 Think about translating a long sentence whose first and last clauses both contain important names. A single final state must preserve word identities, order, and grammatical relationships while also supporting the next output decision. It can work, but the information bottleneck becomes increasingly uncomfortable as input length grows. The decoder’s own recurrent hidden state carries past output information; that does not by itself restore details lost from the source summary.
 
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q13</span><span>Understand seq2seq without attention</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> In a basic recurrent encoder–decoder without attention, which statements are true? (A) Both encoder and decoder maintain hidden states. (B) The context passed to the decoder is the encoder's final hidden state. (C) The decoder scores all encoder states at every step. (D) The bottleneck exists because consulting all states is too expensive.</p><div class="llm-quiz-answer"><strong>Answer.</strong> A and B. C describes attention; D gives the wrong cause. The bottleneck is compressing the whole source into one fixed-width final state.</div></div></details>
+
 ### Attending to Encoder States
 
 Attention-based seq2seq relaxes the bottleneck by retaining **all** encoder states $h_1,\ldots,h_N$. At decoder step $t$, the decoder state supplies a query and scores those source states. It constructs a step-specific context vector,
@@ -188,6 +194,8 @@ The 2017 [Transformer](https://arxiv.org/abs/1706.03762) kept the useful attenti
 | Decoder self-attention | Decoder states | Decoder states | Current and earlier target positions only |
 | Encoder–decoder cross-attention | Decoder states | Encoder outputs | Available source positions |
 
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q16</span><span>Locate self- and cross-attention</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> In the original encoder–decoder Transformer, which component uses both causal self-attention and encoder–decoder cross-attention? Where does cross-attention occur?</p><div class="llm-quiz-answer"><strong>Answer.</strong> The decoder uses both. Cross-attention is in the decoder only: its queries come from decoder states, while keys and values come from encoder outputs.</div></div></details>
+
 The word *self* means the query, key, and value sequences originate from the same side. It does **not** mean a token attends only to itself. *Cross*-attention means the target-side query reads source-side representations. The original Transformer stacks attention, a position-wise feed-forward network, residual connections, and normalization. The decoder receives output tokens shifted right during training, so at position $t$ it is asked to predict the following token using only the preceding target prefix.
 
 <figure class="llm1-figure llm1-figure--half"><img src="/blog/images/llm2-lecture-2/transformer-architecture.jpg" alt="Original Transformer encoder and decoder stacks" loading="lazy" decoding="async"><figcaption>The original encoder–decoder Transformer has self-attention on both sides and cross-attention only in the decoder. Course slide 33.</figcaption></figure>
@@ -196,7 +204,9 @@ The word *self* means the query, key, and value sequences originate from the sam
 
 Without recurrence, the encoder can compute representations for all input positions in parallel within a layer. With shifted targets and a causal mask, decoder *training* can likewise score many target positions simultaneously: the correct previous tokens are already known. At *generation* time, however, the next token is not known until the current one has been produced. Autoregressive decoding remains sequential across output positions, even though operations **within** each step can be parallelized and previously computed keys and values can be cached.
 
-This distinction explains both the Transformer’s training advantage and a persistent inference constraint. Attention makes distant positions directly reachable and maps well to matrix hardware, but its all-pairs interaction has a cost we can see once we write the operation in matrix form.
+This distinction explains both the Transformer’s training advantage and a persistent inference constraint. Attention makes distant positions directly reachable and maps well to matrix hardware, but its all-pairs interaction has a cost we can see once we write the operation in matrix form. Transformer layers also have separate parameters unless a design explicitly ties them; a repeated block diagram does not imply shared weights.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q14</span><span>Check core Transformer claims</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which are true? (A) Attention sublayers have residual connections. (B) Input positions can be processed in parallel within a layer during training. (C) A Transformer contains exactly one encoder and one decoder block. (D) All encoder layers share the same weights.</p><div class="llm-quiz-answer"><strong>Answer.</strong> A and B. Transformers stack blocks, and ordinary layers have distinct parameters unless weight sharing is an explicit design choice.</div></div></details>
 
 ## Attention as Matrix Computation
 
@@ -288,6 +298,10 @@ $$
 
 The different frequencies supply multiple scales of position. This is not the only modern choice, but it is the one pictured in the original architecture. The position signal is **added**, not appended, in the slide’s example, so the model width stays $d$.
 
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q20</span><span>Explain why position is necessary</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Why does a Transformer need positional information?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Without it, self-attention has no intrinsic sequence order. Reordering the same token vectors merely reorders the outputs, so meanings that depend on order cannot be distinguished.</div></div></details>
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q24</span><span>Combine token and position embeddings</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> At the Transformer input, how are token and position embeddings usually combined?</p><div class="llm-quiz-answer"><strong>Answer.</strong> They are added element by element: $x_i=E_{w_i}+P_i$. Addition preserves the model width; they are not normally concatenated.</div></div></details>
+
 <figure class="llm1-figure llm1-figure--half"><img src="/blog/images/llm2-lecture-2/token-position.jpg" alt="Token embeddings and position embeddings summed before a Transformer block" loading="lazy" decoding="async"><figcaption>Each input row is a token vector plus its position vector. Course slide 59.</figcaption></figure>
 
 ### The Language-Model Head
@@ -347,7 +361,11 @@ $$
 
 The small $\epsilon$ prevents division by zero. Learned $\gamma$ and $\beta$ can rescale and shift normalized coordinates; normalization does not force every subsequent representation to remain permanently zero-mean and unit-variance. Unlike batch normalization, the calculation does not depend on other examples in the minibatch. That makes it a natural component for variable-length text and token-wise processing.
 
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q21</span><span>Choose LayerNorm's normalization axis</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> For a token hidden state of width $d$, over which values are LayerNorm's mean and variance computed?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Across the $d$ components of that one token's hidden vector, not across examples in the mini-batch.</div></div></details>
+
 The slide’s block equation uses a **post-norm** layout: $O=\operatorname{LN}(X+\operatorname{MHA}(X))$ and $H=\operatorname{LN}(O+\operatorname{FFN}(O))$. A common alternative is **pre-norm**, where normalization comes before each sublayer, for example $O=X+\operatorname{MHA}(\operatorname{LN}(X))$. The distinction affects optimization and should not be silently mixed when copying equations or implementing a model. The lecture’s visual “Add & Norm” corresponds to the original post-norm presentation.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q25</span><span>Place normalization in a pre-norm block</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> In the common <em>pre-norm</em> Transformer block used by many modern LLMs, where is LayerNorm placed?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Immediately before each attention and feed-forward sublayer. The original Transformer was post-norm, so this answer describes the pre-norm variant named in the question rather than every Transformer.</div></div></details>
 
 ### Position-Wise Feed-Forward Network
 
@@ -400,9 +418,13 @@ The slides show a sentence whose tokens choose different experts, and later pass
 
 For example, with eight experts and top-2 routing, a token runs two expert networks instead of all eight. That is a reduction in expert arithmetic **relative to evaluating all experts**, not a promise that the entire model uses one quarter of the FLOPs. Attention, embeddings, routing itself, and other layers still cost work. Nor does a bigger MoE necessarily fit on one device: all expert parameters must be stored somewhere.
 
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q22</span><span>Identify the main MoE efficiency benefit</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What lets an MoE model increase parameter capacity without evaluating every expert for every token?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Sparse activation. Only a selected subset, such as the top two experts, processes each token.</div></div></details>
+
 ### Routing Is a Systems Problem
 
 Sparse activation creates new engineering costs. Tokens selected for an expert may need to travel to another accelerator, then return; this is an all-to-all communication pattern. If nearly every token chooses the same expert, that expert becomes overloaded while others sit idle. Systems often impose capacity limits, balancing losses, or other routing controls so the work is spread more evenly. A capacity limit can force some tokens onto alternate routes or cause an overflow policy to drop an expert contribution; implementation details matter.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q23</span><span>Name the component that selects experts</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What learned component sends each token to one or more experts?</p><div class="llm-quiz-answer"><strong>Answer.</strong> The router, also called a gating network. It scores experts from the token representation and selects the active top-$k$ route.</div></div></details>
 
 This is where the previous blog’s systems theme reappears. An MoE can add many parameters without proportional per-token expert computation, but its wall-clock speed depends on routing balance, network bandwidth, expert batch size, and memory placement. The **dense versus sparse MoE** slide is therefore not a blanket “sparse is better” verdict. Sparse models exchange some regular, local matrix work for conditional work and communication. Use them when that trade-off improves quality and efficiency at the target scale.
 
@@ -435,6 +457,10 @@ The best architecture depends on what information is available and what output i
 ### A Bidirectional Encoder Stack
 
 BERT stands for **Bidirectional Encoder Representations from Transformers**. It pretrains a stack of Transformer encoder blocks and builds token representations using context on both sides. That differentiates it from early left-to-right GPT, and also from ELMo: ELMo combines separately trained forward and backward language-model states, while BERT’s Transformer layers jointly mix left and right information. Because BERT can see the full input, its pretraining task cannot simply be ordinary next-token prediction with no masking; the target word would be visible in its own input.
+
+BERT is encoder-only: it uses bidirectional self-attention, but has no separate encoder supplying keys and values to a decoder.
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q17</span><span>Does BERT use cross-attention?</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> True or false: standard BERT uses both self-attention and encoder–decoder cross-attention.</p><div class="llm-quiz-answer"><strong>Answer.</strong> False. BERT is an encoder stack with bidirectional self-attention; there is no separate decoder attending to encoder outputs.</div></div></details>
 
 The original BERT examples in the lecture use BooksCorpus (about 800 million words) and English Wikipedia (about 2.5 billion words). Two reference configurations show how depth, width, attention heads, and total parameters change together:
 
@@ -491,6 +517,8 @@ The early OpenAI GPT model in the slides stacks **12 decoder-only Transformer la
 $$
 \mathcal L_{\rm LM}(\theta)=-\sum_{i=1}^{N-1}\log p_\theta(w_{i+1}\mid w_1,\ldots,w_i).
 $$
+
+<details class="llm-quiz-practice"><summary><span class="llm-quiz-practice__label">Quiz practice · Q18</span><span>Identify GPT's attention pattern</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> True or false: a standard decoder-only GPT uses masked self-attention and no encoder–decoder cross-attention.</p><div class="llm-quiz-answer"><strong>Answer.</strong> True. Its causal mask prevents future-token leakage, and there is no separate encoder whose outputs would require cross-attention.</div></div></details>
 
 At every position, the causal mask ensures the model sees only the prefix. After pretraining, a task can be expressed with an appropriate input format and output head, then fine-tuned. The slide’s transfer-learning diagram lists classification, entailment, similarity, and multiple-choice tasks. They are distinct output formats—one label for a whole input, a relation between two statements, a similarity judgment, or a choice among candidate answers—but the reusable decoder trunk is the common starting point.
 

@@ -1,5 +1,5 @@
 ---
-title: LLM 3 - Decoding, Prompting, and Applications
+title: LLM 3–4 - Decoding, Prompt Engineering, and RAG
 date: 2026-09-25 18:00:00
 categories: COMS6998E LLM-Based Generative AI
 tags:
@@ -8,17 +8,21 @@ tags:
   - In-Context Learning
   - Reasoning
   - LLM Applications
+  - Retrieval-Augmented Generation
+  - BM25
+  - Vector Search
+  - Reranking
 mathjax: true
 cover: "/images/columbia-low-memorial-library.jpg"
-excerpt: "How an LLM turns next-token probabilities into text, how prompts and demonstrations steer its behavior, and how reasoning patterns, tools, retrieval, and validation turn a model into a dependable application."
+excerpt: "A unified guide from next-token decoding and testable prompts to tools, lexical and dense retrieval, HNSW, reranking, evidence-grounded generation, and RAG debugging."
 lesson_number: 3
 lesson_level: 1
-study_time: 80
+study_time: 150
 ---
 
-Welcome back. In [LLM 2](/blog/2026/09/18/LLM-2-Attention-and-Transformers/) we opened the Transformer and followed information through embeddings, attention, feed-forward blocks, BERT, and GPT. Today we begin at the point where that architecture has already produced a vector of scores for the next token. A surprisingly large part of an LLM application's behavior is determined by what happens next: how those scores become a token, how a prompt supplies the task, how examples change the model's local behavior, and how an external program checks and uses the answer.
+Welcome back. In [LLM 2](/blog/2026/09/18/LLM-2-Attention-and-Transformers/) we opened the Transformer and followed information through embeddings, attention, feed-forward blocks, BERT, and GPT. This combined LLM 3–4 article begins where that architecture produces next-token scores and follows the entire application path: decoding turns scores into text, prompts specify behavior, tools perform checkable actions, retrieval supplies external evidence, and validation decides whether a claim is allowed to leave the system.
 
-This is the bridge from **language model** to **language-model system**. We will first study decoding precisely enough to explain greedy search, beam search, sampling, temperature, and hallucination. Then we will build prompts as structured interfaces rather than clever sentences, examine in-context learning and reasoning patterns, and finish with tools, post-processing, LangChain, and LlamaIndex. The aim is not to memorize a bag of prompting tricks. It is to understand which component is responsible for which behavior, so that when an application fails you know where to look.
+This is the bridge from **language model** to **language-model system**. We first study greedy search, beam search, sampling, temperature, and contrastive decoding. We then treat prompts as testable specifications, examine in-context learning and reasoning patterns, connect models to tools and structured validation, and finally build RAG from inverted indexes and BM25 through dense retrieval, ANN, HNSW, hybrid ranking, context construction, and citation checks. The former Lecture 3 and Lecture 4 articles repeated parts of prompt engineering; they are consolidated here so each idea is introduced once and then used by the RAG system.
 
 ## From Representations to Generated Text
 
@@ -359,4 +363,6 @@ We can now describe an LLM application without hiding any essential step:
 
 The key is causal clarity. If outputs are repetitive, inspect decoding and prompt diversity. If labels drift, inspect demonstrations, balance, and schema validation. If facts are stale, add retrieval or tools. If arithmetic is inconsistent, use a calculator. If a multi-step plan fails too early, consider branching search or explicit checkpoints. If the answer format breaks downstream code, strengthen the output contract and parser rather than merely asking the model to “be more careful.”
 
-This lesson began with a vector of next-token scores and ended with a complete application loop. Decoding determines how we move through the model's distribution. Prompts and demonstrations define the local task. Reasoning patterns organize difficult inference. Tools bring in capabilities and current evidence. Frameworks help compose the pieces. Validation decides whether the result is allowed to leave the system. In the next stage, these pieces become the foundation for retrieval, agents, and larger generative-AI workflows.
+This completes the model-facing half of the system. Decoding determines how we move through the model's distribution; prompts and demonstrations define the local task; reasoning patterns and tools organize difficult, checkable work; parsers and validators constrain the result. We can now address the missing half: how current or private evidence is found, ranked, fitted into context, and verified.
+
+{% llm3_rag_content %}
