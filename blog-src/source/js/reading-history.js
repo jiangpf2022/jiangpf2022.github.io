@@ -344,17 +344,35 @@
       return state.experience;
     }
     const userId = state.session.user.id;
-    const { data, error } = await state.client
-      .from("learning_mastery_history")
-      .select("earned_exp,event_date")
-      .limit(5000);
+    const [learningResult, quizResult] = await Promise.all([
+      state.client
+        .from("learning_mastery_history")
+        .select("earned_exp,event_date")
+        .limit(5000),
+      state.client
+        .from("quiz_completions")
+        .select("earned_exp,completed_at")
+        .limit(5000),
+    ]);
     if (state.session?.user?.id !== userId) return state.experience;
-    if (!error) {
-      const total = (data || []).reduce((sum, item) => sum + Math.max(0, Number(item.earned_exp) || 0), 0);
-      const today = (data || [])
+    if (!learningResult.error || !quizResult.error) {
+      const learningData = learningResult.error ? [] : learningResult.data || [];
+      const quizData = quizResult.error ? [] : quizResult.data || [];
+      const learningTotal = learningData.reduce(
+        (sum, item) => sum + Math.max(0, Number(item.earned_exp) || 0),
+        0,
+      );
+      const quizTotal = quizData.reduce(
+        (sum, item) => sum + Math.max(0, Number(item.earned_exp) || 0),
+        0,
+      );
+      const learningToday = learningData
         .filter((item) => item.event_date === localDateKey())
         .reduce((sum, item) => sum + Math.max(0, Number(item.earned_exp) || 0), 0);
-      state.experience = levelFromExperience(total, today);
+      const quizToday = quizData
+        .filter((item) => localDateKey(item.completed_at) === localDateKey())
+        .reduce((sum, item) => sum + Math.max(0, Number(item.earned_exp) || 0), 0);
+      state.experience = levelFromExperience(learningTotal + quizTotal, learningToday + quizToday);
     } else {
       state.experience = levelFromExperience(0);
       state.experience.loaded = false;

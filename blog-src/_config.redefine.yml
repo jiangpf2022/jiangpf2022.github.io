@@ -399,7 +399,7 @@ inject:
     - <link rel="stylesheet" href="/blog/css/cursor-effects.css">
     - <link rel="stylesheet" href="/blog/css/article-toc.css">
     - <link rel="stylesheet" href="/blog/css/llm1-figures.css">
-    - <link rel="stylesheet" href="/blog/css/llm-quiz-practice.css?v=20261006">
+    - <link rel="stylesheet" href="/blog/css/llm-quiz-practice.css?v=20261006-interactive">
     - <link rel="stylesheet" href="/blog/css/robotics-figures.css?v=20260919-formulas">
     - <link rel="stylesheet" href="/blog/css/mathematical-modeling-course.css?v=20260915-course20">
     - <link rel="stylesheet" href="/blog/css/modeling-language-switch.css?v=20260915-bilingual1">
@@ -417,7 +417,8 @@ inject:
     - <script src="/blog/js/reading-history-config.js?v=20260913-en"></script>
     - <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
     - <script src="https://cdn.jsdelivr.net/npm/dompurify@3.4.15/dist/purify.min.js"></script>
-    - <script src="/blog/js/reading-history.js?v=20260919-invite-only"></script>
+    - <script src="/blog/js/reading-history.js?v=20261006-quiz-exp"></script>
+    - <script src="/blog/js/llm-quiz-practice.js?v=20261006-interactive"></script>
     - <script src="/blog/js/protected-modeling.js?v=20260919-modeling-ai"></script>
     - <script src="/blog/js/modeling-callouts.js?v=20260915-bilingual1"></script>
     - <script src="/blog/js/modeling-language-switch.js?v=20260915-bilingual1"></script>
