@@ -69,8 +69,8 @@
 .mm-visual-gallery {
   display: grid;
   margin: 1.4rem 0 2.2rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
   align-items: start;
 }
 
@@ -99,8 +99,10 @@
 }
 
 .mm-visual-card .mm-figure img {
-  aspect-ratio: 8 / 5;
-  max-height: 290px;
+  max-width: 920px;
+  max-height: 560px;
+  margin-right: auto;
+  margin-left: auto;
   object-fit: contain;
 }
 
@@ -112,6 +114,12 @@
 
 .article-content .mm-visual-card p:last-child {
   margin-bottom: 0;
+}
+
+/* The extraction text is retained in source for provenance audits, but the
+   cropped figure and adjacent citation are clearer than noisy PDF OCR. */
+.article-content .mm-award-case .mm-figure + p {
+  display: none;
 }
 
 .article-content .mm-visual-card strong {

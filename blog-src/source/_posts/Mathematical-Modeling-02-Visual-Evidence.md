@@ -16,26 +16,34 @@ review_lock: false
 excerpt: "A 100-figure field guide to charts, maps, diagrams, scientific graphics, visual diagnostics, and award-level evidence in mathematical modeling papers."
 ---
 
-Open one of your recent reports and place it beside this page. Do not look for the prettiest figure. Find the figure that carried the most important claim—today we are going to ask whether it actually proved what the caption promised.
+Welcome back. Find a comfortable seat, open any modeling paper you read recently, and scroll through it without reading the equations. You will probably notice something before you understand a single model: a paper with three or four uninterrupted pages of text is tiring. Even when the derivation is correct, the reader has to work too hard to discover what happened. A good figure gives the eyes somewhere to rest, but that is not its real job. Its real job is to let the reader *see the argument*.
 
-Today we are going to change the way you think about figures. A chart is not the colorful thing added after the mathematics is finished. A diagram is not an apology for an equation that looks difficult. In a modeling paper, a figure is **visual evidence**: a compact, inspectable answer to a precise question. It may show that a pattern exists, that two plans differ, that a mechanism is plausible, that an optimization respects its constraints, that uncertainty has been measured, or that a recommendation survives a stress test.
+That is what we are going to practise here. We are not trying to decorate a report, and we are not collecting fashionable chart templates. We are learning how to turn a modeling result into evidence that another person can inspect quickly. A judge should be able to see the trend you found, the difference between two plans, the region in which a constraint becomes active, or the way several modules pass information to one another. If the figure cannot help the reader do one of those things, it probably does not deserve space in the paper.
 
-This distinction matters in CUMCM and MCM/ICM papers because a judge reads quickly. The mathematics may be correct, yet the argument can still fail if the reader cannot find the comparison, trace the workflow, or see where the recommendation comes from. Conversely, a beautiful plot can be actively harmful when its scale exaggerates a tiny effect, its colors conceal uncertainty, or its 3D perspective prevents quantitative reading. Good visual design is therefore not cosmetic. It is part of model verification and scientific honesty.
+There is a practical reason to study this early. A competition may still be months away, but visual judgment cannot be crammed into the night before submission. You build it slowly: read good papers, save the figures that genuinely teach you something, reproduce two or three of them each week, and keep the code or editable source. By competition day you should not be inventing an unprecedented visual language under time pressure. You should be opening a small library of designs that you already understand and adapting the right one to your own data.
+
+In the examples below, most of the competition excerpts come from MCM/ICM papers, with a smaller group from CUMCM papers. This is deliberate. International papers often expect a particularly strong connection between a model and its visual presentation, so it makes sense to learn against the stricter standard. That does not mean making every page flashy. It means making every figure purposeful, readable, and honest.
 
 <div class="mm-key-box">
-  <span class="mm-callout-label">The visual-evidence contract</span>
-  <p>Before drawing, complete this sentence: <strong>“After seeing this figure, the reader should believe ___ because the figure compares ___ under ___.”</strong> If you cannot fill the blanks, you are not ready to choose a chart type.</p>
+  <span class="mm-callout-label">Before you draw anything</span>
+  <p>Complete this sentence: <strong>“After seeing this figure, I want the reader to notice ___, because the figure shows ___ under ___.”</strong> If you cannot finish that sentence, do not choose a chart yet. A heat map is not useful merely because it looks sophisticated, and a framework diagram is not useful merely because the page feels empty.</p>
 </div>
 
-The 100 figures below combine two kinds of material. The first ten are original teaching diagrams used to isolate foundational design principles. The remaining ninety are tightly cropped figure excerpts from identified CUMCM, MCM, or ICM award papers. Every excerpt names the competition year, problem, paper or team, and source page when the page is available. The crop is never presented as our numerical result: it is followed by design commentary explaining what evidence the original authors made visible, why the encoding helps, what could still mislead a reader, and how to rebuild the idea with your own data. Thus **90% of the gallery comes from real national or international competition papers**, while attribution stays next to the image rather than disappearing into a general bibliography.
+The page contains one hundred examples. The first ten are small teaching diagrams that isolate basic decisions. The remaining ninety are cropped excerpts from identified CUMCM, MCM, or ICM award papers. Their contest, problem, team or paper, and source page are kept beside the image whenever that information is available. They are here for analysis, not for copying: borrow the *reasoning* behind a design, then rebuild the figure with your own variables, data, and conclusion.
 
-Do not read this as a catalogue to memorize. Stop at each image and cover the explanation. Ask yourself four questions: What is the claim? What do position, length, color, and connection mean? What could the picture make me believe incorrectly? What would I need in the caption to trust it? Then compare your answer with the notes. This is how visual judgment develops: not by collecting templates, but by repeatedly linking a design choice to a modeling claim.
+Take your time. Before reading the note beneath an image, cover it and ask: What does this figure want me to notice first? What does position mean? What does color mean? What would disappear if the shaded region were removed? Could the same claim be made more clearly with a simpler chart? This habit matters far more than memorizing a list of chart names. After you have examined enough strong and weak figures, you begin to feel when a page is clear, crowded, empty, misleading, or unfinished.
 
 <!-- GENERATED:VISUAL-EVIDENCE-GALLERY:START -->
 
-## 1. Start with the Claim
+## Start with the Claim
 
-A figure is not a reward for finishing the analysis. It is a compact proof designed for one sentence in the paper. These ten opening examples show how the same numbers become more useful once the intended comparison is declared.
+A figure is not a reward that appears after the model is finished. It is part of the reasoning. Before choosing colors, ask a plain question: *what part of my model do I want the reader to notice?* Perhaps the answer is a trend, a comparison, a distribution, a spatial pattern, a flow, or the structure of the model itself. Once that purpose is clear, choosing the form becomes much easier.
+
+This also explains a common beginner mistake. Many teams calculate a correlation matrix, discover that software can produce a colorful heat map in one line, and place it in the paper immediately. But suppose the decision does not depend on pairwise correlation. What has the heat map proved? Nothing. It has occupied space and signaled that the authors know a plotting command. The same is true of an unrelated photograph or a decorative icon inserted because a page looks empty. Every figure must serve the modeling argument.
+
+There are two broad jobs to keep separate throughout this blog. A **data figure** shows the process or outcome of the model: a forecast, a comparison, a distribution, a simulation, an error, a sensitivity result. Its center of gravity is the *effect of the model*. A **framework figure** explains how the model is organized: its inputs, modules, information flow, feedback, and validation. Its center of gravity is the *logic of the model*. Both can be beautiful, but beauty is not their common purpose. Their common purpose is to reduce the reader's uncertainty.
+
+The ten small examples below are intentionally simple. Read each one as a sentence rather than as a picture. Notice that the chart becomes defensible only after the sentence is precise. This is the first habit I want you to carry into every later case.
 
 <div class="mm-visual-gallery">
 
@@ -150,9 +158,24 @@ A figure is not a reward for finishing the analysis. It is a compact proof desig
 </article>
 </div>
 
-## 2. Comparison, Ranking, and Composition
+## Comparison, Ranking, and Composition
 
-A comparison graphic should answer who is larger, by how much, and under which common conditions. Position on a shared scale is usually the most reliable encoding. Color can guide attention, but it must never replace the geometry that carries the quantitative claim. The award-paper excerpts in this section are useful because they place alternatives, regions, schedules, or strategies into a common frame instead of asking the reader to reconcile separate tables. While reading, check whether the comparison is fair: identical units, identical periods, visible baselines, and a caption that states the substantive difference rather than announcing a chart type.
+Let us begin with the chart families everyone recognizes. A bar chart compares quantities. A pie or stacked chart describes composition. A radar chart compares several dimensions of the same object. Those descriptions are useful, but they are not rules that can choose a figure for you. The purpose still comes first.
+
+Imagine that we have two algorithms, A and B, and someone asks, “Which one is more accurate?” If each algorithm produces one final accuracy score under the same test set, a pair of bars is perfectly sensible. The reader can compare two lengths from a common baseline and see the difference immediately. But now suppose accuracy changes with the number of iterations. Algorithm A learns quickly and then plateaus; Algorithm B starts slowly but eventually overtakes it. Reducing that story to two final bars hides the crossover, the convergence speed, and perhaps the computational cost. In that case the horizontal axis has meaning, and two lines tell the more useful story.
+
+Pause here before reading on.
+
+<div class="mm-question-box">
+  <span class="mm-callout-label">A chart-choice question</span>
+  <p>You need to compare the accuracy of two algorithms. Should you use a bar chart or a line chart?</p>
+</div>
+
+The honest answer is: **it depends on the effect you need to show**. Use bars when the claim concerns a small set of scalar summaries. Use lines when order, time, iteration, or another continuous progression is part of the claim. Sometimes a paper needs both: the line plot reveals learning behavior, while a small table or bar chart reports the final held-out metric. The choice is not “which chart is more advanced?” It is “which evidence would change the reader's judgment?”
+
+The same care applies to composition. Pie charts are acceptable when there are only a few parts, they sum to a meaningful whole, and the differences are large enough to read. When several slices are close, an ordered bar chart is usually easier to compare. Radar charts can be helpful for a broad profile, but they become misleading when the axes use incompatible scales or when the order of the spokes changes the apparent shape. Always normalize transparently and keep the same axis order across alternatives.
+
+As you examine the competition cases below, do not stop at “this is a bar chart.” Ask whether the alternatives share the same denominator, period, unit, and baseline. A polished comparison is still invalid if one bar measures a daily rate and another measures a weekly total. The geometry carries the claim, so the geometry must be fair.
 
 <div class="mm-visual-gallery">
 
@@ -268,9 +291,17 @@ A comparison graphic should answer who is larger, by how much, and under which c
 
 </div>
 
-## 3. Time, Trend, and Forecasting
+## Time, Trend, and Forecasting
 
-Time plots are not ordinary line charts with dates attached. They must distinguish observations from fitted values and forecasts, expose changes in regime, and respect temporal dependence. A convincing competition figure tells the reader where the data end, where the model begins, and how uncertainty grows into the future. The strongest examples below also align events or scenarios on the same clock. That alignment lets a judge connect a peak, decline, lag, or intervention to the mechanism claimed in the text instead of mistaking coincidence for explanation.
+A line chart is the natural starting point when we care about change: stock prices over time, infection counts by day, temperature along a production process, or accuracy over training iterations. The easy version is to draw one clean line. Almost every team can do that. The harder question is how to make the figure carry enough information without turning it into a tangle.
+
+One of the most useful techniques in the competition examples is a shaded band around a central curve. The line might be a mean, median, fitted value, or expected trajectory; the band might show a confidence interval, a prediction interval, an empirical quantile range, repeated simulations, or variation across samples. The shade makes the page visually fuller, but that is only a side effect. Its real value is that it prevents the central line from pretending to be certain.
+
+Do not add a shadow merely because it looks good. State exactly what its lower and upper boundaries mean. “Mean ± one standard deviation,” “5th–95th percentile across 1,000 simulations,” and “95% prediction interval” are different objects. They answer different questions. A band with no definition is decoration wearing the costume of uncertainty.
+
+A strong time figure also tells the reader where observation stops and prediction begins. Use a vertical marker, a change in line style, or a clear background division. If an intervention occurs, mark it. If two algorithms cross after a certain number of iterations, annotate the crossover. If one method converges faster but the other finishes higher, say so in the caption. The point of the chart is not to display two curves; it is to reveal the difference in their behavior.
+
+Several MCM/ICM cases below also connect numerical results to a real setting. A plotted pattern may sit beside a photograph, map, or physical scene so that the reader can see what the variables refer to. This is especially useful when the problem asks for an implementable recommendation rather than an abstract calculation. The photograph should add context that the data cannot supply, not act as a scenic background.
 
 <div class="mm-visual-gallery">
 
@@ -386,9 +417,17 @@ Time plots are not ordinary line charts with dates attached. They must distingui
 
 </div>
 
-## 4. Distribution, Risk, and Uncertainty
+## Distribution, Risk, and Uncertainty
 
-An average hides the cases that often decide a recommendation. Distribution and uncertainty graphics should reveal spread, tails, intervals, scenario dependence, and sensitivity to assumptions. Their purpose is not to decorate a point estimate with translucent color. Their purpose is to show how much confidence the decision deserves and where it may fail. Look for a visible reference level, consistent probability or frequency scales, and an encoding that makes extreme or unstable behavior inspectable.
+Suppose a class has an average score of 78. That number tells us almost nothing about the shape of the class. Perhaps everyone scored between 75 and 81. Perhaps half the class scored near 60 and the other half near 96. A histogram, box plot, or violin plot can reveal that structure, and each gives a different amount of detail.
+
+A histogram answers a very concrete question: where do observations accumulate? Its bins, however, are part of the argument. Change the bin width and the apparent shape may change. Always check more than one sensible width, then choose one that reveals stable structure rather than a lucky pattern. If one interval is the most important—for example, the most likely escape time or the range where failures concentrate—highlight that interval and explain why it matters. One purposeful color change is more useful than coloring every bar differently.
+
+Box plots compress a distribution into location, spread, and possible outliers; violin plots add an estimate of density. They are useful for comparing several groups, but they are not self-explanatory. A small sample can produce a smooth-looking violin that suggests more knowledge than the data support. Show sample sizes, use the same scale, and consider adding the raw observations when the data set is small.
+
+Sometimes several distributions belong in one panel. Overlapping histograms can work when transparency, bin boundaries, and sample sizes are carefully controlled. Often aligned small multiples or density curves are easier to read. The aim is not to put more ink on the page. It is to let the reader compare center, spread, tails, and unusual cases without mentally merging separate tables.
+
+Risk enters when a decision depends on those tails. A plan with the best average result may be unacceptable if its worst plausible outcomes are severe. This is why uncertainty bands, sensitivity curves, scenario plots, and quantile summaries belong in a modeling paper. They turn “our answer is robust” from a sentence into something the judge can inspect.
 
 <div class="mm-visual-gallery">
 
@@ -504,9 +543,15 @@ An average hides the cases that often decide a recommendation. Distribution and 
 
 </div>
 
-## 5. Relationships and Model Diagnostics
+## Relationships and Model Diagnostics
 
-Diagnostic figures ask whether a model behaves as its mathematical story says it should. A fitted line is not enough. We need residual structure, out-of-sample errors, cluster separation, parameter sensitivity, convergence behavior, or comparison with a meaningful baseline. The examples here earn space because they let the reader audit a modeling step. When adapting them, preserve that audit function: label the benchmark, show the region where the fit is weak, and avoid axes or smoothing choices that make disagreement disappear.
+Heat maps are attractive, fast to generate, and therefore dangerous. A correlation heat map appears in an enormous number of data-analysis papers. Sometimes it is exactly what the argument needs: we want to understand pairwise associations, diagnose redundant predictors, or identify a block structure before building the model. But if the result never influences variable selection, mechanism, or validation, the heat map is merely proof that software was opened.
+
+If a relationship figure earns its place, make its reading easier. A square matrix may be redundant because the upper and lower triangles repeat the same information. A triangular layout, clustered ordering, meaningful labels, or circles whose size and color both encode magnitude can reduce clutter. When geography matters, a spatial heat map can be more informative than an abstract matrix because it preserves where high and low values occur. But do not smooth sparse observations into a continuous field without explaining the interpolation.
+
+The deeper principle is that a diagnostic figure lets the reader challenge the model. Plot residuals against fitted values and time. Compare predicted and observed quantities on the same scale. Show whether an optimization actually converged and whether a machine-learning model generalizes beyond its training data. Mark the zero-error or identity reference. A single accuracy value may sound impressive while hiding one region, class, or time period where the model fails systematically.
+
+Ask yourself a slightly uncomfortable question: *what picture would make my model look bad if something were wrong?* That is often the diagnostic worth drawing. Good visualization is not only presentation; it is also a way to discover errors before the judge does.
 
 <div class="mm-visual-gallery">
 
@@ -622,9 +667,15 @@ Diagnostic figures ask whether a model behaves as its mathematical story says it
 
 </div>
 
-## 6. Space, Maps, and Geometry
+## Space, Maps, and Geometry
 
-A spatial figure must preserve geography or geometry that matters to the decision. It should tell us where something occurs, how distance or adjacency is defined, and which boundaries are analytical rather than decorative. A map without a scale, legend, projection note, or readable reference layer is merely a colored background. The award-paper excerpts below work best when they combine spatial context with one focused overlay: a route, density, scenario, region, or geometric construction.
+Some data cannot be understood properly after location is removed. A table of infection counts by province permits ranking, but a choropleth map immediately reveals clusters, boundaries, distance, and the possibility of spatial spread. The same is true for pollution, traffic, drought, land use, resource allocation, and routes.
+
+Color on a map must describe a defined variable. A darker region might mean a larger count, a larger rate, or a higher model score; those are not interchangeable. Raw counts can make populated regions appear important simply because more people live there. Rates can become unstable in very small populations. State the denominator, the period, and the spatial unit. Include a readable legend, and choose a sequential palette whose lightness follows the numerical order.
+
+Gridded or raster views are useful when the model operates on cells rather than administrative regions. They can combine spatial position with density, exposure, cost, or probability. They can also imply false precision. If the original observations are sparse, show sampling locations or explain how values between them were estimated. A map becomes evidence only when the reader can distinguish what was measured from what was inferred.
+
+Three-dimensional plots deserve similar caution. Use 3D when the geometry or surface is part of the mechanism, not because perspective makes the page dramatic. If the important comparison is a height, a contour map or aligned slices may be easier to read. Preserve units, reference frames, scale, and orientation. The reader should not need to rotate an imaginary camera to discover the result.
 
 <div class="mm-visual-gallery">
 
@@ -740,9 +791,15 @@ A spatial figure must preserve geography or geometry that matters to the decisio
 
 </div>
 
-## 7. Networks, Flows, and Optimization
+## Networks, Flows, and Optimization
 
-Network figures become valuable when topology itself is evidence. Nodes and edges should represent defined objects and interactions; width, direction, color, and placement must have stable meanings. A hairball proves nothing. The successful examples below reduce the graph to the relationships needed for the claim, separate formations or scenarios, and make a flow or structural contrast visible. Reproduce that discipline before adding animation, gradients, or decorative icons.
+When the story is about movement, a Sankey diagram can be far more natural than a table. Imagine students moving from primary school to several middle schools, then to high schools and universities. The width of each band can show how many people follow each route. The reader sees not only totals at each stage but also how the total is divided and recombined along the way.
+
+That same idea applies to energy, materials, money, migration, information, or probability mass. Define every stage and make the width proportional to one common unit. Do not create a Sankey diagram when links are not conserved or comparable; the flowing ribbons imply a balance relationship. If the figure contains many tiny paths, group them by an explicit rule rather than leaving a bundle of hair-thin lines that nobody can follow.
+
+Network diagrams answer a different question. Their evidence lies in connectivity: hubs, communities, paths, bottlenecks, or changing formations. Every node and edge must have a defined meaning. Filter or aggregate by a reproducible rule. A dense network may look technically impressive while revealing nothing at all.
+
+Optimization figures should expose the decision, not just announce the optimum. Show the feasible region, active constraints, Pareto frontier, route, schedule, or sensitivity of the objective to a resource. If a selected solution is slightly more expensive but remains feasible under every disruption, put robustness and cost into the same visual argument. The reader should be able to see *why* the chosen point deserves to be chosen.
 
 <div class="mm-visual-gallery">
 
@@ -858,9 +915,19 @@ Network figures become valuable when topology itself is evidence. Nodes and edge
 
 </div>
 
-## 8. Frameworks and Model Architecture
+## Frameworks and Model Architecture
 
-A framework diagram is a contract between parts of the model. It should reveal inputs, transformations, decisions, feedback, and validation, not merely arrange algorithm names in attractive boxes. Read every arrow as a sentence: what object moves, in what direction, and with what unit or role? The award-paper examples in this section are strongest when the visual order matches the computational order and when branches correspond to genuine alternatives or checks.
+Now we move from figures that show a model's effect to figures that explain the model itself. A framework diagram should let a reader answer three questions quickly: what goes into the model, what happens in the middle, and what decision or result comes out. A mind map can organize ideas; an architecture diagram can show modules and dependencies; a schematic can make a physical system concrete; a flowchart can show sequence, branching, and feedback. They are related, but they are not interchangeable.
+
+The weakest framework I often see is one long vertical chain: Step 1, Step 2, Step 3, Step 4, Step 5. It may be technically correct, yet it uses most of the page height, leaves empty space on both sides, and tells us nothing beyond “these steps happen in order.” The solution is not to add more icons. The solution is to discover the modules already present in the reasoning.
+
+Perhaps the first group of steps cleans and transforms data, the second predicts an environmental state, the third optimizes a decision, and the last validates the recommendation. Put those steps into meaningful containers. Give each module a stable color or visual treatment. Arrange the modules so the page is used well—often left to right, then continuing on a second row—while keeping the reading order unmistakable. Now the judge can understand both sequence and function.
+
+One layout deserves special attention because it appears repeatedly in strong recent papers. The upper strip gives a concise overview: data preparation, Model I, Model II, validation, recommendation. The lower area expands each module with a concrete diagram, small plot, variable group, or mechanism. The top answers “what is the whole pipeline?” and the bottom answers “what does each box actually do?” This **overview-plus-detail** structure is useful because a judge who has only ten seconds still sees the main line, while a careful reader can inspect the implementation.
+
+There are two tests for every arrow. First, can you read it as a sentence? “Hourly demand distribution enters the staffing optimizer” is meaningful; an unlabeled arrow between “ARIMA” and “GA” is not. Second, does the implementation really pass that object? Decorative feedback loops and fashionable algorithm names weaken trust when they do not correspond to the code or equations.
+
+Finally, design for the paper page rather than the editing canvas. Fill the width sensibly, align boxes, keep text large enough to survive reduction, and remove empty corridors. A framework can be simple and still be excellent. What matters is that, after one glance, the reader can retell the structure of your model in the right order.
 
 <div class="mm-visual-gallery">
 
@@ -976,9 +1043,13 @@ A framework diagram is a contract between parts of the model. It should reveal i
 
 </div>
 
-## 9. Scientific and Engineering Figures
+## Scientific and Engineering Figures
 
-Scientific figures must retain the domain mechanism. Geometry needs reference frames; physical curves need units and constraints; simulations need initial and boundary conditions; photographs need annotations that connect the scene to measured variables. These examples are useful because the picture and mathematical model support each other. The image is not a stock illustration of the topic: it identifies the configuration, state, or response that appears in the equations.
+A photograph becomes useful only when it connects the model to the real system. In an MCM/ICM problem about tourism, light pollution, fisheries, or environmental planning, pairing numerical evidence with a carefully selected site image can remind the reader what the variables mean and why the recommendation matters. But a photograph cannot replace measurement, and a scenic image without annotation is still decoration.
+
+Engineering schematics have a stricter job. If the equations use a coordinate frame, the figure should show it. If a geometric angle, force, route, boundary condition, or sensor location appears in the model, label the same object consistently in the picture. This is where presentation software is often underestimated: with alignment guides, simple shapes, and restrained color, PowerPoint can produce a remarkably clear two-dimensional or three-dimensional schematic much faster than a specialized drawing language.
+
+The important word is *clear*. A three-dimensional rendering is not automatically more scientific than a two-dimensional diagram. Use the simplest view that makes the mechanism visible. When a real photograph and a model schematic appear together, align them by the same landmarks and explain which features were abstracted away. The reader should be able to move from object, to diagram, to variable, to equation without guessing.
 
 <div class="mm-visual-gallery">
 
@@ -1094,9 +1165,15 @@ Scientific figures must retain the domain mechanism. Geometry needs reference fr
 
 </div>
 
-## 10. From a Good Figure to an Award-Level Page
+## From a Good Figure to an Award-Level Page
 
-An award-level page is not a collage of individually attractive charts. It is a sequence of evidence. The final ten excerpts deliberately mix chart families because the design problem at page level is orchestration: context before detail, method before result, result before recommendation, and uncertainty before confidence. Notice how different papers repeat typography and color semantics, keep related panels close, and let captions complete the reasoning. Use these cases to audit the rhythm of your own paper rather than to imitate one surface style.
+A strong competition page is not a gallery of unrelated beautiful objects. It has rhythm. The framework prepares the reader for the model, the result figure answers a question raised by the text, the diagnostic tests whether the answer can be trusted, and the caption states what changed. Context comes before detail; method comes before result; uncertainty comes before confidence.
+
+This is why simply copying the surface of an award-paper figure rarely works. The original image belongs to a chain of reasoning. If you borrow its layout, first identify the role it played: comparison, mechanism, validation, spatial context, or recommendation. Then rebuild that role using your own data. Keep the parts that support the role and discard the parts that belonged only to the original problem.
+
+Look also at the whole page. Strong papers repeat typography and color semantics. A color meaning “baseline” does not suddenly mean “best plan” three pages later. Related panels stay close. Captions do not say “Figure 7: Result”; they state the result and the conditions under which it was obtained. White space is used to separate ideas, not left accidentally because a tall narrow flowchart consumed the center of the page.
+
+The final ten examples mix chart families on purpose. Read them as page-building lessons. Ask what the reader learns first, what they are expected to compare next, and where the authors place the evidence that protects the conclusion from overstatement.
 
 <div class="mm-visual-gallery">
 
@@ -1216,13 +1293,15 @@ An award-level page is not a collage of individually attractive charts. It is a 
 
 <!-- GENERATED:VISUAL-EVIDENCE-GALLERY:END -->
 
-## 11. Choosing and Reproducing the Toolchain
+## Choosing and Reproducing the Toolchain
 
-A complete competition workflow may use many drawing environments: Matlab and enhancement packages such as FigureBest; Python; LaTeX drawing systems; presentation software; general diagram applications such as Visio, ProcessOn, draw.io, and Edraw; statistical products such as Prism; domain-oriented systems such as BioRender; icon libraries; and specialized tools for machine-learning, biochemical, geographic, and engineering artwork. They are not competitors in one league. Each tool is good at a different part of the evidence pipeline.
+Students often ask me which plotting tool is “the best.” The question sounds sensible, but there is no single league table. Matlab and Python are excellent when the geometry comes from data. LaTeX is precise when mathematics and typography must fit together. PowerPoint, draw.io, ProcessOn, Visio, or Edraw can be faster for a framework or schematic. GIS, Prism, BioRender, and engineering software become useful when the domain carries information a general plotting package would lose.
+
+So choose the tool after choosing the job. Efficiency matters during a contest, but editability and reproducibility matter too. In rough terms, Matlab and Python usually produce data figures more quickly than LaTeX. For fine control, Python and LaTeX often allow more personalization than a default Matlab workflow. That is not a law; it is a reminder to practise the tool you expect to use. The most powerful software is useless if nobody on the team can revise the figure at 2 a.m.
 
 ### Python and Matlab for Data-Bound Figures
 
-Use code when the geometry of the figure is determined by data or model output. Time series, distributions, sensitivity plots, maps, residual diagnostics, contour fields, simulation ensembles, and optimization traces should normally be generated from a script. A reproducible figure has three advantages. First, the paper updates when the data or model changes. Second, the plotted values can be checked against the numerical results. Third, another teammate can inspect transformations instead of guessing which manual edits occurred.
+Use code when the picture is determined by data or model output. Time series, distributions, sensitivity plots, maps, residual diagnostics, contour fields, simulation ensembles, and optimization traces should normally come from a script. This is not a matter of programming pride. When a teammate updates the data six hours before submission, a scripted figure can be regenerated; a hand-edited screenshot has to be rebuilt and may no longer match the reported result.
 
 Python is especially practical when the analysis already uses NumPy, pandas, SciPy, scikit-learn, Matplotlib, Seaborn, Plotly, GeoPandas, or NetworkX. Matlab is excellent for numerical experiments, signal processing, control, differential equations, and matrix-oriented workflows. Neither language makes a good plot automatically. You still need a project palette, a final print size, meaningful axis labels, and a caption contract. Export vector PDF or SVG for line art and high-resolution PNG only when the figure contains raster information. Never improve a plot by taking a screenshot of it.
 
@@ -1251,7 +1330,7 @@ Use draw.io, ProcessOn, Visio, Edraw, or a presentation editor when the visual i
 
 Every arrow needs a verb or an exchanged object. “Demand forecast → optimizer” is incomplete unless the optimizer receives a quantity with units and time resolution, such as “hourly arrival distribution, customers/hour.” Feedback should return to the exact module it revises. Avoid shadows, gradients, and three-dimensional blocks until the graph remains understandable without them. Export as SVG or PDF so that text and edges remain sharp.
 
-Presentation software is not a lesser tool. It is often the fastest way to construct a clear geometry schematic, annotated map, or explanatory multi-panel composition. Use guides, distribute and align commands, consistent arrowheads, and a project color palette. Replace clip-art decoration with meaningful shapes. Group the finished object, export it at final size, and check the output outside the editor.
+Presentation software is not a lesser tool. It is often the fastest way to construct a clear geometry schematic, annotated map, or explanatory multi-panel composition. Some excellent CUMCM papers explain a formation, a geometric construction, or a physical setup with nothing more exotic than carefully aligned PowerPoint shapes. Use guides, distribute and align commands, consistent arrowheads, and a project color palette. Replace clip-art decoration with meaningful shapes. Group the finished object, export it at final size, and check the output outside the editor.
 
 ### Domain Tools and Specialized Figures
 
@@ -1259,7 +1338,7 @@ Prism can accelerate statistical plots when the analysis and audience are biomed
 
 Machine-learning diagrams deserve special caution. A page of pastel cubes is not an architecture. Label input and output shapes, repeated blocks, fusion points, loss functions, and the variables that connect the network to the modeling question. Similarly, a biochemical pathway should include only the species and interactions used by the model. A dense literature diagram may be scientifically rich and still be wrong for a competition paper if the reader cannot tell which mechanism you actually implemented.
 
-### Color, Typography, and Accessibility
+#### Color, Typography, and Accessibility
 
 Choose colors by meaning before choosing them by taste. Assign stable semantics: baseline, proposal, uncertainty, violation, and selected decision. Keep those meanings throughout the paper. Sequential data need a palette whose lightness changes monotonically. Values above and below a meaningful center need a diverging palette with a neutral midpoint. Categories need distinguishable hues, but most figures rarely need more than five simultaneous category colors.
 
@@ -1267,9 +1346,17 @@ Avoid the rainbow palette for ordered values. It creates false visual boundaries
 
 Typography should disappear into the argument. Use the same font family as the paper when possible, no more than three text levels, sentence case, and a size that survives final placement. A huge chart title and microscopic tick labels reverse the information hierarchy. Most competition figures do not need a title inside the graphic because the numbered caption supplies context; use that space for the evidence.
 
-### The Figure Review
+### Build a Visual Library Before the Contest
 
-Review figures in their final PDF, not only in the plotting window. For every figure, ask:
+Here is the habit that matters most. First, **look**. Read award papers and pay attention to the figures, not only the algorithms. When a visual makes a result immediately understandable, save it in the team's Notion workspace. Record the competition, year, problem, paper identifier, page, and source link. A label such as “2023 C1” is not administrative clutter; months later it lets you trace an idea back to the original paper instead of staring at an orphaned screenshot.
+
+Second, **reproduce**. Choose two or three worthwhile figures each week and rebuild them with small synthetic data. Keep the source code or editable diagram, not only the exported image. While reproducing, ask what makes the design work: the shared scale, the ordering, the shaded interval, the annotation, the overview-and-detail structure, or the connection to a real map. If you cannot explain that mechanism, you have copied a surface rather than learned a design.
+
+This is how visual judgment develops. Nobody begins with a perfect mental image of the best possible chart. After seeing many strong and weak examples, you start to recognize balance, hierarchy, unnecessary decoration, and missing evidence. By the time the competition arrives, a team that has reproduced three figures a week may own dozens of tested patterns. Then you are not asking, “Can we invent something beautiful in the next hour?” You are asking, “Which of our known patterns expresses this result honestly?” That is a much calmer question.
+
+Do not interpret “better than an ordinary line chart” as “more complicated.” Sometimes one meaningful shaded interval, one direct annotation, or one reordered axis is enough to move a figure beyond the default output that nearly every team can produce. The improvement must add information. If it adds only gradients, shadows, or visual noise, it is not an improvement.
+
+Before accepting a reproduced design, review it in the final PDF rather than only in the plotting window. For every figure, ask:
 
 1. What exact sentence does it support?
 2. Are the data, scenario, sample, and units named?
@@ -1283,13 +1370,15 @@ Review figures in their final PDF, not only in the plotting window. For every fi
 10. If the figure vanished, would the surrounding argument become weaker? If not, remove it.
 
 <div class="mm-question-box">
-  <span class="mm-callout-label">Final exercise</span>
-  <p>Open one of your own reports and select its most important result figure. Write the missing visual-evidence contract, rebuild the figure from the original data, and ask a teammate to state the conclusion without reading the surrounding paragraph. If their sentence differs from yours, the figure is not finished.</p>
+  <span class="mm-callout-label">Before you leave this page</span>
+  <p>Choose one figure from a paper you genuinely admire. Save its contest, year, problem, paper identifier, page, and link in your shared Notion workspace. Then rebuild the design with a tiny data set of your own. Do not copy the conclusion; reproduce the visual idea and write down why it works.</p>
 </div>
 
-The goal is not to produce 100 figures in a competition paper. It is to build enough visual vocabulary that, when the model asks a question, you can choose the one picture that answers it honestly. A strong report might contain only eight figures. Each should have a job. Each should be traceable. Each should make one piece of the modeling argument easier to inspect than prose alone.
+You do not need one hundred figures in a competition paper. You need a small number of figures that each have a clear job. One may explain the pipeline, one may show the key comparison, one may reveal uncertainty, and one may test robustness. If a figure disappears and the argument loses nothing, the figure was probably never part of the argument.
 
-One last hidden test: shrink your best figure until it is only six centimeters wide, print it in grayscale, and give it to someone for ten seconds. If they can still name the comparison and the conclusion, keep it. If they remember only the colors, the figure is asking for one more revision.
+Before we finish, try one final test. Shrink your most important figure to the width it will occupy in the paper, print it in grayscale, and let a teammate look at it for ten seconds. Ask what conclusion they saw. If they remember only the colors, revise it. If they can name the comparison and the conclusion, you are close.
+
+That is enough for today. You do not have to master every chart family at once. Begin with one habit: whenever you see a good figure, do not merely say “this looks nice.” Ask *why* it works, record where it came from, and reproduce the idea once. Week by week, those small repetitions become your team's visual vocabulary. When the competition finally arrives, you will not be decorating a finished model. You will already know how to let the model speak.
 
 ## Knowledge Check
 
