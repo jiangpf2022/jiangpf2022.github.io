@@ -35,7 +35,7 @@ Take your time. Before reading the note beneath an image, cover it and ask: What
 
 <!-- GENERATED:VISUAL-EVIDENCE-GALLERY:START -->
 
-## Start with the Claim
+## The Claim
 
 A figure is not a reward that appears after the model is finished. It is part of the reasoning. Before choosing colors, ask a plain question: *what part of my model do I want the reader to notice?* Perhaps the answer is a trend, a comparison, a distribution, a spatial pattern, a flow, or the structure of the model itself. Once that purpose is clear, choosing the form becomes much easier.
 
@@ -158,7 +158,7 @@ The ten small examples below are intentionally simple. Read each one as a senten
 </article>
 </div>
 
-## Comparison, Ranking, and Composition
+## Comparisons
 
 Let us begin with the chart families everyone recognizes. A bar chart compares quantities. A pie or stacked chart describes composition. A radar chart compares several dimensions of the same object. Those descriptions are useful, but they are not rules that can choose a figure for you. The purpose still comes first.
 
@@ -291,7 +291,7 @@ As you examine the competition cases below, do not stop at “this is a bar char
 
 </div>
 
-## Time, Trend, and Forecasting
+## Time and Forecasts
 
 A line chart is the natural starting point when we care about change: stock prices over time, infection counts by day, temperature along a production process, or accuracy over training iterations. The easy version is to draw one clean line. Almost every team can do that. The harder question is how to make the figure carry enough information without turning it into a tangle.
 
@@ -417,7 +417,7 @@ Several MCM/ICM cases below also connect numerical results to a real setting. A 
 
 </div>
 
-## Distribution, Risk, and Uncertainty
+## Distribution and Risk
 
 Suppose a class has an average score of 78. That number tells us almost nothing about the shape of the class. Perhaps everyone scored between 75 and 81. Perhaps half the class scored near 60 and the other half near 96. A histogram, box plot, or violin plot can reveal that structure, and each gives a different amount of detail.
 
@@ -543,7 +543,7 @@ Risk enters when a decision depends on those tails. A plan with the best average
 
 </div>
 
-## Relationships and Model Diagnostics
+## Model Diagnostics
 
 Heat maps are attractive, fast to generate, and therefore dangerous. A correlation heat map appears in an enormous number of data-analysis papers. Sometimes it is exactly what the argument needs: we want to understand pairwise associations, diagnose redundant predictors, or identify a block structure before building the model. But if the result never influences variable selection, mechanism, or validation, the heat map is merely proof that software was opened.
 
@@ -667,7 +667,7 @@ Ask yourself a slightly uncomfortable question: *what picture would make my mode
 
 </div>
 
-## Space, Maps, and Geometry
+## Maps and Geometry
 
 Some data cannot be understood properly after location is removed. A table of infection counts by province permits ranking, but a choropleth map immediately reveals clusters, boundaries, distance, and the possibility of spatial spread. The same is true for pollution, traffic, drought, land use, resource allocation, and routes.
 
@@ -791,7 +791,7 @@ Three-dimensional plots deserve similar caution. Use 3D when the geometry or sur
 
 </div>
 
-## Networks, Flows, and Optimization
+## Networks and Flows
 
 When the story is about movement, a Sankey diagram can be far more natural than a table. Imagine students moving from primary school to several middle schools, then to high schools and universities. The width of each band can show how many people follow each route. The reader sees not only totals at each stage but also how the total is divided and recombined along the way.
 
@@ -915,7 +915,7 @@ Optimization figures should expose the decision, not just announce the optimum. 
 
 </div>
 
-## Frameworks and Model Architecture
+## Model Architecture
 
 Now we move from figures that show a model's effect to figures that explain the model itself. A framework diagram should let a reader answer three questions quickly: what goes into the model, what happens in the middle, and what decision or result comes out. A mind map can organize ideas; an architecture diagram can show modules and dependencies; a schematic can make a physical system concrete; a flowchart can show sequence, branching, and feedback. They are related, but they are not interchangeable.
 
@@ -1043,7 +1043,7 @@ Finally, design for the paper page rather than the editing canvas. Fill the widt
 
 </div>
 
-## Scientific and Engineering Figures
+## Scientific Figures
 
 A photograph becomes useful only when it connects the model to the real system. In an MCM/ICM problem about tourism, light pollution, fisheries, or environmental planning, pairing numerical evidence with a carefully selected site image can remind the reader what the variables mean and why the recommendation matters. But a photograph cannot replace measurement, and a scenic image without annotation is still decoration.
 
@@ -1165,7 +1165,7 @@ The important word is *clear*. A three-dimensional rendering is not automaticall
 
 </div>
 
-## From a Good Figure to an Award-Level Page
+## Award-Level Pages
 
 A strong competition page is not a gallery of unrelated beautiful objects. It has rhythm. The framework prepares the reader for the model, the result figure answers a question raised by the text, the diagnostic tests whether the answer can be trusted, and the caption states what changed. Context comes before detail; method comes before result; uncertainty comes before confidence.
 
@@ -1293,7 +1293,7 @@ The final ten examples mix chart families on purpose. Read them as page-building
 
 <!-- GENERATED:VISUAL-EVIDENCE-GALLERY:END -->
 
-## Choosing and Reproducing the Toolchain
+## Reproducible Tools
 
 Students often ask me which plotting tool is “the best.” The question sounds sensible, but there is no single league table. Matlab and Python are excellent when the geometry comes from data. LaTeX is precise when mathematics and typography must fit together. PowerPoint, draw.io, ProcessOn, Visio, or Edraw can be faster for a framework or schematic. GIS, Prism, BioRender, and engineering software become useful when the domain carries information a general plotting package would lose.
 

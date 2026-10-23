@@ -5,6 +5,11 @@ import vm from "node:vm";
 const postsDir = path.resolve("source/_posts");
 const minimumWords = 20_000;
 const expectedQuestions = 10;
+const minimumSections = 8;
+const maximumSections = 12;
+const minimumImages = 2;
+const minimumCallouts = 2;
+const minimumDisplayMath = 1;
 const failures = [];
 const quizSourcePath = path.resolve("source/js/modeling-quiz.js");
 
@@ -42,19 +47,29 @@ const posts = fs.readdirSync(postsDir)
   .filter((name) => /^Mathematical-Modeling-\d\d-.*\.md$/.test(name))
   .filter((name) => !name.endsWith("-zh.md"));
 
-const levelOne = [];
+const coursePosts = [];
 for (const name of posts) {
   const source = fs.readFileSync(path.join(postsDir, name), "utf8");
   if (!/^categories:\s*Mathematical Modeling$/m.test(source)) continue;
-  if (!/^lesson_level:\s*1$/m.test(source)) continue;
   const lesson = Number(/^lesson_number:\s*(\d+)$/m.exec(source)?.[1]);
+  const level = Number(/^lesson_level:\s*(\d+)$/m.exec(source)?.[1]);
   const reviewLocked = /^review_lock:\s*true$/m.test(source);
   const words = englishWordCount(source);
+  const chineseName = name.replace(/\.md$/, "-zh.md");
+  const chinesePath = path.join(postsDir, chineseName);
+  const chineseExists = fs.existsSync(chinesePath);
+  const chineseSource = chineseExists ? fs.readFileSync(chinesePath, "utf8") : "";
   const quizKey = 'data-modeling-quiz="lesson-' + lesson + '"';
   const quizReady = source.includes(quizKey);
+  const chineseQuizReady = chineseExists && chineseSource.includes(quizKey);
   const h2Count = (source.match(/^##\s+/gm) || []).length;
+  const chineseH2Count = chineseExists ? (chineseSource.match(/^##\s+/gm) || []).length : 0;
+  const sectionDelta = chineseExists ? Math.abs(chineseH2Count - h2Count) : 0;
   const quiz = quizBanks["lesson-" + lesson]?.questions || [];
   const questionCount = quiz.length;
+  const imageCount = (source.match(/<img\b|!\[[^\]]*\]\(/g) || []).length;
+  const calloutCount = (source.match(/class=["'][^"']*mm-(?:key|question|warning|insight|example|definition)-box\b/g) || []).length;
+  const displayMathCount = Math.floor((source.match(/\$\$/g) || []).length / 2);
   const difficultyOrdered = quiz.every((question, index) => (
     index === 0 || question.target <= quiz[index - 1].target
   ));
@@ -70,14 +85,23 @@ for (const name of posts) {
       return !fs.existsSync(path.resolve("source", sourceRelative));
     });
 
-  levelOne.push({
+  coursePosts.push({
     lesson,
+    level,
     name,
     words,
+    chineseName,
+    chineseExists,
     reviewLocked,
     quizReady,
+    chineseQuizReady,
     questionCount,
     h2Count,
+    chineseH2Count,
+    sectionDelta,
+    imageCount,
+    calloutCount,
+    displayMathCount,
     difficultyOrdered,
     expOrdered,
     displayMathBalanced,
@@ -86,8 +110,14 @@ for (const name of posts) {
   if (!reviewLocked && words < minimumWords) {
     failures.push("Blog " + lesson + ": " + words.toLocaleString() + " words; requires at least " + minimumWords.toLocaleString());
   }
+  if (!reviewLocked && !chineseExists) {
+    failures.push("Blog " + lesson + ": missing Chinese edition " + chineseName);
+  }
   if (!reviewLocked && !quizReady) {
     failures.push("Blog " + lesson + ": missing " + expectedQuestions + "-question quiz mount");
+  }
+  if (!reviewLocked && !chineseQuizReady) {
+    failures.push("Blog " + lesson + " Chinese: missing 10-question quiz mount");
   }
   if (!reviewLocked && questionCount !== expectedQuestions) {
     failures.push("Blog " + lesson + ": quiz bank contains " + questionCount + " questions; expected " + expectedQuestions);
@@ -95,8 +125,20 @@ for (const name of posts) {
   if (!reviewLocked && (!difficultyOrdered || !expOrdered)) {
     failures.push("Blog " + lesson + ": quiz difficulty or EXP progression is not ordered from accessible to demanding");
   }
-  if (!reviewLocked && h2Count > 12) {
-    failures.push("Blog " + lesson + ": contains " + h2Count + " major sections; maximum is 12");
+  if (!reviewLocked && (h2Count < minimumSections || h2Count > maximumSections)) {
+    failures.push("Blog " + lesson + ": contains " + h2Count + " major sections; requires " + minimumSections + "-" + maximumSections);
+  }
+  if (!reviewLocked && chineseExists && sectionDelta > 1) {
+    failures.push("Blog " + lesson + " Chinese: " + chineseH2Count + " major sections do not correspond closely enough to the English edition's " + h2Count);
+  }
+  if (!reviewLocked && imageCount < minimumImages) {
+    failures.push("Blog " + lesson + ": contains " + imageCount + " content images; requires at least " + minimumImages);
+  }
+  if (!reviewLocked && calloutCount < minimumCallouts) {
+    failures.push("Blog " + lesson + ": contains " + calloutCount + " teaching callouts; requires at least " + minimumCallouts);
+  }
+  if (!reviewLocked && displayMathCount < minimumDisplayMath) {
+    failures.push("Blog " + lesson + ": contains no display mathematics");
   }
   if (!reviewLocked && !displayMathBalanced) {
     failures.push("Blog " + lesson + ": unbalanced display-math delimiters");
@@ -106,19 +148,26 @@ for (const name of posts) {
   }
 }
 
-levelOne.sort((a, b) => a.lesson - b.lesson);
-console.table(levelOne.map(({ lesson, words, reviewLocked, quizReady, questionCount, h2Count, missingAssets }) => ({
+coursePosts.sort((a, b) => a.lesson - b.lesson);
+console.table(coursePosts.map(({ lesson, level, words, chineseExists, chineseH2Count, reviewLocked, quizReady, chineseQuizReady, questionCount, h2Count, imageCount, calloutCount, displayMathCount, missingAssets }) => ({
   blog: lesson,
+  level,
   words,
+  zh: chineseExists ? "present" : "missing",
   status: reviewLocked ? "locked draft" : "published",
   sections: h2Count,
+  zhSections: chineseExists ? chineseH2Count : "—",
+  images: imageCount,
+  callouts: calloutCount,
+  formulas: displayMathCount,
   quiz: quizReady ? questionCount + " questions" : "missing",
+  zhQuiz: chineseQuizReady ? "mounted" : "missing",
   assets: missingAssets.length ? missingAssets.length + " missing" : "ok",
 })));
 
 if (failures.length) {
-  console.error("\nLevel-1 publication gate failed:\n" + failures.join("\n"));
+  console.error("\nMathematical Modeling publication gate failed:\n" + failures.join("\n"));
   process.exitCode = 1;
 } else {
-  console.log("\nAll published Level-1 blogs satisfy the word, section, quiz progression, display-math, and local-asset gates.");
+  console.log("\nAll published Mathematical Modeling blogs satisfy the word, section, visual, callout, quiz, display-math, and local-asset gates.");
 }

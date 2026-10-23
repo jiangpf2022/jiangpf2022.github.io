@@ -24,7 +24,7 @@ We will build that structure carefully. We will prove convexity rather than gues
 
 <div class="mm-key-box"><span class="mm-callout-label">The advanced-convexity habit</span><p>Do not ask “Which algorithm should I mention?” Ask: <strong>What function and set do I have? What curvature can I prove? What certificate will tell me that I am done?</strong> The algorithm comes after those answers.</p></div>
 
-## 1. Convex Sets, Functions, and Epigraphs
+## Convexity
 
 A set $C\subseteq\mathbb R^n$ is convex when every segment between two points stays inside:
 
@@ -71,7 +71,7 @@ Useful closure rules include nonnegative weighted sums, pointwise maxima, affine
 
 <div class="mm-question-box"><span class="mm-callout-label">Convexity check</span><p>Is $f(x)=\sqrt{1+x^2}$ convex? Try the Hessian test. Is $g(x)=\sqrt{x}$ convex on $x>0$? If not, is it concave? The outer square root is the same, but the inner structure changes the answer.</p></div>
 
-## 2. Strong Convexity, Smoothness, and Conditioning
+## Smoothness and Conditioning
 
 A differentiable function is $\mu$-strongly convex if
 
@@ -101,7 +101,7 @@ $$\|x_k-x^*\|^2\le\left(1-\frac\mu L\right)^k\|x_0-x^*\|^2.$$
 
 Scaling and preconditioning try to reduce $\kappa$. If kilograms, dollars, and binary indicators are all represented on wildly different scales, even a theoretically good method may behave badly.
 
-## 3. Subgradients and Nonsmooth Models
+## Subgradients
 
 At a kink, the ordinary gradient does not exist, but convexity still supplies supporting hyperplanes. A vector $g$ is a subgradient of $f$ at $x$ when
 
@@ -119,7 +119,7 @@ where $N_C$ is the normal cone. This compact inclusion generalizes gradient-zero
 
 Subgradient descent uses $x_{k+1}=x_k-\alpha_kg_k$. Unlike gradient descent, the objective may increase on an individual step. With bounded subgradients and appropriate diminishing steps, the best objective converges at roughly $O(1/\sqrt{k})$. That slow rate motivates proximal methods when the nonsmooth term has exploitable structure.
 
-## 4. Conjugates and Duality Derived Systematically
+## Conjugates and Duality
 
 The Fenchel conjugate is
 
@@ -159,7 +159,7 @@ This one derivation produces duals for basis pursuit, regularized regression, ne
 
 Strong duality needs conditions. Slater's condition—existence of a point satisfying affine equalities and strictly satisfying convex inequalities—is a practical sufficient condition. Without a qualification, the duality gap may be positive and KKT multipliers may fail to exist.
 
-## 5. Proximal Operators: Solving a Small Problem at Every Step
+## Proximal Operators
 
 For a closed convex function $g$, define
 
@@ -188,7 +188,7 @@ $$\beta_{k+1}=S_{\alpha\lambda}[\beta_k-\alpha X^T(X\beta_k-y)],$$
 
 where $S$ is soft-thresholding. Every term has a role: the gradient improves data fit, and the prox decides which coefficients survive.
 
-## 6. Splitting and ADMM
+## Splitting and ADMM
 
 Suppose $f$ and $g$ are individually easy but their sum is not. Write
 
@@ -210,7 +210,7 @@ ADMM is attractive when variables split by data block, geographic region, scenar
 
 The penalty $\rho$ does not change the exact solution but strongly affects speed. If $\|r^k\|$ dwarfs $\|s^k\|$, increase $\rho$; if the reverse holds, decrease it, rescaling the dual variable consistently.
 
-## 7. Stochastic, Coordinate, and Large-Scale Methods
+## Large-Scale Methods
 
 If $f(x)=\frac1N\sum_{i=1}^N f_i(x)$, a full gradient costs $N$ component evaluations. Stochastic gradient uses an unbiased estimate $g_k=\nabla f_{i_k}(x_k)$:
 
@@ -226,7 +226,7 @@ $$x_{k+1}=\Pi_C(x_k-\alpha\nabla f(x_k)).$$
 
 Projection onto a box clips coordinates; projection onto a simplex can be obtained by sorting and thresholding; projection onto an affine set solves a least-squares system. The word “projection” hides an optimization problem, so complexity depends on $C$.
 
-## 8. Risk as a Convex Object: VaR and CVaR
+## VaR and CVaR
 
 Let $L(x,\xi)$ be loss under decision $x$ and uncertain scenario $\xi$. Value-at-Risk at confidence $\alpha$ is a loss quantile:
 
@@ -255,7 +255,7 @@ $$\min_x\ \mathbb E[L(x,\xi)]+\lambda\operatorname{CVaR}_\alpha(L(x,\xi)),$$
 
 or as a constraint $\operatorname{CVaR}_\alpha\le R_{\max}$. The parameter $\lambda$ is not “the correct value”; it represents a stakeholder tradeoff. Show a frontier rather than hiding the choice.
 
-## 9. Winning-Paper Case: Risk-Aware Crop Planning
+## Risk-Aware Crop Planning
 
 The 2024 CUMCM crop-planning excellent paper extends its deterministic plan by treating demand, yield, price, and cost as uncertain, then incorporating CVaR. Let $x$ denote the planting plan from the previous blog. For scenario $s$, define profit
 
@@ -309,7 +309,7 @@ $$
 
 With equal probabilities, vegetable has mean $7.25$, below wheat's $7.25$ only by equality here, but far worse downside. At $\alpha=0.75$, empirical loss-CVaR focuses on the single worst scenario: wheat's tail loss is $-6$, vegetable's is $8$. A risk-neutral objective is indifferent, while any positive tail-risk penalty prefers wheat. Changing the values slightly can create a genuine tradeoff; the point is to inspect the mechanism before solving hundreds of scenarios.
 
-## 10. Certificates, Failure Modes, and Reporting
+## Certificates and Failures
 
 A convex algorithm is trustworthy only when formulation and diagnostics agree. Track:
 

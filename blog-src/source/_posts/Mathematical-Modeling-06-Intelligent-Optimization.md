@@ -22,7 +22,7 @@ This blog studies genetic algorithms (GA), differential evolution (DE), particle
 
 <div class="mm-key-box"><span class="mm-callout-label">The heuristic contract</span><p>A metaheuristic must declare its <strong>encoding, initialization, variation operators, constraint handling, stopping rule, random-seed protocol, and comparison baseline</strong>. A convergence curve alone is not evidence of global optimality.</p></div>
 
-## 1. When a Metaheuristic Is Justified
+## When to Use Metaheuristics
 
 Before choosing an algorithm, separate three questions that are often collapsed into one. First, is the mathematical model difficult, or has it merely been written in a difficult way? Second, does a candidate take a long time to evaluate? Third, do we need a proof of optimality, or is a high-quality feasible decision under a fixed deadline sufficient? A model may contain thousands of variables and still be an easy linear program. A model with two variables can be difficult if each evaluation runs a stochastic simulator and the surface is discontinuous.
 
@@ -111,7 +111,7 @@ Before selecting one, ask:
 
 Calling a method “intelligent” does not excuse weak formulation. If the fitness rewards the wrong quantity, a powerful search finds a very good wrong answer.
 
-## 2. Representation Comes Before Evolution
+## Representation
 
 Representation determines which decisions the algorithm can express, how easily it creates valid candidates, and whether small algorithmic moves correspond to small real changes. It is therefore part of model design, not serialization.
 
@@ -202,7 +202,7 @@ Suppose $n$ facilities must be assigned to $m$ locations. A length-$n$ integer v
 
 <div class="mm-question-box"><span class="mm-callout-label">Representation test</span><p>Pick two valid parent solutions and apply your proposed crossover by hand. Is the child still meaningful? If repair changes most genes, the variation operator is fighting the representation rather than exploring it.</p></div>
 
-## 3. Genetic Algorithms Step by Step
+## Genetic Algorithms
 
 The biological vocabulary makes GA memorable, but it can also make a weak explanation sound deeper than it is. Strip away the vocabulary and a genetic algorithm performs four operations: maintain several candidate decisions, prefer candidates with better evaluated performance, recombine parts of selected candidates, and introduce variation so the search does not merely copy what it already knows. The design question is not whether “survival of the fittest” sounds plausible. It is whether those four operations respect the structure of the decision problem.
 
@@ -354,7 +354,7 @@ A basic generation is:
 
 Record best, median, interquartile range, feasibility rate, and diversity. A flat best curve can mean convergence, premature collapse, or an inactive operator.
 
-## 4. Differential Evolution
+## Differential Evolution
 
 Differential evolution is often introduced as “another evolutionary algorithm,” after which a paper lists $F=0.5$ and $CR=0.9$ and moves on. That misses its most interesting idea. DE uses differences between current population members to manufacture a search direction and a scale. When the population is spread out, difference vectors are long and trial moves are exploratory. When the population contracts, the same rule automatically produces finer moves. The population is not only a set of candidate solutions; it is also an empirical ruler for the landscape.
 
@@ -471,7 +471,7 @@ The difference vector adapts step scale to population spread. Early diverse popu
 
 For bounds, clipping piles candidates on boundaries. Reflection or resampling usually preserves better search behavior. For equality constraints, a parameterization that satisfies them is preferable to a large penalty.
 
-## 5. Particle Swarm Optimization
+## Particle Swarm Optimization
 
 Let us begin with a scene that is easy to picture but worth interpreting carefully. A group of friends reaches an unfamiliar ski resort just after fresh snow. None of them has a complete map of the mountain. One skier follows a promising ridge, another discovers that the western slope is crowded, and a third finds a quiet run with good snow. If every skier ignores the others, the group wastes information. If everyone immediately follows the first person who reports a good run, the group may crowd into a merely acceptable valley and never discover the best one. Useful collective search sits between those extremes: keep some momentum, remember what worked personally, and listen to information from others without surrendering all independence.
 
@@ -776,7 +776,7 @@ If $\omega$ and accelerations are too large, particles oscillate or explode. If 
 
 For discrete problems, “velocity” needs a new meaning—perhaps a probability of selecting a bit or a sequence of swaps. Merely rounding continuous positions can create bias and destroy feasibility.
 
-## 6. Simulated Annealing and the Acceptance Rule
+## Simulated Annealing
 
 Imagine arranging forty booths for a night market. You swap two booths and the estimated walking congestion becomes slightly worse. A greedy local search immediately rejects that swap. Yet the temporary change may make a second swap possible that opens a much better layout. If every worsening move is forbidden, the search can become trapped in a layout where no single swap helps even though several coordinated swaps would help greatly.
 
@@ -953,7 +953,7 @@ Geometric cooling uses $T_{k+1}=\alpha T_k$, often with $\alpha$ near but below 
 
 Neighborhood design determines what can be reached. For a route, use swap, insertion, or 2-opt moves. If moves cannot connect the feasible solution space, no cooling schedule can find every region.
 
-## 7. Constraints and Penalties
+## Constraints and Penalties
 
 In a contest paper, a solution that violates one essential rule is not “almost optimal.” A bus schedule that leaves a route uncovered, a diet below minimum nutrition, or a bridge design beyond stress limits may be unusable. Heuristics make feasibility difficult because their variation operators do not automatically respect model logic. Constraint handling therefore deserves the same space as the search equation.
 
@@ -1070,7 +1070,7 @@ Always calculate feasibility rate. If 99.9% of candidates are invalid and heavil
 
 For multiple objectives, NSGA-II uses nondominated sorting and crowding distance. It seeks a diverse Pareto approximation rather than collapsing objectives into one score. Evaluate both convergence toward a reference frontier and diversity across it.
 
-## 8. Winning-Paper Case: DEGA for 2024 CUMCM Crop Planning
+## DEGA Crop-Planning Case
 
 This case is useful because it refuses to fit neatly into one algorithm slogan. Decisions span plots, crops, seasons, and years. Land types allow different crop sets. Rotation couples one year to the next. Demand caps change revenue. Minimum planting areas create discrete logic. Uncertain yields and prices change which plan is attractive. A good solution is not a vector of “best crops”; it is a coherent multi-year policy.
 
@@ -1239,7 +1239,7 @@ The excellent paper reports different surplus-price scenarios and adds CVaR unde
 
 Do not infer global optimality from a smooth convergence plot. Run at least 30 independent seeds, report best/median/worst and dispersion, show feasibility rates, and disclose computational budget. If one seed is dramatically better, investigate rather than publishing only that run.
 
-## 9. Fair Experiments and Reproducibility
+## Fair Experiments
 
 A stochastic optimizer produces a distribution, not one inevitable answer. Fair experimentation asks whether an observed improvement comes from the search idea, extra evaluations, favorable parameter tuning, lucky seeds, a different constraint interpretation, or a reporting choice. This section turns “we ran the algorithm” into evidence another team can inspect.
 
@@ -1384,7 +1384,7 @@ Tune hyperparameters on training instances and evaluate on held-out instances. T
 
 Ablate hybrid components. Compare DEGA with DE alone, GA alone, and the same algorithm without repair or elitism. If the gain disappears when evaluation budgets are equalized, the claimed innovation may simply perform more work.
 
-## 10. What a Competition Paper May Claim
+## Defensible Claims
 
 The final section is not a list of cautious phrases pasted after ambitious experiments. It is where model scope, algorithm evidence, and decision meaning meet. A good claim says what was optimized, under which assumptions, how reliably it was found, and what remains unknown.
 

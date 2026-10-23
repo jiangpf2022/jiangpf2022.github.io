@@ -27,7 +27,7 @@ This blog is therefore not a catalogue of tricks. It is an operating manual. We 
   <figcaption>A successful competition paper is a connected system: selection, modeling, computation, evidence, writing, and final verification must hand work to one another.</figcaption>
 </figure>
 
-## Competition Formats and Problem Selection
+## Competition Formats
 
 CUMCM and MCM/ICM are not the same contest translated into two languages. CUMCM is organized by the Chinese Society for Industrial and Applied Mathematics. Its official charter describes problems simplified from science, engineering, humanities, social science, economics, and management; teams should be able to work from ordinary university mathematics rather than specialized prior knowledge. MCM/ICM is organized by COMAP, and a team chooses one of six named problem families. The format, language, timetable, report rules, and award structure differ, so check the current official instructions rather than inheriting last year's checklist from a senior student.
 
@@ -41,7 +41,7 @@ Problem selection should begin with *fit*, not fear. For every candidate problem
 
 A problem full of familiar vocabulary can still be a poor choice if the final task asks for a policy argument your team cannot support. An unfamiliar context can be a good choice if the mathematical structure is clear and the data are usable. Spend enough time to compare complete problem chains, but set a decision deadline. Endless selection is itself a decision: it chooses to leave less time for modeling.
 
-## CUMCM Problem Ecology
+## CUMCM Problems
 
 The official CUMCM archive is the source of truth about what was actually asked. Recent competitions may include several lettered problems; the letters are identifiers, not permanent guarantees that a certain algorithm will appear. Informal advice such as “A is physical, B is optimization, C is data” can help you scan older papers, but it must never replace reading the current prompt. The organizers explicitly describe the source of problems broadly, and recent official review activities discuss A through E. Treat every year's set as new.
 
@@ -55,7 +55,7 @@ Evaluation and policy prompts ask you to construct indicators, rankings, or reco
 
 The practical lesson is simple: do not choose CUMCM Problem A because you are “the differential-equation team,” or Problem C because you know machine learning. First identify the actual mechanism and evidence path. Then ask whether your team can complete a modest version of that path under the deadline.
 
-## MCM/ICM Problem Families
+## MCM/ICM Problems
 
 COMAP currently describes six families: **MCM A, continuous; MCM B, discrete; MCM C, data insights; ICM D, operations research/network science; ICM E, sustainability; and ICM F, policy**. A team chooses one problem. These labels are more explicit than the folk categories used for CUMCM, but they are still starting points rather than recipes.
 
@@ -339,7 +339,7 @@ Once selected, make a risk register with three columns: failure, early warning, 
 
 The ninety-minute framework is not sacred. A short contest or a very large problem set may require another schedule. Its purpose is to stop three common losses: choosing by title, coding before defining outputs, and splitting tasks before dependencies are understood. If your team already has a better practiced ritual, use it. The standard is whether it produces a defensible first chain quickly.
 
-## A Reproducible Competition Toolchain
+## Competition Toolchain
 
 Tools should have separate jobs. When every idea, dataset, calculation, and paragraph lives in one giant notebook, nobody knows which result is current. The following stack is one practical option; equivalents are fine if the team practices them in advance.
 
@@ -402,7 +402,7 @@ Whether you use Git, cloud storage, or both, agree on one canonical folder and n
 
 Use filenames that survive stress: `arrival_cleaning.py`, `scenario_peak20.csv`, and `fig_wait_comparison.pdf` are better than `new.py`, `data2.csv`, and `图3最新版final.png`. Add a short `README` containing the run order and the owner of each module. If Git is unfamiliar, practice branches and conflict resolution before the contest; competition day is not the time to discover how merging works. If you use OneDrive or another synchronized folder, avoid editing the same binary file simultaneously and keep periodic immutable snapshots.
 
-## Learning from Award-Winning Papers
+## Award Papers
 
 One person learning alone cannot invent, in a few months, every useful modeling pattern discovered by hundreds of strong teams. Reading excellent papers is a way to study with those teams after the competition is over. You are not copying their wording or pretending their method is yours. You are learning how experienced modelers connect questions, assumptions, calculations, figures, and conclusions.
 
@@ -422,7 +422,7 @@ Then reproduce one modest component. Recreate Paper A's trade-off plot from a fe
 
 Finally, transfer rather than copy. Change one assumption: allow a road to reopen, give remote locations a minimum service requirement, or make demand uncertain. Predict which recommendation will move before running anything. Your Notion card should end with “I would use this technique when…” and “I would not trust it when…”. Those two sentences are more useful in a future contest than five pages of copied derivation.
 
-## Reconstructing Visual Evidence
+## Visual Reconstruction
 
 Let me use a deliberately ordinary analogy. Suppose I ask you to invent, from nothing, the face you consider most beautiful. That is surprisingly hard. You may know a few adjectives, but the whole image remains vague. Yet when you walk down a street or watch a film, you usually have an immediate sense of which faces you find attractive. Years of seeing people have trained your visual judgment. After enough observation, you can even describe recurring features of your own taste.
 
@@ -447,7 +447,7 @@ Reconstruction becomes powerful when you keep a gallery organized by *purpose*: 
 
 Do not panic if this feels unfamiliar. The next blog is devoted to visual evidence: how to select a chart, use color, annotate uncertainty, arrange multiple panels, and write captions. For now, the habit is enough—look carefully, rebuild often, and ask what the figure proves.
 
-## Extending the Algorithm Library
+## Algorithm Library
 
 This course will introduce the central model families, but development takes time and no finite course can contain every method you may need. After each blog, learn one step beyond it. If we cover linear programming, explore integer decisions or dual interpretation. If we cover regression, compare regularization or robust loss. If we cover time series, investigate how one method handles seasonality or structural breaks.
 
@@ -473,7 +473,7 @@ Use a standard algorithm card:
 
 When you teach the card to a teammate, do it without slides first. If you cannot describe why the method changes the decision, return to the tiny case. Put working code, a figure, and a one-paragraph interpretation beneath the card in Notion. Over months, this becomes a course that your team has built together—one tested extension after every formal blog.
 
-## AI-Assisted Modeling with ChatGPT
+## Modeling with ChatGPT
 
 ChatGPT is most useful when you treat it as a fast, fallible collaborator. It can ask questions, explain methods, draft code, suggest tests, critique prose, and help organize a search. It cannot observe your physical system, guarantee a theorem, certify code, or create a legitimate citation merely by sounding confident. The team remains responsible for every submitted claim.
 
@@ -647,7 +647,7 @@ Reserve the final hours for integration rather than invention. Freeze model stru
 
 Finally, keep a short incident log during the contest. Record failures that cost time: an overwritten dataset, an inconsistent unit, a chart rebuilt manually, a prompt that produced invented citations, or a late change that broke three sections. After submission, convert each recurring incident into a preventive habit, test, template, or folder rule. Competition technique matures when painful surprises become routine checks.
 
-## Five Worked Competition Studios
+## Worked Cases
 
 Advice about teamwork becomes useful only after it survives contact with an actual modeling problem. The five studios below are original teaching cases built around recurring CUMCM and MCM/ICM problem families. They do not reproduce an award paper's numerical result. Instead, each one shows the decisions that a team must make between opening the prompt and writing a defensible conclusion. Read them as rehearsals. Pause whenever the team makes a choice and ask whether you would have chosen the same baseline, evidence, or stopping rule.
 
@@ -907,7 +907,7 @@ Score the rehearsal on more than final objective value. Record the time until a 
 
 The postmortem should remain concrete. “Communicate better” is not an action. “Every dataset transformation must report row counts and unmatched keys” is. “Start earlier” is not a system. “Freeze model structure twelve hours before the deadline unless a verified error invalidates the result” is. Convert each lesson into a rule, template, test, or artifact that the next practice can use.
 
-## Integrated Preparation Routine
+## Preparation Routine
 
 Do not turn this blog into a rigid daily timetable. Build a repeatable weekly loop instead. Read one strong paper and make a paper card. Reconstruct one figure and explain its claim. Extend one algorithm from the course with a tiny tested example. Put the notes, code, and limitations in the shared workspace. Once a month, choose one old problem and complete a small end-to-end submission under a time limit.
 

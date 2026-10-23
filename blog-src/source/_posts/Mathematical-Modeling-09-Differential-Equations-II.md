@@ -19,7 +19,7 @@ The previous blog built single-state rate laws. Here we keep the same discipline
 
 <div class="mm-key-box"><span class="mm-callout-label">Read every term as a flow</span><p>If $+\beta SI/N$ appears in one compartment, the same transfer should usually appear as $-\beta SI/N$ in another. Internal transfers cancel when the state equations are summed. That cancellation is the fastest structural check for a compartment model.</p></div>
 
-## 1. Interaction Terms and Conservation
+## Interactions and Conservation
 
 Let $x_i(t)$ be the amount in compartment $i$. A general balance is
 
@@ -218,7 +218,7 @@ For the dining hall, set arrivals to zero and begin with ten waiting and no one 
 
 <div class="mm-question-box"><span class="mm-callout-label">Flow-ledger challenge</span><p>A two-compartment model contains a transfer term $+k_{12}x_1$ in the second equation but no matching negative term in the first. Is this birth, an external copy process, or a mistake? The equations alone cannot tell you; the flow diagram and system boundary must.</p></div>
 
-## 2. New-Product Diffusion
+## Product Diffusion
 
 Let a market of size $M$ contain $A(t)$ adopters and $M-A(t)$ potential adopters. If adoption occurs through external advertising at rate $p$ and word of mouth at rate $qA/M$, then
 
@@ -368,7 +368,7 @@ Validate the chosen plan through leading indicators and update. Observe early ad
 
 <div class="mm-key-box"><span class="mm-callout-label">Diffusion modeling discipline</span><p>Separate market potential, adoption mechanism, transactions, supply, and intervention. An S-shaped cumulative curve is evidence of saturation-like geometry; it does not by itself identify word of mouth or establish a campaign's causal effect.</p></div>
 
-## 3. Compartment Models and Tracer Experiments
+## Compartment Models
 
 Imagine a well-mixed tank of volume $V$ with inflow and outflow rate $Q$. Let $C(t)$ be solute concentration and $C_{in}(t)$ the inlet concentration. Solute mass is $VC$, so
 
@@ -486,7 +486,7 @@ The management conclusion might be that nominal hydraulic volume overstates effe
 
 <div class="mm-key-box"><span class="mm-callout-label">Compartment evidence</span><p>An arrow diagram establishes accounting; an input excites modes; sensors determine which modes are visible; invariants verify implementation; and held-out perturbations test whether inferred transfer rates predict beyond one curve.</p></div>
 
-## 4. Epidemic Models and Thresholds
+## Epidemic Thresholds
 
 In an SIR model, $S,I,R$ are susceptible, infectious, and removed populations:
 
@@ -744,7 +744,7 @@ The introductory SIR model remains valuable because every extension can be compa
 
 <div class="mm-key-box"><span class="mm-callout-label">Epidemic evidence chain</span><p>Contact assumptions justify incidence; flow cancellation verifies accounting; early growth and duration inform thresholds; an observation model links hidden infections to data; held-out forecasts test prediction; and conditional scenarios—not one certain curve—support policy discussion.</p></div>
 
-## 5. Diagnostic Dynamics and Glucose Regulation
+## Diagnostic Dynamics
 
 A diagnostic measurement is often a dynamic response, not a static number. Consider a simplified glucose–insulin system after a glucose challenge:
 
@@ -826,7 +826,7 @@ In both systems, a perturbation reveals internal dynamics. The challenge must be
 
 <div class="mm-key-box"><span class="mm-callout-label">Dynamic diagnosis</span><p>A challenge-response experiment can separate mechanisms that a static measurement cannot, but only when input timing, observation error, latent-state interpretation, identifiability, and held-out validation are treated as part of the model.</p></div>
 
-## 6. Equilibria and Local Stability
+## Local Stability
 
 For $\dot x=f(x)$, an equilibrium $x^*$ satisfies $f(x^*)=0$. Perturb it by $x=x^*+\eta$. First-order Taylor expansion gives
 
@@ -1063,7 +1063,7 @@ List all feasible equilibria and parameter conditions. Give the Jacobian and eva
 
 <div class="mm-key-box"><span class="mm-callout-label">Do not stop at “stable”</span><p>Ask: stable around which equilibrium, under which parameters, for what perturbation size, at what return rate, with what transient peak, and within which basin? Those qualifiers turn an eigenvalue calculation into a decision-relevant statement.</p></div>
 
-## 7. Predator–Prey Dynamics
+## Predator–Prey Dynamics
 
 The Lotka–Volterra model is
 
@@ -1210,7 +1210,7 @@ Report when the deterministic model is used for average behavior and when stocha
 
 <div class="mm-key-box"><span class="mm-callout-label">Predator–prey caution</span><p>Cycles, phase lag, and a good fit do not uniquely identify predation. Carrying capacity, functional response, observation, environmental forcing, and stochastic extinction determine whether the model can support an intervention.</p></div>
 
-## 8. General Two-Population Systems
+## Two-Population Systems
 
 A compact framework is
 
@@ -1364,7 +1364,7 @@ For decisions, simulate actions and disturbances with realistic timing. Report p
 
 <div class="mm-key-box"><span class="mm-callout-label">Two-population geometry</span><p>Nullcline positions, mutual invasion, and basin structure often tell more than a fitted trajectory. Use them to state precisely when coexistence, exclusion, or history dependence follows from the model.</p></div>
 
-## 9. Simulation, Events, and Parameter Inference
+## Simulation and Inference
 
 Coupled systems should be integrated with adaptive methods such as Runge–Kutta, but model structure still needs protection. Populations and concentrations should not become negative. Discontinuous interventions need event handling or piecewise inputs rather than being blurred over a large step.
 
@@ -1563,7 +1563,7 @@ Each step prevents a different kind of false confidence. A solver can converge w
 
 <div class="mm-key-box"><span class="mm-callout-label">Inference principle</span><p>Coupled ODE estimation is not curve fitting around a black-box solver. Inputs excite mechanisms, outputs reveal only certain combinations, likelihood defines measurement evidence, validation tests extrapolation, and uncertainty must reach the final decision.</p></div>
 
-## 10. Real Competition Case: 2020 CUMCM Reflow Oven
+## Reflow-Oven Case
 
 The 2020 CUMCM Problem A concerned the temperature profile of a circuit board traveling through a reflow oven. The decision was not simply “make it hot.” A feasible profile must respect heating and cooling-rate limits, time above critical temperatures, peak temperature, and process efficiency.
 

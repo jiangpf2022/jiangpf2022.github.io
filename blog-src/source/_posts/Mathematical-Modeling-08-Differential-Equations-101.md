@@ -19,7 +19,7 @@ This blog is not a catalogue of tricks for integrating equations. Its purpose is
 
 <div class="mm-key-box"><span class="mm-callout-label">The modeling sentence</span><p><strong>Change = inflow − outflow + generation − loss.</strong> Before searching for an equation name, decide what is stored, what crosses the boundary, and what changes the stored quantity internally.</p></div>
 
-## 1. From a Story to a State Equation
+## State Equations
 
 A differential-equation model starts with a **state**: the smallest collection of time-dependent quantities that lets the future be computed once the inputs are known. Position alone is not a complete state for a moving pendulum, because the same angle can be crossed in two directions. Angle and angular velocity are sufficient:
 
@@ -193,7 +193,7 @@ Finally test limiting cases. With every demand and rebalancing rate set to zero,
 
 <div class="mm-question-box"><span class="mm-callout-label">State-design challenge</span><p>A bicycle leaves Station A at 8:00 and reaches Station B at 8:20. At 8:10, should it belong to A, B, or neither station state? If travel time matters to the service decision, the model needs an in-transit state or an explicit delay.</p></div>
 
-## 2. Initial Conditions, Boundaries, and Well-Posedness
+## Well-Posedness
 
 The equation specifies possible motion; conditions select the motion that actually occurs. An initial-value problem gives the state at one time,
 
@@ -384,7 +384,7 @@ Finally, distinguish a measurement at $T$ from a true state condition. An assay 
 
 This small protocol shows why “number of conditions equals differential order” is only the beginning. We must ask what is known, what is controlled, what is observed, and what is required. Initial conditions select a trajectory, boundary targets constrain a design, algebraic relations restrict feasibility, and measurements provide uncertain evidence.
 
-## 3. The Pendulum: Mechanics Becomes an ODE
+## The Pendulum
 
 Take a point mass $m$ on a massless rod of length $\ell$. Let $\theta$ be measured from the downward vertical. Tangential gravity is $-mg\sin\theta$, so
 
@@ -595,7 +595,7 @@ It can produce approximately linear amplitude decay and sticking near equilibriu
 
 Report the final conclusion in decision language: the small-angle model misses the tenth return by more than the allowed tolerance at $35^\circ$; the nonlinear damped model predicts held-out return times within measurement uncertainty for releases between specified amplitudes; outside that range no guarantee is claimed. This is stronger than saying one model has a lower mean squared error.
 
-## 4. Pursuit Curves: Geometry Writes the Derivative
+## Pursuit Curves
 
 Suppose a submarine travels at constant speed $v_s$ along course $e$, while a patrol boat of speed $v_p>v_s$ always points directly at it. Let
 
@@ -760,7 +760,7 @@ Observation delay can be modeled by guidance using $\hat q(t-\tau_d)$. Delay inc
 
 This extension illustrates a general rule: a kinematic equation can answer “where would an ideal point move?” A deployable policy also needs actuation, sensing, delay, constraints, and failure definitions. Add those layers only as the decision demands, and verify that each new layer changes an interpretable quantity.
 
-## 5. A Draining Hemisphere: Conservation Before Integration
+## Hemisphere Drainage
 
 A hemispherical tank of radius $R$ drains through a bottom hole of area $a$. Let $h(t)$ be water depth. The horizontal cross-section satisfies
 
@@ -948,7 +948,7 @@ The discharge coefficient may depend on geometry and Reynolds number, so validat
 
 Report the final design as nominal diameter, manufacturing tolerance, assumed $C_d$ range, predicted drain-time interval, peak-flow interval, and test protocol. This is more useful than one calculated area. It also shows how a differential equation becomes a feasibility argument before it becomes an optimization problem.
 
-## 6. A Cooling Rod: A Boundary-Value Problem
+## Cooling Rods
 
 Consider a rod of length $L$, cross-sectional area $A$, exposed perimeter $B$, conductivity $\lambda$, ambient temperature $T_3$, and endpoints $T(0)=T_1$, $T(L)=T_2$. Fourier conduction is
 
@@ -1134,7 +1134,7 @@ The reporting figure should show measured points with error bars, calibrated pro
 
 The lesson extends to inverse problems generally. Parameter information comes from how outputs change, not from the number of decimal places in the optimizer. Experimental inputs and sensor locations should excite and observe distinct mechanisms. When two parameters appear only as a ratio, new experimental conditions—not more iterations—are needed.
 
-## 7. Malthus and Logistic Growth
+## Population Growth
 
 The simplest population hypothesis is constant per-capita net growth:
 
@@ -1455,7 +1455,7 @@ Suppose production rate is $P(D)=Q N^*=VDN^*$. Maximizing nominal $P$ near washo
 
 This example reinforces a theme: logistic growth is a useful phenomenological baseline. When the decision changes nutrient, habitat, or harvesting, model the affected mechanism explicitly enough to extrapolate that intervention. A curve fitted under one environment cannot automatically predict another.
 
-## 8. Scaling and Time Scales
+## Scaling
 
 Set
 
@@ -1654,7 +1654,7 @@ Scaling also improves figures. Plot raw variables when stakeholders need units, 
 
 <div class="mm-key-box"><span class="mm-callout-label">Why nondimensionalize?</span><p>To expose controlling parameter combinations, compare systems fairly, detect regimes, design informative experiments, improve numerical conditioning, and reveal whether apparently different data follow one mechanism. Fewer symbols are only a side benefit.</p></div>
 
-## 9. Numerical Solutions and Evidence
+## Numerical Evidence
 
 Forward Euler approximates
 
@@ -1904,7 +1904,7 @@ $$J(\theta)=\sum_iw_i[y_i-h(x(t_i;\theta))]^2.$$
 
 Then inspect residuals over time. Long positive runs suggest missing dynamics; changing variance suggests a wrong noise model; parameters that jump under small data changes are not identified.
 
-## 10. Real Competition Case: 2006 CUMCM HIV Therapy
+## HIV-Therapy Case
 
 The 2006 CUMCM Problem B asked teams to evaluate HIV therapy and predict treatment effects. It connects mechanism, sparse clinical measurements, and a decision.
 

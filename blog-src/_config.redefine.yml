@@ -420,7 +420,7 @@ inject:
     - <script src="https://cdn.jsdelivr.net/npm/dompurify@3.4.15/dist/purify.min.js"></script>
     - <script src="/blog/js/reading-history.js?v=20261006-quiz-exp"></script>
     - <script src="/blog/js/llm-quiz-practice.js?v=20261006-interactive"></script>
-    - <script src="/blog/js/modeling-quiz.js?v=20261023-accuracy-exp"></script>
+    - <script src="/blog/js/modeling-quiz.js?v=20261023-math-v2"></script>
     - <script src="/blog/js/protected-modeling.js?v=20261023-seven-open"></script>
     - <script src="/blog/js/modeling-callouts.js?v=20260915-bilingual1"></script>
     - <script src="/blog/js/modeling-language-switch.js?v=20261023-bilingual7"></script>

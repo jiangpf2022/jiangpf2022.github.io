@@ -24,7 +24,7 @@ The running competition case is the 2024 CUMCM Problem C on crop-planning. A pub
 
 <div class="mm-key-box"><span class="mm-callout-label">The optimization contract</span><p>Every optimization model must expose five things: <strong>decision variables</strong>, <strong>objective</strong>, <strong>constraints</strong>, <strong>data</strong>, and <strong>validation</strong>. If one is missing, the solver may still return a number, but you do not yet have a defensible decision.</p></div>
 
-## 1. From a Decision to a Mathematical Program
+## Mathematical Programs
 
 Suppose a small campus kitchen must choose how many trays of rice bowls and salad bowls to prepare for lunch. A rice tray earns $36 contribution margin and uses 4 kg of rice and 2 staff-minutes. A salad tray earns $30, uses no rice, and needs 3 staff-minutes. Today the kitchen has 80 kg of rice and 72 staff-minutes. Demand limits sales to 18 rice trays and 16 salad trays.
 
@@ -173,7 +173,9 @@ The diagonal-like assignment Ari→projection, Bo→guest desk, Chen→stage, Di
 
 Now add a human rule: only Chen and Di are trained for captions, and at least one of them must remain free during the opening ceremony. That temporal statement needs additional indexed binary variables. The example becomes more realistic and the model more complex, but every new variable should correspond to a clear operational fact.
 
-## 2. Geometry, Vertices, and Why LP Works
+## LP Geometry
+
+<figure class="mm-figure mm-figure--compact"><img src="/blog/images/mathematical-modeling/visual-evidence/068-feasible-region-geometry.svg" alt="A feasible polygon with objective contours moving toward an optimal vertex"><figcaption>A linear program is geometry before it is software: constraints carve out the feasible polygon, and parallel objective contours reveal the last attainable point.</figcaption></figure>
 
 Each kitchen inequality describes a half-plane. Their intersection is the feasible region. Because intersections of half-spaces are convex, a line segment joining any two feasible points stays feasible.
 
@@ -247,7 +249,7 @@ $$x_A+2x_B\ge50.$$
 
 The feasible region now requires consuming at least all available sugar rather than at most the supply. A solver can return a mathematically optimal answer to this wrong problem. Plotting both constraints immediately reveals the region extends in the wrong direction. Even in high dimensions, test each row with verbal scenarios: if production is zero, should the rule be satisfied? For an upper resource capacity, zero production should be feasible.
 
-## 3. Duality: The Price of a Scarce Resource
+## Duality
 
 Consider
 
@@ -360,7 +362,7 @@ The inequality says task and worker potentials cannot overstate an assignment co
 
 This connection matters in modeling competitions. Dual variables are not merely a solver appendix. They can reveal scarce plots, binding labor periods, expensive coverage requirements, or which customer-demand constraints truly shape a plan.
 
-## 4. Quadratic Objectives: Risk, Tracking, and Diminishing Returns
+## Quadratic Programs
 
 Linear objectives assume marginal value is constant. Often it is not. A schedule may be penalized for deviating from a target; a portfolio may trade return against variance; a control input may be penalized for changing too sharply. These lead to
 
@@ -487,7 +489,7 @@ subject to fleet and driver constraints balances tracking with smoothness. When 
 
 This example is vivid because readers can imagine the operational consequence: a schedule that adds six buses for ten minutes and removes them immediately may fit demand mathematically but be impossible to staff. The smoothness term encodes that friction.
 
-## 5. KKT Conditions: A Common Language
+## KKT Conditions
 
 For $\min_x f(x)$ subject to $g_i(x)\le0$ and $h_j(x)=0$, define
 
@@ -593,7 +595,7 @@ $$r\_{\text{comp}}=\|\lambda\odot g(x)\|\_\infty,\qquad r\_{\text{dual}}=\|(-\la
 
 Small residuals support approximate stationarity and feasibility. They do not prove a global optimum in a nonconvex problem. Always pair residuals with convexity information or a global bound.
 
-## 6. Norms, Uncertainty, and Second-Order Cones
+## Second-Order Cones
 
 The canonical second-order cone is $\mathcal Q^{n+1}=\{(t,z):\|z\|_2\le t\}$. An SOCP has affine equalities and constraints
 
@@ -615,7 +617,17 @@ $$\bar a^Tx+\rho\|P^Tx\|_2\le b,$$
 
 an SOCP constraint. Uncertainty does not automatically require simulation; the right uncertainty geometry can yield a tractable deterministic model.
 
-If $Q=L^TL\succeq0$, then $x^TQx\le t^2$, $t\ge0$, is equivalent to $\|Lx\|_2\le t$. Portfolio volatility $\sqrt{x^T\Sigma x}\le\sigma_{\max}$ is thus an SOCP constraint after factoring $\Sigma$.
+If $Q=L^TL\succeq0$, then the quadratic bound
+
+$$x^TQx\le t^2,\qquad t\ge0$$
+
+is equivalent to the conic constraint
+
+$$\|Lx\|_2\le t.$$
+
+Likewise, after factoring $\Sigma$, a portfolio-volatility limit becomes
+
+$$\sqrt{x^T\Sigma x}\le\sigma_{\max}.$$
 
 ### What a cone is doing in an optimization problem
 
@@ -718,7 +730,9 @@ For every norm constraint:
 
 The reversed set $\|z\|_2\ge t$ is generally nonconvex. Squaring both sides is safe only when both sides are known nonnegative. Many formula-rendering and modeling errors begin with dropping that sign condition.
 
-## 7. Algorithms and Numerical Evidence
+## Solvers and Diagnostics
+
+<figure class="mm-figure mm-figure--compact"><img src="/blog/images/mathematical-modeling/visual-evidence/069-convergence-trace.svg" alt="Optimization convergence trace with incumbent and bound approaching one another"><figcaption>For a mixed-integer model, track the best feasible incumbent together with the valid bound. Their gap is evidence; one attractive descending line is not.</figcaption></figure>
 
 Simplex walks between adjacent vertices and provides useful basis sensitivity information. Interior-point methods move through the interior and solve Newton systems associated with barrier-regularized KKT equations. First-order methods use gradients and projections; they scale farther but may need more iterations for high accuracy.
 
@@ -853,7 +867,7 @@ A convincing result table contains:
 
 Run the same model with a second solver or a hand-sized instance. Agreement does not prove the model represents reality, but disagreement is an immediate warning.
 
-## 8. Winning-Paper Case: 2024 CUMCM Crop Planning
+## Crop-Planning Case
 
 The real case asks for crop decisions across years, seasons, plots, and crops. Let
 
@@ -1070,7 +1084,7 @@ After optimization, export decisions and run a separate checker that did not bui
 
 Independence matters. Reusing the same buggy indexing code for model and check can reproduce the same error perfectly.
 
-## 9. Implementation and Verification
+## Implementation and Verification
 
 ```python
 import cvxpy as cp
@@ -1242,7 +1256,7 @@ $$\Delta_x(\theta)=\frac{\|x^*(\theta)-x^*(\theta_0)\|}{\max(1,\|x^*(\theta_0)\|
 
 Two scenarios may have nearly identical profit but completely different planting schedules. Plot breakpoints: at what flour supply does snack B leave the basis? At what risk aversion does a portfolio drop an asset? At what discount does a crop rotation change? These thresholds turn sensitivity into actionable evidence.
 
-## 10. A Defensible Optimization Report
+## Optimization Reports
 
 A reader should be able to reconstruct the chain:
 
@@ -1267,7 +1281,7 @@ One small easter egg before you leave: return to the kitchen model and increase 
 - Stephen Boyd and Lieven Vandenberghe, [*Convex Optimization*](https://web.stanford.edu/~boyd/cvxbook/), Chapters 4–6.
 - [CVXPY documentation](https://www.cvxpy.org/) for disciplined convex programming.
 
-## 11. Worked Optimization Studios
+## Worked Cases
 
 The preceding sections built the language. We now use it under conditions that resemble an actual modeling contest: the story is imperfect, data have units, several formulations look plausible, and the most important work happens before and after the solver runs. Each studio begins with a decision rather than an algorithm. Work through at least the hand-sized version before reading the interpretation. The purpose is not to collect six model names. It is to learn how a model changes when the question changes.
 
@@ -2104,7 +2118,7 @@ One should resist a common competition temptation: producing many algorithms and
 
 Optimization is most persuasive when it returns more than a vector. The vector says what to do. Active constraints say what prevents further improvement. Dual values say which extra resource may matter. sensitivity reveals when the recommendation changes. Bounds say how much optimality remains unknown. Scenarios reveal where the plan is vulnerable. Together these form a decision argument.
 
-## 12. Knowledge Check
+## Knowledge Check
 
 The questions below move from basic model recognition to difficult formulation and certification choices. Single-answer and multiple-answer questions are mixed. Read the explanation after checking: the goal is to understand why a tempting alternative fails, not merely to collect a score.
 

@@ -20,9 +20,11 @@ Today begins with a disagreement. One teammate wants the cheapest plan, another 
 
 This blog develops two related ideas. **Multi-objective optimization** makes conflicting goals visible instead of pretending they are one. **Robust optimization** asks whether a chosen decision survives reasonable errors in the data. Our real competition case comes from 2024 MCM Problem A, where Outstanding papers modeled how environmentally responsive sex ratios alter sea-lamprey populations and surrounding ecosystems. It is a natural multi-objective problem: suppress an invasive population, preserve ecosystem stability, and avoid an intervention so aggressive that it creates a new failure.
 
+The mathematical habit throughout is to keep every trade-off visible. A convenient solver score must not hide which objectives were exchanged, which uncertainty set was protected, or how the recommended decision changes when those judgments move.
+
 <div class="mm-key-box"><span class="mm-callout-label">Two promises, two tests</span><p>A multi-objective model promises that the trade-off has been exposed. A robust model promises that feasibility or performance survives a declared uncertainty set. Neither promise is fulfilled by adding the words “comprehensive” or “robust” to a weighted score.</p></div>
 
-## 1. Why One Objective Is Often Dishonest
+## Multiple Objectives
 
 Suppose a city chooses bus frequency $x$. Annual cost $C(x)$ decreases when buses are removed, passenger waiting $W(x)$ decreases when buses are added, and emissions $E(x)$ depend on both fleet use and congestion. There is no physically meaningful unit in which dollars, minutes, and tonnes can simply be added.
 
@@ -140,7 +142,7 @@ Analytic hierarchy process can elicit pairwise judgments. Entropy weights reflec
 
 Multi-objective modeling begins with a feasible decision set and multiple consequences of those decisions. It makes the disagreement inspectable. The outcome may ultimately be one selected compromise, but the route to that point should show what alternatives were discarded and why.
 
-## 2. Pareto Dominance and the Efficient Frontier
+## Pareto Frontiers
 
 For minimization, decision $x$ dominates $y$ if
 
@@ -238,7 +240,7 @@ Evaluate an approximate frontier with convergence and diversity metrics. Hypervo
 
 For small instances, compare a heuristic frontier with an exact epsilon-constraint frontier. For larger instances, use valid bounds on selected scalarizations, repeated seeds, and a strong baseline. A visually smooth cloud is not proof that difficult regions of the frontier were found.
 
-## 3. Weighted Sums and Their Limits
+## Weighted Sums
 
 Normalize objectives before weighting. A common formulation is
 
@@ -310,7 +312,7 @@ Plot decision features as well as objective values. A facility choice may switch
 
 If one plan wins across the full defensible weight region, preference uncertainty is unimportant. If every tiny shift changes the plan, seek a compromise stable in decision space, add switching costs, or gather better preference information. A model that exposes instability is more valuable than one that hides it behind three decimal weights.
 
-## 4. Epsilon Constraints, Goal Programming, and Minimax Regret
+## Alternative Scalarizations
 
 The epsilon-constraint method selects one primary objective and turns the rest into bounds:
 
@@ -417,7 +419,7 @@ When objectives and data are uncertain, distinguish a nominal frontier, worst-ca
 
 Mixed risk attitudes can be appropriate: minimize expected operating cost while protecting a safety constraint robustly and controlling a tail-risk service objective. State which quantity uses which uncertainty treatment. Comparing nominal cost with worst-case service without labeling them invites a false impression that both coordinates mean the same kind of evidence.
 
-## 5. What Exactly Is Uncertain?
+## Uncertainty
 
 Do not use “uncertainty” as one undifferentiated word. At least four forms matter:
 
@@ -496,7 +498,7 @@ Calibrate sets using evidence separate from final performance evaluation where p
 
 Larger sets are not automatically better. Protection against impossible combinations wastes resources and may move risk elsewhere. Plot nominal performance, out-of-sample violations, and decision changes as set size grows. Choose protection through evidence and consequence rather than calling the largest set “most robust.”
 
-## 6. Deriving Robust Counterparts
+## Robust Counterparts
 
 Consider uncertain resource usage
 
@@ -635,7 +637,7 @@ protects performance. Robust constraints protect feasibility. A model may reason
 
 Measure the price of robustness. Compare nominal objective, out-of-sample objective, violation frequency, violation magnitude, and decision changes over set size or $Γ$. If cost rises 4% and nearly all meaningful violations disappear, the protection is interpretable. If cost rises 40% while tested violations barely improve, revisit the set or failure metric.
 
-## 7. Robust Is Not the Same as Stochastic
+## Robust vs. Stochastic
 
 Stochastic optimization requires probability distributions and optimizes expectations, chance constraints, or risk measures. Robust optimization requires an uncertainty set and protects against every member. Distributionally robust optimization protects against every distribution in an ambiguity set.
 
@@ -790,7 +792,7 @@ Use deterministic sensitivity analysis when uncertainty is exploratory and the p
 
 These methods can be combined, but every combination should follow the decision timeline and evidence. Mathematical sophistication does not compensate for an uncertainty model disconnected from how information actually arrives.
 
-## 8. Outstanding-Paper Case: 2024 MCM Lamprey Ecology
+## Lamprey Case
 
 The 2024 MCM Problem A concerns a population whose larval sex ratio can respond to food availability. Outstanding papers in COMAP's results archive analyze stage dynamics and ecological effects. Recast the decision as an intervention intensity $u_t$ over time. A simplified state model is
 
@@ -1017,7 +1019,7 @@ The lamprey problem illustrates a general pattern. Biological adaptation creates
 
 The remedy is not maximum complexity. It is a layered argument: transparent baseline, explicit mechanisms, identifiable parameters, visible objective trade-offs, declared protection, feedback policy where justified, and independent stress tests. The same architecture applies to epidemics, fisheries, invasive plants, reservoir ecosystems, and public-health intervention.
 
-## 9. Frontier Stability and Decision Validation
+## Stability and Validation
 
 A beautiful frontier can be numerically or statistically fragile. Recompute it under data resampling, alternative normalizations, and plausible uncertainty sets. Match points by decision or objective neighborhood and display bands rather than one precise curve.
 
@@ -1111,7 +1113,7 @@ Create a table of failure modes: biased demand, omitted feedback, uncertain corr
 
 The strongest conclusion is often conditional: “Plan B is feasible across the declared interval and stable under bootstrap and preference tests; performance remains vulnerable to simultaneous bridge loss and demand surge, which were not part of the guarantee.” That is more trustworthy than “Plan B is robust.”
 
-## 10. Writing the Recommendation
+## Recommendations
 
 A responsible report shows the frontier before choosing a point, explains normalization and weights, identifies hard constraints, and quantifies the cost of protection. A useful final sentence sounds like this:
 
@@ -1181,7 +1183,7 @@ For the easter egg, look back at plans $A,B,C,D$ in Section 2. Add a fifth plan 
 - [CUMCM official archive](https://www.mcm.edu.cn/).
 - Boyd and Vandenberghe, [*Convex Optimization*](https://web.stanford.edu/~boyd/cvxbook/).
 
-## 11. Integrated Decision Studios
+## Worked Cases
 
 The final studios combine preference uncertainty, parameter uncertainty, and operational validation in complete decisions rather than isolated formulas. Each begins with a baseline, identifies the information timeline, constructs a frontier, adds protection, and ends with evidence a decision maker can inspect.
 
@@ -2000,7 +2002,7 @@ The most mature result may be a region rather than a point: a set of plans that 
 
 Before leaving this blog, return to the disagreement at the beginning. The teammate who wanted low cost, the teammate who wanted safety, and the client who protected service were not obstacles to modeling. Their disagreement supplied the structure. Mathematics became useful when it stopped hiding the disagreement and began showing exactly where the decision changes.
 
-## 12. Knowledge Check
+## Knowledge Check
 
 These questions progress from Pareto dominance to unsupported efficient points, robust counterparts, adjustable decisions, and a complete ecological-policy audit. Some questions have multiple correct answers.
 

@@ -16,6 +16,8 @@ excerpt: "A disciplined route from an ambiguous real question to variables, assu
 
 Welcome—come in, take a seat, and make yourself comfortable.
 
+Every equation in this blog will be tied to a concrete decision, a unit, and a test. A plausible number is not enough: we need to know what generated it, where it applies, and which observation could overturn it.
+
 Relax. This is the first blog post in the series; you do not need a solver, a clever algorithm, or a long list of formulas. We will begin with one ordinary commuter puzzle and discover how to turn a situation into a small question we can actually test.
 
 Imagine a commuter who is usually picked up at 6:00 p.m. Today he arrives thirty minutes early, walks toward home, meets the car on the road, and gets home ten minutes ahead of schedule. **How long did he walk?** Write down a guess before you look for a formula. We know neither driving speed nor walking speed. That is exactly why this is a good first modeling question: the right relationship may matter more than the missing numbers.
@@ -26,7 +28,7 @@ Mathematical modeling is not the act of attaching a fashionable algorithm to a d
 
 Our commuter guess already contains the first modeling question: *what exactly are we trying to determine?* Before solving these examples, let us name the choices we will make in every one of them. Later, when the equations arrive, you can check whether each choice still matches the story.
 
-## Core Requirements of a Mathematical Model
+## Model Foundations
 
 ### A model contract in operational language
 
@@ -125,7 +127,7 @@ For a first experiment, take a tiny stop with ten riders at 8:30, a vehicle with
 
 The shuttle gave us a purpose, boundary, state, mechanism, and test. Those five questions will also organize the thermal example below. We will keep each physical step beside its corresponding modeling idea, rather than collect unrelated puzzles in a separate chapter.
 
-## System Boundaries, State Variables, and Conservation
+## Boundaries and States
 
 Imagine a field team loading small, room-temperature sample vials into an insulated box containing a chilled thermal reservoir. For this illustrative example, we choose an upper box-temperature limit of $8^{\circ}\mathrm{C}$. **How many vials can we load before the contents reach that limit?** Take a moment to guess; the point is not to know the answer but to identify what determines it.
 
@@ -188,7 +190,7 @@ Finally, imagine the reservoir has half the thermal capacity but starts at the s
 
 We have framed one physical problem and followed a state update to a threshold. Many modeling questions instead ask us to assign, schedule, or choose. The same habit—translate the ordinary words into quantities with clear jobs—takes us to the dining hall.
 
-## Translating Problem Statements into Mathematical Structure
+## Language to Structure
 
 <aside class="mm-key-box mm-theory-box" role="note" aria-label="Translate ordinary language into a model">
   <span class="mm-callout-label">Guiding idea · From words to math</span>
@@ -220,7 +222,7 @@ When a prompt has multiple numbered tasks, do not assume the numbers are indepen
 
 The assignment equations made the manager's rules explicit, but the capacities we used were estimates. The sample-box calculation likewise depended on a uniform temperature throughout the box and identical vials. How do we decide which simplifications are safe to keep and which ones might reverse the recommendation? That is the job of assumptions.
 
-## Assumption Design and Documentation
+## Assumptions
 
 ### Assumptions as controlled approximations
 
@@ -303,7 +305,7 @@ Not every assumption needs an elaborate sensitivity plot. If the field team need
 
 Once assumptions are visible, we can avoid two opposite mistakes: doing nothing because the real world is messy, or building an enormous model before we know what matters. Begin with the smallest calculation that respects the main mechanism, and add detail only when an observation shows why you need it.
 
-## Baseline Construction and Model Extension
+## Baselines and Extensions
 
 ### The baseline ladder
 
@@ -511,7 +513,7 @@ Now the original claim can be stated carefully. **For a resort owner who maximiz
 
 The box recurrence, dining-hall balance, and ski-resort circulation model all gave us answers under declared assumptions. None proves that field loading, campus demand, or a mountain will behave exactly as predicted. We now need to test the *whole path* from story to code to decision, not merely admire the final number.
 
-## Multi-Level Validation of the Modeling Process
+## Validation
 
 ### Verification and validation are different questions
 
@@ -643,7 +645,7 @@ If any answer is vague, the model is not ready for optimization.
 
 You have seen a sample box, a shuttle, a ski resort, and several short definitions. Let us slow down and build one campus decision from its very first sentence. The dining-hall case will let us use the checklist while the variables and constraints are still small enough to check by hand.
 
-## An Integrated Modeling Workflow: Dining-Hall Operations
+## Dining-Hall Case
 
 Suppose a university wants to reduce the waiting time at a campus dining hall without increasing the weekly labor budget. This sentence is still a **situation**, not a mathematical problem. We must decide who acts, what can be changed, what cannot be changed, and what “better” means.
 
@@ -813,7 +815,7 @@ If we had started with an algorithm, these links could disappear. Starting with 
 
 The dining hall was a full workflow: decide, calculate a baseline, and test it. We already used a physical balance for the sample box. Three more mathematical lenses sharpen different habits: an invariant can remove unknown speeds, continuity can prove existence without an exact path, and a threshold can separate braking from clearance. They are not new modeling cycles; they are tools for choosing a useful mechanism *inside* the cycle you know.
 
-## Analytical Reasoning Before Numerical Computation
+## Analysis Before Computation
 
 Computing is most useful after we know what the computation should preserve. An invariant, bound, monotonic relationship, limiting case, or dimensional argument can eliminate wrong models and test code. These tools are not substitutes for data; they tell us what any data-driven or numerical answer must respect.
 
@@ -986,7 +988,7 @@ Each lens turned ordinary words into a mathematical claim. A competition prompt 
 
 <!-- Competition-preparation material moved to Blog 2: Competition Techniques.
 
-## Competition Problem Decomposition and Evidence
+## Competition Evidence
 
 This series prepares us to read both China's National Undergraduate Mathematical Contest in Modeling (CUMCM, 国赛) and COMAP's Mathematical/Interdisciplinary Contest in Modeling (MCM/ICM, 美赛). They are different competitions, not two names for the same set of A/B/C questions. The [CUMCM organizers describe](https://www.mcm.edu.cn/html_cn/node/7e54d6df0304aa37c5d0f92bf167a6bb.html) problems drawn from science, engineering, and social or economic settings. A useful but nonbinding way to approach its problem choices is:
 
@@ -1018,7 +1020,7 @@ I would encourage a novice team to produce one imperfect but complete chain in t
 
 We have a map of what a team must reason through. Now we can decide where the work should live. Software will not choose the boundary or validate a theorem for us; it can, however, make the calculation, collaboration, and writing reproducible once those jobs are clear.
 
-## Reproducible Computational and Collaborative Workflows
+## Reproducible Workflows
 
 A modeling team's toolbox is not a list of brands to master. A shared notebook such as Notion helps ideas accumulate over time; a collaborative document holds the current draft; Python handles repeatable data work, simulation, and optimization; LaTeX helps with a long mathematical report; draw.io or PowerPoint helps make relationships visible; and an LLM remains an assistant whose claims and code we check.
 
@@ -1074,7 +1076,7 @@ After practicing with published papers and these tools, we should check whether 
 
 Competition selection, tool use, paper reading, visualization practice, algorithm extension, and AI-assisted workflows now form the separate second blog, **Competition Techniques**. Here we will finish the fundamentals by checking whether the modeling pattern transfers to one new decision problem.
 
-## Method Transfer: Study-Room Capacity Planning
+## Study-Room Case
 
 ### Rebuild the contract without copying the dining hall
 
