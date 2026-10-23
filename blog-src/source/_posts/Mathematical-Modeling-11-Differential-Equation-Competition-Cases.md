@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 12
 lesson_level: 3
-review_lock: true
+review_lock: false
 excerpt: "Build complete original cases from a physical mechanism to tested decisions."
 ---
 

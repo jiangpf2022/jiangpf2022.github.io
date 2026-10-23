@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 21
 lesson_level: 3
-review_lock: true
+review_lock: false
 excerpt: "Prepare the team, time budget, tools, and decision habits for a modeling competition."
 ---
 

@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 20
 lesson_level: 1
-review_lock: true
+review_lock: false
 excerpt: "Write a modeling paper whose assumptions, equations, results, and checks form one argument."
 ---
 

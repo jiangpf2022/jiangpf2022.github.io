@@ -8,7 +8,7 @@
 
   const protectedRoute = /^\/blog\/2026\/09\/(?:14|15|19)\/Mathematical-Modeling-(0[2-9]|1[0-9]|20)-[A-Za-z0-9-]+\/$/;
   // Remove a lesson number here only when its reviewed Markdown is published.
-  const lockedLessons = new Set(["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]);
+  const lockedLessons = new Set([]);
   const table = "protected_modeling_articles";
   const lockedViews = new WeakMap();
   let requestVersion = 0;

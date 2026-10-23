@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 13
 lesson_level: 1
-review_lock: true
+review_lock: false
 excerpt: "Audit the time index, isolate patterns, and forecast without information leakage."
 ---
 

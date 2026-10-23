@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 17
 lesson_level: 1
-review_lock: true
+review_lock: false
 excerpt: "Make ranking criteria, weights, admissibility, and rank sensitivity explicit."
 ---
 

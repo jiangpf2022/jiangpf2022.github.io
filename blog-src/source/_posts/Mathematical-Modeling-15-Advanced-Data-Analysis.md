@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 16
 lesson_level: 2
-review_lock: true
+review_lock: false
 excerpt: "Connect regression diagnostics, dimension reduction, and clustering to defensible conclusions."
 ---
 

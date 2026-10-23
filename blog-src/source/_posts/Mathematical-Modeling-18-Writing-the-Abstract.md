@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 19
 lesson_level: 1
-review_lock: true
+review_lock: false
 excerpt: "Write concise claims that trace to methods, results, evidence, and limitations."
 ---
 

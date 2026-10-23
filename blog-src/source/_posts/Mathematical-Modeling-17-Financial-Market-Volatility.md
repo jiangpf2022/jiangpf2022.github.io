@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 18
 lesson_level: 3
-review_lock: true
+review_lock: false
 excerpt: "Analyze a synthetic market-volatility case without confusing forecasts with investment advice."
 ---
 

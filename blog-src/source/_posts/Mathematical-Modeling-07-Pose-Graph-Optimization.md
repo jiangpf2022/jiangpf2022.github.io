@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 8
 lesson_level: 2
-review_lock: true
+review_lock: false
 excerpt: "Solve and diagnose an original synthetic pose-graph estimation case."
 ---
 

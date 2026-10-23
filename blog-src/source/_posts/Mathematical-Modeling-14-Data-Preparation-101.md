@@ -9,7 +9,7 @@ cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 0
 lesson_number: 15
 lesson_level: 1
-review_lock: true
+review_lock: false
 excerpt: "Define what one row means before cleaning, transforming, or plotting it."
 ---
 
