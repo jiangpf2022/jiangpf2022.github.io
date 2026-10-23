@@ -3,14 +3,16 @@
 hexo.extend.filter.register('after_render:html', function (html, data) {
   html = html.replaceAll('src="/images/', 'src="/blog/images/');
 
-  const bilingualPost = '2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model/';
-  const chinesePost = '2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model-zh/';
   const renderedPath = String(data?.path || '');
-  const isChinese = renderedPath.includes(chinesePost) ||
-    html.includes('property="og:title" content="1 - 从现实问题到数学模型"');
-  const isEnglish = !isChinese && (renderedPath.includes(bilingualPost) ||
-    html.includes('property="og:title" content="1 - From Reality to a Model"'));
-  if (isEnglish || isChinese) {
+  const bilingualPairs = [
+    ['2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model/', '2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model-zh/'],
+    ['2026/09/15/Mathematical-Modeling-04-Linear-Quadratic-and-Conic-Optimization/', '2026/09/15/Mathematical-Modeling-04-Linear-Quadratic-and-Conic-Optimization-zh/'],
+    ['2026/09/15/Mathematical-Modeling-05-Advanced-Convex-Optimization/', '2026/09/15/Mathematical-Modeling-05-Advanced-Convex-Optimization-zh/'],
+  ];
+  const pair = bilingualPairs.find(([english, chinese]) => renderedPath.includes(english) || renderedPath.includes(chinese));
+  if (pair) {
+    const [bilingualPost, chinesePost] = pair;
+    const isChinese = renderedPath.includes(chinesePost);
     const site = 'https://jiangpf2022.github.io/blog/';
     const canonicalPath = isChinese ? chinesePost : bilingualPost;
     html = html.replace(

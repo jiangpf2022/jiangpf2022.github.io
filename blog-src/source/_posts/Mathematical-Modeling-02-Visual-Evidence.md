@@ -8,7 +8,7 @@ tags:
   - Scientific Figures
   - Communication
 mathjax: true
-cover: "/images/mathematical-modeling/modeling-03-visual-evidence-cover.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 80
 lesson_number: 3
 lesson_level: 1
@@ -16,7 +16,7 @@ review_lock: false
 excerpt: "A 100-figure field guide to charts, maps, diagrams, scientific graphics, visual diagnostics, and award-level evidence in mathematical modeling papers."
 ---
 
-Welcome—come in, take a seat, and place one of your recent reports beside you.
+Open one of your recent reports and place it beside this page. Do not look for the prettiest figure. Find the figure that carried the most important claim—today we are going to ask whether it actually proved what the caption promised.
 
 Today we are going to change the way you think about figures. A chart is not the colorful thing added after the mathematics is finished. A diagram is not an apology for an equation that looks difficult. In a modeling paper, a figure is **visual evidence**: a compact, inspectable answer to a precise question. It may show that a pattern exists, that two plans differ, that a mechanism is plausible, that an optimization respects its constraints, that uncertainty has been measured, or that a recommendation survives a stress test.
 
@@ -1277,6 +1277,8 @@ Review figures in their final PDF, not only in the plotting window. For every fi
 </div>
 
 The goal is not to produce 100 figures in a competition paper. It is to build enough visual vocabulary that, when the model asks a question, you can choose the one picture that answers it honestly. A strong report might contain only eight figures. Each should have a job. Each should be traceable. Each should make one piece of the modeling argument easier to inspect than prose alone.
+
+One last hidden test: shrink your best figure until it is only six centimeters wide, print it in grayscale, and give it to someone for ten seconds. If they can still name the comparison and the conclusion, keep it. If they remember only the colors, the figure is asking for one more revision.
 
 ### Official and Course Sources
 

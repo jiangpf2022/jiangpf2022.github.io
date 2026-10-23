@@ -8,7 +8,7 @@ tags:
   - Modeling Tools
   - AI for Modeling
 mathjax: true
-cover: "/images/mathematical-modeling/modeling-02-competition-cover.svg"
+cover: "/images/mathematical-modeling-nyc.webp"
 study_time: 55
 lesson_number: 2
 lesson_level: 1
@@ -16,7 +16,7 @@ review_lock: false
 excerpt: "A practical competition guide to selecting problems, building a reliable toolchain, learning from strong papers, reproducing visual evidence, extending algorithms, and using AI without surrendering judgment."
 ---
 
-Welcome—come in, take a seat, and make yourself comfortable.
+The competition clock has not started yet, so this is the right moment to slow down. Put the algorithm list aside; today we are going to rehearse the decisions that prevent a team from losing ten hours before the real modeling has even begun.
 
 The first blog was about the discipline of turning reality into a model. This one is about what happens when the clock starts. A competition gives you several unfamiliar problems, a small team, incomplete information, and a deadline. The temptation is to hunt immediately for an impressive algorithm. Resist it. Most teams do not lose because they never heard of a sufficiently advanced method; they lose time because they choose a problem for the wrong reason, build modules in the wrong order, cannot reproduce one another's work, or use tools without deciding what each tool is responsible for.
 
@@ -82,6 +82,38 @@ Sustainability problems require more than adding an environmental term to a cost
 ### ICM F: Policy
 
 Policy problems ask for recommendations in a world where values, incentives, uncertainty, and implementation matter. Quantitative evidence should clarify consequences, not pretend to eliminate judgment. Distinguish observation from assumption, prediction from preference, and a scenario from a forecast. A strong policy paper names affected groups, implementation steps, possible unintended effects, and a monitoring plan.
+
+### Worked selection example: three problems, one team
+
+Imagine that your team finds three plausible choices. Problem A describes an ecological population whose sex ratio changes with environmental conditions. Problem C provides a large transaction table and asks for patterns and forecasts. Problem F asks for a policy that balances access, cost, and fairness. One teammate knows differential equations, another writes reliable Python, and the third writes clearly.
+
+The beginner's vote is often “choose C because it has data” or “choose A because equations look impressive.” A better comparison gives every problem four entries: one candidate decision, one baseline, one validation route, and one likely bottleneck. For A, these might be an intervention threshold, a two-stage population baseline, equilibrium checks, and parameter identification. For C: inventory allocation, a seasonal-naive forecast, blocked time-series testing, and leakage. For F: a phased allocation rule, equal-per-capita allocation, subgroup scenario analysis, and unsupported causal assumptions.
+
+Now the trade-off is visible. If no one can explain how A's parameters could be identified, elegant ODEs will not rescue it. If C has abundant data but no decision, the team may produce twenty charts without answering the question. If F admits a transparent trade-off model, good writing becomes an analytical advantage. Selection is not about finding the safest letter. It is about exposing the work you will actually have to finish.
+
+### Real case: 2024 MCM Problem A and the lamprey ecosystem
+
+The 2024 MCM Problem A asked teams to study how a sea-lamprey population and its ecosystem may change when larval sex ratios respond to food availability. COMAP's Outstanding papers used different architectures—stage-structured dynamics, resource feedback, stability analysis, and scenario comparison—but they all had to turn the same biological story into testable modules.
+
+A minimal state might be $x_t=(L_t,M_t,F_t,R_t)$: larvae, reproductive males, reproductive females, and a food-resource index. A stage model can be written
+
+$$x_{t+1}=A(R_t)x_t,$$
+
+while a bounded response connects resources to the female share,
+
+$$s(R)=s_{\min}+\frac{s_{\max}-s_{\min}}{1+e^{-k(R-R_0)}}.$$
+
+The mechanism is now inspectable: resources change $s$, sex composition changes reproduction, reproduction changes future larvae, and lamprey abundance feeds back into resources. Before adding predators and competitors, check nonnegative states, sensible equilibria, and limiting behavior under abundant and scarce food.
+
+Each figure should test a different claim. A time-series panel compares abundance under fixed and adaptive sex ratios. A phase portrait shows whether the system returns to equilibrium. A sensitivity plot reveals whether conclusions depend mostly on maturation, fecundity, or the response slope $k$. When reading an Outstanding paper, ask what state was sufficient, which causal arrow became each equation, which parameters came from evidence, and what disappears when the adaptive-sex mechanism is removed. The final question is an ablation test: it prevents a large model from receiving credit for behavior already produced by its baseline.
+
+### Real case: 2024 CUMCM crop planning
+
+The 2024 CUMCM C problem asked for multi-year planting decisions across plots, greenhouse types, seasons, and crops. Public excellent papers add heuristics, uncertainty, CVaR, correlation, and heatmaps. The essential competition skill comes earlier: preserve time order while translating agricultural rules.
+
+Let $x_{itsk}$ be the area of crop $k$ on plot $i$, in year $t$ and season $s$. “Each plot must contain a legume at least once in every three years” becomes a rolling-window constraint. “Do not continuously plant the same crop” couples adjacent seasons. “Production beyond demand is wasted or discounted” requires sales variables instead of pretending every harvested kilogram earns the listed price.
+
+The large index set may tempt a team to assume that only a genetic algorithm is possible. In fact, much of the model is a mixed-integer linear program. Build a reduced exact version with two years, several plots, and a few crops before committing to a heuristic. Enumerate the tiny instance by hand, then implement it. A mismatch usually reveals an incorrect time index, a missing compatibility rule, revenue counted beyond demand, or a binary variable not linked to planting area. This reconstruction teaches more than collecting ten algorithm names, because it creates an auditable ground truth for the full solver.
 
 The 2026 official problem set illustrates the breadth: smartphone battery drain, a moon-colony space-elevator system, data about stars, sports management, passive solar shading, and generative-AI education policy. That variety is exactly why memorizing one algorithm per letter is fragile. Read the current problem, then choose the mathematical language.
 
@@ -426,6 +458,8 @@ Do not turn this blog into a rigid daily timetable. Build a repeatable weekly lo
 After the practice, conduct a postmortem. Which decision consumed the most time? Which handoff broke? Which figure failed to support its claim? Which AI output was useful, and which created verification debt? Convert each answer into one change to the team workflow. Improvement comes from closing this loop, not from collecting more bookmarks.
 
 The first blog taught us to build a modeling contract. Competition technique is the art of preserving that contract under pressure. Choose the problem by its evidence path, give each tool one job, learn from strong work without copying it, rebuild the visuals that sharpen your judgment, extend methods beyond class, and use AI as a critic and assistant rather than an oracle. Then, when the clock starts, your team is not beginning from zero; it is executing a system it has already practiced.
+
+There is a small easter egg hidden in this blog's advice: the best “competition trick” is not a trick at all. Open an old problem, set a ninety-minute timer, and stop exactly when it rings. The artifact on your screen—especially what is still missing—will tell you more honestly than any self-assessment which part of your team system needs practice.
 
 ### Official References
 

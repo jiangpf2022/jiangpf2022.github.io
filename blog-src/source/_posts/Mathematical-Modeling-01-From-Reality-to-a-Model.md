@@ -620,3 +620,9 @@ Today we moved from a bus to a sample box, stopped at a ski resort, and then con
 If you take one thought away, I hope it is a clearer sense of what *mathematical modeling* asks of us. **Mathematics** lets us say things precisely: what changes, how quantities relate, and why a conclusion follows. **Modeling** begins a little earlier, with listening to the real question. We build a smaller world in which we can reason about it, remain honest about what we left out, and bring the answer back to observations and data. A beautiful calculation that answers the wrong question, or falls apart when checked, is not the finish line. You do not need to remember every number from today. Noticing the question, the boundary, the assumptions, and the evidence is enough of a beginning.
 
 The next posts will introduce particular models and methods, one at a time. For now, that is plenty. Close the laptop and take a break.
+
+## Knowledge Check
+
+The ten questions below move deliberately from recognition to synthesis. Questions may have one or several correct answers, so read the instruction on each card before checking it. The difficulty percentage is a target calibration rather than a claim about collected student data: the first question is designed to be accessible to roughly 90% of prepared readers, while the last is intended as a demanding 10% challenge.
+
+<section class="modeling-quiz" data-modeling-quiz="lesson-1" data-locale="en"></section>

@@ -1,9 +1,23 @@
 (function () {
   "use strict";
 
-  const englishPath = "/blog/2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model/";
-  const chinesePath = "/blog/2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model-zh/";
-  const restoreKey = "modeling-1-language-position";
+  const languagePairs = [
+    [
+      "/blog/2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model/",
+      "/blog/2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model-zh/",
+    ],
+    [
+      "/blog/2026/09/15/Mathematical-Modeling-04-Linear-Quadratic-and-Conic-Optimization/",
+      "/blog/2026/09/15/Mathematical-Modeling-04-Linear-Quadratic-and-Conic-Optimization-zh/",
+    ],
+    [
+      "/blog/2026/09/15/Mathematical-Modeling-05-Advanced-Convex-Optimization/",
+      "/blog/2026/09/15/Mathematical-Modeling-05-Advanced-Convex-Optimization-zh/",
+    ],
+  ];
+  const restoreKey = "modeling-language-position";
+
+  const currentPair = () => languagePairs.find((pair) => pair.includes(window.location.pathname));
 
   const articlePosition = () => {
     const article = document.querySelector(".article-content.markdown-body");
@@ -38,7 +52,8 @@
   const refresh = () => {
     document.querySelector(".mm-language-tool")?.remove();
     const current = window.location.pathname;
-    if (current !== englishPath && current !== chinesePath) return;
+    const pair = currentPair();
+    if (!pair) return;
     const list = document.querySelector(".hidden-tools-list");
     if (!list) return;
     const item = document.createElement("li");
@@ -46,8 +61,8 @@
     const button = document.createElement("button");
     button.type = "button";
     button.className = "mm-language-button";
-    const isEnglish = current === englishPath;
-    const target = isEnglish ? chinesePath : englishPath;
+    const isEnglish = current === pair[0];
+    const target = isEnglish ? pair[1] : pair[0];
     button.textContent = isEnglish ? "中文" : "EN";
     button.title = isEnglish ? "Switch to Chinese / 切换到中文" : "Switch to English / 切换到英文";
     button.setAttribute("aria-label", button.title);
