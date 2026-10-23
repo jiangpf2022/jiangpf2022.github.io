@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="title desc">
+  <title id="title">Continuity crossing argument</title><desc id="desc">Two continuous position curves cross, showing that the traveler occupies the same position at the same clock time on two days.</desc>
+  <rect width="1000" height="560" rx="28" fill="#edf7ff"/>
+  <text x="55" y="65" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#173d6b">Continuity creates a guaranteed crossing</text>
+  <path d="M120 450V120M120 450H900" stroke="#244b75" stroke-width="5"/>
+  <g font-family="Inter,Arial,sans-serif" fill="#466681"><text x="45" y="285" transform="rotate(-90 45 285)" font-size="21">position along route</text><text x="500" y="515" text-anchor="middle" font-size="21">clock time</text><text x="100" y="475" font-size="17">start</text><text x="855" y="475" font-size="17">end</text></g>
+  <path d="M130 420C300 405 390 335 500 280S720 150 890 135" fill="none" stroke="#2f81e4" stroke-width="9"/>
+  <path d="M130 145C275 180 385 230 500 280S720 385 890 425" fill="none" stroke="#ef8c3b" stroke-width="9"/>
+  <circle cx="500" cy="280" r="15" fill="#173d6b" stroke="#fff" stroke-width="5"/>
+  <g font-family="Inter,Arial,sans-serif"><text x="745" y="145" font-size="21" font-weight="700" fill="#2f81e4">Day 1: f(t)</text><text x="745" y="412" font-size="21" font-weight="700" fill="#c76924">Day 2: g(t)</text><rect x="375" y="315" width="250" height="70" rx="16" fill="#fff" stroke="#173d6b" stroke-width="3"/><text x="500" y="345" text-anchor="middle" font-size="20" font-weight="700" fill="#173d6b">f(t*) = g(t*)</text><text x="500" y="372" text-anchor="middle" font-size="16" fill="#56718e">same time, same position</text></g>
+</svg>

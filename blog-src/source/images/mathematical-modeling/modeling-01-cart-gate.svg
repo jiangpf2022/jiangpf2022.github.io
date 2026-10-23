@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 580" role="img" aria-labelledby="title desc">
+  <title id="title">Cart and timed gate threshold</title><desc id="desc">A campus cart approaches a gate, and a threshold compares arrival time with gate opening time.</desc>
+  <defs><marker id="a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 12 6 0 12Z" fill="#2f81e4"/></marker></defs>
+  <rect width="1050" height="580" rx="28" fill="#edf7ff"/><text x="55" y="65" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#173d6b">Threshold decision at a timed gate</text>
+  <path d="M70 380H980" stroke="#819bb2" stroke-width="80"/><path d="M70 380H980" stroke="#fff" stroke-width="5" stroke-dasharray="28 22"/>
+  <g transform="translate(165 275)"><rect width="220" height="100" rx="22" fill="#2f81e4"/><rect x="35" y="20" width="65" height="35" rx="6" fill="#dff2ff"/><rect x="118" y="20" width="65" height="35" rx="6" fill="#dff2ff"/><circle cx="48" cy="105" r="23" fill="#244b75"/><circle cx="170" cy="105" r="23" fill="#244b75"/></g>
+  <path d="M415 250H700" stroke="#2f81e4" stroke-width="9" marker-end="url(#a)"/>
+  <g transform="translate(760 155)" stroke="#173d6b" stroke-width="10"><path d="M0 250V0M115 250V0M0 45H115"/><path d="M58 45V215" stroke="#e05a47"/></g>
+  <g font-family="Inter,Arial,sans-serif"><text x="275" y="465" text-anchor="middle" font-size="21" font-weight="700" fill="#173d6b">distance d · speed v</text><text x="818" y="465" text-anchor="middle" font-size="21" font-weight="700" fill="#173d6b">gate opens at τ</text><rect x="220" y="500" width="610" height="50" rx="15" fill="#173d6b"/><text x="525" y="533" text-anchor="middle" font-size="21" fill="#fff">Stop if d / v &lt; τ − t; otherwise continue.</text></g>
+</svg>

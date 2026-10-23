@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Ski resort circulation system</title>
+  <desc id="desc">A mountain ski trail, chairlift, base queue, lodge, and circulation arrows show how skiers divide time between trail and off-trail states.</desc>
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#80c9ff"/><stop offset="1" stop-color="#eaf7ff"/></linearGradient><linearGradient id="snow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#c9e5f6"/></linearGradient><marker id="blueArrow" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto"><path d="M0 0 13 6.5 0 13Z" fill="#2f81e4"/></marker><marker id="orangeArrow" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto"><path d="M0 0 13 6.5 0 13Z" fill="#ef8c3b"/></marker></defs>
+  <rect width="1200" height="720" rx="28" fill="url(#sky)"/>
+  <circle cx="1040" cy="115" r="55" fill="#ffe190" opacity=".92"/>
+  <path d="M0 520 170 305 295 410 500 125 655 340 810 225 1030 470 1200 330V720H0Z" fill="#a8cce2"/>
+  <path d="M110 550 500 125 720 590Z" fill="url(#snow)"/><path d="M500 125 720 590 620 505 555 390Z" fill="#a9d0e6"/>
+  <path d="M875 570 555 180" stroke="#344f6b" stroke-width="7"/><path d="M930 570 610 180" stroke="#344f6b" stroke-width="7"/>
+  <g stroke="#344f6b" stroke-width="5"><path d="M805 485v85M710 370v112M625 265v105"/><path d="M775 490h60M680 375h60M595 270h60"/></g>
+  <g fill="none" stroke="#344f6b" stroke-width="5"><path d="M750 405v40h52v-40M660 300v40h52v-40M830 500v40h52v-40"/></g>
+  <path d="M510 190C390 300 330 430 285 570" fill="none" stroke="#2f81e4" stroke-width="18" stroke-linecap="round" opacity=".8"/>
+  <g fill="#ef4f5f" stroke="#fff" stroke-width="4"><circle cx="450" cy="270" r="12"/><circle cx="390" cy="355" r="12"/><circle cx="335" cy="455" r="12"/></g>
+  <rect x="175" y="560" width="190" height="92" rx="16" fill="#7b5638"/><path d="M155 565 270 500 385 565Z" fill="#b33f3f"/><rect x="245" y="598" width="48" height="54" fill="#f3cf8b"/>
+  <g fill="#42566f"><circle cx="560" cy="620" r="11"/><circle cx="590" cy="620" r="11"/><circle cx="620" cy="620" r="11"/><circle cx="650" cy="620" r="11"/></g>
+  <path d="M260 620C145 555 165 390 275 330" fill="none" stroke="#ef8c3b" stroke-width="9" stroke-dasharray="13 10" marker-end="url(#orangeArrow)"/>
+  <path d="M485 205C560 145 730 130 850 230" fill="none" stroke="#2f81e4" stroke-width="9" stroke-dasharray="13 10" marker-end="url(#blueArrow)"/>
+  <g font-family="Inter,Arial,sans-serif"><rect x="55" y="45" width="650" height="96" rx="22" fill="#fff" opacity=".9"/><text x="85" y="85" font-size="28" font-weight="700" fill="#173d6b">One population, three connected states</text><text x="85" y="120" font-size="21" fill="#3c5d7c">trail time T<tspan baseline-shift="sub" font-size="15">d</tspan> · lift/queue/lodge time T<tspan baseline-shift="sub" font-size="15">o</tspan> · total visitors N</text><text x="170" y="305" font-size="22" font-weight="700" fill="#1e609f">TRAIL</text><text x="900" y="340" font-size="22" font-weight="700" fill="#344f6b">LIFT</text><text x="430" y="675" font-size="21" font-weight="700" fill="#6e3b25">BASE · QUEUE · LODGE</text></g>
+</svg>

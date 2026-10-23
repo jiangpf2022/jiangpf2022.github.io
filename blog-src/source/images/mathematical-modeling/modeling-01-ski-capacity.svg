@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 650" role="img" aria-labelledby="title desc">
+  <title id="title">Fast and slow ski-lift capacity comparison</title>
+  <desc id="desc">Two stacked capacity diagrams compare a fast lift and a slow lift while keeping the safe trail population fixed.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4faff"/><stop offset="1" stop-color="#dcecff"/></linearGradient></defs>
+  <rect width="1150" height="650" rx="28" fill="url(#bg)"/>
+  <text x="60" y="66" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#173d6b">Illustrative capacity comparison with the same trail limit</text>
+  <g font-family="Inter,Arial,sans-serif">
+    <rect x="70" y="115" width="470" height="420" rx="28" fill="#fff" stroke="#61a5e8" stroke-width="4"/><text x="305" y="165" text-anchor="middle" font-size="25" font-weight="700" fill="#173d6b">Faster circulation</text>
+    <rect x="135" y="215" width="110" height="220" rx="14" fill="#2f81e4"/><rect x="245" y="325" width="160" height="110" rx="14" fill="#ef9b45"/><text x="190" y="200" text-anchor="middle" font-size="18" font-weight="700" fill="#2f81e4">TRAIL</text><text x="325" y="307" text-anchor="middle" font-size="18" font-weight="700" fill="#b8601e">OFF TRAIL</text><text x="190" y="340" text-anchor="middle" font-size="35" font-weight="800" fill="#fff">400</text><text x="325" y="393" text-anchor="middle" font-size="31" font-weight="800" fill="#fff">600</text><text x="305" y="485" text-anchor="middle" font-size="29" font-weight="800" fill="#173d6b">N = 1,000</text>
+    <rect x="610" y="115" width="470" height="420" rx="28" fill="#fff" stroke="#61a5e8" stroke-width="4"/><text x="845" y="165" text-anchor="middle" font-size="25" font-weight="700" fill="#173d6b">Slower circulation</text>
+    <rect x="675" y="215" width="110" height="220" rx="14" fill="#2f81e4"/><rect x="785" y="215" width="210" height="220" rx="14" fill="#ef9b45"/><text x="730" y="200" text-anchor="middle" font-size="18" font-weight="700" fill="#2f81e4">TRAIL</text><text x="890" y="200" text-anchor="middle" font-size="18" font-weight="700" fill="#b8601e">OFF TRAIL</text><text x="730" y="340" text-anchor="middle" font-size="35" font-weight="800" fill="#fff">400</text><text x="890" y="340" text-anchor="middle" font-size="35" font-weight="800" fill="#fff">1,200</text><text x="845" y="485" text-anchor="middle" font-size="29" font-weight="800" fill="#173d6b">N = 1,600</text>
+    <rect x="120" y="565" width="910" height="55" rx="16" fill="#173d6b"/><text x="575" y="600" text-anchor="middle" font-size="21" fill="#fff">This comparison isolates one mechanism; it is not yet a recommendation.</text>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 600" role="img" aria-labelledby="title desc">
+  <title id="title">Study room capacity allocation</title><desc id="desc">Three study rooms receive extra opening hours under a shared staffing budget, with turn-aways and unused room-hours used as evidence.</desc>
+  <rect width="1100" height="600" rx="28" fill="#edf7ff"/>
+  <text x="55" y="65" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#173d6b">Resource allocation under a shared staffing constraint</text>
+  <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
+    <g transform="translate(90 145)"><rect width="250" height="230" rx="24" fill="#fff" stroke="#4f8edc" stroke-width="4"/><text x="125" y="52" font-size="24" font-weight="700" fill="#173d6b">Room 1</text><rect x="45" y="92" width="160" height="32" rx="10" fill="#2f81e4"/><rect x="45" y="140" width="80" height="32" rx="10" fill="#9bc9f2"/><text x="125" y="205" font-size="18" fill="#56718e">extra hours x₁</text></g>
+    <g transform="translate(425 145)"><rect width="250" height="230" rx="24" fill="#fff" stroke="#4f8edc" stroke-width="4"/><text x="125" y="52" font-size="24" font-weight="700" fill="#173d6b">Room 2</text><rect x="45" y="92" width="160" height="32" rx="10" fill="#2f81e4"/><rect x="45" y="140" width="125" height="32" rx="10" fill="#9bc9f2"/><text x="125" y="205" font-size="18" fill="#56718e">extra hours x₂</text></g>
+    <g transform="translate(760 145)"><rect width="250" height="230" rx="24" fill="#fff" stroke="#4f8edc" stroke-width="4"/><text x="125" y="52" font-size="24" font-weight="700" fill="#173d6b">Room 3</text><rect x="45" y="92" width="160" height="32" rx="10" fill="#2f81e4"/><rect x="45" y="140" width="45" height="32" rx="10" fill="#9bc9f2"/><text x="125" y="205" font-size="18" fill="#56718e">extra hours x₃</text></g>
+    <rect x="150" y="425" width="800" height="95" rx="20" fill="#173d6b"/><text x="550" y="462" font-size="23" font-weight="700" fill="#fff">0 ≤ xᵢ ≤ 2 and x₁ + x₂ + x₃ ≤ 6</text><text x="550" y="496" font-size="19" fill="#dbeeff">Compare turn-aways and unused room-hours under the same demand.</text>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Campus shuttle model boundary</title>
+  <desc id="desc">A flow diagram from rider arrivals through a queue, a shuttle ride, and the final walk to the classroom.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#edf7ff"/><stop offset="1" stop-color="#dbeaff"/></linearGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 12 6 0 12Z" fill="#3b78c2"/></marker>
+    <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#173d6b" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1200" height="620" rx="28" fill="url(#bg)"/>
+  <text x="70" y="70" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#173d6b">Decision boundary: arrive in class before 9:00</text>
+  <rect x="50" y="115" width="1100" height="365" rx="28" fill="#fff" stroke="#7daee8" stroke-width="3" stroke-dasharray="12 10" filter="url(#shadow)"/>
+  <text x="80" y="155" font-family="Inter,Arial,sans-serif" font-size="20" font-weight="700" fill="#3973b7">INCLUDED SYSTEM</text>
+  <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
+    <g transform="translate(95 220)"><circle cx="42" cy="30" r="18" fill="#ffc857"/><path d="M42 50v65M15 80h54M42 115l-28 46M42 115l32 46" stroke="#244b75" stroke-width="9" stroke-linecap="round"/><text x="42" y="205" font-size="22" font-weight="700" fill="#173d6b">Rider arrivals</text><text x="42" y="235" font-size="17" fill="#56718e">input rate</text></g>
+    <g transform="translate(320 215)"><rect x="0" y="40" width="150" height="95" rx="16" fill="#e8f3ff" stroke="#4f8edc" stroke-width="3"/><circle cx="32" cy="89" r="13" fill="#4f8edc"/><circle cx="75" cy="89" r="13" fill="#4f8edc"/><circle cx="118" cy="89" r="13" fill="#4f8edc"/><text x="75" y="190" font-size="22" font-weight="700" fill="#173d6b">Waiting queue</text><text x="75" y="220" font-size="17" fill="#56718e">state: q(t)</text></g>
+    <g transform="translate(570 205)"><rect x="0" y="50" width="180" height="94" rx="18" fill="#2f81e4"/><rect x="23" y="66" width="52" height="34" rx="6" fill="#dff2ff"/><rect x="90" y="66" width="55" height="34" rx="6" fill="#dff2ff"/><circle cx="42" cy="150" r="18" fill="#244b75"/><circle cx="139" cy="150" r="18" fill="#244b75"/><text x="90" y="208" font-size="22" font-weight="700" fill="#173d6b">Shuttle</text><text x="90" y="238" font-size="17" fill="#56718e">seats + travel time</text></g>
+    <g transform="translate(845 212)"><path d="M25 140V50l73-42 73 42v90Z" fill="#f1f7fd" stroke="#4f8edc" stroke-width="4"/><path d="M77 140V88h42v52" fill="#ffc857"/><path d="M12 53h171" stroke="#244b75" stroke-width="6"/><text x="98" y="195" font-size="22" font-weight="700" fill="#173d6b">Classroom</text><text x="98" y="225" font-size="17" fill="#56718e">final walk included</text></g>
+  </g>
+  <path d="M230 310H315M475 310H565M755 310H835" stroke="#3b78c2" stroke-width="7" marker-end="url(#arrow)"/>
+  <g font-family="Inter,Arial,sans-serif"><rect x="80" y="510" width="1040" height="70" rx="18" fill="#173d6b"/><text x="110" y="552" font-size="22" fill="#fff"><tspan font-weight="700">Evidence:</tspan> compare the predicted and observed fraction entering class before 9:00.</text></g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 660" role="img" aria-labelledby="title desc">
+  <title id="title">Thermal box state update</title>
+  <desc id="desc">A warm vial enters an insulated box and reaches a new common temperature with the cold reservoir and existing vials.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2f9ff"/><stop offset="1" stop-color="#dbeeff"/></linearGradient><linearGradient id="cold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#69c7ff"/><stop offset="1" stop-color="#1d77c8"/></linearGradient><marker id="a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 12 6 0 12Z" fill="#ea6b48"/></marker></defs>
+  <rect width="1100" height="660" rx="28" fill="url(#bg)"/>
+  <text x="60" y="66" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#173d6b">State update inside the declared thermal boundary</text>
+  <rect x="75" y="115" width="710" height="415" rx="30" fill="#fff" stroke="#4f8edc" stroke-width="7"/>
+  <rect x="115" y="155" width="630" height="335" rx="22" fill="#dff2ff" stroke="#8abbe8" stroke-width="3" stroke-dasharray="10 8"/>
+  <rect x="145" y="195" width="255" height="245" rx="24" fill="url(#cold)"/>
+  <text x="272" y="285" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="25" font-weight="700" fill="#fff">Cold reservoir</text><text x="272" y="322" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="21" fill="#eaf7ff">heat capacity C<tspan baseline-shift="sub" font-size="15">c</tspan></text>
+  <g fill="#a8d8ff" stroke="#3973b7" stroke-width="3"><rect x="445" y="210" width="72" height="170" rx="24"/><rect x="540" y="210" width="72" height="170" rx="24"/><rect x="635" y="210" width="72" height="170" rx="24"/></g>
+  <g font-family="Inter,Arial,sans-serif" font-size="18" fill="#173d6b" text-anchor="middle"><text x="481" y="410">1</text><text x="576" y="410">2</text><text x="671" y="410">n</text></g>
+  <text x="575" y="465" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="700" fill="#173d6b">Existing vials and reservoir: T<tspan baseline-shift="sub" font-size="15">n</tspan></text>
+  <g transform="translate(890 170)"><rect width="85" height="190" rx="28" fill="#ffba86" stroke="#df6544" stroke-width="4"/><path d="M20 0v-28h45V0" fill="#ffd7b5" stroke="#df6544" stroke-width="4"/><text x="42" y="235" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700" fill="#7b321f">New vial</text><text x="42" y="266" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="19" fill="#7b321f">T<tspan baseline-shift="sub" font-size="14">v</tspan></text></g>
+  <path d="M880 300H745" stroke="#ea6b48" stroke-width="8" marker-end="url(#a)"/><text x="815" y="278" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="18" fill="#a64028">energy enters</text>
+  <rect x="160" y="560" width="780" height="66" rx="18" fill="#173d6b"/><text x="550" y="601" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="23" fill="#fff">T<tspan baseline-shift="sub" font-size="16">n+1</tspan> = total thermal energy ÷ total heat capacity</text>
+</svg>
