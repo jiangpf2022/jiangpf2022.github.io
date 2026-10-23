@@ -20,11 +20,11 @@ Relax. This is the first blog post in the series; you do not need a solver, a cl
 
 Imagine a commuter who is usually picked up at 6:00 p.m. Today he arrives thirty minutes early, walks toward home, meets the car on the road, and gets home ten minutes ahead of schedule. **How long did he walk?** Write down a guess before you look for a formula. We know neither driving speed nor walking speed. That is exactly why this is a good first modeling question: the right relationship may matter more than the missing numbers.
 
-Think of this post as a guided walk through a few real-looking problems. I will pose a concrete question, invite you to predict, make the assumptions visible, work through the smallest useful calculation, and ask what observation would overturn the result. The commuter is only our first puzzle. We will also ask how a field team can keep a sample box cool, how an automated campus cart should approach a timed gate, and how a manager can staff a dining hall. Across all four, the common skill is turning a vague situation into a testable question.
+Think of this post as a guided walk through a few real-looking problems. I will pose a concrete question, invite you to predict, make the assumptions visible, work through the smallest useful calculation, and ask what observation would overturn the result. The commuter is only our first puzzle. We will also ask how a field team can keep a sample box cool, how an automated campus cart should approach a timed gate, how a manager can staff a dining hall, and why a ski-resort owner might prefer a slower lift even though every skier asks for a faster one. Across all five, the common skill is turning a vague situation into a testable question.
 
 Mathematical modeling is not the act of attaching a fashionable algorithm to a dataset. It is the controlled replacement of a real system by a simpler mathematical object that is useful for a stated decision.
 
-Our commuter guess already contains the first modeling question: *what exactly are we trying to determine?* Before solving any of the four examples, let us name the choices we will make in every one of them. Later, when the equations arrive, you can check whether each choice still matches the story.
+Our commuter guess already contains the first modeling question: *what exactly are we trying to determine?* Before solving these examples, let us name the choices we will make in every one of them. Later, when the equations arrive, you can check whether each choice still matches the story.
 
 ## What a model must answer
 
@@ -184,7 +184,131 @@ For our box, the transparent baseline is the uniform-temperature recurrence with
 
 For the dining hall, a baseline is the demand-capacity balance. An extension could preserve individual arrival times and service-time variability in a discrete-event simulation. You need not know the name to grasp the idea. Keep a clock and a list of customers: when someone arrives, assign them to a free worker or make them wait; when a worker finishes, take the next customer. Repeating the clock events produces each person's wait. Compare predicted waits with real lunchtime observations. If the simulation changes the suggested staffing pattern during peaks, the extension solved a real limitation. If both models agree across the observed range, the simple balance might be sufficient for the manager's current decision.
 
-The box recurrence and dining-hall capacity balance gave us answers under declared assumptions. Neither answer proves that field loading or campus demand will behave exactly as predicted. We now need to test the *whole path* from story to code to decision, not merely admire the final number.
+The next example puts all of these ideas under pressure. It begins with a sentence that sounds obviously wrong—“a ski lift should be slower”—and shows why the sentence can be mathematically correct for one objective and economically foolish for another. The disagreement is not really about algebra. It is about what the word *capacity* means and whose outcome we are optimizing.
+
+### The ski-lift paradox: faster is not always better
+
+<aside class="mm-key-box" role="note" aria-label="The ski-lift modeling question">
+  <span class="mm-callout-label">Modeling question · What does capacity mean?</span>
+  <p>A resort has a fixed amount of skiable terrain. Should the owner add lifts and run them as fast as possible, or can a slower uphill system allow the resort to sell more tickets without putting more people on the trails?</p>
+</aside>
+
+<aside class="mm-key-box mm-theory-box" role="note" aria-label="Stop and think about the ski-lift problem">
+  <span class="mm-callout-label">Stop and think · Make a prediction first</span>
+  <p>Do not read the explanation yet. Imagine that the trails stay exactly the same but every lift suddenly carries people uphill twice as fast. On a piece of paper, predict what happens to:</p>
+  <ol>
+    <li>the number of skiers simultaneously on the trails,</li>
+    <li>the total number of ticket holders the resort can admit, and</li>
+    <li>the number of runs and the experience of one skier.</li>
+  </ol>
+  <p>Then write one sentence defining what you meant by <strong>capacity</strong>. Did you mean people on the snow, people moved per hour, total visitors inside the resort, or profit? Keep your prediction beside you; we will return to it after the small model is built.</p>
+</aside>
+
+Most skiers give an immediate answer: more lifts, faster chairs, shorter queues. That is a perfectly sensible **customer objective**. A skier wants more downhill runs per hour and less time standing at the base. But suppose the owner asks a different question: how many guests can be admitted while the number simultaneously descending remains below the trail's comfortable limit? Under that narrow objective, keeping guests off the snow for longer can increase the number of tickets that fit inside the system. A person sitting on a chair or waiting in a corral is a paying guest who is not currently occupying a trail.
+
+This is why the first item in the modeling contract is purpose. “Improve the lift” is not an objective. Possible objectives include minimizing average wait, maximizing runs per skier, maximizing daily profit, limiting on-trail density, or maximizing the number of admitted guests. They can recommend opposite lift policies. Before writing an equation, we also have to separate three quantities that everyday language calls *capacity*:
+
+- **trail capacity:** the comfortable or safe number of skiers simultaneously on the slopes;
+- **lift throughput:** the number of uphill passenger trips delivered per hour;
+- **resort population:** everyone admitted, including people descending, riding, waiting, resting, or eating.
+
+Adding these quantities together or using one name for all three would make the argument look contradictory. Once they are separated, the paradox becomes a stock-and-flow problem.
+
+#### Start with one circulation loop
+
+Draw the smallest useful boundary: one lift serves one collection of trails, and a fixed population of $N$ guests repeatedly completes a loop. Let $T_d$ be a skier's average time actually descending and let $T_o$ be average time **off the trail** between descents—queueing, riding uphill, and moving through the loading and unloading areas. The average loop time is
+
+$$
+T_{\mathrm{cycle}}=T_d+T_o.
+$$
+
+For now, assume the day is in a roughly stationary period, guests keep circulating, and they have similar average loop times. A skier therefore spends the fraction $T_d/(T_d+T_o)$ of the loop on a trail. The expected number simultaneously descending is
+
+$$
+S=N\frac{T_d}{T_d+T_o}.
+$$
+
+If $C$ is the comfortable on-trail limit, the constraint $S\le C$ gives
+
+$$
+N\le C\frac{T_d+T_o}{T_d}
+  =C\left(1+\frac{T_o}{T_d}\right).
+$$
+
+The ratio
+
+$$
+M=\frac{N_{\max}}{C}=1+\frac{T_o}{T_d}
+$$
+
+is the resort-population multiplier relative to the number that can comfortably be on the snow at once. This equation captures the owner's surprising argument. If downhill time stays fixed while the off-trail portion becomes longer, a smaller fraction of each guest's day is spent on the trails. The same trail limit can then coexist with a larger admitted population.
+
+Notice what the equation does **not** say. It does not say that the mountain became larger, that lift throughput improved, or that customers received more skiing. It says only that more people can be stored in other parts of the bounded system while the on-trail stock stays under $C$.
+
+#### Work through the owner's arithmetic
+
+Suppose the trails feel comfortable with at most $C=400$ skiers descending at once, and an average descent takes $T_d=12$ minutes. Under a relatively fast uphill experience, suppose waiting, riding, loading, and unloading total $T_o=18$ minutes. Then
+
+$$
+M_{\mathrm{fast}}=1+\frac{18}{12}=2.5,
+\qquad
+N_{\max}=400(2.5)=1{,}000.
+$$
+
+In this baseline, a resort population of 1,000 corresponds to about 400 people on the trails at a typical moment and about 600 elsewhere. Now suppose slower service and a longer queue raise off-trail time to $T_o=36$ minutes. The same calculation gives
+
+$$
+M_{\mathrm{slow}}=1+\frac{36}{12}=4,
+\qquad
+N_{\max}=400(4)=1{,}600.
+$$
+
+From a narrow ticket-count perspective, the slower arrangement appears to support 600 additional guests without increasing average on-trail occupancy. If every ticket has price $p$, demand is unlimited, and there is no penalty for waiting, then revenue $pN$ pushes the owner toward a larger $T_o$. Under **that** model, “slower is better” is not a joke; it follows from the objective and boundary.
+
+But pause before treating 1,600 as a recommendation. The calculation silently turned a long queue into useful storage. It assumed guests do not leave, complain, take fewer future trips, request refunds, or crowd the base area. It also treated average occupancy as sufficient even though two narrow intersections can be dangerous while the mountain-wide average remains comfortable. Those are not small footnotes. They are mechanisms that can reverse the decision.
+
+There is another distinction hiding inside “slower lift.” If chairs are spaced $d$ metres apart, each holds $q$ people, and the cable moves at speed $v$, an idealized hourly throughput is proportional to
+
+$$
+\mu(v)=60q\frac{v}{d},
+$$
+
+when $v$ is measured in metres per minute. Slowing the cable makes the ride longer **and** sends fewer chairs through the loading point each hour. Adding another lift increases total throughput and changes which trails receive skiers. So $T_o$ is not a free control knob: it emerges from cable speed, number of lifts, loading interruptions, demand, and queueing. If arrivals exceed throughput, the queue grows rather than settling at the tidy average assumed above.
+
+#### Replace the slogan with a decision model
+
+The baseline has done its job: it exposed the mechanism behind the paradox. The next layer should not simply add more symbols. It should repair the most important omission—the fact that an owner earns today's ticket revenue but also pays operating costs and depends on safety, satisfaction, and repeat demand.
+
+Let $v$ denote lift speed, $m$ the number of operating lifts, $N$ the admitted population, $W(v,m,N)$ expected waiting time, and $S(v,m,N)$ expected on-trail occupancy. A more honest schematic decision is
+
+$$
+\max_{v,m,N}
+\quad pN-c(v,m)-\alpha W(v,m,N)-\beta L(v,m,N),
+$$
+
+subject to
+
+$$
+S(v,m,N)\le C,
+\qquad
+W(v,m,N)\le W_{\max},
+\qquad
+v_{\min}\le v\le v_{\max}.
+$$
+
+Here $c(v,m)$ is operating cost and $L$ summarizes consequences such as refunds, lost repeat visits, base-area congestion, or service failure; $alpha$ and $eta$ translate those effects into the objective. The speed limits are not arbitrary mathematical decoration—real equipment, wind, loading safety, and evacuation rules bound what can be operated. We might also constrain density separately on beginner, intermediate, and expert terrain because one mountain-wide average can hide the location that actually fails.
+
+This model does not guarantee that faster is best. Another lift may be expensive and may load the trails too quickly. Nor does it guarantee that slower is best. Once long waits reduce demand or future revenue, deliberately creating a queue can cost more than the extra tickets earn. The optimum can lie between the two extremes. The important result of modeling is not the slogan “faster” or “slower”; it is a clear explanation of which trade-off selects the speed.
+
+#### Decide what evidence could change the conclusion
+
+The ski-resort example also gives us a practical assumption ledger. Lift-gate timestamps estimate throughput and uphill cycle time. Periodic trail counts or privacy-preserving camera counts estimate $S$. Ticket scans estimate how many guests are present. Queue sensors estimate $W$ by hour, while surveys, complaint rates, return visits, and refund requests test whether waiting changes demand. Separate the data by weather, weekday, ability level, and terrain opening, because a powder morning with half the mountain closed is not the same system as an ordinary Tuesday.
+
+Before building a simulation, test the simple identity on a calm hour. If $N=1{,}000$, $T_d=12$, and $T_o=18$, do observations show roughly 400 guests on the slopes? If not, perhaps guests take lodge breaks, descent times vary by ability, or the boundary misses another lift. That discrepancy tells us what to add. A useful next model could be a time-varying network: lift queues are nodes, trails are directed links, and guests move between terrain zones with different capacities. Such an extension is earned only if the one-loop model fails in a way that matters to the operating decision.
+
+Now the original claim can be stated carefully. **For a resort owner who maximizes admitted ticket holders while constraining only average trail occupancy, a slower lift can make total resort population a larger multiple of trail capacity.** For an owner who values profit over several seasons, safety, guest experience, and repeat demand, “slower is always better” is no longer justified. The example is valuable precisely because both statements can be derived from different modeling contracts.
+
+The box recurrence, dining-hall balance, and ski-resort circulation model all gave us answers under declared assumptions. None proves that field loading, campus demand, or a mountain will behave exactly as predicted. We now need to test the *whole path* from story to code to decision, not merely admire the final number.
 
 ## Validate the entire reasoning chain
 
@@ -216,7 +340,7 @@ Fifth, **decision stability**: what if travel time is five minutes longer than m
 
 Finally, write the result for the person who asked. “Assign one additional eight-seat shuttle to the 8:35 stop arrival, subject to the vehicle budget; on held-out ordinary mornings the predicted on-time fraction rises from 78% to 92%, but the plan falls below 90% when travel is more than five minutes slower.” This is an *illustrative sentence*, not a measured result from Columbia's shuttles. It shows what a conclusion ought to contain: an action, a metric, a comparison, the operating range, and the main failure condition. A bare “accuracy = 92%” does not tell the dispatcher what to do.
 
-If you are new to mathematics, you may worry that these checks make every answer uncertain. They do, in a healthy way. Modeling does not mean being afraid to conclude anything; it means knowing which conclusions are earned. Our commuter answer is exact under a clear symmetry assumption. The two-day theorem guarantees an existence result under continuity but not the location. The box's vial count is conditional on measured thermal values and stopping rules. The shuttle recommendation can be supported by held-out mornings but still need stress testing for rain. Different problems give different kinds of certainty, and this post should not pretend they are all the same.
+If you are new to mathematics, you may worry that these checks make every answer uncertain. They do, in a healthy way. Modeling does not mean being afraid to conclude anything; it means knowing which conclusions are earned. Our commuter answer is exact under a clear symmetry assumption. The two-day theorem guarantees an existence result under continuity but not the location. The box's vial count is conditional on measured thermal values and stopping rules. The ski-lift multiplier is an accounting identity inside a deliberately narrow circulation model, not proof that frustrating customers maximizes long-run profit. The shuttle recommendation can be supported by held-out mornings but still need stress testing for rain. Different problems give different kinds of certainty, and this post should not pretend they are all the same.
 
 The shuttle validation example was deliberately long. On a live problem you need a compact way to notice a missing decision variable, an unmeasured input, or a test you forgot to design. Use the following questions as a pause before moving from formulation to computation.
 
@@ -232,7 +356,7 @@ Before proceeding, be able to answer:
 
 If any answer is vague, the model is not ready for optimization.
 
-You have seen a sample box, a shuttle, and several short definitions. Let us slow down and build one campus decision from its very first sentence. The dining-hall case will let us use the checklist while the variables and constraints are still small enough to check by hand.
+You have seen a sample box, a shuttle, a ski resort, and several short definitions. Let us slow down and build one campus decision from its very first sentence. The dining-hall case will let us use the checklist while the variables and constraints are still small enough to check by hand.
 
 ## Put the cycle together: the dining hall
 
@@ -440,7 +564,7 @@ Can you now say how the library and the sample box are alike? Both began as vagu
 
 ### Before you go
 
-Today we moved from a bus to a sample box, then to a cafeteria and a library. They may not yet feel like parts of one neat story. Perhaps one example seemed almost too easy to deserve so much attention; perhaps another made you pause at a step that looked obvious on the page. Either reaction is fine. This is the first post, and we have not even begun the posts about particular named models. Learning to pick a question out of a real situation, choose what to keep, and ask whether the answer deserves our trust takes practice. One stubborn example is no reason to doubt that you can do it.
+Today we moved from a bus to a sample box, stopped at a ski resort, and then continued to a cafeteria and a library. They may not yet feel like parts of one neat story. Perhaps one example seemed almost too easy to deserve so much attention; perhaps another made you pause at a step that looked obvious on the page. Either reaction is fine. This is the first post, and we have not even begun the posts about particular named models. Learning to pick a question out of a real situation, choose what to keep, and ask whether the answer deserves our trust takes practice. One stubborn example is no reason to doubt that you can do it.
 
 If you take one thought away, I hope it is a clearer sense of what *mathematical modeling* asks of us. **Mathematics** lets us say things precisely: what changes, how quantities relate, and why a conclusion follows. **Modeling** begins a little earlier, with listening to the real question. We build a smaller world in which we can reason about it, remain honest about what we left out, and bring the answer back to observations and data. A beautiful calculation that answers the wrong question, or falls apart when checked, is not the finish line. You do not need to remember every number from today. Noticing the question, the boundary, the assumptions, and the evidence is enough of a beginning.
 
