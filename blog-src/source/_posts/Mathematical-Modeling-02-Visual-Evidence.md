@@ -27,7 +27,7 @@ This distinction matters in CUMCM and MCM/ICM papers because a judge reads quick
   <p>Before drawing, complete this sentence: <strong>“After seeing this figure, the reader should believe ___ because the figure compares ___ under ___.”</strong> If you cannot fill the blanks, you are not ready to choose a chart type.</p>
 </div>
 
-The 100 figures below are original teaching reconstructions built with synthetic values. They are informed by recurring visual patterns in official CUMCM materials, COMAP's Outstanding-paper archive, and competition visualization practice, but they do not reproduce an award paper page or claim to recreate any team's numerical result. This choice is deliberate: it lets us study composition, encoding, and reasoning without detaching someone else's figure from its data and copyright context. Each example names the claim, explains why the encoding works, identifies a common failure, and gives a practical recipe you can reproduce with your own evidence.
+The 100 figures below combine two kinds of material. The first ten are original teaching diagrams used to isolate foundational design principles. The remaining ninety are tightly cropped figure excerpts from identified CUMCM, MCM, or ICM award papers. Every excerpt names the competition year, problem, paper or team, and source page when the page is available. The crop is never presented as our numerical result: it is followed by design commentary explaining what evidence the original authors made visible, why the encoding helps, what could still mislead a reader, and how to rebuild the idea with your own data. Thus **90% of the gallery comes from real national or international competition papers**, while attribution stays next to the image rather than disappearing into a general bibliography.
 
 Do not read this as a catalogue to memorize. Stop at each image and cover the explanation. Ask yourself four questions: What is the claim? What do position, length, color, and connection mean? What could the picture make me believe incorrectly? What would I need in the caption to trust it? Then compare your answer with the notes. This is how visual judgment develops: not by collecting templates, but by repeatedly linking a design choice to a modeling claim.
 
@@ -152,1056 +152,1067 @@ A figure is not a reward for finishing the analysis. It is a compact proof desig
 
 ## 2. Comparison, Ranking, and Composition
 
-Comparison charts are common in competition papers because recommendations are comparative. The danger is that familiar forms—bars, pies, radar charts—are easy to draw and equally easy to misuse.
+A comparison graphic should answer who is larger, by how much, and under which common conditions. Position on a shared scale is usually the most reliable encoding. Color can guide attention, but it must never replace the geometry that carries the quantitative claim. The award-paper excerpts in this section are useful because they place alternatives, regions, schedules, or strategies into a common frame instead of asking the reader to reconcile separate tables. While reading, check whether the comparison is fair: identical units, identical periods, visible baselines, and a caption that states the substantive difference rather than announcing a chart type.
 
 <div class="mm-visual-gallery">
 
-<article class="mm-visual-card" id="visual-example-011">
-  <div class="mm-visual-card-title">11. Sorted bar chart</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-011">
+  <div class="mm-visual-card-title">11. comparative evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/011-sorted-bar-chart.svg" alt="Sorted bar chart: Plan C has the lowest total cost and Plan B is within 4%.">
-    <figcaption><strong>Claim.</strong> Plan C has the lowest total cost and Plan B is within 4%.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-001.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Sorting makes rank and distance from the leader readable in one glance.</p>
-  <p><strong>What to avoid.</strong> Random category order hides the near-tie that should appear in the recommendation.</p>
-  <p><strong>How to build it.</strong> Order by value, start at zero for lengths, and print values only when exact reading matters.</p>
+  <p><strong>What the paper is showing.</strong> Comparison Italy The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The alternatives share one visual frame, so the reader can compare direction and magnitude without performing table lookups. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Before copying this design, verify that every alternative uses the same denominator, period, and feasible set. If the baseline changes between panels, the comparison is visually fluent but mathematically invalid. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-012">
-  <div class="mm-visual-card-title">12. Grouped comparison</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-012">
+  <div class="mm-visual-card-title">12. comparative evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/012-grouped-comparison.svg" alt="Grouped comparison: The preferred model is consistently strong across three scenarios.">
-    <figcaption><strong>Claim.</strong> The preferred model is consistently strong across three scenarios.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-002.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Within-scenario grouping preserves the comparison that matters.</p>
-  <p><strong>What to avoid.</strong> Too many colors make scenario and model identity compete.</p>
-  <p><strong>How to build it.</strong> Use position for model, a restrained palette for scenarios, and the same order in every group.</p>
+  <p><strong>What the paper is showing.</strong> Comparison pressing The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The composition gives the benchmark and candidate nearly equal visual status; this makes a near-tie or trade-off harder to hide. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Before copying this design, verify that every alternative uses the same denominator, period, and feasible set. If the baseline changes between panels, the comparison is visually fluent but mathematically invalid. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-013">
-  <div class="mm-visual-card-title">13. Dot plot for close values</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-013">
+  <div class="mm-visual-card-title">13. comparative evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/013-dot-plot-for-close-values.svg" alt="Dot plot for close values: Four regions differ by less than two percentage points.">
-    <figcaption><strong>Claim.</strong> Four regions differ by less than two percentage points.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-052.webp" alt="Figure excerpt from 2016 CUMCM, Problem D — Wind-Farm Operation Analysis and Optimization, National First Prize paper: 风电场运行状况分析及优化研究, p. 13.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem D — Wind-Farm Operation Analysis and Optimization</em>; National First Prize paper: 风电场运行状况分析及优化研究, p. 13. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Dots avoid the visual weight of bars and expose small gaps cleanly.</p>
-  <p><strong>What to avoid.</strong> Truncated bars exaggerate tiny differences while zero-based bars hide them.</p>
-  <p><strong>How to build it.</strong> Use a labeled dot plot with an honest axis and a note that the range is intentionally focused.</p>
+  <p><strong>What the paper is showing.</strong> 表4-8所示.其中，红色的字体表 示“维修”，绿色的字体代表“值班”，黑色的字体代表“休息”.第1-2天，安排 1个 组值班，3个组维修；第3-6天，每天1个组轮流休息，2个组维修，1个组值班. 表4-8 24天的排班方案 从表中可以看出，每组的工作量均相同，维修14天，值班6天；每组连续工作的 天数均没有 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The ordering directs attention to the decision variable rather than to an arbitrary label sequence. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Before copying this design, verify that every alternative uses the same denominator, period, and feasible set. If the baseline changes between panels, the comparison is visually fluent but mathematically invalid. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-014">
-  <div class="mm-visual-card-title">14. Slope graph</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-014">
+  <div class="mm-visual-card-title">14. comparative evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/014-slope-graph.svg" alt="Slope graph: Two policies reverse the ordering of districts.">
-    <figcaption><strong>Claim.</strong> Two policies reverse the ordering of districts.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-077.webp" alt="Figure excerpt from 2023 ICM, Problem F — Green GDP, Team 2315018 award paper, p. 17.">
+    <figcaption><strong>Source.</strong> 2023 ICM, <em>Problem F — Green GDP</em>; Team 2315018 award paper, p. 17. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Paired endpoints emphasize direction and rank change.</p>
-  <p><strong>What to avoid.</strong> A grouped bar chart makes the crossings harder to follow.</p>
-  <p><strong>How to build it.</strong> Label lines directly and highlight the few crossings discussed in the paper.</p>
+  <p><strong>What the paper is showing.</strong> Figure9: Cost-benefitanalysis Figure 9 shows that the potential resistance was relatively low around 2008, likely due to GGDP’s ability to slow down the rate of change of GDP, w… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The alternatives share one visual frame, so the reader can compare direction and magnitude without performing table lookups. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Before copying this design, verify that every alternative uses the same denominator, period, and feasible set. If the baseline changes between panels, the comparison is visually fluent but mathematically invalid. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-015">
-  <div class="mm-visual-card-title">15. Dumbbell chart</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-015">
+  <div class="mm-visual-card-title">15. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/015-dumbbell-chart.svg" alt="Dumbbell chart: The intervention closes most of the rural access gap.">
-    <figcaption><strong>Claim.</strong> The intervention closes most of the rural access gap.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-003.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The connecting segment encodes change while endpoints preserve level.</p>
-  <p><strong>What to avoid.</strong> A single change bar loses the starting condition.</p>
-  <p><strong>How to build it.</strong> Show before and after on one row, sort by the remaining gap, and label the direction of improvement.</p>
+  <p><strong>What the paper is showing.</strong> Coordination The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Several trajectories are aligned on the same clock, allowing the reader to compare timing as well as amplitude. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-016">
-  <div class="mm-visual-card-title">16. Small-multiple bars</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-016">
+  <div class="mm-visual-card-title">16. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/016-small-multiple-bars.svg" alt="Small-multiple bars: No single design dominates every objective.">
-    <figcaption><strong>Claim.</strong> No single design dominates every objective.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-006.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Repeated scales preserve each objective while preventing stacked-bar arithmetic.</p>
-  <p><strong>What to avoid.</strong> A total score can conceal the reason stakeholders disagree.</p>
-  <p><strong>How to build it.</strong> Use identical axes, one panel per objective, and a stable highlight for the recommended compromise.</p>
+  <p><strong>What the paper is showing.</strong> Flexibility 26.66 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The curve exposes shape—not only an endpoint—so the model can be challenged on turning points and transient behavior. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-017">
-  <div class="mm-visual-card-title">17. Composition with a denominator</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-017">
+  <div class="mm-visual-card-title">17. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/017-composition-with-a-denominator.svg" alt="Composition with a denominator: Renewable supply grows, but total demand grows faster.">
-    <figcaption><strong>Claim.</strong> Renewable supply grows, but total demand grows faster.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-007.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A 100% bar and an absolute-total annotation separate share from volume.</p>
-  <p><strong>What to avoid.</strong> Showing only percentages can imply progress while absolute emissions rise.</p>
-  <p><strong>How to build it.</strong> Pair proportional composition with totals or use two coordinated panels.</p>
+  <p><strong>What the paper is showing.</strong> Flexibility 2666 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The horizontal order preserves cause-before-effect reasoning and makes peaks, lags, and regime changes visible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-018">
-  <div class="mm-visual-card-title">18. Pie chart under strict conditions</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-018">
+  <div class="mm-visual-card-title">18. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/018-pie-chart-under-strict-conditions.svg" alt="Pie chart under strict conditions: One component accounts for a clear majority of failures.">
-    <figcaption><strong>Claim.</strong> One component accounts for a clear majority of failures.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-008.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A simple part-to-whole chart works because there are few categories and one dominant share.</p>
-  <p><strong>What to avoid.</strong> Eight similar slices demand angle comparisons humans perform poorly.</p>
-  <p><strong>How to build it.</strong> Limit categories, order them, label directly, and switch to bars when differences are close.</p>
+  <p><strong>What the paper is showing.</strong> Flexibility 33.70 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Several trajectories are aligned on the same clock, allowing the reader to compare timing as well as amplitude. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-019">
-  <div class="mm-visual-card-title">19. Radar chart with restraint</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-019">
+  <div class="mm-visual-card-title">19. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/019-radar-chart-with-restraint.svg" alt="Radar chart with restraint: The compromise design is balanced, not best on every metric.">
-    <figcaption><strong>Claim.</strong> The compromise design is balanced, not best on every metric.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-009.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A common normalized scale can summarize a small set of genuinely comparable dimensions.</p>
-  <p><strong>What to avoid.</strong> Changing axis order or normalization can completely change the polygon.</p>
-  <p><strong>How to build it.</strong> State normalization, fix the axis order, use no more than two polygons, and retain a companion table.</p>
+  <p><strong>What the paper is showing.</strong> Flexibility 3370 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The curve exposes shape—not only an endpoint—so the model can be challenged on turning points and transient behavior. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-020">
-  <div class="mm-visual-card-title">20. Pareto comparison</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-020">
+  <div class="mm-visual-card-title">20. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/020-pareto-comparison.svg" alt="Pareto comparison: Improving service beyond this point requires a steep cost increase.">
-    <figcaption><strong>Claim.</strong> Improving service beyond this point requires a steep cost increase.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-029.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The frontier distinguishes dominated options from genuine trade-offs.</p>
-  <p><strong>What to avoid.</strong> A weighted score hides which alternatives remain rational under different preferences.</p>
-  <p><strong>How to build it.</strong> Plot raw objectives, identify nondominated points, and annotate the knee without claiming it is universally optimal.</p>
+  <p><strong>What the paper is showing.</strong> timeline match1 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The horizontal order preserves cause-before-effect reasoning and makes peaks, lags, and regime changes visible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
+
 </div>
 
 ## 3. Time, Trend, and Forecasting
 
-A time plot must respect chronology. Forecasts need a boundary between what was observed and what was inferred; seasonal patterns need repeated cycles; and uncertainty must widen when the model knows less.
+Time plots are not ordinary line charts with dates attached. They must distinguish observations from fitted values and forecasts, expose changes in regime, and respect temporal dependence. A convincing competition figure tells the reader where the data end, where the model begins, and how uncertainty grows into the future. The strongest examples below also align events or scenarios on the same clock. That alignment lets a judge connect a peak, decline, lag, or intervention to the mechanism claimed in the text instead of mistaking coincidence for explanation.
 
 <div class="mm-visual-gallery">
 
-<article class="mm-visual-card" id="visual-example-021">
-  <div class="mm-visual-card-title">21. Observed trend</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-021">
+  <div class="mm-visual-card-title">21. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/021-observed-trend.svg" alt="Observed trend: Demand rises gradually with a recurring weekly cycle.">
-    <figcaption><strong>Claim.</strong> Demand rises gradually with a recurring weekly cycle.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-045.webp" alt="Figure excerpt from 2016 CUMCM, Problem D — Wind-Farm Operation Analysis and Optimization, National First Prize paper: 风电场运行状况分析及优化研究, p. 6.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem D — Wind-Farm Operation Analysis and Optimization</em>; National First Prize paper: 风电场运行状况分析及优化研究, p. 6. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A thin raw series plus a restrained smooth line preserves both variation and trend.</p>
-  <p><strong>What to avoid.</strong> Plotting only the smooth line invents certainty and erases operational peaks.</p>
-  <p><strong>How to build it.</strong> Keep raw observations visible and describe the smoothing window in the caption.</p>
+  <p><strong>What the paper is showing.</strong> 表4-1 各月指标值 月份 1 2 3 4 5 6 7 8 9 10 11 12 平均风速 6.03 6.52 5.45 5.59 5.80 5.89 5.34 4.64 6.04 5.31 5.33 6.13 （m/s） 平均风功 率密度 170 219 138 166 172 178 118 79 18 / 表4-1分析得1月、2月、9月、12月平… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The horizontal order preserves cause-before-effect reasoning and makes peaks, lags, and regime changes visible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-022">
-  <div class="mm-visual-card-title">22. Forecast fan</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-022">
+  <div class="mm-visual-card-title">22. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/022-forecast-fan.svg" alt="Forecast fan: Uncertainty expands as the forecast horizon grows.">
-    <figcaption><strong>Claim.</strong> Uncertainty expands as the forecast horizon grows.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-054.webp" alt="Figure excerpt from 2015 CUMCM, Problem A — Solar-Shadow Positioning, National First Prize paper A4: 太阳影子定位, p. 6.">
+    <figcaption><strong>Source.</strong> 2015 CUMCM, <em>Problem A — Solar-Shadow Positioning</em>; National First Prize paper A4: 太阳影子定位, p. 6. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Nested intervals communicate a distribution rather than a single confident path.</p>
-  <p><strong>What to avoid.</strong> A lone forecast line invites the reader to treat a conditional expectation as fate.</p>
-  <p><strong>How to build it.</strong> Separate history and forecast, label interval levels, and verify empirical coverage.</p>
+  <p><strong>What the paper is showing.</strong> 表以供参考： 表1 影子长度分布 北京时间 太阳高度角/度 影长/m 9:00 21.18 7.74 12:00 37.88 3.85 12:14 37.99 3.84 15:00 25.35 6.33 将影长随时间变化的情况用MATLAB绘制成图像： 图2 影子长度变化曲线 对于影子长度关于各个参数的变 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Several trajectories are aligned on the same clock, allowing the reader to compare timing as well as amplitude. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-023">
-  <div class="mm-visual-card-title">23. Seasonal profile</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-023">
+  <div class="mm-visual-card-title">23. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/023-seasonal-profile.svg" alt="Seasonal profile: Weekday morning demand repeats, while weekends follow a different shape.">
-    <figcaption><strong>Claim.</strong> Weekday morning demand repeats, while weekends follow a different shape.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-065.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 16.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Faceting by day type reveals the recurring mechanism.</p>
-  <p><strong>What to avoid.</strong> A single chronological line makes weekly structure difficult to compare.</p>
-  <p><strong>How to build it.</strong> Align cycles on a common within-period axis and display variation across weeks.</p>
+  <p><strong>What the paper is showing.</strong> Figure8: ThreeDifferentrainfallpatterns Usingtheabovemodel,populationdensities,totalbiomassperunitareaofthecom- munityandtheproportionofdifferentspecies,totalNPPperunitareaofthe… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The curve exposes shape—not only an endpoint—so the model can be challenged on turning points and transient behavior. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-024">
-  <div class="mm-visual-card-title">24. Interrupted time series</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-024">
+  <div class="mm-visual-card-title">24. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/024-interrupted-time-series.svg" alt="Interrupted time series: The policy is followed by a level change but little slope change.">
-    <figcaption><strong>Claim.</strong> The policy is followed by a level change but little slope change.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-066.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 16.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The intervention boundary and fitted segments encode the causal question honestly.</p>
-  <p><strong>What to avoid.</strong> A before-after mean ignores pre-existing trend.</p>
-  <p><strong>How to build it.</strong> Show the cutoff, estimate separate level and slope effects, and discuss concurrent events.</p>
+  <p><strong>What the paper is showing.</strong> Figure8: ThreeDifferentrainfallpatterns Usingtheabovemodel,populationdensities,totalbiomassperunitareaofthecom- munityandtheproportionofdifferentspecies,totalNPPperunitareaofthe… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The horizontal order preserves cause-before-effect reasoning and makes peaks, lags, and regime changes visible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-025">
-  <div class="mm-visual-card-title">25. Rolling statistic</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-025">
+  <div class="mm-visual-card-title">25. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/025-rolling-statistic.svg" alt="Rolling statistic: Volatility increases before the mean changes.">
-    <figcaption><strong>Claim.</strong> Volatility increases before the mean changes.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-067.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 16.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A second aligned panel distinguishes level from variability.</p>
-  <p><strong>What to avoid.</strong> Dual axes can manufacture visual correlation.</p>
-  <p><strong>How to build it.</strong> Use aligned panels with a shared time axis and explain the rolling window.</p>
+  <p><strong>What the paper is showing.</strong> Figure8: ThreeDifferentrainfallpatterns Usingtheabovemodel,populationdensities,totalbiomassperunitareaofthecom- munityandtheproportionofdifferentspecies,totalNPPperunitareaofthe… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Several trajectories are aligned on the same clock, allowing the reader to compare timing as well as amplitude. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-026">
-  <div class="mm-visual-card-title">26. Event timeline</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-026">
+  <div class="mm-visual-card-title">26. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/026-event-timeline.svg" alt="Event timeline: Failures cluster after two maintenance delays.">
-    <figcaption><strong>Claim.</strong> Failures cluster after two maintenance delays.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-068.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 16.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Events, actions, and outcomes share one temporal coordinate.</p>
-  <p><strong>What to avoid.</strong> A paragraph list hides ordering and overlap.</p>
-  <p><strong>How to build it.</strong> Place only decision-relevant events, use lanes by type, and annotate the suspected lag.</p>
+  <p><strong>What the paper is showing.</strong> Figure8: ThreeDifferentrainfallpatterns Usingtheabovemodel,populationdensities,totalbiomassperunitareaofthecom- munityandtheproportionofdifferentspecies,totalNPPperunitareaofthe… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The curve exposes shape—not only an endpoint—so the model can be challenged on turning points and transient behavior. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-027">
-  <div class="mm-visual-card-title">27. Cumulative curve</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-027">
+  <div class="mm-visual-card-title">27. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/027-cumulative-curve.svg" alt="Cumulative curve: Half of all requests arrive before 09:20.">
-    <figcaption><strong>Claim.</strong> Half of all requests arrive before 09:20.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-069.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 16.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The monotone curve supports percentile questions directly.</p>
-  <p><strong>What to avoid.</strong> A histogram makes exact accumulation harder to read.</p>
-  <p><strong>How to build it.</strong> Plot the empirical cumulative proportion and mark operational quantiles.</p>
+  <p><strong>What the paper is showing.</strong> Figure8: ThreeDifferentrainfallpatterns Usingtheabovemodel,populationdensities,totalbiomassperunitareaofthecom- munityandtheproportionofdifferentspecies,totalNPPperunitareaofthe… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The horizontal order preserves cause-before-effect reasoning and makes peaks, lags, and regime changes visible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-028">
-  <div class="mm-visual-card-title">28. Calendar heatmap</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-028">
+  <div class="mm-visual-card-title">28. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/028-calendar-heatmap.svg" alt="Calendar heatmap: Late-week evening demand is the recurring hotspot.">
-    <figcaption><strong>Claim.</strong> Late-week evening demand is the recurring hotspot.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-070.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 16.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Two temporal dimensions are visible without dozens of lines.</p>
-  <p><strong>What to avoid.</strong> A rainbow palette creates boundaries that do not exist in the data.</p>
-  <p><strong>How to build it.</strong> Use a perceptually ordered scale and include missing periods as a separate color.</p>
+  <p><strong>What the paper is showing.</strong> Figure8: ThreeDifferentrainfallpatterns Usingtheabovemodel,populationdensities,totalbiomassperunitareaofthecom- munityandtheproportionofdifferentspecies,totalNPPperunitareaofthe… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Several trajectories are aligned on the same clock, allowing the reader to compare timing as well as amplitude. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-029">
-  <div class="mm-visual-card-title">29. Scenario trajectories</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-029">
+  <div class="mm-visual-card-title">29. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/029-scenario-trajectories.svg" alt="Scenario trajectories: The recommendation is stable under moderate growth but fails under rapid growth.">
-    <figcaption><strong>Claim.</strong> The recommendation is stable under moderate growth but fails under rapid growth.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-071.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 18.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 18. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A small number of labeled paths makes the scenario assumption visible.</p>
-  <p><strong>What to avoid.</strong> A spaghetti plot of hundreds of runs communicates only density.</p>
-  <p><strong>How to build it.</strong> Show representative scenarios, then summarize the full simulation with intervals.</p>
+  <p><strong>What the paper is showing.</strong> Figure12: ThechangeofSoilWatertContentunderModea,bandc Thechangeinsoilwatercontentisconsistentwiththepatternofrainfall The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The curve exposes shape—not only an endpoint—so the model can be challenged on turning points and transient behavior. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-030">
-  <div class="mm-visual-card-title">30. Change-point evidence</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-030">
+  <div class="mm-visual-card-title">30. temporal evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/030-change-point-evidence.svg" alt="Change-point evidence: The system enters a new operating regime after day 42.">
-    <figcaption><strong>Claim.</strong> The system enters a new operating regime after day 42.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-081.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 6.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 6. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A posterior or score panel shows why the boundary was selected.</p>
-  <p><strong>What to avoid.</strong> Drawing a vertical line without evidence turns an algorithmic output into an assertion.</p>
-  <p><strong>How to build it.</strong> Pair the series with the detection statistic and test nearby candidate dates.</p>
+  <p><strong>What the paper is showing.</strong> Figure 3: Changes in the number of reported results ⚫ Phase 2: Rapid Decline Period (February 3, 2022 - May 29, 2022) During this period, Wordle experiences an overall 84 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The horizontal order preserves cause-before-effect reasoning and makes peaks, lags, and regime changes visible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> When recreating it, mark observed and modeled intervals, retain the actual sampling gaps, and do not connect missing observations as if they had been measured. A forecast needs an interval, not only a smooth central line. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
+
 </div>
 
 ## 4. Distribution, Risk, and Uncertainty
 
-Averages are cheap; decisions often depend on tails, spread, skew, and the probability of crossing a threshold. Distribution graphics show the cases a single summary number suppresses.
+An average hides the cases that often decide a recommendation. Distribution and uncertainty graphics should reveal spread, tails, intervals, scenario dependence, and sensitivity to assumptions. Their purpose is not to decorate a point estimate with translucent color. Their purpose is to show how much confidence the decision deserves and where it may fail. Look for a visible reference level, consistent probability or frequency scales, and an encoding that makes extreme or unstable behavior inspectable.
 
 <div class="mm-visual-gallery">
 
-<article class="mm-visual-card" id="visual-example-031">
-  <div class="mm-visual-card-title">31. Histogram with meaningful bins</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-031">
+  <div class="mm-visual-card-title">31. distributional evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/031-histogram-with-meaningful-bins.svg" alt="Histogram with meaningful bins: Most waits are short, but a long right tail drives complaints.">
-    <figcaption><strong>Claim.</strong> Most waits are short, but a long right tail drives complaints.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-046.webp" alt="Figure excerpt from 2016 CUMCM, Problem D — Wind-Farm Operation Analysis and Optimization, National First Prize paper: 风电场运行状况分析及优化研究, p. 7.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem D — Wind-Farm Operation Analysis and Optimization</em>; National First Prize paper: 风电场运行状况分析及优化研究, p. 7. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The bin width reveals the body and tail without pretending to show a smooth density.</p>
-  <p><strong>What to avoid.</strong> Automatic bins can hide multimodality or create false bumps.</p>
-  <p><strong>How to build it.</strong> Choose bins using measurement precision and decision scale, then report the tail metric.</p>
+  <p><strong>What the paper is showing.</strong> 图4-3 各级风力等级小时数分布图 图4-4 各级风力等级比例图 由图4-3、图4-4可知代表年中，蒲福风力 2级即不可以用于发电的风速频率较少， 为19.74%.且风力多为3-4级的温和风，8级以上会对人们生产生活造成恶劣影响的风很 少. 4、全年风能资源评估 表4-2 风电场全年风能资源评估 年≥3m / 表4-2，该风电场的年平均风速为5.66… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The graphic reveals heterogeneity that a mean would erase, including concentration, imbalance, or a long tail. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Do not infer precise ranking from area or angle alone. Add direct labels or a companion ordered plot when the decision depends on small differences, and state whether the values are counts, proportions, densities, or weighted estimates. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-032">
-  <div class="mm-visual-card-title">32. Density with raw points</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-032">
+  <div class="mm-visual-card-title">32. distributional evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/032-density-with-raw-points.svg" alt="Density with raw points: Two operating regimes produce a bimodal response.">
-    <figcaption><strong>Claim.</strong> Two operating regimes produce a bimodal response.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-047.webp" alt="Figure excerpt from 2016 CUMCM, Problem D — Wind-Farm Operation Analysis and Optimization, National First Prize paper: 风电场运行状况分析及优化研究, p. 7.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem D — Wind-Farm Operation Analysis and Optimization</em>; National First Prize paper: 风电场运行状况分析及优化研究, p. 7. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The rug plot prevents the smooth curve from hiding a small sample.</p>
-  <p><strong>What to avoid.</strong> A kernel density alone can imply observations where none exist.</p>
-  <p><strong>How to build it.</strong> Show raw positions, state bandwidth, and compare with a histogram.</p>
+  <p><strong>What the paper is showing.</strong> 图4-3 各级风力等级小时数分布图 图4-4 各级风力等级比例图 由图4-3、图4-4可知代表年中，蒲福风力 2级即不可以用于发电的风速频率较少， 为19.74%.且风力多为3-4级的温和风，8级以上会对人们生产生活造成恶劣影响的风很 少. 4、全年风能资源评估 表4-2 风电场全年风能资源评估 年≥3m / 表4-2，该风电场的年平均风速为5.66… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Part-to-whole structure is visible, but the labels still provide an exact reading when areas or angles are difficult to compare. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Do not infer precise ranking from area or angle alone. Add direct labels or a companion ordered plot when the decision depends on small differences, and state whether the values are counts, proportions, densities, or weighted estimates. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-033">
-  <div class="mm-visual-card-title">33. Boxplot plus observations</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-033">
+  <div class="mm-visual-card-title">33. distributional evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/033-boxplot-plus-observations.svg" alt="Boxplot plus observations: Site D has similar median performance but many more failures.">
-    <figcaption><strong>Claim.</strong> Site D has similar median performance but many more failures.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-087.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 10.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 10. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Points expose sample size and outliers while the box gives a compact summary.</p>
-  <p><strong>What to avoid.</strong> A boxplot alone can make five observations look as stable as five hundred.</p>
-  <p><strong>How to build it.</strong> Jitter lightly, show sample count, and define the whisker convention.</p>
+  <p><strong>What the paper is showing.</strong> Table 3: Forecast interval Confidence level Lower limit Upper limit 95% 19504 / Figure 9 / Figure 9: A word cloud map for the 357 words By searching for relevant literature, we … The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The display keeps the full population visible while directing attention to the portion that governs the decision. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Do not infer precise ranking from area or angle alone. Add direct labels or a companion ordered plot when the decision depends on small differences, and state whether the values are counts, proportions, densities, or weighted estimates. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-034">
-  <div class="mm-visual-card-title">34. Violin with caution</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-034">
+  <div class="mm-visual-card-title">34. distributional evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/034-violin-with-caution.svg" alt="Violin with caution: Response variability differs even where medians agree.">
-    <figcaption><strong>Claim.</strong> Response variability differs even where medians agree.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-088.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 12.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 12. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Mirrored density makes shape comparison compact.</p>
-  <p><strong>What to avoid.</strong> Wide violins from tiny samples are visually persuasive but statistically weak.</p>
-  <p><strong>How to build it.</strong> Overlay quartiles and raw points; suppress density estimates for very small groups.</p>
+  <p><strong>What the paper is showing.</strong> Figure 10: Descriptive statistics of variables As seen in Table 4, the average value of emotional polarity value among the 356 words is 0 / Table 4: Descriptive statistics of va… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The graphic reveals heterogeneity that a mean would erase, including concentration, imbalance, or a long tail. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Do not infer precise ranking from area or angle alone. Add direct labels or a companion ordered plot when the decision depends on small differences, and state whether the values are counts, proportions, densities, or weighted estimates. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-035">
-  <div class="mm-visual-card-title">35. Empirical quantiles</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-035">
+  <div class="mm-visual-card-title">35. distributional evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/035-empirical-quantiles.svg" alt="Empirical quantiles: The proposed policy improves routine cases but not the worst 5%.">
-    <figcaption><strong>Claim.</strong> The proposed policy improves routine cases but not the worst 5%.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-089.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 12.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 12. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Quantile differences show where the distribution changes.</p>
-  <p><strong>What to avoid.</strong> Comparing means would miss unchanged extreme risk.</p>
-  <p><strong>How to build it.</strong> Plot treatment-minus-baseline across quantiles with an uncertainty interval.</p>
+  <p><strong>What the paper is showing.</strong> Figure 10: Descriptive statistics of variables As seen in Table 4, the average value of emotional polarity value among the 356 words is 0 / Table 4: Descriptive statistics of va… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Part-to-whole structure is visible, but the labels still provide an exact reading when areas or angles are difficult to compare. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Do not infer precise ranking from area or angle alone. Add direct labels or a companion ordered plot when the decision depends on small differences, and state whether the values are counts, proportions, densities, or weighted estimates. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-036">
-  <div class="mm-visual-card-title">36. Exceedance curve</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-036">
+  <div class="mm-visual-card-title">36. distributional evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/036-exceedance-curve.svg" alt="Exceedance curve: Capacity is exceeded on 8% of simulated days.">
-    <figcaption><strong>Claim.</strong> Capacity is exceeded on 8% of simulated days.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-090.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 13.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 13. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The curve answers risk-threshold questions directly.</p>
-  <p><strong>What to avoid.</strong> A maximum value overreacts to one realization and a mean ignores the tail.</p>
-  <p><strong>How to build it.</strong> Sort outcomes, plot exceedance probability, and mark the operational threshold.</p>
+  <p><strong>What the paper is showing.</strong> Figure 11: Percentage of successful attempts It can be seen that these percentage data together form a set of component data X=(x ,x ,……,x ), and that the values of the seven co… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The display keeps the full population visible while directing attention to the portion that governs the decision. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Do not infer precise ranking from area or angle alone. Add direct labels or a companion ordered plot when the decision depends on small differences, and state whether the values are counts, proportions, densities, or weighted estimates. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-037">
-  <div class="mm-visual-card-title">37. Uncertainty decomposition</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-037">
+  <div class="mm-visual-card-title">37. uncertainty evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/037-uncertainty-decomposition.svg" alt="Uncertainty decomposition: Parameter uncertainty dominates measurement noise.">
-    <figcaption><strong>Claim.</strong> Parameter uncertainty dominates measurement noise.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-022.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Stacked contributions direct future data collection.</p>
-  <p><strong>What to avoid.</strong> Reporting one total interval gives no clue how to reduce uncertainty.</p>
-  <p><strong>How to build it.</strong> Use a common variance or interval-width scale and explain interaction terms.</p>
+  <p><strong>What the paper is showing.</strong> sensetive analysis1 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The model is perturbed rather than shown at one nominal setting, so stability becomes an observable result. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> A sensitivity plot is only as honest as the varied range. Explain why the range is plausible, vary coupled parameters coherently, and mark the point at which feasibility or the preferred decision changes. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-038">
-  <div class="mm-visual-card-title">38. Bootstrap interval</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-038">
+  <div class="mm-visual-card-title">38. uncertainty evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/038-bootstrap-interval.svg" alt="Bootstrap interval: The ranking between Plans A and B is not stable.">
-    <figcaption><strong>Claim.</strong> The ranking between Plans A and B is not stable.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-023.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Repeated estimates show how sampling changes the result.</p>
-  <p><strong>What to avoid.</strong> A single point estimate makes a near-tie look decisive.</p>
-  <p><strong>How to build it.</strong> Resample at the correct observational unit and display rank frequency as well as metric intervals.</p>
+  <p><strong>What the paper is showing.</strong> sensitive analysis1 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> A reference band or repeated outcomes separates harmless variation from a change that could reverse the recommendation. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> A sensitivity plot is only as honest as the varied range. Explain why the range is plausible, vary coupled parameters coherently, and mark the point at which feasibility or the preferred decision changes. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-039">
-  <div class="mm-visual-card-title">39. Reliability curve</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-039">
+  <div class="mm-visual-card-title">39. uncertainty evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/039-reliability-curve.svg" alt="Reliability curve: Predicted 70% events occur only about 55% of the time.">
-    <figcaption><strong>Claim.</strong> Predicted 70% events occur only about 55% of the time.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-024.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The diagonal provides a meaningful reference for probabilistic claims.</p>
-  <p><strong>What to avoid.</strong> Accuracy cannot reveal whether stated probabilities are trustworthy.</p>
-  <p><strong>How to build it.</strong> Bin predictions carefully, add confidence intervals, and report the sample count per bin.</p>
+  <p><strong>What the paper is showing.</strong> sensitive analysis2 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The figure makes uncertainty conditional on an explicit parameter or scenario instead of presenting a vague confidence claim. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> A sensitivity plot is only as honest as the varied range. Explain why the range is plausible, vary coupled parameters coherently, and mark the point at which feasibility or the preferred decision changes. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-040">
-  <div class="mm-visual-card-title">40. Risk matrix with numbers</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-040">
+  <div class="mm-visual-card-title">40. uncertainty evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/040-risk-matrix-with-numbers.svg" alt="Risk matrix with numbers: One low-frequency failure remains unacceptable because its consequence is severe.">
-    <figcaption><strong>Claim.</strong> One low-frequency failure remains unacceptable because its consequence is severe.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-043.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 19.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 19. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Position summarizes priority while labels retain estimated likelihood and impact.</p>
-  <p><strong>What to avoid.</strong> Colored cells without values turn judgment into decoration.</p>
-  <p><strong>How to build it.</strong> Define category boundaries, include the underlying numbers, and test whether mitigation changes the cell.</p>
+  <p><strong>What the paper is showing.</strong> 表7 敏感性分析结果 参数p1、p2 部分投影评价值 0.3、0.4 1.2543, 0.3367, 1.1559, 0.2317, 2.1685, 1.7312 0.4、0.35 1.3147, 0.3742, 1.2211, 0.3567, 2.0812, 1.5682 0.4、0.4 1.2750 / 图16敏感性分析结果 分析：从上图可以看到，… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The model is perturbed rather than shown at one nominal setting, so stability becomes an observable result. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> A sensitivity plot is only as honest as the varied range. Explain why the range is plausible, vary coupled parameters coherently, and mark the point at which feasibility or the preferred decision changes. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
+
 </div>
 
 ## 5. Relationships and Model Diagnostics
 
-Relationship plots should distinguish association, model fit, residual structure, and causal interpretation. A smooth curve is not a mechanism; diagnostics are what tell us whether the curve is credible for the decision.
+Diagnostic figures ask whether a model behaves as its mathematical story says it should. A fitted line is not enough. We need residual structure, out-of-sample errors, cluster separation, parameter sensitivity, convergence behavior, or comparison with a meaningful baseline. The examples here earn space because they let the reader audit a modeling step. When adapting them, preserve that audit function: label the benchmark, show the region where the fit is weak, and avoid axes or smoothing choices that make disagreement disappear.
 
 <div class="mm-visual-gallery">
 
-<article class="mm-visual-card" id="visual-example-041">
-  <div class="mm-visual-card-title">41. Scatterplot with structure</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-041">
+  <div class="mm-visual-card-title">41. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/041-scatterplot-with-structure.svg" alt="Scatterplot with structure: Energy use rises nonlinearly with outdoor temperature.">
-    <figcaption><strong>Claim.</strong> Energy use rises nonlinearly with outdoor temperature.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-012.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Raw points and a transparent smooth curve show both pattern and dispersion.</p>
-  <p><strong>What to avoid.</strong> Connecting unrelated observations creates a false trajectory.</p>
-  <p><strong>How to build it.</strong> Use points, consider transformations, and label units before fitting.</p>
+  <p><strong>What the paper is showing.</strong> K-means The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Observed, fitted, or derived quantities can be compared in the same coordinate system, exposing systematic mismatch. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-042">
-  <div class="mm-visual-card-title">42. Faceted relationship</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-042">
+  <div class="mm-visual-card-title">42. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/042-faceted-relationship.svg" alt="Faceted relationship: The apparent overall trend reverses within each building type.">
-    <figcaption><strong>Claim.</strong> The apparent overall trend reverses within each building type.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-013.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Facets reveal a lurking group variable and prevent Simpson’s paradox.</p>
-  <p><strong>What to avoid.</strong> One pooled regression can support the wrong explanation.</p>
-  <p><strong>How to build it.</strong> Plot groups separately on shared scales and compare pooled with conditional estimates.</p>
+  <p><strong>What the paper is showing.</strong> Lowest The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The visual turns an internal modeling step into something a judge can inspect rather than simply trust. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-043">
-  <div class="mm-visual-card-title">43. Residuals versus fit</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-043">
+  <div class="mm-visual-card-title">43. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/043-residuals-versus-fit.svg" alt="Residuals versus fit: Errors increase with predicted demand.">
-    <figcaption><strong>Claim.</strong> Errors increase with predicted demand.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-020.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The fan shape makes heteroscedasticity visible.</p>
-  <p><strong>What to avoid.</strong> A high R-squared can coexist with systematically unreliable intervals.</p>
-  <p><strong>How to build it.</strong> Plot residuals around zero, inspect scale, and consider transformation or weighted errors.</p>
+  <p><strong>What the paper is showing.</strong> matrix describe The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Structure in the error, cluster, or response is visible; that structure indicates where a scalar score would be insufficient. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-044">
-  <div class="mm-visual-card-title">44. Q-Q diagnostic</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-044">
+  <div class="mm-visual-card-title">44. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/044-q-q-diagnostic.svg" alt="Q-Q diagnostic: The central errors are plausible but the tails are heavier than assumed.">
-    <figcaption><strong>Claim.</strong> The central errors are plausible but the tails are heavier than assumed.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-021.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Departure from the reference line localizes the mismatch.</p>
-  <p><strong>What to avoid.</strong> A normal-looking histogram may hide tail failure.</p>
-  <p><strong>How to build it.</strong> Use quantile reference points and connect the consequence to inference or risk estimates.</p>
+  <p><strong>What the paper is showing.</strong> matrix distance The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Observed, fitted, or derived quantities can be compared in the same coordinate system, exposing systematic mismatch. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-045">
-  <div class="mm-visual-card-title">45. Predicted versus observed</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-045">
+  <div class="mm-visual-card-title">45. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/045-predicted-versus-observed.svg" alt="Predicted versus observed: The model underpredicts large outcomes.">
-    <figcaption><strong>Claim.</strong> The model underpredicts large outcomes.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-049.webp" alt="Figure excerpt from 2016 CUMCM, Problem D — Wind-Farm Operation Analysis and Optimization, National First Prize paper: 风电场运行状况分析及优化研究, p. 10.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem D — Wind-Farm Operation Analysis and Optimization</em>; National First Prize paper: 风电场运行状况分析及优化研究, p. 10. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The identity line turns calibration bias into geometric distance.</p>
-  <p><strong>What to avoid.</strong> A fitted trend line alone can hide systematic offset from perfect prediction.</p>
-  <p><strong>How to build it.</strong> Use equal axes, draw y=x, and annotate error metrics on held-out data.</p>
+  <p><strong>What the paper is showing.</strong> 表4-4 五种机型的主要参数 风机型号 I II III IV V 切入风速(m/s) 3 3.5 3 3 3 额定风速(m/s) 11 11.5 10.5 11 11.5 切出风速(m/s) 25 25 25 25 25 额定功率(kW) 2000 1500 1500 1500 1500 风机数量(台)  / 表4-4分析，机型I、III、IV、V的… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The visual turns an internal modeling step into something a judge can inspect rather than simply trust. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-046">
-  <div class="mm-visual-card-title">46. Feature effect with support</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-046">
+  <div class="mm-visual-card-title">46. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/046-feature-effect-with-support.svg" alt="Feature effect with support: The estimated benefit saturates beyond six units.">
-    <figcaption><strong>Claim.</strong> The estimated benefit saturates beyond six units.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-050.webp" alt="Figure excerpt from 2016 CUMCM, Problem D — Wind-Farm Operation Analysis and Optimization, National First Prize paper: 风电场运行状况分析及优化研究, p. 11.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem D — Wind-Farm Operation Analysis and Optimization</em>; National First Prize paper: 风电场运行状况分析及优化研究, p. 11. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The rug marks where data actually support the curve.</p>
-  <p><strong>What to avoid.</strong> Extrapolated effects can look authoritative outside the observed range.</p>
-  <p><strong>How to build it.</strong> Show uncertainty and data density; shade or omit unsupported extrapolation.</p>
+  <p><strong>What the paper is showing.</strong> 图4-7 两种机型风速与功率的指数函数拟合图 表4-5 拟合后的函数关系式、可决系数、均方根 拟合曲线 类别 函数关系式 可决系数R2 均方根RMSE 机型I y20.3x2 58.28x12.76 0.9906 73.13 二次拟合 机型II y 18.92x2 69.24x42.85 0.9 / 表4-6）.由于机型II和机型III 的… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Structure in the error, cluster, or response is visible; that structure indicates where a scalar score would be insufficient. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-047">
-  <div class="mm-visual-card-title">47. Sensitivity tornado</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-047">
+  <div class="mm-visual-card-title">47. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/047-sensitivity-tornado.svg" alt="Sensitivity tornado: Demand growth matters far more than fuel price.">
-    <figcaption><strong>Claim.</strong> Demand growth matters far more than fuel price.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-076.webp" alt="Figure excerpt from 2023 ICM, Problem F — Green GDP, Team 2315018 award paper, p. 16.">
+    <figcaption><strong>Source.</strong> 2023 ICM, <em>Problem F — Green GDP</em>; Team 2315018 award paper, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Sorted one-at-a-time effects focus attention on influential assumptions.</p>
-  <p><strong>What to avoid.</strong> Unlabeled perturbations make bar length uninterpretable.</p>
-  <p><strong>How to build it.</strong> State the baseline and perturbation for every input; follow with interaction tests when needed.</p>
+  <p><strong>What the paper is showing.</strong> Figure8: Kmeans-results • The countries in the red box exhibit an uneven distribution of GGDP per capita but generally have a high level of environmental degradation The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Observed, fitted, or derived quantities can be compared in the same coordinate system, exposing systematic mismatch. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-048">
-  <div class="mm-visual-card-title">48. Global sensitivity</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-048">
+  <div class="mm-visual-card-title">48. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/048-global-sensitivity.svg" alt="Global sensitivity: Two parameters interact strongly in the high-risk region.">
-    <figcaption><strong>Claim.</strong> Two parameters interact strongly in the high-risk region.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-083.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 8.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 8. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A response surface exposes interaction a tornado chart misses.</p>
-  <p><strong>What to avoid.</strong> Changing one variable at a time assumes separability.</p>
-  <p><strong>How to build it.</strong> Sweep a defensible grid, mark the baseline, and overlay the decision boundary.</p>
+  <p><strong>What the paper is showing.</strong> Figure 5, and using the BP neural network model prediction is shown in Figure 6: Figure 5: ARIMA prediction effect Figure 6: BP neural network prediction effect It can be seen t… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The visual turns an internal modeling step into something a judge can inspect rather than simply trust. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-049">
-  <div class="mm-visual-card-title">49. Ablation chart</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-049">
+  <div class="mm-visual-card-title">49. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/049-ablation-chart.svg" alt="Ablation chart: Removing the temporal feature causes most of the performance loss.">
-    <figcaption><strong>Claim.</strong> Removing the temporal feature causes most of the performance loss.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-084.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 8.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 8. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A shared baseline quantifies each component’s contribution.</p>
-  <p><strong>What to avoid.</strong> Presenting only the full model offers no evidence that complexity is necessary.</p>
-  <p><strong>How to build it.</strong> Remove one component at a time, repeat across splits, and show uncertainty.</p>
+  <p><strong>What the paper is showing.</strong> Figure 5, and using the BP neural network model prediction is shown in Figure 6: Figure 5: ARIMA prediction effect Figure 6: BP neural network prediction effect It can be seen t… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Structure in the error, cluster, or response is visible; that structure indicates where a scalar score would be insufficient. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-050">
-  <div class="mm-visual-card-title">50. Error taxonomy</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-050">
+  <div class="mm-visual-card-title">50. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/050-error-taxonomy.svg" alt="Error taxonomy: Most severe mistakes come from one identifiable subgroup.">
-    <figcaption><strong>Claim.</strong> Most severe mistakes come from one identifiable subgroup.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-085.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 8.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 8. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A normalized matrix locates error type and class imbalance.</p>
-  <p><strong>What to avoid.</strong> Overall accuracy hides which errors matter operationally.</p>
-  <p><strong>How to build it.</strong> Choose row or column normalization to match the question and label raw counts.</p>
+  <p><strong>What the paper is showing.</strong> Figure 5, and using the BP neural network model prediction is shown in Figure 6: Figure 5: ARIMA prediction effect Figure 6: BP neural network prediction effect It can be seen t… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Observed, fitted, or derived quantities can be compared in the same coordinate system, exposing systematic mismatch. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
+
 </div>
 
 ## 6. Space, Maps, and Geometry
 
-Spatial graphics must preserve geography without allowing area, projection, or color to overwhelm the decision. Sometimes the right answer is a map; sometimes it is a distance plot or schematic.
+A spatial figure must preserve geography or geometry that matters to the decision. It should tell us where something occurs, how distance or adjacency is defined, and which boundaries are analytical rather than decorative. A map without a scale, legend, projection note, or readable reference layer is merely a colored background. The award-paper excerpts below work best when they combine spatial context with one focused overlay: a route, density, scenario, region, or geometric construction.
 
 <div class="mm-visual-gallery">
 
-<article class="mm-visual-card" id="visual-example-051">
-  <div class="mm-visual-card-title">51. Choropleth with a rate</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-051">
+  <div class="mm-visual-card-title">51. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/051-choropleth-with-a-rate.svg" alt="Choropleth with a rate: Risk is concentrated in three districts after adjusting for population.">
-    <figcaption><strong>Claim.</strong> Risk is concentrated in three districts after adjusting for population.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-010.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A rate prevents large-population regions from looking risky merely because they contain more events.</p>
-  <p><strong>What to avoid.</strong> Mapping raw counts confounds exposure with incidence.</p>
-  <p><strong>How to build it.</strong> Normalize by a relevant denominator, choose explicit class breaks, and note unstable small-area rates.</p>
+  <p><strong>What the paper is showing.</strong> football field The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The base geometry supplies context while the overlay carries one analytical layer, preventing location and result from becoming confused. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-052">
-  <div class="mm-visual-card-title">52. Proportional symbols</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-052">
+  <div class="mm-visual-card-title">52. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/052-proportional-symbols.svg" alt="Proportional symbols: A few facilities carry most of the service load.">
-    <figcaption><strong>Claim.</strong> A few facilities carry most of the service load.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-025.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Circle area encodes volume while position preserves location.</p>
-  <p><strong>What to avoid.</strong> Using radius rather than area exaggerates large values.</p>
-  <p><strong>How to build it.</strong> Scale symbol area, add transparency, and provide a size legend.</p>
+  <p><strong>What the paper is showing.</strong> task1 formation The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Adjacency and distance are visible directly, which is essential when the model depends on routes, regions, or spatial exposure. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-053">
-  <div class="mm-visual-card-title">53. Hexbin density</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-053">
+  <div class="mm-visual-card-title">53. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/053-hexbin-density.svg" alt="Hexbin density: Incidents cluster along two transport corridors.">
-    <figcaption><strong>Claim.</strong> Incidents cluster along two transport corridors.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-026.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Aggregation reveals density without overplotting thousands of points.</p>
-  <p><strong>What to avoid.</strong> Raw points turn dense areas into opaque blobs.</p>
-  <p><strong>How to build it.</strong> Select a cell size tied to spatial precision and display zero-observation cells honestly.</p>
+  <p><strong>What the paper is showing.</strong> task1 hotmap The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The spatial arrangement lets the reader test whether the claimed pattern is localized, connected, or geographically plausible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-054">
-  <div class="mm-visual-card-title">54. Origin–destination flow</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-054">
+  <div class="mm-visual-card-title">54. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/054-origin-destination-flow.svg" alt="Origin–destination flow: Most trips enter the center from the northwest corridor.">
-    <figcaption><strong>Claim.</strong> Most trips enter the center from the northwest corridor.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-027.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Curved links encode direction and volume without losing origins.</p>
-  <p><strong>What to avoid.</strong> Plotting every trip creates an unreadable hairball.</p>
-  <p><strong>How to build it.</strong> Aggregate meaningful zones, filter negligible flows, and scale width by volume.</p>
+  <p><strong>What the paper is showing.</strong> task1 hotmap The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The base geometry supplies context while the overlay carries one analytical layer, preventing location and result from becoming confused. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-055">
-  <div class="mm-visual-card-title">55. Travel-time surface</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-055">
+  <div class="mm-visual-card-title">55. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/055-travel-time-surface.svg" alt="Travel-time surface: Coverage gaps remain despite short straight-line distance.">
-    <figcaption><strong>Claim.</strong> Coverage gaps remain despite short straight-line distance.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-028.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Isochrones encode reachable time rather than geometric distance.</p>
-  <p><strong>What to avoid.</strong> Circular buffers ignore network barriers and speed variation.</p>
-  <p><strong>How to build it.</strong> Compute travel time on the network and label contour levels in minutes.</p>
+  <p><strong>What the paper is showing.</strong> task3 formation The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Adjacency and distance are visible directly, which is essential when the model depends on routes, regions, or spatial exposure. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-056">
-  <div class="mm-visual-card-title">56. Grid suitability map</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-056">
+  <div class="mm-visual-card-title">56. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/056-grid-suitability-map.svg" alt="Grid suitability map: Only a narrow band satisfies slope, access, and habitat constraints.">
-    <figcaption><strong>Claim.</strong> Only a narrow band satisfies slope, access, and habitat constraints.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-031.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 14.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 14. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Layered criteria culminate in a visible feasible region.</p>
-  <p><strong>What to avoid.</strong> A final score map hides which hard constraint excluded a cell.</p>
-  <p><strong>How to build it.</strong> Show key input layers, then separate infeasible from merely low-scoring cells.</p>
+  <p><strong>What the paper is showing.</strong> 图像中的静态 图像作为仿真结果，其中，道路是双向四车道，其中某一时刻的仿真图如下： 1）直行路口的仿真 从上图可以看出，主干道的车辆分布密集，拥堵情况十分严重，急需进行改善 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The spatial arrangement lets the reader test whether the claimed pattern is localized, connected, or geographically plausible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-057">
-  <div class="mm-visual-card-title">57. Geometry schematic</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-057">
+  <div class="mm-visual-card-title">57. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/057-geometry-schematic.svg" alt="Geometry schematic: The sensor angle determines whether the target lies inside the field of view.">
-    <figcaption><strong>Claim.</strong> The sensor angle determines whether the target lies inside the field of view.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-032.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 14.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 14. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A simplified diagram names points, angles, and distances used by the equations.</p>
-  <p><strong>What to avoid.</strong> A decorative photograph cannot establish geometric relationships.</p>
-  <p><strong>How to build it.</strong> Remove irrelevant detail, preserve orientation, and make every labeled element appear in the model.</p>
+  <p><strong>What the paper is showing.</strong> 图像中的静态 图像作为仿真结果，其中，道路是双向四车道，其中某一时刻的仿真图如下： 1）直行路口的仿真 从上图可以看出，主干道的车辆分布密集，拥堵情况十分严重，急需进行改善 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The base geometry supplies context while the overlay carries one analytical layer, preventing location and result from becoming confused. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-058">
-  <div class="mm-visual-card-title">58. Before-and-after map</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-058">
+  <div class="mm-visual-card-title">58. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/058-before-and-after-map.svg" alt="Before-and-after map: The intervention moves congestion rather than resolving it.">
-    <figcaption><strong>Claim.</strong> The intervention moves congestion rather than resolving it.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-033.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 16.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Matched extent and color scale make relocation visible.</p>
-  <p><strong>What to avoid.</strong> Independent legends can create a false improvement.</p>
-  <p><strong>How to build it.</strong> Lock projection, extent, classes, and legend across panels.</p>
+  <p><strong>What the paper is showing.</strong> 图6高峰期未开放方形小区仿真图 图7 平常期未开放小区仿真图 由图6和图7可知，在不开放的方形小区周边道路情况图中，高峰期的道路拥挤现 象过于严重，平常期也存在一定的拥堵现象，交通拥堵问题亟待解决 / 图8平常期未开放方形小区仿真图 图 9平常时期第一种开放类型仿真图 在图8和图9中可以看到，在方形小区中，以第一种结构开放时平常时期的四条主 干道上的交… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Adjacency and distance are visible directly, which is essential when the model depends on routes, regions, or spatial exposure. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-059">
-  <div class="mm-visual-card-title">59. Spatial residual map</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-059">
+  <div class="mm-visual-card-title">59. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/059-spatial-residual-map.svg" alt="Spatial residual map: Prediction errors cluster near the shoreline.">
-    <figcaption><strong>Claim.</strong> Prediction errors cluster near the shoreline.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-034.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 16.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Mapping residual sign and magnitude exposes missing spatial structure.</p>
-  <p><strong>What to avoid.</strong> A good global metric can conceal regional failure.</p>
-  <p><strong>How to build it.</strong> Use a diverging scale centered at zero and test spatial autocorrelation.</p>
+  <p><strong>What the paper is showing.</strong> 图6高峰期未开放方形小区仿真图 图7 平常期未开放小区仿真图 由图6和图7可知，在不开放的方形小区周边道路情况图中，高峰期的道路拥挤现 象过于严重，平常期也存在一定的拥堵现象，交通拥堵问题亟待解决 / 图8平常期未开放方形小区仿真图 图 9平常时期第一种开放类型仿真图 在图8和图9中可以看到，在方形小区中，以第一种结构开放时平常时期的四条主 干道上的交… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The spatial arrangement lets the reader test whether the claimed pattern is localized, connected, or geographically plausible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-060">
-  <div class="mm-visual-card-title">60. Map plus local evidence</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-060">
+  <div class="mm-visual-card-title">60. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/060-map-plus-local-evidence.svg" alt="Map plus local evidence: The selected site is best because it balances access, hazard, and capacity.">
-    <figcaption><strong>Claim.</strong> The selected site is best because it balances access, hazard, and capacity.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-035.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 16.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Callouts connect the final location to the evidence that distinguishes it.</p>
-  <p><strong>What to avoid.</strong> A star on a map shows the answer but not the reason.</p>
-  <p><strong>How to build it.</strong> Add only the decisive nearby features, distances, and scenario values.</p>
+  <p><strong>What the paper is showing.</strong> 图6高峰期未开放方形小区仿真图 图7 平常期未开放小区仿真图 由图6和图7可知，在不开放的方形小区周边道路情况图中，高峰期的道路拥挤现 象过于严重，平常期也存在一定的拥堵现象，交通拥堵问题亟待解决 / 图8平常期未开放方形小区仿真图 图 9平常时期第一种开放类型仿真图 在图8和图9中可以看到，在方形小区中，以第一种结构开放时平常时期的四条主 干道上的交… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The base geometry supplies context while the overlay carries one analytical layer, preventing location and result from becoming confused. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
+
 </div>
 
 ## 7. Networks, Flows, and Optimization
 
-Network and optimization figures should expose structure and constraints rather than display every edge or solver iteration. The reader needs to understand why the solution has its shape.
+Network figures become valuable when topology itself is evidence. Nodes and edges should represent defined objects and interactions; width, direction, color, and placement must have stable meanings. A hairball proves nothing. The successful examples below reduce the graph to the relationships needed for the claim, separate formations or scenarios, and make a flow or structural contrast visible. Reproduce that discipline before adding animation, gradients, or decorative icons.
 
 <div class="mm-visual-gallery">
 
-<article class="mm-visual-card" id="visual-example-061">
-  <div class="mm-visual-card-title">61. Network backbone</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-061">
+  <div class="mm-visual-card-title">61. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/061-network-backbone.svg" alt="Network backbone: Three bridges carry most inter-community connectivity.">
-    <figcaption><strong>Claim.</strong> Three bridges carry most inter-community connectivity.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-004.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Edge width and restrained labels reveal the structural bottleneck.</p>
-  <p><strong>What to avoid.</strong> Drawing every weak edge produces a hairball.</p>
-  <p><strong>How to build it.</strong> Filter or fade nonessential edges and state what nodes, edges, width, and color mean.</p>
+  <p><strong>What the paper is showing.</strong> Dyadic Triadic Configurations The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Connectivity is the evidence: edge structure and node roles reveal coordination that a list of pairwise values would conceal. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-062">
-  <div class="mm-visual-card-title">62. Community structure</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-062">
+  <div class="mm-visual-card-title">62. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/062-community-structure.svg" alt="Community structure: The network contains four internally dense groups with sparse bridges.">
-    <figcaption><strong>Claim.</strong> The network contains four internally dense groups with sparse bridges.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-005.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Spatial grouping and color reinforce the same community assignment.</p>
-  <p><strong>What to avoid.</strong> Force-directed layouts can suggest distance that has no domain meaning.</p>
-  <p><strong>How to build it.</strong> Explain the layout, test stability, and emphasize boundary edges.</p>
+  <p><strong>What the paper is showing.</strong> entire game network The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The graph reduces a complicated interaction system to recurring paths, hubs, or formations that can be compared across scenarios. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-063">
-  <div class="mm-visual-card-title">63. Centrality comparison</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-063">
+  <div class="mm-visual-card-title">63. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/063-centrality-comparison.svg" alt="Centrality comparison: The busiest node is not the most critical bridge node.">
-    <figcaption><strong>Claim.</strong> The busiest node is not the most critical bridge node.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-014.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Aligned rankings prevent one centrality measure from being mistaken for importance itself.</p>
-  <p><strong>What to avoid.</strong> Reporting a single score hides the definition of influence.</p>
-  <p><strong>How to build it.</strong> Compare measures, define the intervention, and validate against simulated removals.</p>
+  <p><strong>What the paper is showing.</strong> match10 network The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Visual hierarchy prevents every edge from competing equally and makes the paper's structural claim readable at a glance. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-064">
-  <div class="mm-visual-card-title">64. Sankey balance</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-064">
+  <div class="mm-visual-card-title">64. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/064-sankey-balance.svg" alt="Sankey balance: Losses occur mainly during conversion, not transport.">
-    <figcaption><strong>Claim.</strong> Losses occur mainly during conversion, not transport.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-015.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Flow width makes conservation and loss locations visible.</p>
-  <p><strong>What to avoid.</strong> Unbalanced ribbons or arbitrary curvature can imply false conservation.</p>
-  <p><strong>How to build it.</strong> Make inputs equal outputs plus losses and label units at every stage.</p>
+  <p><strong>What the paper is showing.</strong> match13 network The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Connectivity is the evidence: edge structure and node roles reveal coordination that a list of pairwise values would conceal. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-065">
-  <div class="mm-visual-card-title">65. Queue state diagram</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-065">
+  <div class="mm-visual-card-title">65. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/065-queue-state-diagram.svg" alt="Queue state diagram: Priority service changes transition rates, not the possible states.">
-    <figcaption><strong>Claim.</strong> Priority service changes transition rates, not the possible states.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-016.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> States and labeled transitions translate the stochastic model into inspectable logic.</p>
-  <p><strong>What to avoid.</strong> A dense transition matrix is difficult to connect to real operations.</p>
-  <p><strong>How to build it.</strong> Draw a representative state slice and link labels to model parameters.</p>
+  <p><strong>What the paper is showing.</strong> match1 network The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The graph reduces a complicated interaction system to recurring paths, hubs, or formations that can be compared across scenarios. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-066">
-  <div class="mm-visual-card-title">66. Route comparison</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-066">
+  <div class="mm-visual-card-title">66. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/066-route-comparison.svg" alt="Route comparison: A modest detour protects the plan from one road failure.">
-    <figcaption><strong>Claim.</strong> A modest detour protects the plan from one road failure.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-017.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Baseline and robust routes share the same network and cost scale.</p>
-  <p><strong>What to avoid.</strong> Two maps with different extents make route comparison unreliable.</p>
-  <p><strong>How to build it.</strong> Overlay alternatives or use matched panels; annotate distance and worst-case delay.</p>
+  <p><strong>What the paper is showing.</strong> match2 network The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Visual hierarchy prevents every edge from competing equally and makes the paper's structural claim readable at a glance. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-067">
-  <div class="mm-visual-card-title">67. Gantt schedule</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-067">
+  <div class="mm-visual-card-title">67. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/067-gantt-schedule.svg" alt="Gantt schedule: Resource conflicts, not task duration, determine the makespan.">
-    <figcaption><strong>Claim.</strong> Resource conflicts, not task duration, determine the makespan.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-018.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Lanes and dependencies expose why one task must wait.</p>
-  <p><strong>What to avoid.</strong> A task list hides overlap and shared-resource conflicts.</p>
-  <p><strong>How to build it.</strong> Use one time scale, label critical tasks, and mark idle time caused by constraints.</p>
+  <p><strong>What the paper is showing.</strong> match3 network The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Connectivity is the evidence: edge structure and node roles reveal coordination that a list of pairwise values would conceal. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-068">
-  <div class="mm-visual-card-title">68. Feasible-region geometry</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-068">
+  <div class="mm-visual-card-title">68. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/068-feasible-region-geometry.svg" alt="Feasible-region geometry: The optimum lies where capacity and labor constraints meet.">
-    <figcaption><strong>Claim.</strong> The optimum lies where capacity and labor constraints meet.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-019.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The diagram gives physical meaning to active constraints.</p>
-  <p><strong>What to avoid.</strong> Reporting solver output alone makes the optimum look magical.</p>
-  <p><strong>How to build it.</strong> Plot two-variable slices, label active boundaries, and test nearby feasible points.</p>
+  <p><strong>What the paper is showing.</strong> match4 network The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The graph reduces a complicated interaction system to recurring paths, hubs, or formations that can be compared across scenarios. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-069">
-  <div class="mm-visual-card-title">69. Convergence trace</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-069">
+  <div class="mm-visual-card-title">69. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/069-convergence-trace.svg" alt="Convergence trace: The heuristic stabilizes, but different starts reach different plateaus.">
-    <figcaption><strong>Claim.</strong> The heuristic stabilizes, but different starts reach different plateaus.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-037.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 17.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 17. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Multiple runs separate convergence speed from solution variability.</p>
-  <p><strong>What to avoid.</strong> One best run overstates reliability.</p>
-  <p><strong>How to build it.</strong> Plot representative and summary runs, state stopping rules, and compare with a baseline bound.</p>
+  <p><strong>What the paper is showing.</strong> 图10高峰期未开放小区仿真图 图 11高峰期第一种开放结构仿真图 图12高峰期第二种开放结构仿真图 图 13高峰期第三种开放结构仿真图 由上面四幅图可以看出，高峰期第一种开放结构不但没有减缓交通拥堵情况，反而 增加了交通压力；高峰期第二种开放结构在四条主干道上体现出一定程度内减缓了交通 拥堵情况；高峰期第 / 图14高峰期未开放小区仿真图 图15高峰期… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Visual hierarchy prevents every edge from competing equally and makes the paper's structural claim readable at a glance. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-070">
-  <div class="mm-visual-card-title">70. Pareto decision map</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-070">
+  <div class="mm-visual-card-title">70. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/070-pareto-decision-map.svg" alt="Pareto decision map: Three nondominated designs represent distinct stakeholder priorities.">
-    <figcaption><strong>Claim.</strong> Three nondominated designs represent distinct stakeholder priorities.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-038.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 17.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 17. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Named alternatives make the trade-off actionable.</p>
-  <p><strong>What to avoid.</strong> Selecting one weight vector prematurely erases reasonable choices.</p>
-  <p><strong>How to build it.</strong> Retain the frontier, explain the knee, and let preferences enter after dominance analysis.</p>
+  <p><strong>What the paper is showing.</strong> 图10高峰期未开放小区仿真图 图 11高峰期第一种开放结构仿真图 图12高峰期第二种开放结构仿真图 图 13高峰期第三种开放结构仿真图 由上面四幅图可以看出，高峰期第一种开放结构不但没有减缓交通拥堵情况，反而 增加了交通压力；高峰期第二种开放结构在四条主干道上体现出一定程度内减缓了交通 拥堵情况；高峰期第 / 图14高峰期未开放小区仿真图 图15高峰期… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Connectivity is the evidence: edge structure and node roles reveal coordination that a list of pairwise values would conceal. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
+
 </div>
 
 ## 8. Frameworks and Model Architecture
 
-Framework diagrams are valuable when equations and prose span several modules. Their purpose is not to look futuristic; it is to reveal inputs, transformations, feedback, and responsibility.
+A framework diagram is a contract between parts of the model. It should reveal inputs, transformations, decisions, feedback, and validation, not merely arrange algorithm names in attractive boxes. Read every arrow as a sentence: what object moves, in what direction, and with what unit or role? The award-paper examples in this section are strongest when the visual order matches the computational order and when branches correspond to genuine alternatives or checks.
 
 <div class="mm-visual-gallery">
 
-<article class="mm-visual-card" id="visual-example-071">
-  <div class="mm-visual-card-title">71. Problem decomposition</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-071">
+  <div class="mm-visual-card-title">71. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/071-problem-decomposition.svg" alt="Problem decomposition: The recommendation depends on demand, capacity, and risk modules.">
-    <figcaption><strong>Claim.</strong> The recommendation depends on demand, capacity, and risk modules.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-011.webp" alt="Figure excerpt from 2020 MCM, Problem D — Teaming, Team 2006782, Outstanding Winner paper.">
+    <figcaption><strong>Source.</strong> 2020 MCM, <em>Problem D — Teaming</em>; Team 2006782, Outstanding Winner paper. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Parallel branches show that no single model owns the final answer.</p>
-  <p><strong>What to avoid.</strong> A list of methods does not reveal dependency or integration.</p>
-  <p><strong>How to build it.</strong> Group modules by question, label inputs and outputs, and converge only where information truly combines.</p>
+  <p><strong>What the paper is showing.</strong> Gegenpressing The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The reading direction follows the actual modeling workflow, allowing the reader to reconstruct how raw information becomes a decision. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-072">
-  <div class="mm-visual-card-title">72. Data lineage</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-072">
+  <div class="mm-visual-card-title">72. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/072-data-lineage.svg" alt="Data lineage: Every reported metric can be traced to a raw field and transformation.">
-    <figcaption><strong>Claim.</strong> Every reported metric can be traced to a raw field and transformation.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-030.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 9.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 9. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The diagram makes cleaning and aggregation auditable.</p>
-  <p><strong>What to avoid.</strong> A generic “preprocessing” box hides consequential choices.</p>
-  <p><strong>How to build it.</strong> Name filters, joins, derived fields, and row counts at each stage.</p>
+  <p><strong>What the paper is showing.</strong> 图像 及各项指标 图2 求解流程图 5.2.1基于直行路段的车辆通行模型的建立 Step1:车道变换的考虑 联系实际可知，左右车道都存在一定的概率相互变道，但由于靠边的车道是转向车道， 所以车道21,34的概率 p 大于车道12,43的概率 p m n 图3小区外围道路车道示意图 9 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Modules are separated by function and the arrows expose dependencies, so a failed assumption can be traced downstream. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-073">
-  <div class="mm-visual-card-title">73. Simulation loop</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-073">
+  <div class="mm-visual-card-title">73. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/073-simulation-loop.svg" alt="Simulation loop: Policy changes behavior, which changes the next system state.">
-    <figcaption><strong>Claim.</strong> Policy changes behavior, which changes the next system state.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-044.webp" alt="Figure excerpt from 2016 CUMCM, Problem D — Wind-Farm Operation Analysis and Optimization, National First Prize paper: 风电场运行状况分析及优化研究, p. 4.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem D — Wind-Farm Operation Analysis and Optimization</em>; National First Prize paper: 风电场运行状况分析及优化研究, p. 4. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The feedback arrow encodes the dynamic mechanism.</p>
-  <p><strong>What to avoid.</strong> A one-way flowchart silently assumes no behavioral response.</p>
-  <p><strong>How to build it.</strong> Separate state update, observation, decision, and feedback timing.</p>
+  <p><strong>What the paper is showing.</strong> 图4-1 问题一解题思路 4.1.1风能资源评估 1、数据检查与预处理 本文选2015年为代表年，根据附件1提供的一年的风速、功率及相关数据来评估该 风电场的风能资源及其利用情况. 首先利用SPSS对所有数据按月进行探索性分析（详情见附录3.1），发现代表年3月 30日06:00数据缺失、9月27日17:0 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The architecture compresses many equations without pretending they are one undifferentiated black box. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-074">
-  <div class="mm-visual-card-title">74. Multi-level model</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-074">
+  <div class="mm-visual-card-title">74. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/074-multi-level-model.svg" alt="Multi-level model: Individual events aggregate into regional and system outcomes.">
-    <figcaption><strong>Claim.</strong> Individual events aggregate into regional and system outcomes.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-048.webp" alt="Figure excerpt from 2016 CUMCM, Problem D — Wind-Farm Operation Analysis and Optimization, National First Prize paper: 风电场运行状况分析及优化研究, p. 9.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem D — Wind-Farm Operation Analysis and Optimization</em>; National First Prize paper: 风电场运行状况分析及优化研究, p. 9. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Nested levels prevent variables from being mixed across scales.</p>
-  <p><strong>What to avoid.</strong> Arrows between every box create visual noise and ambiguous causality.</p>
-  <p><strong>How to build it.</strong> Use containers for scale, direct arrows, and a legend for observed versus latent quantities.</p>
+  <p><strong>What the paper is showing.</strong> 表4-3： 表4-3 资源利用情况表 总发电量 实际发电量 利用效能比率 有效风时比率 计算结果 149.1033亿kWh 33.5338亿kWh 29.79% 85.47% 查阅资料可知，我国的风发电机一般利用效能比率为30%，与论文中的计算结果接 近.这一指标与世界一般水平38%存在一定的差异，因此 / 图4-5 问题二解题思路图 9 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The reading direction follows the actual modeling workflow, allowing the reader to reconstruct how raw information becomes a decision. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-075">
-  <div class="mm-visual-card-title">75. Neural network schematic</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-075">
+  <div class="mm-visual-card-title">75. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/075-neural-network-schematic.svg" alt="Neural network schematic: Spatial features and temporal features are fused only after separate encoders.">
-    <figcaption><strong>Claim.</strong> Spatial features and temporal features are fused only after separate encoders.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-051.webp" alt="Figure excerpt from 2016 CUMCM, Problem D — Wind-Farm Operation Analysis and Optimization, National First Prize paper: 风电场运行状况分析及优化研究, p. 12.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem D — Wind-Farm Operation Analysis and Optimization</em>; National First Prize paper: 风电场运行状况分析及优化研究, p. 12. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The architecture mirrors the data-generating structure.</p>
-  <p><strong>What to avoid.</strong> Decorative neuron clouds do not show tensor shape or fusion.</p>
-  <p><strong>How to build it.</strong> Label tensor dimensions, repeated blocks, activation outputs, and the decision head.</p>
+  <p><strong>What the paper is showing.</strong> 表4-7），为后期更换新型风机提供参考依据. 表4-7 典型风机风速范围统计表 风速范围 3 3-3.5 3.5-10.5 10.5-11 11-11.5 11.5以上 (m/s) 4# 次数 626 226 3079 93 104 252 16# 次数 762 226 2952 83 97 260 24# / 图4-8 问题三解题思路 4.3.1任务… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Modules are separated by function and the arrows expose dependencies, so a failed assumption can be traced downstream. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-076">
-  <div class="mm-visual-card-title">76. Training and validation</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-076">
+  <div class="mm-visual-card-title">76. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/076-training-and-validation.svg" alt="Training and validation: Model selection never uses the final test period.">
-    <figcaption><strong>Claim.</strong> Model selection never uses the final test period.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-062.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 10.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 10. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A timeline clarifies leakage prevention.</p>
-  <p><strong>What to avoid.</strong> A random split icon can be misleading for time-dependent data.</p>
-  <p><strong>How to build it.</strong> Show exact temporal boundaries and where tuning, calibration, and final evaluation occur.</p>
+  <p><strong>What the paper is showing.</strong> Figure13 shows the three main factors precipitation causing soil water content changes over- time / Figure 4: The Factors Influencing the Soil WaterContent Whenexperiencingdroug… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The architecture compresses many equations without pretending they are one undifferentiated black box. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-077">
-  <div class="mm-visual-card-title">77. Digital twin workflow</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-077">
+  <div class="mm-visual-card-title">77. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/077-digital-twin-workflow.svg" alt="Digital twin workflow: Measurements update parameters before the next control decision.">
-    <figcaption><strong>Claim.</strong> Measurements update parameters before the next control decision.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-078.webp" alt="Figure excerpt from 2023 ICM, Problem F — Green GDP, Team 2315018 award paper, p. 19.">
+    <figcaption><strong>Source.</strong> 2023 ICM, <em>Problem F — Green GDP</em>; Team 2315018 award paper, p. 19. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Physical and computational lanes show synchronization.</p>
-  <p><strong>What to avoid.</strong> A single “digital twin” box explains nothing.</p>
-  <p><strong>How to build it.</strong> Name sensors, state estimator, simulator, controller, and update frequency.</p>
+  <p><strong>What the paper is showing.</strong> Figure11: Policyimplementationschedule development of regions and city clusters, China can give full play to the comparative advantagesofeachcityandpromotetheeffectiveallocation… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The reading direction follows the actual modeling workflow, allowing the reader to reconstruct how raw information becomes a decision. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-078">
-  <div class="mm-visual-card-title">78. Indicator hierarchy</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-078">
+  <div class="mm-visual-card-title">78. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/078-indicator-hierarchy.svg" alt="Indicator hierarchy: Raw indicators support dimensions, which support the final assessment.">
-    <figcaption><strong>Claim.</strong> Raw indicators support dimensions, which support the final assessment.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-079.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 3.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 3. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The tree exposes aggregation and weight placement.</p>
-  <p><strong>What to avoid.</strong> A final radar chart hides how its scores were built.</p>
-  <p><strong>How to build it.</strong> Show normalization and weight levels; flag indicators shared across dimensions.</p>
+  <p><strong>What the paper is showing.</strong> Figure 1 shows one result that we got / Figure 1: Wordle Game Now we have a file of daily results from January 7, 2022 to December 31, 2022 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Modules are separated by function and the arrows expose dependencies, so a failed assumption can be traced downstream. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-079">
-  <div class="mm-visual-card-title">79. Causal diagram</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-079">
+  <div class="mm-visual-card-title">79. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/079-causal-diagram.svg" alt="Causal diagram: Weather affects both demand and delay, so it must not be treated as an intervention.">
-    <figcaption><strong>Claim.</strong> Weather affects both demand and delay, so it must not be treated as an intervention.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-080.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 4.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 4. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Directed edges make the adjustment question explicit.</p>
-  <p><strong>What to avoid.</strong> A correlation network cannot distinguish confounders from mediators.</p>
-  <p><strong>How to build it.</strong> Define nodes temporally, justify arrows, and derive the adjustment set from the graph.</p>
+  <p><strong>What the paper is showing.</strong> Figure 2: Our work 2 Assumptions and Notations Assumption 1: The number of daily online gamers in the data set is a time-dependent set of series and is independent of seasonal c… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The architecture compresses many equations without pretending they are one undifferentiated black box. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-080">
-  <div class="mm-visual-card-title">80. Validation architecture</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-080">
+  <div class="mm-visual-card-title">80. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/080-validation-architecture.svg" alt="Validation architecture: Each model output has a matching test and fallback response.">
-    <figcaption><strong>Claim.</strong> Each model output has a matching test and fallback response.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-082.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 7.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 7. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Paired modules and checks turn validation into system design.</p>
-  <p><strong>What to avoid.</strong> A final “validate model” box postpones every hard question.</p>
-  <p><strong>How to build it.</strong> Attach a metric, threshold, and corrective action to each module.</p>
+  <p><strong>What the paper is showing.</strong> Figure 4： Figure 4: ARIMA model building process First, we performed ADF smoothness test on the variable ‘Number of reported results’ in the preprocessed data set and found that… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The reading direction follows the actual modeling workflow, allowing the reader to reconstruct how raw information becomes a decision. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
+
 </div>
 
 ## 9. Scientific and Engineering Figures
 
-Some models need domain-specific pictures: fields, trajectories, geometry, material layers, biochemical pathways, or tensors. The same rule applies—simplify until the mechanism is visible, but no further.
+Scientific figures must retain the domain mechanism. Geometry needs reference frames; physical curves need units and constraints; simulations need initial and boundary conditions; photographs need annotations that connect the scene to measured variables. These examples are useful because the picture and mathematical model support each other. The image is not a stock illustration of the topic: it identifies the configuration, state, or response that appears in the equations.
 
 <div class="mm-visual-gallery">
 
-<article class="mm-visual-card" id="visual-example-081">
-  <div class="mm-visual-card-title">81. Vector field</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-081">
+  <div class="mm-visual-card-title">81. scientific mechanism from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/081-vector-field.svg" alt="Vector field: Flow rotates around the obstacle and accelerates through the gap.">
-    <figcaption><strong>Claim.</strong> Flow rotates around the obstacle and accelerates through the gap.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-053.webp" alt="Figure excerpt from 2015 CUMCM, Problem A — Solar-Shadow Positioning, National First Prize paper A4: 太阳影子定位, p. 5.">
+    <figcaption><strong>Source.</strong> 2015 CUMCM, <em>Problem A — Solar-Shadow Positioning</em>; National First Prize paper A4: 太阳影子定位, p. 5. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Direction and magnitude are encoded without a false three-dimensional surface.</p>
-  <p><strong>What to avoid.</strong> Too many arrows overlap and hide the field.</p>
-  <p><strong>How to build it.</strong> Subsample uniformly, scale arrows consistently, and pair with streamlines or magnitude contours.</p>
+  <p><strong>What the paper is showing.</strong> 图1 太阳方位角示意图 其中 5 L 为杆长， S 为影长 The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The geometry or physical response is shown in the same terms used by the model, joining equations to an observable configuration. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> State the coordinate convention, parameter values, and experimental or simulation conditions. A visually persuasive curve is not evidence if the reader cannot connect it to the governing equation or reproduce its scale. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-082">
-  <div class="mm-visual-card-title">82. Contour surface</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-082">
+  <div class="mm-visual-card-title">82. scientific mechanism from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/082-contour-surface.svg" alt="Contour surface: Temperature crosses the safety threshold near one boundary.">
-    <figcaption><strong>Claim.</strong> Temperature crosses the safety threshold near one boundary.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-055.webp" alt="Figure excerpt from 2015 CUMCM, Problem A — Solar-Shadow Positioning, National First Prize paper A4: 太阳影子定位, p. 7.">
+    <figcaption><strong>Source.</strong> 2015 CUMCM, <em>Problem A — Solar-Shadow Positioning</em>; National First Prize paper A4: 太阳影子定位, p. 7. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Contours make level sets and threshold geometry explicit.</p>
-  <p><strong>What to avoid.</strong> A 3D surface can hide the far side and distort slopes through perspective.</p>
-  <p><strong>How to build it.</strong> Use labeled contours, an ordered palette, and emphasize the decision threshold.</p>
+  <p><strong>What the paper is showing.</strong> 图 2 中已经给出；对于地点，将其分为经度和纬度这两个参数进行运算求解， 求解后的变化规律图如下： 图3 影长与日期关系曲线 图4 影长与杆长关系曲线 图5 影长与经度关系曲线 图6 影长与纬度关系曲线 5.1.3 结果分析 从图3中可以发现，影长随着时间的增加，呈现先减小后增大的趋势，影长 最小点出 / 图4中可以发现，影长与杆长呈正比关系，这是… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The graphic preserves units, orientation, or state relationships that would be difficult to recover from prose alone. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> State the coordinate convention, parameter values, and experimental or simulation conditions. A visually persuasive curve is not evidence if the reader cannot connect it to the governing equation or reproduce its scale. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-083">
-  <div class="mm-visual-card-title">83. Trajectory bundle</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-083">
+  <div class="mm-visual-card-title">83. scientific mechanism from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/083-trajectory-bundle.svg" alt="Trajectory bundle: Most simulated paths converge, but a small group exits the safe corridor.">
-    <figcaption><strong>Claim.</strong> Most simulated paths converge, but a small group exits the safe corridor.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-056.webp" alt="Figure excerpt from 2015 CUMCM, Problem A — Solar-Shadow Positioning, National First Prize paper A4: 太阳影子定位, p. 7.">
+    <figcaption><strong>Source.</strong> 2015 CUMCM, <em>Problem A — Solar-Shadow Positioning</em>; National First Prize paper A4: 太阳影子定位, p. 7. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Transparency shows common behavior and exceptional failure.</p>
-  <p><strong>What to avoid.</strong> A single mean trajectory can pass through a region no run actually visits.</p>
-  <p><strong>How to build it.</strong> Plot representative paths, a central band, and the boundary that defines failure.</p>
+  <p><strong>What the paper is showing.</strong> 图 2 中已经给出；对于地点，将其分为经度和纬度这两个参数进行运算求解， 求解后的变化规律图如下： 图3 影长与日期关系曲线 图4 影长与杆长关系曲线 图5 影长与经度关系曲线 图6 影长与纬度关系曲线 5.1.3 结果分析 从图3中可以发现，影长随着时间的增加，呈现先减小后增大的趋势，影长 最小点出 / 图4中可以发现，影长与杆长呈正比关系，这是… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The domain mechanism remains visible, which helps the reader distinguish a physically motivated model from a purely statistical fit. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> State the coordinate convention, parameter values, and experimental or simulation conditions. A visually persuasive curve is not evidence if the reader cannot connect it to the governing equation or reproduce its scale. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-084">
-  <div class="mm-visual-card-title">84. Cross-section schematic</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-084">
+  <div class="mm-visual-card-title">84. scientific mechanism from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/084-cross-section-schematic.svg" alt="Cross-section schematic: Heat must pass through three layers with different resistance.">
-    <figcaption><strong>Claim.</strong> Heat must pass through three layers with different resistance.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-057.webp" alt="Figure excerpt from 2015 CUMCM, Problem A — Solar-Shadow Positioning, National First Prize paper A4: 太阳影子定位, p. 7.">
+    <figcaption><strong>Source.</strong> 2015 CUMCM, <em>Problem A — Solar-Shadow Positioning</em>; National First Prize paper A4: 太阳影子定位, p. 7. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Thickness, material, and flux direction correspond directly to the governing equation.</p>
-  <p><strong>What to avoid.</strong> A photorealistic wall adds texture without mathematical information.</p>
-  <p><strong>How to build it.</strong> Draw only interfaces, dimensions, boundary conditions, and fluxes used by the model.</p>
+  <p><strong>What the paper is showing.</strong> 图 2 中已经给出；对于地点，将其分为经度和纬度这两个参数进行运算求解， 求解后的变化规律图如下： 图3 影长与日期关系曲线 图4 影长与杆长关系曲线 图5 影长与经度关系曲线 图6 影长与纬度关系曲线 5.1.3 结果分析 从图3中可以发现，影长随着时间的增加，呈现先减小后增大的趋势，影长 最小点出 / 图4中可以发现，影长与杆长呈正比关系，这是… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The geometry or physical response is shown in the same terms used by the model, joining equations to an observable configuration. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> State the coordinate convention, parameter values, and experimental or simulation conditions. A visually persuasive curve is not evidence if the reader cannot connect it to the governing equation or reproduce its scale. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-085">
-  <div class="mm-visual-card-title">85. Free-body diagram</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-085">
+  <div class="mm-visual-card-title">85. scientific mechanism from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/085-free-body-diagram.svg" alt="Free-body diagram: Normal force and friction determine whether the vehicle slips.">
-    <figcaption><strong>Claim.</strong> Normal force and friction determine whether the vehicle slips.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-058.webp" alt="Figure excerpt from 2015 CUMCM, Problem A — Solar-Shadow Positioning, National First Prize paper A4: 太阳影子定位, p. 7.">
+    <figcaption><strong>Source.</strong> 2015 CUMCM, <em>Problem A — Solar-Shadow Positioning</em>; National First Prize paper A4: 太阳影子定位, p. 7. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Forces are attached to one isolated body in a declared coordinate system.</p>
-  <p><strong>What to avoid.</strong> Mixing forces on different bodies causes sign and balance errors.</p>
-  <p><strong>How to build it.</strong> Choose the body, draw axes, add only external forces, and label angles and magnitudes.</p>
+  <p><strong>What the paper is showing.</strong> 图 2 中已经给出；对于地点，将其分为经度和纬度这两个参数进行运算求解， 求解后的变化规律图如下： 图3 影长与日期关系曲线 图4 影长与杆长关系曲线 图5 影长与经度关系曲线 图6 影长与纬度关系曲线 5.1.3 结果分析 从图3中可以发现，影长随着时间的增加，呈现先减小后增大的趋势，影长 最小点出 / 图4中可以发现，影长与杆长呈正比关系，这是… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The graphic preserves units, orientation, or state relationships that would be difficult to recover from prose alone. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> State the coordinate convention, parameter values, and experimental or simulation conditions. A visually persuasive curve is not evidence if the reader cannot connect it to the governing equation or reproduce its scale. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-086">
-  <div class="mm-visual-card-title">86. Reaction pathway</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-086">
+  <div class="mm-visual-card-title">86. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/086-reaction-pathway.svg" alt="Reaction pathway: The intervention blocks one branch while preserving the main pathway.">
-    <figcaption><strong>Claim.</strong> The intervention blocks one branch while preserving the main pathway.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-039.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 17.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 17. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Color and arrow style distinguish activation, inhibition, and transport.</p>
-  <p><strong>What to avoid.</strong> A dense biochemical poster overwhelms the modeled mechanism.</p>
-  <p><strong>How to build it.</strong> Include only species in the equations and provide a legend for interaction types.</p>
+  <p><strong>What the paper is showing.</strong> 图10高峰期未开放小区仿真图 图 11高峰期第一种开放结构仿真图 图12高峰期第二种开放结构仿真图 图 13高峰期第三种开放结构仿真图 由上面四幅图可以看出，高峰期第一种开放结构不但没有减缓交通拥堵情况，反而 增加了交通压力；高峰期第二种开放结构在四条主干道上体现出一定程度内减缓了交通 拥堵情况；高峰期第 / 图14高峰期未开放小区仿真图 图15高峰期… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Visual hierarchy prevents every edge from competing equally and makes the paper's structural claim readable at a glance. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-087">
-  <div class="mm-visual-card-title">87. Tensor transformation</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-087">
+  <div class="mm-visual-card-title">87. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/087-tensor-transformation.svg" alt="Tensor transformation: The operation changes channels while preserving spatial resolution.">
-    <figcaption><strong>Claim.</strong> The operation changes channels while preserving spatial resolution.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-040.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 17.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 17. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Block dimensions make input and output shapes inspectable.</p>
-  <p><strong>What to avoid.</strong> Pretty cubes without dimensions conceal impossible operations.</p>
-  <p><strong>How to build it.</strong> Label each axis, operation, stride, and repeated block.</p>
+  <p><strong>What the paper is showing.</strong> 图10高峰期未开放小区仿真图 图 11高峰期第一种开放结构仿真图 图12高峰期第二种开放结构仿真图 图 13高峰期第三种开放结构仿真图 由上面四幅图可以看出，高峰期第一种开放结构不但没有减缓交通拥堵情况，反而 增加了交通压力；高峰期第二种开放结构在四条主干道上体现出一定程度内减缓了交通 拥堵情况；高峰期第 / 图14高峰期未开放小区仿真图 图15高峰期… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Connectivity is the evidence: edge structure and node roles reveal coordination that a list of pairwise values would conceal. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-088">
-  <div class="mm-visual-card-title">88. Phase portrait</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-088">
+  <div class="mm-visual-card-title">88. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/088-phase-portrait.svg" alt="Phase portrait: Two initial conditions approach different stable states.">
-    <figcaption><strong>Claim.</strong> Two initial conditions approach different stable states.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-041.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 17.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 17. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Trajectories and direction field reveal long-run behavior beyond a time trace.</p>
-  <p><strong>What to avoid.</strong> A single solution curve cannot establish global stability.</p>
-  <p><strong>How to build it.</strong> Mark equilibria, nullclines, direction, and representative initial conditions.</p>
+  <p><strong>What the paper is showing.</strong> 图10高峰期未开放小区仿真图 图 11高峰期第一种开放结构仿真图 图12高峰期第二种开放结构仿真图 图 13高峰期第三种开放结构仿真图 由上面四幅图可以看出，高峰期第一种开放结构不但没有减缓交通拥堵情况，反而 增加了交通压力；高峰期第二种开放结构在四条主干道上体现出一定程度内减缓了交通 拥堵情况；高峰期第 / 图14高峰期未开放小区仿真图 图15高峰期… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The graph reduces a complicated interaction system to recurring paths, hubs, or formations that can be compared across scenarios. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-089">
-  <div class="mm-visual-card-title">89. Dimensionless collapse</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-089">
+  <div class="mm-visual-card-title">89. network evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/089-dimensionless-collapse.svg" alt="Dimensionless collapse: Experiments at different scales follow one common relationship.">
-    <figcaption><strong>Claim.</strong> Experiments at different scales follow one common relationship.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-042.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 17.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 17. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Rescaling converts separate clouds into evidence for a shared mechanism.</p>
-  <p><strong>What to avoid.</strong> Choosing dimensionless groups after seeing the desired collapse risks overfitting.</p>
-  <p><strong>How to build it.</strong> Derive groups from units or theory, then show both raw and collapsed views.</p>
+  <p><strong>What the paper is showing.</strong> 图10高峰期未开放小区仿真图 图 11高峰期第一种开放结构仿真图 图12高峰期第二种开放结构仿真图 图 13高峰期第三种开放结构仿真图 由上面四幅图可以看出，高峰期第一种开放结构不但没有减缓交通拥堵情况，反而 增加了交通压力；高峰期第二种开放结构在四条主干道上体现出一定程度内减缓了交通 拥堵情况；高峰期第 / 图14高峰期未开放小区仿真图 图15高峰期… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Visual hierarchy prevents every edge from competing equally and makes the paper's structural claim readable at a glance. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Define nodes, edges, direction, and weight in the caption. Filter or aggregate by an explicit rule; otherwise a visually dense network can create an illusion of sophistication without a testable conclusion. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-090">
-  <div class="mm-visual-card-title">90. Three-dimensional data in slices</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-090">
+  <div class="mm-visual-card-title">90. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/090-three-dimensional-data-in-slices.svg" alt="Three-dimensional data in slices: The effect changes across depth as well as horizontal position.">
-    <figcaption><strong>Claim.</strong> The effect changes across depth as well as horizontal position.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-036.webp" alt="Figure excerpt from 2016 CUMCM, Problem B — The Traffic Impact of Opening Gated Communities, National First Prize paper: 小区开放道路通行影响, p. 16.">
+    <figcaption><strong>Source.</strong> 2016 CUMCM, <em>Problem B — The Traffic Impact of Opening Gated Communities</em>; National First Prize paper: 小区开放道路通行影响, p. 16. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Small-multiple slices preserve quantitative reading better than an opaque 3D block.</p>
-  <p><strong>What to avoid.</strong> A rotatable rendering is useless on a printed page.</p>
-  <p><strong>How to build it.</strong> Choose informative planes, keep a shared color scale, and include orientation.</p>
+  <p><strong>What the paper is showing.</strong> 图6高峰期未开放方形小区仿真图 图7 平常期未开放小区仿真图 由图6和图7可知，在不开放的方形小区周边道路情况图中，高峰期的道路拥挤现 象过于严重，平常期也存在一定的拥堵现象，交通拥堵问题亟待解决 / 图8平常期未开放方形小区仿真图 图 9平常时期第一种开放类型仿真图 在图8和图9中可以看到，在方形小区中，以第一种结构开放时平常时期的四条主 干道上的交… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The base geometry supplies context while the overlay carries one analytical layer, preventing location and result from becoming confused. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
+
 </div>
 
-## 10. From Good Figure to Award-Level Page
+## 10. From a Good Figure to an Award-Level Page
 
-A competition paper is judged as a sequence of pages. The final ten examples show how charts, diagrams, captions, typography, and layout cooperate so that evidence can be found and trusted under time pressure.
+An award-level page is not a collage of individually attractive charts. It is a sequence of evidence. The final ten excerpts deliberately mix chart families because the design problem at page level is orchestration: context before detail, method before result, result before recommendation, and uncertainty before confidence. Notice how different papers repeat typography and color semantics, keep related panels close, and let captions complete the reasoning. Use these cases to audit the rhythm of your own paper rather than to imitate one surface style.
 
 <div class="mm-visual-gallery">
 
-<article class="mm-visual-card" id="visual-example-091">
-  <div class="mm-visual-card-title">91. Matched multi-panel figure</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-091">
+  <div class="mm-visual-card-title">91. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/091-matched-multi-panel-figure.svg" alt="Matched multi-panel figure: Data, mechanism, and result form one argument.">
-    <figcaption><strong>Claim.</strong> Data, mechanism, and result form one argument.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-059.webp" alt="Figure excerpt from 2015 CUMCM, Problem A — Solar-Shadow Positioning, National First Prize paper A4: 太阳影子定位, p. 14.">
+    <figcaption><strong>Source.</strong> 2015 CUMCM, <em>Problem A — Solar-Shadow Positioning</em>; National First Prize paper A4: 太阳影子定位, p. 14. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Panel labels and aligned geometry lead the reader through the evidence chain.</p>
-  <p><strong>What to avoid.</strong> Combining unrelated charts saves space but destroys narrative.</p>
-  <p><strong>How to build it.</strong> Use panels only when they answer one shared question; write one caption that explains the sequence.</p>
+  <p><strong>What the paper is showing.</strong> 图像矫正 观看视频可以发现，由于摄像机在拍摄时的角度原因，从视频中得出的影长 是真实影长向摄像机方向的投影值，其必定小于或等于真实影长，并不是影长的 真实值，而且从摄像机拍摄的图片中无法得知影子转动的角度 / 图中左下角两条直线在现实 中处于水平面内且互相平行（图中的两条绿色直线），因此将其延长可在远处得 到消隐点，消隐点在水平方向的延长线就是地平线 … The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The base geometry supplies context while the overlay carries one analytical layer, preventing location and result from becoming confused. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-092">
-  <div class="mm-visual-card-title">92. Overview plus detail</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-092">
+  <div class="mm-visual-card-title">92. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/092-overview-plus-detail.svg" alt="Overview plus detail: The global pattern is stable, while one local region explains the exception.">
-    <figcaption><strong>Claim.</strong> The global pattern is stable, while one local region explains the exception.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-060.webp" alt="Figure excerpt from 2015 CUMCM, Problem A — Solar-Shadow Positioning, National First Prize paper A4: 太阳影子定位, p. 15.">
+    <figcaption><strong>Source.</strong> 2015 CUMCM, <em>Problem A — Solar-Shadow Positioning</em>; National First Prize paper A4: 太阳影子定位, p. 15. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> An overview provides context and an inset preserves the consequential detail.</p>
-  <p><strong>What to avoid.</strong> Cropping directly to the anomaly exaggerates its prevalence.</p>
-  <p><strong>How to build it.</strong> Mark the inset extent and keep scales interpretable.</p>
+  <p><strong>What the paper is showing.</strong> 图像点的像素坐标为 ( x , y ) ，正视图像的像素坐标为 ( m , n ) ， a,b,c,d,e, f,o,p,q为透视变换参数 / 图像进行预处理，从而减少计算难度 / 图像提取（提取速度为每 2分钟一帧），对整个视频 产生的22幅图片进行灰度处理和高斯滤波处理: 灰度处理 高斯滤波 可以发现，进行高斯滤波后图像的噪点明显减少，大大减少了运… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Adjacency and distance are visible directly, which is essential when the model depends on routes, regions, or spatial exposure. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-093">
-  <div class="mm-visual-card-title">93. Model–data–decision triptych</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-093">
+  <div class="mm-visual-card-title">93. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/093-model-data-decision-triptych.svg" alt="Model–data–decision triptych: The mechanism explains the data and changes the recommended action.">
-    <figcaption><strong>Claim.</strong> The mechanism explains the data and changes the recommended action.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-061.webp" alt="Figure excerpt from 2015 CUMCM, Problem A — Solar-Shadow Positioning, National First Prize paper A4: 太阳影子定位, p. 15.">
+    <figcaption><strong>Source.</strong> 2015 CUMCM, <em>Problem A — Solar-Shadow Positioning</em>; National First Prize paper A4: 太阳影子定位, p. 15. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Three panels connect theory, empirical fit, and use.</p>
-  <p><strong>What to avoid.</strong> A model diagram without empirical or decision panels remains ornamental.</p>
-  <p><strong>How to build it.</strong> Maintain common color semantics and reference every panel in the caption.</p>
+  <p><strong>What the paper is showing.</strong> 图像点的像素坐标为 ( x , y ) ，正视图像的像素坐标为 ( m , n ) ， a,b,c,d,e, f,o,p,q为透视变换参数 / 图像进行预处理，从而减少计算难度 / 图像提取（提取速度为每 2分钟一帧），对整个视频 产生的22幅图片进行灰度处理和高斯滤波处理: 灰度处理 高斯滤波 可以发现，进行高斯滤波后图像的噪点明显减少，大大减少了运… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The spatial arrangement lets the reader test whether the claimed pattern is localized, connected, or geographically plausible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-094">
-  <div class="mm-visual-card-title">94. Consistent color semantics</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-094">
+  <div class="mm-visual-card-title">94. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/094-consistent-color-semantics.svg" alt="Consistent color semantics: Blue always means baseline and orange always means proposal.">
-    <figcaption><strong>Claim.</strong> Blue always means baseline and orange always means proposal.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-063.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 13.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 13. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Stable color reduces cognitive switching across the paper.</p>
-  <p><strong>What to avoid.</strong> Reusing colors for different meanings creates silent contradictions.</p>
-  <p><strong>How to build it.</strong> Create a project palette before plotting and reserve emphasis colors for exceptions.</p>
+  <p><strong>What the paper is showing.</strong> Figure5: OcalaNationalForest,Florida Thereasonsareasfollows: The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The base geometry supplies context while the overlay carries one analytical layer, preventing location and result from becoming confused. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-095">
-  <div class="mm-visual-card-title">95. Accessible palette</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-095">
+  <div class="mm-visual-card-title">95. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/095-accessible-palette.svg" alt="Accessible palette: All scenarios remain distinguishable without color vision.">
-    <figcaption><strong>Claim.</strong> All scenarios remain distinguishable without color vision.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-064.webp" alt="Figure excerpt from 2023 MCM, Problem A — Drought-Tolerant Plant Communities, Team 2321860 award paper, p. 13.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem A — Drought-Tolerant Plant Communities</em>; Team 2321860 award paper, p. 13. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Hue, lightness, line style, and direct labels provide redundant cues.</p>
-  <p><strong>What to avoid.</strong> Red–green contrasts exclude readers and often fail in grayscale printing.</p>
-  <p><strong>How to build it.</strong> Test grayscale and color-vision simulation; never encode a critical distinction by hue alone.</p>
+  <p><strong>What the paper is showing.</strong> Figure5: OcalaNationalForest,Florida Thereasonsareasfollows: The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Adjacency and distance are visible directly, which is essential when the model depends on routes, regions, or spatial exposure. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-096">
-  <div class="mm-visual-card-title">96. Typographic hierarchy</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-096">
+  <div class="mm-visual-card-title">96. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/096-typographic-hierarchy.svg" alt="Typographic hierarchy: The eye reaches result, axis, annotation, and source in that order.">
-    <figcaption><strong>Claim.</strong> The eye reaches result, axis, annotation, and source in that order.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-074.webp" alt="Figure excerpt from 2023 ICM, Problem F — Green GDP, Team 2315018 award paper, p. 9.">
+    <figcaption><strong>Source.</strong> 2023 ICM, <em>Problem F — Green GDP</em>; Team 2315018 award paper, p. 9. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A controlled type scale separates evidence from metadata.</p>
-  <p><strong>What to avoid.</strong> Tiny labels and oversized titles waste the limited page area.</p>
-  <p><strong>How to build it.</strong> Match figure text to final print size and use at most three text levels.</p>
+  <p><strong>What the paper is showing.</strong> Figure4: ChangesinGIfrom2000to2021 years,therewasasignificantdecrease,suggestingareboundinproductionthatharms theenvironment / Figure 5 visualizes the current global GGDP result… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The spatial arrangement lets the reader test whether the claimed pattern is localized, connected, or geographically plausible. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-097">
-  <div class="mm-visual-card-title">97. Annotation with discipline</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-097">
+  <div class="mm-visual-card-title">97. spatial evidence from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/097-annotation-with-discipline.svg" alt="Annotation with discipline: One arrow identifies the exact point where the decision changes.">
-    <figcaption><strong>Claim.</strong> One arrow identifies the exact point where the decision changes.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-075.webp" alt="Figure excerpt from 2023 ICM, Problem F — Green GDP, Team 2315018 award paper, p. 9.">
+    <figcaption><strong>Source.</strong> 2023 ICM, <em>Problem F — Green GDP</em>; Team 2315018 award paper, p. 9. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> A sparse annotation directs attention without replacing the data.</p>
-  <p><strong>What to avoid.</strong> Ten callouts turn the chart into a poster and signal that the encoding failed.</p>
-  <p><strong>How to build it.</strong> Annotate only consequential events; move secondary details to the caption.</p>
+  <p><strong>What the paper is showing.</strong> Figure4: ChangesinGIfrom2000to2021 years,therewasasignificantdecrease,suggestingareboundinproductionthatharms theenvironment / Figure 5 visualizes the current global GGDP result… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> The base geometry supplies context while the overlay carries one analytical layer, preventing location and result from becoming confused. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Preserve scale, direction, boundaries, and the source of the base layer. Avoid a rainbow palette and avoid implying continuous spatial knowledge when the data were observed only at sparse sites. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-098">
-  <div class="mm-visual-card-title">98. Table and chart partnership</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-098">
+  <div class="mm-visual-card-title">98. model architecture from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/098-table-and-chart-partnership.svg" alt="Table and chart partnership: The chart shows pattern; the table supplies exact selected values.">
-    <figcaption><strong>Claim.</strong> The chart shows pattern; the table supplies exact selected values.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-091.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 14.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 14. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Each medium does the task it performs best.</p>
-  <p><strong>What to avoid.</strong> Duplicating every value in both wastes space and attention.</p>
-  <p><strong>How to build it.</strong> Chart the comparison, table the audited decisions, and cross-reference them.</p>
+  <p><strong>What the paper is showing.</strong> Figure 12, where yellow represents the arithmetic operations and blue represents the learned neural network / Figure 12: The working principle of LSTM The LSTM model has the abi… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Modules are separated by function and the arrows expose dependencies, so a failed assumption can be traced downstream. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Label arrows with the quantity or decision that moves between modules. Decorative arrows and algorithm names are not a pipeline. Include feedback only when the implementation actually revises an earlier step. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-099">
-  <div class="mm-visual-card-title">99. Reproducible figure record</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-099">
+  <div class="mm-visual-card-title">99. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/099-reproducible-figure-record.svg" alt="Reproducible figure record: The published figure can be regenerated from a named dataset and script.">
-    <figcaption><strong>Claim.</strong> The published figure can be regenerated from a named dataset and script.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-086.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 9.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 9. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> Visible provenance turns visual quality into an auditable result.</p>
-  <p><strong>What to avoid.</strong> Manual edits break the link between analysis and paper.</p>
-  <p><strong>How to build it.</strong> Save data snapshot, script, parameters, environment, and output under stable names.</p>
+  <p><strong>What the paper is showing.</strong> Figure 8: Prediction errors of three models The final point forecast for the number of results reported on March 1, 2023 using this combined ARIMA-BP model is approximately 1994… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Structure in the error, cluster, or response is visible; that structure indicates where a scalar score would be insufficient. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
 
-<article class="mm-visual-card" id="visual-example-100">
-  <div class="mm-visual-card-title">100. Final figure audit</div>
+<article class="mm-visual-card mm-award-case" id="visual-example-100">
+  <div class="mm-visual-card-title">100. model diagnostic from an award paper</div>
   <figure class="mm-figure">
-    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/100-final-figure-audit.svg" alt="Final figure audit: Every figure answers a question, uses honest scales, and survives print.">
-    <figcaption><strong>Claim.</strong> Every figure answers a question, uses honest scales, and survives print.</figcaption>
+    <img loading="lazy" src="/blog/images/mathematical-modeling/visual-evidence/award/award-094.webp" alt="Figure excerpt from 2023 MCM, Problem C — Wordle, Team 2309397 award paper, p. 21.">
+    <figcaption><strong>Source.</strong> 2023 MCM, <em>Problem C — Wordle</em>; Team 2309397 award paper, p. 21. Cropped figure excerpt used here for visual-design analysis.</figcaption>
   </figure>
-  <p><strong>Why it works.</strong> The checklist closes the gap between attractive and trustworthy.</p>
-  <p><strong>What to avoid.</strong> Reviewing only aesthetics misses incorrect units, legends, and scenarios.</p>
-  <p><strong>How to build it.</strong> Audit claim, data, encoding, scale, uncertainty, caption, source, accessibility, and reproduction.</p>
+  <p><strong>What the paper is showing.</strong> Table 8 / Figure 15 / Figure 15: six attribute values of EERIE Figure 16: Accuracy of the model As is shown in Figure 16, the Silhouette Value can reflect the accuracy of GMM mo… The figure belongs to a complete modeling argument rather than an isolated template, so read it together with the stated problem and the variable or scenario encoded on the axes, nodes, regions, or panels.</p>
+  <p><strong>Why this visual is effective.</strong> Observed, fitted, or derived quantities can be compared in the same coordinate system, exposing systematic mismatch. The authors make the analytical object visible before asking the reader to accept a numerical conclusion. That is the useful lesson: the form of the picture follows the type of evidence.</p>
+  <p><strong>How to adapt it responsibly.</strong> Keep the diagnostic separate from the training objective. Use held-out data or a benchmark when possible, show the identity or zero-reference line, and discuss patterned error rather than reporting only a favorable aggregate score. Rebuild the graphic from your own data and cite this paper as design inspiration; do not copy its values, labels, or conclusion into a different problem.</p>
 </article>
+
 </div>
+
+<div class="mm-key-box"><span class="mm-callout-label">Provenance audit</span><p>This gallery contains <strong>100 figures</strong>: ten original teaching diagrams for foundational design principles and <strong>90 cropped figure excerpts from identified CUMCM, MCM, or ICM award papers</strong>. Every award-paper card names the competition, year, problem, paper or team, and page when available. The real competition-paper share is therefore <strong>90%</strong>. Crops are included for teaching commentary; follow the linked official archives for complete papers and contest context.</p></div>
 
 <!-- GENERATED:VISUAL-EVIDENCE-GALLERY:END -->
 
@@ -1279,6 +1290,12 @@ Review figures in their final PDF, not only in the plotting window. For every fi
 The goal is not to produce 100 figures in a competition paper. It is to build enough visual vocabulary that, when the model asks a question, you can choose the one picture that answers it honestly. A strong report might contain only eight figures. Each should have a job. Each should be traceable. Each should make one piece of the modeling argument easier to inspect than prose alone.
 
 One last hidden test: shrink your best figure until it is only six centimeters wide, print it in grayscale, and give it to someone for ten seconds. If they can still name the comparison and the conclusion, keep it. If they remember only the colors, the figure is asking for one more revision.
+
+## Knowledge Check
+
+The ten questions below move from basic chart selection to competition-level evidence auditing. Single-choice and multiple-choice items are mixed. A correct first attempt earns the full EXP shown for that question; a correct retry earns partial credit.
+
+<section class="modeling-quiz" data-modeling-quiz="lesson-3" data-locale="en"></section>
 
 ### Official and Course Sources
 
