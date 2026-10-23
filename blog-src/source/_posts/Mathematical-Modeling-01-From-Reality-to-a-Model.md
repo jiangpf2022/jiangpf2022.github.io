@@ -506,6 +506,8 @@ For illustrative numbers $t_d=0.4$ s, $v=2$ m/s, $a=1$ m/s$^2$, $w=3$ m, and $L=
 
 Each lens turned ordinary words into a mathematical claim. A competition prompt is rarely as tidy: it combines several claims, data sources, and deliverables. Let us carry the same habits into that larger setting before talking about software.
 
+<!-- Competition-preparation material moved to Blog 2: Competition Techniques.
+
 ## Competition Problem Decomposition and Evidence
 
 This series prepares us to read both China's National Undergraduate Mathematical Contest in Modeling (CUMCM, 国赛) and COMAP's Mathematical/Interdisciplinary Contest in Modeling (MCM/ICM, 美赛). They are different competitions, not two names for the same set of A/B/C questions. The [CUMCM organizers describe](https://www.mcm.edu.cn/html_cn/node/7e54d6df0304aa37c5d0f92bf167a6bb.html) problems drawn from science, engineering, and social or economic settings. A useful but nonbinding way to approach its problem choices is:
@@ -589,6 +591,10 @@ Here is a feasible calendar if you have a week. On day one, each person scans tw
 Do not worry if your first attempt looks small. A defensible one-page result that answers a real question, shows a baseline, and explains a measured limitation is already a modeling achievement. Later blog posts will add mathematical machinery; this first post gives you the habits that make it trustworthy.
 
 After practicing with published papers and these tools, we should check whether the modeling pattern transfers beyond the examples so far. The library question below has different people and constraints but the same need for a precise decision, changing state, simple baseline, and evidence. Try it before moving to the next post.
+
+-->
+
+Competition selection, tool use, paper reading, visualization practice, algorithm extension, and AI-assisted workflows now form the separate second blog, **Competition Techniques**. Here we will finish the fundamentals by checking whether the modeling pattern transfers to one new decision problem.
 
 ## Method Transfer: Study-Room Capacity Planning
 

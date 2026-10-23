@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">022 · Forecast fan</title><desc id="desc">Uncertainty expands as the forecast horizon grows.</desc>
+  <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#16324f" flood-opacity=".10"/></filter></defs>
+  <rect width="960" height="600" rx="30" fill="#f7fbff"/>
+  <rect x="36" y="30" width="888" height="540" rx="24" fill="#ffffff" stroke="#d9e7f5" filter="url(#shadow)"/>
+  <rect x="36" y="30" width="10" height="540" rx="5" fill="#f59e0b"/>
+  <text x="76" y="78" font-family="Inter,Arial,sans-serif" font-size="25" font-weight="700" fill="#17324d">022 · Forecast fan</text>
+  <text x="76" y="108" font-family="Inter,Arial,sans-serif" font-size="15" fill="#60758a">Synthetic teaching example · values are illustrative</text>
+  <line x1="112" y1="488" x2="860" y2="488" stroke="#9fb3c8" stroke-width="2"/><line x1="112" y1="154" x2="112" y2="488" stroke="#9fb3c8" stroke-width="2"/><path d="M130 405 C260 360 360 330 470 300 L820 180 L820 450 L470 330 C350 350 245 390 130 420 Z" fill="#f59e0b" opacity=".10"/><path d="M470 285 L820 235 L820 395 L470 340 Z" fill="#f59e0b" opacity=".18"/><polyline points="130,410 220,375 310,355 400,325 470,310" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="470,310 560,305 650,295 740,280 820,265" fill="none" stroke="#7c3aed" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 8"/><line x1="470" y1="155" x2="470" y2="488" stroke="#94a3b8" stroke-width="3" stroke-dasharray="6 7"/><text x="487" y="178" font-family="Arial" font-size="15" fill="#64748b">forecast begins</text>
+  </svg>

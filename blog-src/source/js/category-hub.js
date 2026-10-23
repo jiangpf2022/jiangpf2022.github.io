@@ -95,7 +95,7 @@
 
   const MODELING_SYLLABUS = [
     [1, "From Reality to a Model", 1, "Turn a vague problem into a purpose, boundary, variables, assumptions, equations, a solution, validation, and an actionable conclusion."],
-    [2, "AI as a Modeling Sparring Partner", 1, "Use AI to challenge assumptions, inspect ideas, and test a model while keeping judgment and evidence in human hands."],
+    [2, "Competition Techniques", 1, "Select a problem, build a reliable toolchain, learn from strong papers, reconstruct visual evidence, extend algorithms, and use AI responsibly."],
     [3, "Visual Evidence", 1, "Choose charts, diagrams, colors, and layouts so that every figure supports a specific modeling claim."],
     [4, "Linear, Quadratic & Conic Optimization", 1, "Formulate and solve linear programs, quadratic programs, and second-order cone programs."],
     [5, "Advanced Convex Optimization", 3, "Explore more general convex formulations and the algorithms beyond the introductory models."],

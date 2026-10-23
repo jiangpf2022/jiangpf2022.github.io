@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">084 · Cross-section schematic</title><desc id="desc">Heat must pass through three layers with different resistance.</desc>
+  <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#16324f" flood-opacity=".10"/></filter></defs>
+  <rect width="960" height="600" rx="30" fill="#f7fbff"/>
+  <rect x="36" y="30" width="888" height="540" rx="24" fill="#ffffff" stroke="#d9e7f5" filter="url(#shadow)"/>
+  <rect x="36" y="30" width="10" height="540" rx="5" fill="#f59e0b"/>
+  <text x="76" y="78" font-family="Inter,Arial,sans-serif" font-size="25" font-weight="700" fill="#17324d">084 · Cross-section schematic</text>
+  <text x="76" y="108" font-family="Inter,Arial,sans-serif" font-size="15" fill="#60758a">Synthetic teaching example · values are illustrative</text>
+  <rect x="160" y="215" width="170" height="240" fill="#dbeafe" stroke="#f59e0b" stroke-width="4"/><rect x="330" y="215" width="240" height="240" fill="#ccfbf1" stroke="#7c3aed" stroke-width="4"/><rect x="570" y="215" width="170" height="240" fill="#fef3c7" stroke="#2563eb" stroke-width="4"/><path d="M100 335 H825" stroke="#ef476f" stroke-width="10"/><polygon points="825,335 795,318 795,352" fill="#ef476f"/><text x="245" y="190" text-anchor="middle" font-family="Arial" font-size="16" fill="#334155">Layer 1</text><text x="450" y="190" text-anchor="middle" font-family="Arial" font-size="16" fill="#334155">Layer 2</text><text x="655" y="190" text-anchor="middle" font-family="Arial" font-size="16" fill="#334155">Layer 3</text><text x="680" y="370" font-family="Arial" font-size="16" fill="#ef476f">heat flux q</text>
+  </svg>

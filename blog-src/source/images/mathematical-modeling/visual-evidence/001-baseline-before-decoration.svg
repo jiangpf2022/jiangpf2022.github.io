@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">001 · Baseline before decoration</title><desc id="desc">The proposal changes the full outcome distribution, not merely one average.</desc>
+  <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#16324f" flood-opacity=".10"/></filter></defs>
+  <rect width="960" height="600" rx="30" fill="#f7fbff"/>
+  <rect x="36" y="30" width="888" height="540" rx="24" fill="#ffffff" stroke="#d9e7f5" filter="url(#shadow)"/>
+  <rect x="36" y="30" width="10" height="540" rx="5" fill="#2563eb"/>
+  <text x="76" y="78" font-family="Inter,Arial,sans-serif" font-size="25" font-weight="700" fill="#17324d">001 · Baseline before decoration</text>
+  <text x="76" y="108" font-family="Inter,Arial,sans-serif" font-size="15" fill="#60758a">Synthetic teaching example · values are illustrative</text>
+  <line x1="112" y1="488" x2="860" y2="488" stroke="#9fb3c8" stroke-width="2"/><line x1="112" y1="154" x2="112" y2="488" stroke="#9fb3c8" stroke-width="2"/><path d="M130 470 C210 470 235 255 355 255 C475 255 485 470 570 470" fill="#2563eb" fill-opacity=".16" stroke="#2563eb" stroke-width="5"/><path d="M340 470 C420 470 465 205 585 205 C705 205 735 470 825 470" fill="#f59e0b" fill-opacity=".14" stroke="#f59e0b" stroke-width="5"/><line x1="355" y1="245" x2="355" y2="488" stroke="#2563eb" stroke-width="3" stroke-dasharray="7 7"/><line x1="585" y1="195" x2="585" y2="488" stroke="#f59e0b" stroke-width="3" stroke-dasharray="7 7"/><text x="245" y="215" font-family="Arial" font-size="17" fill="#2563eb">baseline</text><text x="635" y="185" font-family="Arial" font-size="17" fill="#f59e0b">proposal</text>
+  </svg>
