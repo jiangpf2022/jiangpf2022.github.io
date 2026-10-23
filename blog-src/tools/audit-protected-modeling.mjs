@@ -70,7 +70,7 @@ for (let number = 1; number <= 21; number++) {
   if (!post) { failures.push(`missing current blog ${no}`); continue; }
   if (number > 1 && !post.markdown.includes(`lesson_level: `)) failures.push(`${post.name}: missing level`);
   if (!post.markdown.includes(`title: ${number} - `)) failures.push(`${post.name}: title and blog number differ`);
-  checkPage(post.name, post.markdown, post.date, number > 5);
+  checkPage(post.name, post.markdown, post.date, number > 7);
 }
 for (let number = 3; number <= 18; number++) {
   const post = archives.get(String(number).padStart(2, "0"));
@@ -121,6 +121,8 @@ if (!existsSync(chinesePath)) {
 for (const [englishSlug, chineseSlug] of [
   ["Mathematical-Modeling-04-Linear-Quadratic-and-Conic-Optimization", "Mathematical-Modeling-04-Linear-Quadratic-and-Conic-Optimization-zh"],
   ["Mathematical-Modeling-05-Advanced-Convex-Optimization", "Mathematical-Modeling-05-Advanced-Convex-Optimization-zh"],
+  ["Mathematical-Modeling-06-Multi-Objective-and-Robust-Optimization", "Mathematical-Modeling-06-Multi-Objective-and-Robust-Optimization-zh"],
+  ["Mathematical-Modeling-07-Intelligent-Optimization", "Mathematical-Modeling-07-Intelligent-Optimization-zh"],
 ]) {
   const englishFile = path.join(publicDir, "2026/09/15", englishSlug, "index.html");
   const chineseFile = path.join(publicDir, "2026/09/15", chineseSlug, "index.html");
@@ -144,5 +146,5 @@ if (failures.length) {
   console.error(failures.join("\n"));
   process.exitCode = 1;
 } else {
-  console.log("21 current routes checked (5 open, 16 review-locked); 16 legacy URLs preserved; internal links and assets resolved.");
+  console.log("21 current routes checked (7 open, 14 review-locked); 16 legacy URLs preserved; internal links and assets resolved.");
 }

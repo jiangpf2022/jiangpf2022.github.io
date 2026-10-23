@@ -14,6 +14,14 @@
       "/blog/2026/09/15/Mathematical-Modeling-05-Advanced-Convex-Optimization/",
       "/blog/2026/09/15/Mathematical-Modeling-05-Advanced-Convex-Optimization-zh/",
     ],
+    [
+      "/blog/2026/09/15/Mathematical-Modeling-06-Multi-Objective-and-Robust-Optimization/",
+      "/blog/2026/09/15/Mathematical-Modeling-06-Multi-Objective-and-Robust-Optimization-zh/",
+    ],
+    [
+      "/blog/2026/09/15/Mathematical-Modeling-07-Intelligent-Optimization/",
+      "/blog/2026/09/15/Mathematical-Modeling-07-Intelligent-Optimization-zh/",
+    ],
   ];
   const restoreKey = "modeling-language-position";
 

@@ -421,9 +421,9 @@ inject:
     - <script src="/blog/js/reading-history.js?v=20261006-quiz-exp"></script>
     - <script src="/blog/js/llm-quiz-practice.js?v=20261006-interactive"></script>
     - <script src="/blog/js/modeling-quiz.js?v=20261023-accuracy-exp"></script>
-    - <script src="/blog/js/protected-modeling.js?v=20261023-five-open"></script>
+    - <script src="/blog/js/protected-modeling.js?v=20261023-seven-open"></script>
     - <script src="/blog/js/modeling-callouts.js?v=20260915-bilingual1"></script>
-    - <script src="/blog/js/modeling-language-switch.js?v=20261023-bilingual5"></script>
+    - <script src="/blog/js/modeling-language-switch.js?v=20261023-bilingual7"></script>
     - <script src="/blog/js/article-bookmarks.js?v=20260920-draggable-bookmark"></script>
     - <script src="/blog/js/learning-dashboard.js?v=20260920-bookmark-library"></script>
     - <script src="/blog/js/bookmarks-library.js?v=20260921-expanded-library"></script>

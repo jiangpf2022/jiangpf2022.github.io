@@ -8,6 +8,8 @@ hexo.extend.filter.register('after_render:html', function (html, data) {
     ['2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model/', '2026/09/14/Mathematical-Modeling-01-From-Reality-to-a-Model-zh/'],
     ['2026/09/15/Mathematical-Modeling-04-Linear-Quadratic-and-Conic-Optimization/', '2026/09/15/Mathematical-Modeling-04-Linear-Quadratic-and-Conic-Optimization-zh/'],
     ['2026/09/15/Mathematical-Modeling-05-Advanced-Convex-Optimization/', '2026/09/15/Mathematical-Modeling-05-Advanced-Convex-Optimization-zh/'],
+    ['2026/09/15/Mathematical-Modeling-06-Multi-Objective-and-Robust-Optimization/', '2026/09/15/Mathematical-Modeling-06-Multi-Objective-and-Robust-Optimization-zh/'],
+    ['2026/09/15/Mathematical-Modeling-07-Intelligent-Optimization/', '2026/09/15/Mathematical-Modeling-07-Intelligent-Optimization-zh/'],
   ];
   const pair = bilingualPairs.find(([english, chinese]) => renderedPath.includes(english) || renderedPath.includes(chinese));
   if (pair) {
