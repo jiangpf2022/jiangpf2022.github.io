@@ -495,14 +495,7 @@ $$L(x,\lambda,\nu)=f(x)+\sum_i\lambda_i g_i(x)+\sum_j\nu_jh_j(x).$$
 
 The Karush–Kuhn–Tucker conditions are
 
-$$
-\begin{aligned}
-\nabla_xL(x^*,\lambda^*,\nu^*)&=0 &&\text{stationarity},\\
-g_i(x^*)&\le0,\quad h_j(x^*)=0 &&\text{primal feasibility},\\
-\lambda_i^*&\ge0 &&\text{dual feasibility},\\
-\lambda_i^*g_i(x^*)&=0 &&\text{complementary slackness}.
-\end{aligned}
-$$
+$$\begin{aligned}\nabla_x L(x^{\ast},\lambda^{\ast},\nu^{\ast})&=0 &&\text{(stationarity)},\\ g_i(x^{\ast})&\le 0,\quad h_j(x^{\ast})=0 &&\text{(primal feasibility)},\\ \lambda_i^{\ast}&\ge 0 &&\text{(dual feasibility)},\\ \lambda_i^{\ast}g_i(x^{\ast})&=0 &&\text{(complementary slackness)}.\end{aligned}$$
 
 For convex problems satisfying a qualification such as Slater's condition, these conditions are sufficient as well as necessary. For nonconvex problems they may describe only a local stationary point.
 
@@ -516,11 +509,11 @@ The correction occurs only along the constraint normal and has exactly the magni
 
 Start with one inequality $g(x)\le0$. If the unconstrained minimizer violates it, the boundary pushes the solution back. The multiplier $\lambda\ge0$ measures the strength of that push. Stationarity
 
-$$\nabla f(x^*)+\lambda^*\nabla g(x^*)=0$$
+$$\nabla f(x^{\ast})+\lambda^{\ast}\nabla g(x^{\ast})=0.$$
 
 says the objective gradient is balanced by a nonnegative combination of active constraint normals. Complementary slackness
 
-$$\lambda^*g(x^*)=0$$
+$$\lambda^{\ast}g(x^{\ast})=0.$$
 
 says either the rule is inactive and exerts no force, or it is active and may carry a force. Thinking in normals makes the signs easier to remember.
 
@@ -596,8 +589,7 @@ $$
 
 $$r_{\text{prim}}=\max\{\|g(x)_+\|_\infty,\|h(x)\|_\infty\},$$
 
-$$r_{\text{comp}}=\|\lambda\odot g(x)\|_\infty,\qquad
-r_{\text{dual}}=\|(-\lambda)_+\|_\infty.$$
+$$r\_{\text{comp}}=\|\lambda\odot g(x)\|\_\infty,\qquad r\_{\text{dual}}=\|(-\lambda)\_+\|\_\infty.$$
 
 Small residuals support approximate stationarity and feasibility. They do not prove a global optimum in a nonconvex problem. Always pair residuals with convexity information or a global bound.
 
@@ -1045,11 +1037,7 @@ $$\max\sum_\omega\pi_\omega\Pi^\omega.$$
 
 To control downside, use CVaR of loss $L^\omega=-\Pi^\omega$:
 
-$$
-\operatorname{CVaR}_\alpha(L)
-=\min_{\eta,\xi_\omega\ge0}
-\left[\eta+\frac{1}{1-\alpha}\sum_\omega\pi_\omega\xi_\omega\right],
-$$
+$$\operatorname{CVaR}\_\alpha(L)=\min\_{\eta,\xi\_\omega\ge0}\left(\eta+\frac{1}{1-\alpha}\sum\_\omega\pi\_\omega\xi\_\omega\right).$$
 
 $$\xi_\omega\ge L^\omega-\eta.$$
 
@@ -1101,7 +1089,7 @@ print([c.dual_value for c in constraints])
 
 Audit primal feasibility with
 
-$$r_p=\max\{\|Ex-d\|_\infty,\ \|(Ax-b)_+\|_\infty\},$$
+$$r\_p=\max\left(\|Ex-d\|\_\infty,\|(Ax-b)\_+\|\_\infty\right).$$
 
 recompute the objective, check units and integrality, and inspect business rules independently. Perturb important inputs. If a 1% demand change replaces the whole schedule, the recommendation needs a stability warning even if profit barely changes.
 
@@ -1117,25 +1105,11 @@ The same small LP should be solved geometrically, algebraically, and computation
 
 Write the coefficient arrays explicitly:
 
-$$
-c=
-\begin{bmatrix}60\\40\end{bmatrix},\quad
-A=
-\begin{bmatrix}4&2\\1&2\end{bmatrix},\quad
-b=
-\begin{bmatrix}80\\50\end{bmatrix}.
-$$
+$$c=\begin{bmatrix}60\\40\end{bmatrix},\qquad A=\begin{bmatrix}4&2\\1&2\end{bmatrix},\qquad b=\begin{bmatrix}80\\50\end{bmatrix}.$$
 
 Because many libraries minimize, pass $-c$. After solving, do not print only the variable vector. Recompute
 
-$$Ax=
-\begin{bmatrix}
-4(10)+2(20)\\
-10+2(20)
-\end{bmatrix}
-=
-\begin{bmatrix}80\\50\end{bmatrix},
-$$
+$$Ax=\begin{bmatrix}4(10)+2(20)\\10+2(20)\end{bmatrix}=\begin{bmatrix}80\\50\end{bmatrix}.$$
 
 and $c^Tx=60(10)+40(20)=1400$. Check reduced costs and shadow prices against the manual dual. If software reports a dual for the negated minimization form, its sign may be reversed relative to the maximization interpretation. Document the convention.
 
@@ -1354,7 +1328,7 @@ That interpretation is more useful than the objective alone. It tells engineers 
 
 The word “cost” also deserves scrutiny. Vehicle-hours may be a reasonable proxy during an emergency, but it treats one pallet of bottled water and one pallet of blankets identically. If shelters face different shortage consequences, introduce unmet demand $u_j\ge0$:
 
-$$\sum_ix_{ij}+u_j=d_j,qquad
+$$\sum_i x_{ij}+u_j=d_j,\qquad
 \min\sum_{ij}c_{ij}x_{ij}+\sum_jp_ju_j.$$
 
 Penalty $p_j$ should represent the decision consequence of shortage, not a number chosen merely to force feasibility. A lexicographic approach can be clearer: first minimize weighted shortage, then minimize transport cost among shortage-optimal plans. This prevents a small transport saving from trading away a medically essential delivery.
@@ -1448,7 +1422,7 @@ Suppose the operator chooses $\lambda$ by minimizing the same objective used to 
 
 There is also a data question hidden inside $r$. If $r_t$ is derived from average passenger counts, a squared loss penalizes positive and negative mismatch symmetrically. But an undersupply of three buses at the peak may be far worse than an oversupply of three. Introduce positive and negative deviations
 
-$$x_t-r_t=d_t^+-d_t^-,qquad d_t^+,d_t^-\ge0,$$
+$$x_t-r_t=d_t^+-d_t^-,\qquad d_t^+,d_t^-\ge0,$$
 
 and use asymmetric linear or quadratic penalties. Alternatively build a queue model where unserved passengers carry forward. The choice changes the meaning of the recommendation.
 
@@ -1510,9 +1484,9 @@ $$L=x^T\Sigma x+\alpha(\mathbf1^Tx-1)+\beta(\mu^Tx-R)$$
 
 gives $2\Sigma x+\alpha\mathbf1+\beta\mu=0$. Thus $x$ is a linear combination of $\Sigma^{-1}\mathbf1$ and $\Sigma^{-1}\mu$. Solving the two equality equations determines the coefficients; the frontier variance is a quadratic function of $R$. This derivation explains why two-fund combinations span the unconstrained mean-variance frontier. When a weight becomes negative and short selling is forbidden, the active set changes and the formula must be recomputed on the remaining assets.
 
-The difficult part is not solving the QP. It is deciding whether $\mu$ and $\Sigma$ deserve the precision assigned to them. Expected returns are notoriously noisy. Small changes in $\mu$ can rotate the optimizer toward a completely different corner while estimated variance barely changes. A robust version may place $μ$ in an ellipsoid
+The difficult part is not solving the QP. It is deciding whether $\mu$ and $\Sigma$ deserve the precision assigned to them. Expected returns are notoriously noisy. Small changes in $\mu$ can rotate the optimizer toward a completely different corner while estimated variance barely changes. A robust version may place $\mu$ in an ellipsoid
 
-$$\mu=\bar\mu+Pu,qquad\|u\|_2\le\rho.$$
+$$\mu=\bar\mu+Pu,\qquad\|u\|_2\le\rho.$$
 
 Requiring worst-case return at least $R$ gives
 
@@ -1548,19 +1522,19 @@ $$9+y^2=1+(y-4)^2=1+y^2-8y+16,$$
 
 so $8y=8$ and $y=1$. The candidate center is $(3,1)$ with radius $\sqrt{10}$. Its distance to all three communities is $\sqrt{10}$, so all constraints bind. Because the triangle is acute, the circumcircle is the minimum enclosing circle. This analytic result is a regression test for the SOCP implementation.
 
-Now assign population weights. If the goal remains minimax distance, weights do nothing unless they change the definition, for example minimizing $​\max_i w_i\|x-a_i\|_2$. If the goal becomes total weighted distance, solve a weighted geometric median. If it becomes total weighted squared distance, the answer is the weighted centroid. These three familiar centers answer different ethical and operational questions. Calling each “optimal location” without naming the objective invites confusion.
+Now assign population weights. If the goal remains minimax distance, weights do nothing unless they change the definition, for example minimizing $\max_i w_i\|x-a_i\|_2$. If the goal becomes total weighted distance, solve a weighted geometric median. If it becomes total weighted squared distance, the answer is the weighted centroid. These three familiar centers answer different ethical and operational questions. Calling each “optimal location” without naming the objective invites confusion.
 
 Suppose a hospital must be within 2.5 distance units of Community 3 and the minimax objective covers the other two. Add $\|x-a_3\|_2\le2.5$. Check the old center: its distance to Community 3 is $\sqrt{10}>2.5$, so the new rule binds and moves the facility. A constrained optimizer will find the point, but a diagram should show the intersection of the hospital disk with the competing distance disks. The geometry lets readers see which promise caused the relocation.
 
-Coordinates themselves may be uncertain. Let actual community $i$ be $a_i+P_iu$, $‖u\u2016_2\le1$. Requiring
+Coordinates themselves may be uncertain. Let actual community $i$ be $a_i+P_i u$, $\|u\|_2\le1$. Requiring
 
 $$\|x-a_i-P_iu\|_2\le t\quad\text{for all }u$$
 
-does not in general collapse to exactly $‖x-a_i‖_2+‖P_i‖_2\le t$ unless we accept a conservative triangle-inequality bound or the uncertainty is isotropic in the required sense. A safe bound is
+does not in general collapse to exactly $\|x-a_i\|_2+\|P_i\|_2\le t$ unless we accept a conservative triangle-inequality bound or the uncertainty is isotropic in the required sense. A safe bound is
 
 $$\|x-a_i\|_2+\|P_i\|_2\le t.$$
 
-If $P_i=\rho_iI$, this bound is exact: the perturbation can point directly away from the facility, so worst-case distance is $‖x-a_i‖_2+\rho_i$. Stating when a robust counterpart is exact prevents a conservative approximation from being presented as equivalence.
+If $P_i=\rho_i I$, this bound is exact: the perturbation can point directly away from the facility, so worst-case distance is $\|x-a_i\|_2+\rho_i$. Stating when a robust counterpart is exact prevents a conservative approximation from being presented as equivalence.
 
 Demand uncertainty produces another model. If communities may require several ambulances simultaneously, distance alone is insufficient. Facility capacity, response-time queues, and backup coverage matter. A two-stage model can open bases first and dispatch ambulances after demand is observed. A static minimax center is still a valuable baseline: it is transparent, globally solvable, and supplies a geometric check. Complexity should be added where the baseline's failure is named.
 
@@ -1576,7 +1550,7 @@ $$
 q_{kts}=\sum_i h_{ikts}x_{ikts},
 $$
 
-$$0\le y_{kts}\le q_{kts},qquad y_{kts}\le D_{kts},$$
+$$0\le y_{kts}\le q_{kts},\qquad y_{kts}\le D_{kts},$$
 
 and profit
 
@@ -1624,22 +1598,15 @@ Uncertain yield, demand, cost, and price should not all be perturbed independent
 
 There are several defensible objectives. Expected profit maximization is suitable for a risk-neutral planner with repeat opportunities. Worst-case profit is conservative and sensitive to the uncertainty set. Mean-CVaR trades average performance against bad-tail outcomes. Regret compares a fixed plan with the scenario-specific clairvoyant optimum. A multi-objective model may include profit, minimum household income, crop diversity, or soil health. The choice is a policy statement, not a solver option.
 
-For a finite scenario set $ω$ with loss $L_ω(x)$, CVaR at level $β$ can be written
+For a finite scenario set $\Omega$ with loss $L_\omega(x)$, CVaR at level $\beta$ can be written
 
-$$
-\operatorname{CVaR}_\beta(L)=
-\min_{\eta}
-\left[
-\eta+\frac{1}{(1-\beta)|\Omega|}
-\sum_{\omega\in\Omega}\xi_\omega
-\right],
-$$
+$$\operatorname{CVaR}\_\beta(L)=\min\_{\eta}\left[\eta+\frac{1}{(1-\beta)|\Omega|}\sum\_{\omega\in\Omega}\xi\_\omega\right].$$
 
 subject to
 
-$$\xi_\omega\ge L_\omega(x)-\eta,qquad\xi_\omega\ge0.$$
+$$\xi_\omega\ge L_\omega(x)-\eta,\qquad\xi_\omega\ge0.$$
 
-Here $η$ is a loss threshold and $ξ_ω$ captures exceedance. When scenario losses are linear in the decisions, this risk term remains linear. If the base model contains binaries, the result is a MILP rather than a continuous LP.
+Here $\eta$ is a loss threshold and $\xi_\omega$ captures exceedance. When scenario losses are linear in the decisions, this risk term remains linear. If the base model contains binaries, the result is a MILP rather than a continuous LP.
 
 The seven-year horizon creates end effects. A model may exploit the last year by planting a crop whose soil consequence occurs after the horizon. Add a terminal condition, salvage value, or test a longer horizon and report whether the first years change. Decisions near the beginning should be relatively stable if the horizon is adequate.
 
@@ -1708,7 +1675,7 @@ $$
 \min_x c^Tx-\mu\sum_i\log(b_i-a_i^Tx).
 $$
 
-As $μ$ decreases, the central-path solution approaches the boundary optimum. Interior-point methods have strong polynomial complexity and perform well for large sparse continuous problems. They may return a point in the middle of an optimal face rather than a basic vertex; crossover can recover a basis when sensitivity analysis needs one.
+As $\mu$ decreases, the central-path solution approaches the boundary optimum. Interior-point methods have strong polynomial complexity and perform well for large sparse continuous problems. They may return a point in the middle of an optimal face rather than a basic vertex; crossover can recover a basis when sensitivity analysis needs one.
 
 First-order methods use gradients and cheap projections or proximal steps. For smooth convex $f$ with Lipschitz gradient,
 
@@ -1736,7 +1703,7 @@ $$
 
 with
 
-$$0\le p_{vt}\le P,qquad0\le e_{vt}\le E_v,qquad
+$$0\le p_{vt}\le P,\qquad 0\le e_{vt}\le E_v,\qquad
 e_{v,t+1}=e_{vt}+\eta p_{vt}.$$
 
 It solves beautifully and charges almost entirely in the cheapest hours. Yet no vehicle-departure constraints appear. The optimizer may send trucks onto routes with empty batteries. This is not a solver failure; the feasible set omitted the service obligation.
@@ -1759,7 +1726,7 @@ $$\sum_vp_{vt}\le P_t^{\mathrm{station}}.$$
 
 If chargers are discrete, introduce assignment variables. If only $m$ chargers exist,
 
-$$\sum_vz_{vt}\le m,qquad p_{vt}\le Pz_{vt}.$$
+$$\sum_v z_{vt}\le m,\qquad p_{vt}\le Pz_{vt}.$$
 
 If a vehicle cannot switch chargers every minute, minimum connection durations or switching costs may be needed. Each refinement corresponds to an observed failure of the simpler model.
 
@@ -1790,7 +1757,7 @@ If prices are nonnegative and efficiencies are below one, simultaneous charging 
 
 Now consider uncertainty. Route consumption depends on traffic and temperature. If decisions are fixed day-ahead, require adequate energy under scenarios or use a chance constraint. If dispatchers can adjust later, separate day-ahead commitments from real-time recourse. A static robust model that forces the same detailed hourly charging plan under every scenario may be unnecessarily conservative when actual operations can respond.
 
-An ellipsoidal robust departure requirement can arise if uncertain route consumption is $\bar d+Pu$ with $‖u‖_2\leρ$. Ensuring energy covers all such consumption yields a norm protection term. A scenario model instead checks selected joint patterns. A distributionally robust model protects over probability distributions near empirical evidence. The choice should match what is known about uncertainty and how failure is valued.
+An ellipsoidal robust departure requirement can arise if uncertain route consumption is $\bar d+Pu$ with $\|u\|_2\le\rho$. Ensuring energy covers all such consumption yields a norm protection term. A scenario model instead checks selected joint patterns. A distributionally robust model protects over probability distributions near empirical evidence. The choice should match what is known about uncertainty and how failure is valued.
 
 The team's first validation is a unit test with one vehicle and three hours. Initial energy is 10 kWh, capacity 30, efficiency 0.9, power limit 10 kW, and one-hour periods. Charging at 10 kW for two hours gives $10+2(0.9)(10)=28$ kWh. A route then consumes 12, leaving 16. If code reports 20, efficiency or time-step scaling is wrong. This four-line test is more diagnostic than comparing a thousand-variable solution with intuition.
 
@@ -1825,15 +1792,15 @@ depends on units. A dimensionless elasticity
 
 $$E_i=\frac{\theta_i}{z^*}\frac{\partial z^*}{\partial\theta_i}$$
 
-compares relative effects when quantities are positive. If $E_i=0.8$, a local 1% increase in $θ_i$ corresponds to about 0.8% increase in the output. Elasticity is still local and can fail near thresholds.
+compares relative effects when quantities are positive. If $E_i=0.8$, a local 1% increase in $\theta_i$ corresponds to about 0.8% increase in the output. Elasticity is still local and can fail near thresholds.
 
-For discrete decisions, objective sensitivity alone is inadequate. Define decision stability, for example Jaccard similarity of selected facilities, Hamming distance of crop activations, or normalized $ℓ1$ distance of allocations. A plan can retain nearly the same profit while completely changing which communities are served or which plots are planted. Decision makers experience the plan, not merely its objective.
+For discrete decisions, objective sensitivity alone is inadequate. Define decision stability, for example Jaccard similarity of selected facilities, Hamming distance of crop activations, or normalized $\ell_1$ distance of allocations. A plan can retain nearly the same profit while completely changing which communities are served or which plots are planted. Decision makers experience the plan, not merely its objective.
 
 Global variance-based sensitivity treats uncertain inputs as distributions and decomposes output variance. A first-order Sobol index measures variance attributable to one input; a total-effect index includes interactions. Such indices require a probabilistic model and many evaluations. If distributions are invented without evidence, precise indices create false authority. Screening methods or structured stress tests may be more honest.
 
 Scenario design should include a nominal case, historically grounded alternatives, and decision-relevant stresses. A stress is not a random nightmare; it targets a mechanism that could reverse the decision. For the relief network, close the bridge or reduce one warehouse supply. For the bakery, lower celebration demand near the setup threshold. For the bus schedule, shift rather than merely scale the peak. For a portfolio, change correlation during a downturn. For crops, combine poor yield with a price response rather than perturbing them independently.
 
-Robust optimization needs an uncertainty budget. If every coefficient independently takes its worst value, the resulting plan may protect against a physically impossible simultaneous disaster. Budgeted uncertainty allows at most $Γ$ coefficients to experience full adverse deviation, with partial combinations allowed. As $Γ$ rises, protection grows and nominal performance usually falls. Plot both, and explain what $Γ$ means operationally.
+Robust optimization needs an uncertainty budget. If every coefficient independently takes its worst value, the resulting plan may protect against a physically impossible simultaneous disaster. Budgeted uncertainty allows at most $\Gamma$ coefficients to experience full adverse deviation, with partial combinations allowed. As $\Gamma$ rises, protection grows and nominal performance usually falls. Plot both, and explain what $\Gamma$ means operationally.
 
 Chance constraints require
 
@@ -1843,9 +1810,9 @@ Under Gaussian affine uncertainty, this can become an SOCP involving a mean plus
 
 Out-of-sample evaluation is essential when optimization uses estimated quantities. Optimizing noise creates the optimizer's curse: among many alternatives, the selected one tends to have an unusually favorable estimation error. Evaluate the chosen decision on data not used to estimate or select it. Nested validation may be necessary when hyperparameters and models are compared.
 
-Regret is useful when scenario scales differ. For minimization scenario $ω$, let $z_ω(x)$ be the cost of fixed decision $x$, and let $z_ω^*$ be the cost if that scenario were known in advance. Regret is
+Regret is useful when scenario scales differ. For minimization scenario $\omega$, let $z_\omega(x)$ be the cost of fixed decision $x$, and let $z_\omega^*$ be the cost if that scenario were known in advance. Regret is
 
-$$R_ω(x)=z_ω(x)-z_ω^*.$$
+$$R_\omega(x)=z_\omega(x)-z_\omega^*.$$
 
 Minimax regret chooses $x$ to minimize the worst lost opportunity. It does not minimize worst absolute cost. A scenario that is expensive for every decision may dominate robust cost but contribute little regret. Choose based on the question: survival under absolute loss or avoiding preventable disadvantage.
 
@@ -1863,7 +1830,7 @@ Start with “minimize waiting time.” Does this mean average wait,
 
 $$\frac{1}{N}\sum_{i=1}^Nw_i,$$
 
-maximum wait $\max_iw_i$, the fraction above a service threshold, or a convex penalty $∑_iw_i^2$? Average wait can sacrifice a small group to help many others. Maximum wait protects the worst user but may spend a great deal for a small improvement. A threshold objective reflects a service promise but treats waits just below and just above the threshold discontinuously. Squared wait increasingly penalizes long delays. None is universally correct.
+maximum wait $\max_i w_i$, the fraction above a service threshold, or a convex penalty $\sum_i w_i^2$? Average wait can sacrifice a small group to help many others. Maximum wait protects the worst user but may spend a great deal for a small improvement. A threshold objective reflects a service promise but treats waits just below and just above the threshold discontinuously. Squared wait increasingly penalizes long delays. None is universally correct.
 
 Suppose four passengers wait $(1,1,1,13)$ minutes under Plan A and $(4,4,4,4)$ under Plan B. Both average four minutes. Maximum wait favors B; variance favors B; a threshold of five minutes counts one violation for A and zero for B. If a model claims the plans are equivalent because their averages match, it has chosen an ethical position without saying so.
 
@@ -1873,11 +1840,11 @@ $$|\bar w_g-\bar w_h|\le\delta$$
 
 using two linear inequalities for each pair. Or minimize the maximum group wait with epigraph $t\ge\bar w_g$. But a group average may conceal extreme individuals. Fairness must match the harm being addressed and should be reported beside efficiency cost.
 
-Next consider “meet demand.” An equality $∑_ix_{ij}=d_j$ assumes exact service and no surplus. An inequality $∑_ix_{ij}\ge d_j$ permits oversupply, harmless only if oversupply has no cost or physical consequence. A soft balance $∑_ix_{ij}+u_j=d_j$ with penalized shortage admits failure at a stated price. A chance constraint promises a probability of meeting uncertain demand. These are different contracts.
+Next consider “meet demand.” An equality $\sum_i x_{ij}=d_j$ assumes exact service and no surplus. An inequality $\sum_i x_{ij}\ge d_j$ permits oversupply, harmless only if oversupply has no cost or physical consequence. A soft balance $\sum_i x_{ij}+u_j=d_j$ with penalized shortage admits failure at a stated price. A chance constraint promises a probability of meeting uncertain demand. These are different contracts.
 
 The penalty on shortage needs calibration. If one unserved patient costs $p$ in the objective, compare $p$ with every other cost unit. If $p$ is too small, the model buys cheap shortage. If it is enormous, numerical conditioning suffers and all other trade-offs vanish. Lexicographic optimization avoids arbitrary exchange rates when service truly has priority: first minimize shortage, fix its optimum within tolerance, then minimize operating cost.
 
-“Use no more than three facilities” is $∑_jz_j\le3$. “Use exactly three” is equality. “Use up to three but pay a fixed cost” may need only the inequality plus fixed-charge objective. These versions behave differently when demand is low. Ask whether unused capacity is allowed, whether an approved site must open, and whether zero facilities is logically possible.
+“Use no more than three facilities” is $\sum_j z_j\le3$. “Use exactly three” is equality. “Use up to three but pay a fixed cost” may need only the inequality plus fixed-charge objective. These versions behave differently when demand is low. Ask whether unused capacity is allowed, whether an approved site must open, and whether zero facilities is logically possible.
 
 “At least one of A and B” is $z_A+z_B\ge1$. “Exactly one” is equality. “If A, then B” is $z_A\le z_B$. “A only if B” means the same implication, despite conversational ambiguity. “A if B” means $z_B\le z_A$. Truth tables with four binary combinations are the safest way to verify logic.
 
@@ -1885,7 +1852,7 @@ Exclusive alternatives can be modeled by disjunction. Suppose a depot must lie l
 
 $$x_1\le L\quad\text{or}\quad x_1\ge U.$$
 
-With bounds $ℓ\le x_1\le u$, binary $z$ can impose
+With bounds $\ell\le x_1\le u$, binary $z$ can impose
 
 $$x_1\le L+(u-L)z,$$
 
@@ -1895,10 +1862,9 @@ At $z=0$, the left rule is active; at $z=1$, the right rule is active. Deriving 
 
 Products of binaries can be linearized exactly. For $w=z_1z_2$,
 
-$$w\le z_1,qquad w\le z_2,qquad
-w\ge z_1+z_2-1,qquad w\ge0.$$
+$$w\le z_1,\qquad w\le z_2,\qquad w\ge z_1+z_2-1,\qquad w\ge0.$$
 
-The constraints make $w=1$ exactly when both binaries are one. A binary times a bounded continuous variable needs a McCormick envelope. If $w=zx$ and $ℓ\le x\le u$,
+The constraints make $w=1$ exactly when both binaries are one. A binary times a bounded continuous variable needs a McCormick envelope. If $w=zx$ and $\ell\le x\le u$,
 
 $$
 \begin{aligned}
@@ -1939,7 +1905,7 @@ Network flow balances need one sign convention. For node $i$,
 
 $$\sum_{j:(j,i)}x_{ji}-\sum_{j:(i,j)}x_{ij}=b_i$$
 
-can define $b_i$ as net demand. If sources use negative $b_i$ and sinks positive, verify $∑_ib_i=0$ in a closed network. Copying a row with the opposite convention can create or destroy flow. Print each node's inflow, outflow, and balance in the verifier.
+can define $b_i$ as net demand. If sources use negative $b_i$ and sinks positive, verify $\sum_i b_i=0$ in a closed network. Copying a row with the opposite convention can create or destroy flow. Print each node's inflow, outflow, and balance in the verifier.
 
 Multi-commodity flow adds commodity $k$. Shared arc capacity is
 
@@ -1955,7 +1921,7 @@ In electricity, nonlinear losses may require a convex approximation or AC power-
 
 Capacity expansion often combines continuous and lumpy choices. Existing capacity $u_i$, continuous expansion $e_i$, and binary construction $z_i$ might satisfy
 
-$$\text{flow}_i\le u_i+e_i,qquad0\le e_i\le \bar e_i z_i,$$
+$$\text{flow}_i\le u_i+e_i,\qquad 0\le e_i\le \bar e_i z_i,$$
 
 with fixed and variable costs. If construction comes in modules, use integer module count. Depreciation and multi-year timing require discounting and lead times. Opening capacity instantaneously in the year it is chosen may be unrealistic.
 
@@ -1993,7 +1959,7 @@ The recourse value $Q(y)$ is not an arbitrary correction; it is the best operati
 
 Policies can be more useful than schedules when uncertainty unfolds. A static bus schedule fixes every $x_t$ in advance. A policy might say “add one bus when the observed queue exceeds 35 and a reserve driver is available.” The threshold can be optimized in simulation. The policy is simpler to execute, reacts to information, and may be more robust than a detailed nominal schedule.
 
-However, simulation-based policy optimization introduces sampling noise. If $θ$ is a policy parameter and $\hat J_N(\theta)$ is average cost over $N$ random scenarios, selecting the lowest observed value among many candidates overfits simulation noise. Use common random numbers so policies face the same scenarios, tune on one set, and evaluate the chosen policy on independent scenarios. Report confidence intervals for paired differences.
+However, simulation-based policy optimization introduces sampling noise. If $\theta$ is a policy parameter and $\hat J_N(\theta)$ is average cost over $N$ random scenarios, selecting the lowest observed value among many candidates overfits simulation noise. Use common random numbers so policies face the same scenarios, tune on one set, and evaluate the chosen policy on independent scenarios. Report confidence intervals for paired differences.
 
 Suppose Policy A and B are tested on the same $N$ demand paths. Let $D_s=J_s(A)-J_s(B)$. The standard error of the mean difference is
 

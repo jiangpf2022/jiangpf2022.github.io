@@ -238,7 +238,7 @@ print([c.dual_value for c in constraints])
 
 求解后要重新计算目标，逐条检查约束，核对单位与整数性。原始可行残差可以写成
 
-$$r_p=\max\{\|Ex-d\|_\infty,\ \|(Ax-b)_+\|_\infty\}.$$
+$$r\_p=\max\left(\|Ex-d\|\_\infty,\|(Ax-b)\_+\|\_\infty\right).$$
 
 整数模型还应报告当前最好可行值 $z_P$、最好界 $z_D$ 和相对间隙
 
