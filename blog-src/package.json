@@ -7,7 +7,8 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "audit:modeling": "node tools/audit-protected-modeling.mjs"
+    "audit:modeling": "node tools/audit-protected-modeling.mjs",
+    "audit:level1": "node tools/audit-level1-content.mjs"
   },
   "hexo": {
     "version": "7.2.0"

@@ -1,4 +1,4 @@
--- One-time migration for the Mathematical Modeling lesson-one quiz.
+-- One-time migration for the Mathematical Modeling article quizzes.
 -- Run this in the blog project's Supabase SQL editor.
 
 alter table public.quiz_completions
@@ -77,11 +77,41 @@ begin
     when 'modeling-01-q3' then v_correct_answer := array['A','B','C']; v_max_exp := 2;
     when 'modeling-01-q4' then v_correct_answer := array['B']; v_max_exp := 2;
     when 'modeling-01-q5' then v_correct_answer := array['A','B','C','E']; v_max_exp := 3;
-    when 'modeling-01-q6' then v_correct_answer := array['B']; v_max_exp := 4;
-    when 'modeling-01-q7' then v_correct_answer := array['A','B','D']; v_max_exp := 5;
-    when 'modeling-01-q8' then v_correct_answer := array['C']; v_max_exp := 6;
-    when 'modeling-01-q9' then v_correct_answer := array['A','B','C']; v_max_exp := 8;
-    when 'modeling-01-q10' then v_correct_answer := array['A','C','D','E']; v_max_exp := 10;
+    when 'modeling-01-q6' then v_correct_answer := array['C']; v_max_exp := 4;
+    when 'modeling-01-q7' then v_correct_answer := array['A','C','D']; v_max_exp := 5;
+    when 'modeling-01-q8' then v_correct_answer := array['B']; v_max_exp := 6;
+    when 'modeling-01-q9' then v_correct_answer := array['B']; v_max_exp := 8;
+    when 'modeling-01-q10' then v_correct_answer := array['A','C','D','F']; v_max_exp := 10;
+    when 'modeling-07-q1' then v_correct_answer := array['B']; v_max_exp := 1;
+    when 'modeling-07-q2' then v_correct_answer := array['C']; v_max_exp := 1;
+    when 'modeling-07-q3' then v_correct_answer := array['A','C','D']; v_max_exp := 2;
+    when 'modeling-07-q4' then v_correct_answer := array['B']; v_max_exp := 2;
+    when 'modeling-07-q5' then v_correct_answer := array['C']; v_max_exp := 3;
+    when 'modeling-07-q6' then v_correct_answer := array['B']; v_max_exp := 4;
+    when 'modeling-07-q7' then v_correct_answer := array['A','B','D']; v_max_exp := 5;
+    when 'modeling-07-q8' then v_correct_answer := array['A','C','D']; v_max_exp := 6;
+    when 'modeling-07-q9' then v_correct_answer := array['B']; v_max_exp := 8;
+    when 'modeling-07-q10' then v_correct_answer := array['A','C','D','F']; v_max_exp := 10;
+    when 'modeling-09-q1' then v_correct_answer := array['B']; v_max_exp := 1;
+    when 'modeling-09-q2' then v_correct_answer := array['C']; v_max_exp := 1;
+    when 'modeling-09-q3' then v_correct_answer := array['B']; v_max_exp := 2;
+    when 'modeling-09-q4' then v_correct_answer := array['C']; v_max_exp := 2;
+    when 'modeling-09-q5' then v_correct_answer := array['D']; v_max_exp := 3;
+    when 'modeling-09-q6' then v_correct_answer := array['A','C']; v_max_exp := 4;
+    when 'modeling-09-q7' then v_correct_answer := array['B']; v_max_exp := 5;
+    when 'modeling-09-q8' then v_correct_answer := array['C']; v_max_exp := 6;
+    when 'modeling-09-q9' then v_correct_answer := array['A','B','D']; v_max_exp := 8;
+    when 'modeling-09-q10' then v_correct_answer := array['A','C','D','E']; v_max_exp := 10;
+    when 'modeling-10-q1' then v_correct_answer := array['D']; v_max_exp := 1;
+    when 'modeling-10-q2' then v_correct_answer := array['B']; v_max_exp := 1;
+    when 'modeling-10-q3' then v_correct_answer := array['C']; v_max_exp := 2;
+    when 'modeling-10-q4' then v_correct_answer := array['B']; v_max_exp := 2;
+    when 'modeling-10-q5' then v_correct_answer := array['C']; v_max_exp := 3;
+    when 'modeling-10-q6' then v_correct_answer := array['D']; v_max_exp := 4;
+    when 'modeling-10-q7' then v_correct_answer := array['B']; v_max_exp := 5;
+    when 'modeling-10-q8' then v_correct_answer := array['A','C']; v_max_exp := 6;
+    when 'modeling-10-q9' then v_correct_answer := array['A','B','D']; v_max_exp := 8;
+    when 'modeling-10-q10' then v_correct_answer := array['A','B','D','F']; v_max_exp := 10;
     else raise exception 'Unknown quiz id';
   end case;
 

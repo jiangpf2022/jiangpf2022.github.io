@@ -1,12 +1,9 @@
 (() => {
   "use strict";
 
-  const QUIZ_PREFIX = "modeling-01-q";
   const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const MAX_EXP = 42;
-  const LOCAL_KEY = "modeling-01-quiz-practice-v1";
 
-  const questions = [
+  const lesson1Questions = [
     {
       target: 90,
       exp: 1,
@@ -169,6 +166,81 @@
     },
   ];
 
+  const q = (target, exp, answer, en, zh, multiple = false) => ({
+    target, exp, answer, multiple,
+    en: { question: en[0], options: en[1], explanation: en[2] },
+    zh: { question: zh[0], options: zh[1], explanation: zh[2] },
+  });
+
+  lesson1Questions.splice(5, 5,
+    q(46, 4, ["C"],
+      ["A thermal container has effective heat capacity C and exchanges heat with ambient temperature Ta according to C dT/dt = hA(Ta−T). If C doubles while h, A, Ta, and T(0) stay fixed, what happens to the time required to close 90% of the initial temperature gap?", ["It halves.", "It is unchanged.", "It doubles.", "It becomes four times as long."], "The solution gap is proportional to exp(−hAt/C). Reaching a fixed fraction takes time C ln(10)/(hA), so doubling C doubles the time."],
+      ["保温容器满足 C dT/dt = hA(Ta−T)。若 C 加倍，而 h、A、Ta 和 T(0) 不变，消除初始温差 90% 所需时间如何变化？", ["减半。", "不变。", "加倍。", "变为四倍。"], "温差按 exp(−hAt/C) 衰减，达到固定比例所需时间为 C ln(10)/(hA)，因此随 C 线性增加。"]),
+    q(36, 5, ["A", "C", "D"],
+      ["A ski lift carries μ(v)=av guests per hour at cable speed v. Each skier remains on the trail for mean time τ, so expected trail occupancy is λτ when admissions are λ. The resort caps occupancy at K and the queue is stable only if λ<μ(v). Which statements are correct?", ["Feasibility requires λ≤K/τ and λ<av.", "Making v smaller always raises feasible admissions.", "If profit rewards admissions but penalizes energy cv³, the optimum need not use maximum speed.", "Changing the objective can reverse the preferred speed."], "Little's law gives occupancy λτ; queue stability gives λ<av. A broader objective trades admissions against energy and service, so neither fastest nor slowest is universally optimal."],
+      ["缆车速度为 v 时每小时运力 μ(v)=av。游客平均在雪道停留 τ，小时时段入场率为 λ，雪道容量为 K，且排队稳定要求 λ<μ(v)。哪些结论正确？", ["可行性要求 λ≤K/τ 且 λ<av。", "降低 v 一定提高可行入场率。", "若利润奖励入场量但惩罚能耗 cv³，最优速度不一定取最大值。", "改变目标函数可能反转对速度的偏好。"], "Little 定律给出雪道人数 λτ，队列稳定性给出 λ<av。完整目标还会权衡入场、能耗与服务，因此最快或最慢都不是普遍答案。"], true),
+    q(27, 6, ["B"],
+      ["Two continuous journeys x₁(t), x₂(t) run from opposite endpoints of the same route over the same clock interval: x₁(0)=0, x₁(1)=L, x₂(0)=L, x₂(1)=0. Which theorem guarantees a time when they occupy the same position?", ["Mean value theorem applied separately to both paths.", "Intermediate value theorem applied to g(t)=x₁(t)−x₂(t).", "Taylor's theorem at t=1/2.", "They must meet exactly at t=1/2."], "g is continuous, g(0)=−L and g(1)=L, so it has a zero. The meeting time need not be the midpoint."],
+      ["两段连续旅程在同一时间区间从路线两端相向进行：x₁(0)=0,x₁(1)=L,x₂(0)=L,x₂(1)=0。什么定理保证某时刻位置相同？", ["分别对两条路径使用中值定理。", "对 g(t)=x₁(t)−x₂(t) 使用介值定理。", "在 t=1/2 处使用 Taylor 定理。", "它们一定恰好在 t=1/2 相遇。"], "g 连续，且 g(0)=−L、g(1)=L，因此必有零点，但相遇时刻不一定是中点。"]),
+    q(18, 8, ["B"],
+      ["A library chooses rooms x before demand d is known. Unmet demand is max(0,d−4x), unused capacity is max(0,4x−d), and d∈[80,120]. What is the smallest integer x that guarantees zero unmet demand in every allowed scenario?", ["20", "30", "25", "40"], "Worst-case demand is 120, so 4x≥120 and the smallest integer choice is x=30. Average demand is irrelevant to a hard robust guarantee."],
+      ["图书馆需在需求 d 未知前决定开放房间数 x。未满足需求为 max(0,d−4x)，且 d∈[80,120]。保证所有允许情景都没有未满足需求的最小整数 x 是多少？", ["20", "30", "25", "40"], "硬鲁棒保证由最坏需求 120 决定，因此 4x≥120，最小整数解为 30。平均需求不能替代最坏情景约束。"]),
+    q(10, 10, ["A", "C", "D", "F"],
+      ["A campus dining model estimates arrival rate λ, service rate μ, and an abandonment parameter θ from only hourly total arrivals and total completed meals. Which claims are defensible?", ["λ may be estimable from arrival counts if the counting process is modeled.", "μ and θ are always separately identifiable from totals alone.", "Queue-length or waiting-time observations can add information needed to distinguish μ from θ.", "A model fitting totals perfectly can still predict waiting times badly.", "More optimizer iterations resolve structural non-identifiability.", "A useful validation set must preserve the decision-time information boundary."], "Aggregate totals can hide whether customers were served slowly or abandoned. Additional state observations or interventions are needed; optimization precision cannot repair missing information, and validation must avoid future leakage."],
+      ["校园食堂仅用每小时总到达人数和完成就餐人数，估计到达率 λ、服务率 μ 与放弃等待参数 θ。哪些说法可辩护？", ["若明确计数过程，λ 可能由到达计数估计。", "仅凭总量一定能分别识别 μ 与 θ。", "队长或等待时间观测可以帮助区分 μ 与 θ。", "总量拟合完美的模型仍可能错误预测等待时间。", "增加优化迭代次数可以解决结构不可识别。", "验证集必须遵守决策时点的信息边界。"], "汇总总量无法区分服务慢与顾客离开，需要额外状态观测或干预；优化精度不能修复信息缺失，验证也必须避免未来信息泄漏。"], true)
+  );
+
+  const lesson9Questions = [
+    q(90, 1, ["B"], ["If V is measured in liters, what unit must dV/dt have?", ["Liters", "Liters per minute", "Minutes per liter", "Dimensionless"], "A derivative divides the state unit by the independent-variable unit."], ["若 V 的单位是升，dV/dt 的单位应是什么？", ["升", "升/分钟", "分钟/升", "无量纲"], "导数的单位是状态单位除以自变量单位。"]),
+    q(82, 1, ["C"], ["What is a sufficient state for an ideal pendulum?", ["Angle only", "Angular velocity only", "Angle and angular velocity", "Mass and length only"], "The same angle can be crossed in two directions, so both angle and angular velocity are required."], ["理想单摆的充分状态是什么？", ["只有角度", "只有角速度", "角度与角速度", "只有质量与长度"], "同一角度可能沿两个方向经过，因此需要角度和角速度。"]),
+    q(74, 2, ["B"], ["A second-order scalar ODE normally needs how many independent conditions for a unique solution?", ["One", "Two", "Three", "It never needs conditions"], "Its first-order state representation has two components."], ["二阶标量 ODE 通常需要几个独立条件才能选出唯一解？", ["一个", "两个", "三个", "完全不需要"], "改写为一阶状态系统后有两个状态分量。"]),
+    q(65, 2, ["C"], ["An ideal small-angle pendulum's length is multiplied by 4. Its period is multiplied by:", ["1", "2√2", "2", "4"], "P is proportional to the square root of length."], ["小角度理想单摆长度变为 4 倍，周期变为多少倍？", ["1", "2√2", "2", "4"], "周期与长度的平方根成正比。"]),
+    q(56, 3, ["D"], ["For a draining hemisphere, tf is proportional to R^(5/2)/a. If R doubles and hole area a doubles, the time factor is:", ["√2", "2", "4", "2√2"], "The factor is 2^(5/2)/2=2^(3/2)=2√2."], ["半球排水时间 tf∝R^(5/2)/a。若 R 和孔面积 a 都加倍，时间变为多少倍？", ["√2", "2", "4", "2√2"], "比例为 2^(5/2)/2=2^(3/2)=2√2。"]),
+    q(46, 4, ["A", "C"], ["For the steady cooling-rod boundary problem, which statements are correct?", ["Two endpoint temperatures provide two boundary conditions.", "The steady model predicts warm-up time.", "The parameter αBL²/(λA) is dimensionless.", "Removing time always improves physical accuracy."], "The second-order spatial ODE needs two boundaries, and nondimensionalization produces αBL²/(λA). Steady state cannot predict transients."], ["关于稳态散热杆边值问题，哪些说法正确？", ["两个端点温度提供两个边界条件。", "稳态模型能预测升温时间。", "参数 αBL²/(λA) 无量纲。", "去掉时间一定提升物理精度。"], "二阶空间方程需要两个边界，无量纲化得到 αBL²/(λA)；稳态模型无法预测瞬态。"], true),
+    q(36, 5, ["B"], ["In logistic growth dN/dt=rN(1−N/K), the absolute growth rate is maximal at:", ["N=0", "N=K/2", "N=K", "N=2K"], "Differentiate the quadratic growth term with respect to N."], ["Logistic 模型 dN/dt=rN(1−N/K) 的绝对增长率何时最大？", ["N=0", "N=K/2", "N=K", "N=2K"], "对关于 N 的二次增长项求导即可。"]),
+    q(27, 6, ["C"], ["Forward Euler solves x′=−kx with step Δt. Which condition makes the discrete magnitude shrink without sign alternation?", ["kΔt>2", "1<kΔt<2", "0<kΔt<1", "kΔt=3"], "The multiplier 1−kΔt must lie between 0 and 1."], ["前向 Euler 求解 x′=−kx。离散解幅值衰减且不变号的条件是什么？", ["kΔt>2", "1<kΔt<2", "0<kΔt<1", "kΔt=3"], "乘子 1−kΔt 必须位于 0 与 1 之间。"]),
+    q(18, 8, ["A", "B", "D"], ["For the HIV system T′=s−dT−βVT, I′=βVT−δI, V′=pI−cV, which claims are correct?", ["The infection-transfer term cancels in T′+I′.", "Treatment efficacy can be modeled by reducing β or p.", "One viral-load curve always identifies all six parameters uniquely.", "Held-out prediction is stronger evidence than fitting the same points."], "Internal infection transfer cancels; treatment can act on infection or production; sparse single-output data generally do not identify every parameter."], ["对 HIV 系统 T′=s−dT−βVT，I′=βVT−δI，V′=pI−cV，哪些结论正确？", ["感染转移项在 T′+I′ 中抵消。", "治疗作用可通过降低 β 或 p 表达。", "一条病毒载量曲线一定能唯一识别六个参数。", "留出预测比在同一数据上拟合更有证据力。"], "内部感染转移抵消；治疗可作用于感染或产生；单输出稀疏数据通常无法识别全部参数。"], true),
+    q(10, 10, ["A", "C", "D", "E"], ["Two parameter sets fit early logistic data equally well. Which actions can genuinely improve identification?", ["Collect observations near and beyond the inflection region.", "Report more decimal places from the optimizer.", "Measure or bound carrying capacity independently.", "Design a perturbation that separates candidate trajectories.", "Profile parameters and inspect flat loss directions."], "Identification improves through informative data or defensible constraints, not numerical formatting."], ["两组参数同样拟合 Logistic 早期数据。哪些措施能真正改善识别？", ["收集拐点附近及之后的数据。", "让优化器输出更多小数。", "独立测量或约束环境容量。", "设计能使候选轨迹分离的扰动。", "做参数 profile 并检查平坦损失方向。"], "识别能力来自有信息量的数据或可信约束，不来自数字格式。"], true),
+  ];
+
+  const lesson10Questions = [
+    q(90, 1, ["D"], ["In a closed SIR model, what is d(S+I+R)/dt?", ["βSI/N", "γI", "−γI", "0"], "Every internal transfer appears once positive and once negative."], ["封闭 SIR 模型中 d(S+I+R)/dt 等于什么？", ["βSI/N", "γI", "−γI", "0"], "每个内部转移项一正一负，全部抵消。"]),
+    q(82, 1, ["B"], ["A well-mixed 200 L tank has flow Q=20 L/min. Its residence time is:", ["5 min", "10 min", "20 min", "200 min"], "τ=V/Q=10 minutes."], ["200 L 充分混合水箱的流量为 20 L/min，停留时间是多少？", ["5 分钟", "10 分钟", "20 分钟", "200 分钟"], "τ=V/Q=10 分钟。"]),
+    q(74, 2, ["C"], ["In a Bass model with p=0.02 and q=0.38 per year, the adoption-rate peak occurs approximately at ln(q/p)/(p+q):", ["2.5 years", "5.0 years", "7.4 years", "19 years"], "ln(19)/0.40≈7.36."], ["Bass 模型 p=0.02、q=0.38/年，新增采用峰值约在 ln(q/p)/(p+q) 的何时？", ["2.5 年", "5.0 年", "7.4 年", "19 年"], "ln(19)/0.40≈7.36。"]),
+    q(65, 2, ["B"], ["For β=0.30/day, γ=0.10/day, and S/N=0.60, the effective reproduction number is:", ["0.6", "1.8", "3.0", "6.0"], "R_eff=(β/γ)(S/N)=3×0.6=1.8."], ["β=0.30/天、γ=0.10/天、S/N=0.60 时，有效再生数是多少？", ["0.6", "1.8", "3.0", "6.0"], "R_eff=(β/γ)(S/N)=3×0.6=1.8。"]),
+    q(56, 3, ["C"], ["If an SIR model has R0=4, infection peaks when susceptible population is:", ["N", "N/2", "N/4", "0"], "At an interior peak, S=N/R0."], ["若 SIR 模型 R0=4，感染人数达到峰值时易感人数为多少？", ["N", "N/2", "N/4", "0"], "内部峰值满足 S=N/R0。"]),
+    q(46, 4, ["D"], ["A two-dimensional equilibrium has Jacobian eigenvalues −1 and 0.2. It is:", ["Asymptotically stable", "A stable center", "Inconclusive because one value is negative", "Unstable"], "One positive real part creates a growing perturbation direction."], ["二维平衡点的 Jacobian 特征值为 −1 与 0.2，它是什么性质？", ["渐近稳定", "稳定中心", "因有一个负值而无法判断", "不稳定"], "只要存在正实部，就有扰动方向会增长。"]),
+    q(36, 5, ["B"], ["For Lotka–Volterra N′=rN−aNP and P′=baNP−mP, the positive coexistence equilibrium is:", ["(r/a,m/ba)", "(m/ba,r/a)", "(K/2,r/m)", "(0,0) only"], "Set both per-capita rates to zero."], ["Lotka–Volterra 系统 N′=rN−aNP、P′=baNP−mP 的正共存平衡点是？", ["(r/a,m/ba)", "(m/ba,r/a)", "(K/2,r/m)", "只有 (0,0)"], "令两个单位个体增长率同时为零。"]),
+    q(27, 6, ["A", "C"], ["For x′=x(r1+a11x+a12y), y′=y(r2+a21x+a22y), which sign patterns are correctly interpreted?", ["a12<0 and a21<0 indicates competition.", "Both positive always guarantees bounded coexistence.", "Opposite signs are consistent with exploitation or predator–prey interaction.", "Cross-effects do not influence equilibria."], "Cross-term signs classify interaction direction, but positive mutual effects alone do not guarantee boundedness."], ["对 x′=x(r1+a11x+a12y)、y′=y(r2+a21x+a22y)，哪些符号解释正确？", ["a12<0 且 a21<0 表示竞争。", "两个都正一定保证有界共存。", "一正一负可对应利用或捕食关系。", "交叉作用不影响平衡点。"], "交叉项符号描述作用方向，但双正并不自动保证有界。"], true),
+    q(18, 8, ["A", "B", "D"], ["In the reflow-oven model T′=k(x(t))(Ta(x(t))−T), which conclusions are defensible?", ["Increasing conveyor speed shortens residence time.", "Board temperature generally lags air-zone temperature.", "The maximum air temperature alone determines every process constraint.", "Validation at a second conveyor speed tests transfer beyond calibration."], "The ODE represents thermal lag and speed-dependent residence; process quality also depends on rates and time above thresholds."], ["对回焊炉模型 T′=k(x(t))(Ta(x(t))−T)，哪些结论可辩护？", ["提高传送带速度会缩短停留时间。", "板温通常滞后于炉区空气温度。", "只看最高空气温度就能决定所有工艺约束。", "在另一传送带速度下验证能检验模型迁移能力。"], "该 ODE 表达热滞后与速度相关停留时间；工艺还受升温速率和阈值以上时间影响。"], true),
+    q(10, 10, ["A", "B", "D", "F"], ["Only viral load V(t) is observed in a three-state nonlinear model. Which statements are correct?", ["Different parameter sets may produce nearly identical V(t).", "Measuring another state can improve observability.", "A lower training loss proves causal correctness.", "Profile likelihood can expose weakly identified parameters.", "Adaptive solvers eliminate structural uncertainty.", "An intervention can be designed to separate candidate mechanisms."], "Single-output fitting can be structurally or practically non-identifiable. Extra measurements, profiles, and informative interventions help; solver accuracy and training loss do not establish mechanism."], ["三状态非线性模型只观测到病毒载量 V(t)。哪些说法正确？", ["不同参数组可能产生几乎相同的 V(t)。", "测量另一个状态可改善可观测性。", "更低训练损失能证明因果机制正确。", "profile likelihood 可暴露弱识别参数。", "自适应求解器能消除结构不确定性。", "可以设计干预来分离候选机制。"], "单输出拟合可能存在结构或实际不可识别；额外测量、profile 与信息性干预有帮助，而求解精度和训练损失不能证明机制。"], true),
+  ];
+
+  const lesson7Questions = [
+    q(90, 1, ["B"], ["What is the strongest reason to use a metaheuristic?", ["Its biological metaphor sounds realistic.", "The model contains difficult black-box, nonconvex, or structured decisions that suitable exact methods cannot handle within the budget.", "It always proves global optimality.", "It removes the need to formulate constraints."], "Metaheuristics are justified by model and computational structure, not vocabulary. They ordinarily do not certify global optimality."], ["使用元启发式算法最有力的理由是什么？", ["它的生物学类比听起来很真实。", "模型含有黑箱、非凸或特殊结构决策，合适的精确方法无法在预算内处理。", "它总能证明全局最优。", "它让我们不必写约束。"], "是否采用元启发式算法取决于模型与计算结构，而不是术语；它通常也不提供全局最优证明。"]),
+    q(82, 1, ["C"], ["In a genetic algorithm for a route visiting each city once, which representation naturally guarantees that every city appears once?", ["An unrestricted real vector", "Independent city IDs in every position", "A permutation", "A single binary bit"], "A permutation encodes each city exactly once. Its crossover and mutation must also preserve or repair that property."], ["在每座城市恰好访问一次的遗传算法中，哪种表示自然保证每座城市只出现一次？", ["无约束实数向量", "每个位置独立存城市编号", "排列", "一个二进制位"], "排列天然包含每座城市一次；交叉和变异也必须保持或修复这一性质。"]),
+    q(74, 2, ["A", "C", "D"], ["Which diagnostics can reveal premature population collapse? Select all that apply.", ["Normalized decision-space diversity", "Only the title of the algorithm", "Pairwise Hamming or edge distance when appropriate", "Many particles or chromosomes becoming identical while the best remains weak"], "Collapse is a loss of meaningful decision diversity. It must be measured in a distance appropriate to the representation."], ["哪些诊断能揭示种群过早坍缩？请选出所有正确项。", ["归一化决策空间多样性", "只看算法名称", "适用时的 Hamming 距离或边重合距离", "大量粒子或染色体相同，而最好值仍很弱"], "坍缩是有意义决策多样性的丧失，应使用与表示方式相匹配的距离衡量。"], true),
+    q(65, 2, ["B"], ["For DE/rand/1, r1=(1,4), r2=(6,2), r3=(2,3), and F=0.5. What mutant is produced?", ["(2, 3)", "(3, 3.5)", "(5, 1.5)", "(4, 4)"], "Compute r1 + F(r2-r3) = (1,4)+0.5(4,-1) = (3,3.5)."], ["在 DE/rand/1 中，r1=(1,4)、r2=(6,2)、r3=(2,3)、F=0.5。变异向量是什么？", ["(2,3)", "(3,3.5)", "(5,1.5)", "(4,4)"], "r1+F(r2-r3)=(1,4)+0.5(4,-1)=(3,3.5)。"]),
+    q(56, 3, ["C"], ["A PSO particle has x=(4,1), v=(-0.5,0.8), personal best p=(2,2), social best g=(1,3), omega=0.6, c1=1.4, c2=1.8, r1=0.5, and r2=0.25. What is its new velocity?", ["(-0.5,0.8)", "(-1.35,0.90)", "(-3.05,2.08)", "(0.95,3.08)"], "Add inertia (-0.30,0.48), cognitive (-1.40,0.70), and social (-1.35,0.90). The new position, not velocity, is (0.95,3.08)."], ["PSO 粒子 x=(4,1)、v=(-0.5,0.8)、个体最优 p=(2,2)、社会最优 g=(1,3)，且 omega=0.6、c1=1.4、c2=1.8、r1=0.5、r2=0.25。新速度是多少？", ["(-0.5,0.8)", "(-1.35,0.90)", "(-3.05,2.08)", "(0.95,3.08)"], "惯性项 (-0.30,0.48)、认知项 (-1.40,0.70) 与社会项 (-1.35,0.90) 相加得到新速度；(0.95,3.08) 是新位置。"]),
+    q(46, 4, ["B"], ["In simulated annealing for minimization, a proposal is worse by Delta=4 at temperature T=2. What is its acceptance probability?", ["exp(-8)", "exp(-2)", "1-exp(-2)", "It must be rejected"], "The Metropolis probability is exp(-Delta/T)=exp(-4/2)=exp(-2)."], ["模拟退火做最小化时，候选方案差 Delta=4，温度 T=2。接受概率是多少？", ["exp(-8)", "exp(-2)", "1-exp(-2)", "必须拒绝"], "Metropolis 接受概率为 exp(-Delta/T)=exp(-4/2)=exp(-2)。"]),
+    q(36, 5, ["A", "B", "D"], ["Which statements about constraint handling are defensible? Select all that apply.", ["A feasibility-preserving decoder can be preferable to enormous penalties.", "Repair rules are part of the algorithm and must be documented.", "Any sufficiently large arbitrary penalty always guarantees the intended answer in a black-box model.", "Feasibility rate and final residuals should be reported independently."], "Representation, decoder, and repair determine the effective search. Arbitrary huge penalties can destroy scaling and do not automatically guarantee correctness."], ["关于约束处理，哪些说法可辩护？请选出所有正确项。", ["保持可行性的解码器可能比巨大惩罚更合适。", "修复规则属于算法的一部分，必须说明。", "在黑箱模型中任意取足够大的惩罚总能保证预期答案。", "应独立报告可行率和最终约束残差。"], "表示、解码和修复决定了实际搜索过程；任意巨大惩罚可能破坏数值尺度，也不会自动保证正确。"], true),
+    q(27, 6, ["A", "C", "D"], ["A global-best PSO rapidly reaches one basin and all normalized particles become nearly identical while a grid baseline is substantially better. Which responses are logically motivated?", ["Try a local or ring topology.", "Claim global optimality because the swarm stopped moving.", "Reinitialize part of the swarm or introduce diversity.", "Inspect social attraction, inertia, and boundary handling."], "The evidence indicates premature collapse, not optimality. Slower information flow, diversity restoration, and parameter or boundary diagnostics address plausible causes."], ["全局最优 PSO 很快进入一个盆地，所有归一化粒子几乎相同，但网格基线明显更好。哪些处理有逻辑依据？", ["尝试局部或环形拓扑。", "因为粒子不再移动就宣称全局最优。", "重启部分粒子或引入多样性。", "检查社会项、惯性与边界处理。"], "证据表明是过早坍缩而不是最优；减慢信息传播、恢复多样性并检查参数与边界处理都针对合理原因。"], true),
+    q(18, 8, ["B"], ["Two stochastic optimizers use populations 100 and 20. Both run for 500 generations, but one objective evaluation dominates all cost. What is the fairest primary stopping comparison?", ["Equal generations", "Equal objective-evaluation budgets", "Equal numbers of algorithm names in the report", "Whichever produces the prettier convergence curve"], "With dominant evaluation cost, equal evaluations compare computational evidence. Runtime and parallel resources should also be reported."], ["两个随机优化器的种群分别是 100 和 20，都运行 500 代，而目标评估占据主要成本。最公平的主要停止标准是什么？", ["相同代数", "相同目标评估次数", "报告中出现相同数量的算法名称", "谁的收敛图更好看就选谁"], "当目标评估主导成本时，应以相同评估次数比较，同时报告运行时间与并行资源。"]),
+    q(10, 10, ["A", "C", "D", "F"], ["A hybrid crop optimizer reports one smooth convergence curve and says it found the global optimum. Which additional evidence is needed for a defensible claim? Select all that apply.", ["Exact comparison on reduced instances or valid solver bounds", "A biological metaphor for every operator", "Independent feasibility and revenue recalculation", "Multiple seeds under equal evaluation budgets and meaningful baselines", "More decimals in the best objective", "Ablation of mutation, crossover, repair, and local-search components"], "A curve from one seed cannot certify global optimality. Bounds or exact small cases, independent audits, repeated fair comparisons, and ablations establish what was actually achieved."], ["混合农作物优化器只给出一条平滑收敛曲线，并宣称得到全局最优。要使结论可辩护，还需要哪些证据？请选出所有正确项。", ["缩小实例的精确比较或有效求解器界", "为每个算子准备一个生物学类比", "独立重算可行性与收益", "相同评估预算下的多随机种子和有意义基线", "给最优值增加更多小数", "对变异、交叉、修复和局部搜索做消融"], "单次曲线不能证明全局最优。界或精确小实例、独立审计、公平重复比较和消融能说明方法真正达成了什么。"], true),
+  ];
+
+  const quizBanks = {
+    "lesson-1": { prefix: "modeling-01-q", questions: lesson1Questions },
+    "lesson-7": { prefix: "modeling-07-q", questions: lesson7Questions },
+    "lesson-9": { prefix: "modeling-09-q", questions: lesson9Questions },
+    "lesson-10": { prefix: "modeling-10-q", questions: lesson10Questions },
+  };
+
+  const getBank = (root) => quizBanks[root.dataset.modelingQuiz];
+  const getQuestions = (root) => getBank(root)?.questions || [];
+  const maxExp = (root) => getQuestions(root).reduce((sum, question) => sum + question.exp, 0);
+  const localKey = (root) => getBank(root)?.prefix + "-practice-v2";
+
   const copy = {
     en: {
       intro: "10 questions · single and multiple choice · 42 EXP available",
@@ -224,15 +296,15 @@
   const arraysMatch = (left, right) =>
     left.length === right.length && left.every((value, index) => value === right[index]);
 
-  const questionId = (index) => `${QUIZ_PREFIX}${index + 1}`;
+  const questionId = (root, index) => getBank(root).prefix + (index + 1);
 
-  const readLocal = () => {
-    try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || "{}"); }
+  const readLocal = (root) => {
+    try { return JSON.parse(localStorage.getItem(localKey(root)) || "{}"); }
     catch (_error) { return {}; }
   };
 
-  const writeLocal = (value) => {
-    try { localStorage.setItem(LOCAL_KEY, JSON.stringify(value)); }
+  const writeLocal = (root, value) => {
+    try { localStorage.setItem(localKey(root), JSON.stringify(value)); }
     catch (_error) { /* Practice still works when storage is unavailable. */ }
   };
 
@@ -243,9 +315,9 @@
     const firstCorrect = attempted.filter((entry) => entry.first_attempt_correct).length;
     const accuracy = attempted.length ? Math.round((100 * firstCorrect) / attempted.length) : 0;
     const earned = Object.values(entries).reduce((sum, entry) => sum + (Number(entry.earned_exp) || 0), 0);
-    root.querySelector('[data-stat="solved"]').textContent = `${solved}/10`;
+    root.querySelector('[data-stat="solved"]').textContent = `${solved}/${getQuestions(root).length}`;
     root.querySelector('[data-stat="accuracy"]').textContent = attempted.length ? `${accuracy}% (${firstCorrect}/${attempted.length})` : "—";
-    root.querySelector('[data-stat="earned"]').textContent = `${earned}/${MAX_EXP}`;
+    root.querySelector('[data-stat="earned"]').textContent = `${earned}/${maxExp(root)}`;
   };
 
   const applyEntry = (root, id, entry) => {
@@ -263,9 +335,9 @@
     const session = api?.getSession?.();
     const client = api?.getClient?.();
     root.__modelingQuizEntries = {};
-    const ids = questions.map((_question, index) => questionId(index));
+    const ids = getQuestions(root).map((_question, index) => questionId(root, index));
     if (!session || !client) {
-      const stored = readLocal();
+      const stored = readLocal(root);
       ids.forEach((id) => { if (stored[id]) applyEntry(root, id, stored[id]); });
       renderStats(root);
       return;
@@ -276,7 +348,7 @@
       client.from("quiz_completions").select("quiz_id,earned_exp").in("quiz_id", ids),
     ]);
     if (attemptResult.error) {
-      const stored = readLocal();
+      const stored = readLocal(root);
       ids.forEach((id) => { if (stored[id]) applyEntry(root, id, stored[id]); });
       renderStats(root);
       return;
@@ -296,7 +368,7 @@
     const id = card.dataset.quizId;
     const labels = copy[root.dataset.locale];
     const correct = arraysMatch(selected, [...definition.answer].sort());
-    const stored = readLocal();
+    const stored = readLocal(root);
     const previous = stored[id] || { attempt_count: 0, solved: false, earned_exp: 0 };
     if (!previous.solved) {
       previous.attempt_count += 1;
@@ -305,7 +377,7 @@
     }
     if (!correct) {
       stored[id] = previous;
-      writeLocal(stored);
+      writeLocal(root, stored);
       applyEntry(root, id, previous);
       renderStats(root);
       setResult(card, "incorrect", labels.incorrect);
@@ -322,7 +394,7 @@
     }, 0);
     previous.earned_exp = Math.max(Number(previous.earned_exp) || 0, available);
     stored[id] = previous;
-    writeLocal(stored);
+    writeLocal(root, stored);
     applyEntry(root, id, previous);
     renderStats(root);
     setResult(card, "correct", awarded
@@ -335,7 +407,7 @@
     const card = button.closest(".modeling-quiz-card");
     const root = button.closest(".modeling-quiz");
     const index = Number(card.dataset.questionIndex);
-    const definition = questions[index];
+    const definition = getQuestions(root)[index];
     const locale = root.dataset.locale;
     const labels = copy[locale];
     const selected = [...card.querySelectorAll("input:checked")].map((input) => input.value).sort();
@@ -344,7 +416,7 @@
       return;
     }
 
-    const id = questionId(index);
+    const id = questionId(root, index);
     const explanation = card.querySelector(".modeling-quiz-card__explanation");
     explanation.hidden = false;
     const api = window.__blogReadingHistory;
@@ -353,7 +425,7 @@
 
     if (!session || !client) {
       const correct = arraysMatch(selected, [...definition.answer].sort());
-      const stored = readLocal();
+      const stored = readLocal(root);
       const previous = stored[id] || { attempt_count: 0, solved: false, earned_exp: 0 };
       if (!previous.solved) {
         previous.attempt_count += 1;
@@ -361,7 +433,7 @@
         previous.solved = correct;
       }
       stored[id] = previous;
-      writeLocal(stored);
+      writeLocal(root, stored);
       applyEntry(root, id, previous);
       renderStats(root);
       setResult(card, correct ? "correct" : "incorrect", correct ? labels.practice(definition.exp) : labels.incorrect);
@@ -401,6 +473,7 @@
 
   const renderQuiz = (root) => {
     if (root.dataset.quizReady === "true") return;
+    if (!getBank(root)) return;
     root.dataset.quizReady = "true";
     const locale = root.dataset.locale === "zh" ? "zh" : "en";
     root.dataset.locale = locale;
@@ -410,16 +483,16 @@
       <div class="modeling-quiz__header">
         <p>${escapeHtml(labels.intro)}</p>
         <div class="modeling-quiz__stats" aria-live="polite">
-          <span><b data-stat="solved">0/10</b>${escapeHtml(labels.solved)}</span>
+          <span><b data-stat="solved">0/${getQuestions(root).length}</b>${escapeHtml(labels.solved)}</span>
           <span><b data-stat="accuracy">—</b>${escapeHtml(labels.accuracy)}</span>
-          <span><b data-stat="earned">0/${MAX_EXP}</b>${escapeHtml(labels.earned)}</span>
+          <span><b data-stat="earned">0/${maxExp(root)}</b>${escapeHtml(labels.earned)}</span>
         </div>
       </div>
       <div class="modeling-quiz__questions">
-        ${questions.map((definition, index) => {
+        ${getQuestions(root).map((definition, index) => {
           const item = definition[locale];
           const inputType = definition.multiple ? "checkbox" : "radio";
-          return `<article class="modeling-quiz-card" data-question-index="${index}" data-quiz-id="${questionId(index)}">
+          return `<article class="modeling-quiz-card" data-question-index="${index}" data-quiz-id="${questionId(root, index)}">
             <div class="modeling-quiz-card__meta">
               <span>Q${index + 1}</span>
               <span>${escapeHtml(labels.target)} ${definition.target}%</span>
@@ -445,7 +518,7 @@
     loadProgress(root);
   };
 
-  const hydrate = () => document.querySelectorAll('.modeling-quiz[data-modeling-quiz="lesson-1"]').forEach(renderQuiz);
+  const hydrate = () => document.querySelectorAll(".modeling-quiz[data-modeling-quiz]").forEach(renderQuiz);
 
   if (!window.__modelingQuizInitialized) {
     window.__modelingQuizInitialized = true;

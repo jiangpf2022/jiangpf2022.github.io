@@ -123,6 +123,12 @@ $$\sum_kx_{itsk}\le A_i,$$
 
 最后留一道隐藏题：把 PSO 的随机数都替换成期望 $1/2$，并令 $p_i=g$，写出距离 $x_i^t-g$ 的线性递推。群体隐喻消失后，你会发现底层其实是一个动力系统——它会在后面的微分方程博客里再次出现。
 
+## 知识检查
+
+下面 10 道单选与多选题从表示方法和基本更新规则开始，逐步进入 GA、DE、PSO、SA 的数值计算、约束处理、过早收敛、公平实验，以及混合种植优化器需要什么证据。题目会按难度记录 EXP；登录后可以保存首次作答结果。
+
+<section class="modeling-quiz" data-modeling-quiz="lesson-7" data-locale="zh"></section>
+
 ### 资料
 
 - [国赛优秀论文展示](https://dxs.moe.gov.cn/zx/hd/sxjm/sxjmlw/)
