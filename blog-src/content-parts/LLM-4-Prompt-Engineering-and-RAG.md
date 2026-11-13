@@ -191,6 +191,8 @@ Model parameters and request context play different roles. Parameters contain ge
 
 RAG is more than semantic search. Search returns relevant records. A RAG system also selects context, asks a generative model to use it, and validates the resulting claims. Lexical, dense, or hybrid retrieval can all supply candidates.
 
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q7</span><span>Separate RAG from semantic search</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> How does RAG differ from traditional semantic search?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Semantic search retrieves relevant records. RAG connects retrieval to context construction and generation, then should validate whether the generated response is supported by the retrieved evidence.</div></div></details>
+
 ### Offline Indexing and Online Querying
 
 The pipeline has two broad phases. During **indexing**, the application reads documents, splits them into usable passages, creates lexical or dense representations, stores the passages and metadata, and builds search indexes. During an **online query**, it:
@@ -257,6 +259,8 @@ At $f=1$, the contribution is $1$; at $f=3$, it is approximately $1.571$. Repeat
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm4-lecture-4/bm25-saturation.jpg" alt="BM25 term-frequency contribution saturating while a linear TF-IDF contribution keeps increasing" loading="lazy" decoding="async"><figcaption>BM25 limits the reward for repeated terms instead of increasing the score linearly forever. Course page 76.</figcaption></figure>
 
 Length normalization prevents long documents from winning simply because they repeat more terms. It can also penalize legitimately long records, so $k_1$ and $b$ must be evaluated on the actual corpus. BM25 reduces keyword stuffing incentives; it does not prevent every form of search manipulation.
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q8</span><span>Name a lexical ranking algorithm</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which algorithm is commonly used for keyword search?</p><div class="llm-quiz-answer"><strong>Answer.</strong> BM25. HNSW and KNN are associated with nearest-neighbor retrieval, while “VectorDB” names a system category rather than a lexical ranking formula.</div></div></details>
 
 ## Dense Retrieval and Chunking
 
@@ -344,6 +348,8 @@ If $E_3=\{A,B,C\}$ and $A_3=\{A,C,D\}$, recall@3 is $2/3$. The comparison must u
 
 A vector database connects vector IDs to source text and metadata, supports similarity queries, and coordinates updates and deletes. Filtering may be required before or during ANN search so that users see only authorized records. Post-filtering can leave fewer than $k$ eligible results. Stored text, metadata, and vector indexes must remain synchronized.
 
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q9</span><span>Identify a vector database's key advantage</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What is a key advantage of a vector database in an AI application?</p><div class="llm-quiz-answer"><strong>Answer.</strong> It is designed to index and search high-dimensional vectors efficiently, while keeping vector IDs connected to source text and metadata. That does not imply that it is always cheaper, smaller, or configuration-free.</div></div></details>
+
 ## Hybrid Retrieval and Reranking
 
 ### Complementary Candidate Signals
@@ -377,6 +383,8 @@ A bi-encoder retrieves cheaply from a large corpus because query and document ve
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm4-lecture-4/reranking.jpg" alt="A reranker assigning more precise relevance scores to a small subset of retrieved passages" loading="lazy" decoding="async"><figcaption>Reranking spends more compute on a candidate subset after the high-recall retrieval stage. Course page 123.</figcaption></figure>
 
 Reranking improves ordering, not truth. “The capital of Canada is Sydney” may be highly related to the query while still false. A reranker also cannot select the correct policy if retrieval never returned it. When the answer is missing, inspect candidate recall before tuning the reranker.
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q11</span><span>Choose the dense-retrieval refinement stage</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What commonly improves the ordering of candidates returned by dense retrieval?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Reranking. ANN, HNSW, and KNN describe ways to obtain nearest-neighbor candidates; a reranker applies a more expressive relevance model to the smaller candidate set.</div></div></details>
 
 ## Context Construction, Verification, and Debugging
 

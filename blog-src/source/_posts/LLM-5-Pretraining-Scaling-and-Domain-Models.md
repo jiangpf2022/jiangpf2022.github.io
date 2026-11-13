@@ -108,6 +108,10 @@ where $M$ is the masked set and $\tilde x$ is the corrupted sequence. Bidirectio
 
 The limitation is equally important. The model is trained to fill selected holes, not to continue a sequence indefinitely from left to right. We can attach task heads to its contextual states, but it is not naturally a free-form generator.
 
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q14</span><span>Match MLM to its architecture</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which architecture family characteristically uses masked language modeling?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Autoencoding encoder models. They reconstruct masked or corrupted tokens from bidirectional context.</div></div></details>
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q16</span><span>Classify BERT and RoBERTa</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which architecture family contains BERT and RoBERTa?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Autoencoding encoder models. Their bidirectional representations are pretrained through masked-token reconstruction rather than left-to-right continuation.</div></div></details>
+
 ### Decoder-Only: Causal Language Modeling
 
 An autoregressive decoder predicts the next token using only its prefix:
@@ -120,6 +124,8 @@ $$
 A causal attention mask blocks future positions. Because generation repeats exactly this operation—predict, append, predict again—the objective aligns naturally with text and code generation. GPT, BLOOM, and BloombergGPT are decoder-only examples. Abilities that look like classification, question answering, or tool selection can also be expressed as continuation tasks when the model and prompt are sufficiently capable.
 
 “Autoregressive” does not mean the model has access to only one previous token. It may attend to the entire available prefix. “Unidirectional” describes the information boundary at each prediction position, not the number of layers or the richness of the context.
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q15</span><span>Identify the autoregressive objective</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What is the defining pretraining objective of an autoregressive language model?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Causal language modeling: predict the next token using only the available prefix, with future positions blocked by the causal attention mask.</div></div></details>
 
 ### Encoder-Decoder: Span Corruption
 
@@ -136,6 +142,8 @@ This separation between source and target suits translation, summarization, and 
 
 The architecture is not selected by a slogan such as “generative models are better.” Choose the information boundary and output interface the task needs. Code comments converted into executable code are naturally conditional generation; invoking a structured action from text is a separate application behavior. Translation is naturally sequence-to-sequence, although a sufficiently capable decoder-only model can also express it as prompted continuation. “Well suited” describes an inductive bias, not an absolute prohibition.
 
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q17</span><span>Choose an architecture for translation</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which architecture is naturally suited to translation?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Sequence-to-sequence. An encoder can represent the complete source while a decoder generates the target causally. Decoder-only models can also translate, but sequence-to-sequence is the architecture the question is testing.</div></div></details>
+
 ## The Real Training Memory Budget
 
 ### Parameters Are the Easy Part
@@ -149,6 +157,8 @@ $$
 One billion FP32 parameters therefore require approximately $4\times10^9$ bytes, or about 4 GB in decimal units. A 175B model would require roughly 700 GB merely for FP32 weights. This estimate is useful for inference planning, but it badly underestimates training.
 
 The word “approximately” matters. Framework metadata, tensor alignment, embeddings, buffers, temporary workspaces, and whether memory is reported in GB or GiB change the observed number. The formula is a first budget, not a promise that an allocator will fit the model into a device with exactly that capacity.
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q18</span><span>Calculate FP32 parameter memory</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> How much memory stores one billion FP32 parameters?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Approximately 4 GB: FP32 uses 4 bytes, so $10^9\times4=4\times10^9$ bytes. This is weight storage only, not the complete training budget.</div></div></details>
 
 ### Adam Adds Persistent State
 
@@ -165,6 +175,8 @@ Training retains more than the current weights. A common FP32 accounting for Ada
 The two Adam moments already add 8 bytes per parameter. Some mixed-precision recipes also keep an FP32 master copy of weights while computing with FP16 or BF16, adding another 4 bytes. A useful high-end planning heuristic is roughly **24 bytes per parameter**: 4 for weights, 8 for Adam states, 4 for gradients, and about 8 for activations and temporary memory. Under that heuristic, training 1B parameters can approach 24 GB rather than the 4 GB needed to store FP32 weights.
 
 Do not treat 24 bytes as a universal constant. Optimizer choice, master weights, gradient precision, fused kernels, checkpointing, attention implementation, sequence length, microbatch size, and tensor parallelism all change it. The durable lesson is the ledger: name every resident tensor before claiming that a model fits.
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q19</span><span>Account for Adam training overhead</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Excluding the FP32 parameter copy, what additional per-parameter budget does the course heuristic use for Adam states, gradients, activations, and temporary memory?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Approximately 20 bytes: 8 for Adam's two FP32 moments, 4 for the FP32 gradient, and roughly 8 for activations and temporary memory. Adding the 4-byte parameter copy gives the 24-byte planning heuristic. The activation term is workload-dependent.</div></div></details>
 
 ### Activations Depend on the Workload
 
@@ -217,6 +229,8 @@ Deep-network gradients can span a large dynamic range. FP16 has more fraction bi
 
 Mixed-precision training does not mean every operation blindly uses one low-precision format. A practical system may compute matrix multiplications in BF16, accumulate some reductions at higher precision, and keep optimizer updates or selected statistics in FP32. The goal is to place precision where it affects stability and use narrower formats where they improve throughput and capacity.
 
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q20</span><span>Distinguish BF16 from FP16</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which 16-bit format preserves FP32's exponent width?</p><div class="llm-quiz-answer"><strong>Answer.</strong> BF16. It uses 1 sign bit, 8 exponent bits, and 7 fraction bits, preserving FP32-like range while reducing fraction precision.</div></div></details>
+
 ### Quantization Is a Mapping, Not a File Conversion
 
 For affine integer quantization, a real value $x$ can be mapped to an integer code
@@ -241,6 +255,8 @@ It is useful to keep three ideas separate:
 
 The best format is therefore workload-specific. Ask which tensors are narrow, which operations have native hardware support, what accuracy loss is acceptable, and whether the bottleneck is memory capacity, bandwidth, arithmetic throughput, or communication.
 
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q21</span><span>State quantization's primary purpose</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What is the primary purpose of quantization in an LLM workflow?</p><div class="llm-quiz-answer"><strong>Answer.</strong> To reduce required memory by representing selected tensors with fewer bits. It may also reduce bandwidth or improve speed on supported hardware, but those outcomes are not guaranteed, and quantization does not itself enable multi-GPU training.</div></div></details>
+
 ## From One GPU to Many
 
 ### DDP Replicates the Model and Splits the Batch
@@ -261,6 +277,8 @@ B_{\mathrm{global}}
 $$
 
 where $K$ is the number of gradient-accumulation steps. Learning-rate schedules and optimization behavior may need adjustment when this value changes.
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q22</span><span>Identify what DDP synchronizes</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What does DDP synchronize across GPUs?</p><div class="llm-quiz-answer"><strong>Answer.</strong> The gradients. An all-reduce combines local gradients during backward; each replica then performs the same optimizer update locally, so parameters remain equal without a separate parameter broadcast at every step.</div></div></details>
 
 ### What DDP Does Not Solve
 
@@ -294,6 +312,8 @@ Fully Sharded Data Parallel (FSDP) implements the full-sharding idea around modu
 Fine-grained groups lower peak memory and allow communication for the next block to overlap with computation on the current block. Groups that are too small create many inefficient collectives; one giant group creates a large blocking all-gather and high memory peak. Wrapping policy is therefore a performance decision, not only an API detail.
 
 CPU offload can move parameters or optimizer state out of GPU memory, making otherwise impossible runs fit. It also adds transfers over a much slower link. Offload is a capacity escape hatch, not guaranteed acceleration.
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q23</span><span>Explain FSDP's capacity advantage</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What is FSDP's main advantage over ordinary DDP?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Lower memory use per GPU because parameters, gradients, and optimizer states can be sharded rather than fully replicated. FSDP may add communication and complexity; it does not guarantee faster training or better model accuracy.</div></div></details>
 
 ### Capacity and Throughput Must Be Measured Together
 

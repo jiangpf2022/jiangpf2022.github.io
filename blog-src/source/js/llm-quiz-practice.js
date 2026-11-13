@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const QUIZ_PREFIX = "comse6998-quiz1-q";
+  const QUIZ_PREFIX = "comse6998-quiz";
   const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   const quizDefinitions = {
@@ -258,6 +258,171 @@
     },
   };
 
+  const quiz3Definitions = {
+    1: {
+      question: "What does prompt engineering primarily involve?",
+      options: [
+        "Designing hardware for AI models",
+        "Creating visualizations for AI data",
+        "Building databases for storing AI outputs",
+        "Developing and refining prompts to guide LLM behavior",
+      ],
+      answer: ["D"],
+    },
+    2: {
+      question: "Which of the following are components of the Kubernetes architecture? Select all that apply.",
+      multiple: true,
+      options: ["Docker Engine", "Scheduler", "kubelet", "API Server"],
+      answer: ["B", "C", "D"],
+    },
+    3: {
+      question: "What is a common challenge when using LLMs for real-world applications such as SWE-bench?",
+      options: [
+        "Limited language support",
+        "Large model sizes",
+        "Difficulty in performing complex reasoning",
+        "High computational cost",
+      ],
+      answer: ["C"],
+    },
+    4: {
+      question: "How can a chatbot appear to have memory even though the language model is stateless between independent calls?",
+      options: [
+        "By providing the conversation history as context in each new transaction",
+        "By assuming that the model permanently stores every previous interaction",
+        "By relying on the context-window size without resending prior messages",
+        "By continuously retraining the model on each user's messages",
+      ],
+      answer: ["A"],
+    },
+    5: {
+      question: "Which are benefits of using containers? Select all that apply.",
+      multiple: true,
+      options: [
+        "A consistent environment across systems",
+        "Version-controlled application and environment specifications",
+        "Resource limits through control groups (cgroups)",
+        "Process and filesystem isolation",
+      ],
+      answer: ["A", "B", "C", "D"],
+    },
+    6: {
+      question: "Why can deep-learning workloads need a specialized platform in addition to Kubernetes?",
+      options: [
+        "Kubernetes cannot expose GPU resources",
+        "Deep learning needs scheduling policies for utilization and fairness that Kubernetes does not natively provide",
+        "Kubernetes is always more expensive than bare metal",
+        "Deep learning works only on bare-metal servers",
+      ],
+      answer: ["B"],
+    },
+    7: {
+      question: "How does retrieval-augmented generation (RAG) differ from traditional semantic search?",
+      options: [
+        "RAG performs document retrieval only",
+        "RAG combines retrieval with generation to produce a context-grounded response",
+        "Semantic search necessarily uses more advanced algorithms than RAG",
+        "Semantic search is always faster than RAG",
+      ],
+      answer: ["B"],
+    },
+    8: {
+      question: "Which algorithm is commonly used for keyword search in traditional search engines?",
+      options: ["HNSW", "BM25", "KNN", "VectorDB"],
+      answer: ["B"],
+    },
+    9: {
+      question: "What is a key advantage of vector databases in AI applications?",
+      options: [
+        "They always require less total storage",
+        "They are always cheaper than relational databases",
+        "They require no indexing configuration",
+        "They optimize similarity-search operations over high-dimensional data",
+      ],
+      answer: ["D"],
+    },
+    10: {
+      question: "In a Dockerfile, which instruction specifies the base image?",
+      options: ["ENTRYPOINT", "CMD", "FROM", "RUN"],
+      answer: ["C"],
+    },
+    11: {
+      question: "Which method is commonly used to improve the ordering of dense-retrieval candidates?",
+      options: ["HNSW", "Reranking", "ANN", "KNN"],
+      answer: ["B"],
+    },
+    12: {
+      question: "In agent development, what is an agent loop?",
+      options: [
+        "A process in which an agent selects a tool or action, observes the result, and repeats until a stopping condition is met",
+        "An optimization trick that only reduces model latency",
+        "A sequence that repeatedly retrieves documents without choosing actions",
+        "A loop that intentionally has no stopping condition",
+      ],
+      answer: ["A"],
+    },
+    13: {
+      question: "Which tool primarily belongs to the orchestration layer of the GenAI cloud stack?",
+      options: ["Kubernetes", "Hugging Face", "LangChain", "MLflow"],
+      answer: ["A"],
+    },
+    14: {
+      question: "Which model architecture uses masked language modeling (MLM) as its characteristic pretraining objective?",
+      options: ["Generative decoder-only models", "Sequence-to-sequence models", "Autoencoding encoder models", "Autoregressive models"],
+      answer: ["C"],
+    },
+    15: {
+      question: "What is the characteristic pretraining objective of an autoregressive language model?",
+      options: ["Span corruption", "Masked language modeling", "Causal language modeling", "Bidirectional context reconstruction"],
+      answer: ["C"],
+    },
+    16: {
+      question: "BERT and RoBERTa are examples of which architecture family?",
+      options: ["Autoregressive", "Hybrid", "Autoencoding", "Sequence-to-sequence"],
+      answer: ["C"],
+    },
+    17: {
+      question: "Which architecture is naturally suited to conditional generation tasks such as translation?",
+      options: ["Sequence-to-sequence", "Transformer-only", "Autoregressive only", "Autoencoding only"],
+      answer: ["A"],
+    },
+    18: {
+      question: "Approximately how much GPU memory is needed to store one billion parameters in FP32?",
+      options: ["2 GB", "4 GB", "8 GB", "1 GB"],
+      answer: ["B"],
+    },
+    19: {
+      question: "For FP32 training with Adam, excluding the parameter copy itself, approximately how many additional bytes per parameter may be needed for optimizer states, gradients, activations, and temporary memory under the course heuristic?",
+      options: ["8 bytes", "20 bytes", "12 bytes", "16 bytes"],
+      answer: ["B"],
+    },
+    20: {
+      question: "Which 16-bit format keeps the same exponent width as FP32 while using fewer fraction bits?",
+      options: ["FP16", "INT8", "FP64", "BF16"],
+      answer: ["D"],
+    },
+    21: {
+      question: "What is the main purpose of quantization in LLM training and inference workflows?",
+      options: ["Guarantee faster training", "Increase model accuracy", "Reduce required memory", "Enable multi-GPU training"],
+      answer: ["C"],
+    },
+    22: {
+      question: "In Distributed Data Parallel (DDP) training, what is synchronized across GPUs during the backward pass?",
+      options: ["Both gradients and model parameters", "Only the gradients", "Only the model parameters", "Neither gradients nor parameters"],
+      answer: ["B"],
+    },
+    23: {
+      question: "What is the main capacity advantage of Fully Sharded Data Parallel (FSDP) over ordinary DDP?",
+      options: ["Better model accuracy", "Reduced memory usage per GPU", "Guaranteed faster training", "A simpler implementation"],
+      answer: ["B"],
+    },
+  };
+
+  const quizSets = {
+    1: quizDefinitions,
+    3: quiz3Definitions,
+  };
+
   const escapeHtml = (value) =>
     String(value)
       .replaceAll("&", "&amp;")
@@ -270,6 +435,10 @@
     const label = card.querySelector(".llm-quiz-practice__label")?.textContent || "";
     return Number(label.match(/Q\s*(\d+)/i)?.[1] || 0);
   };
+
+  const getQuizSet = (card) => Number(card.dataset.quizSet || 1);
+
+  const getDefinition = (card) => quizSets[getQuizSet(card)]?.[getQuestionNumber(card)];
 
   const selectedValues = (card) =>
     [...card.querySelectorAll(".llm-quiz-option input:checked")]
@@ -329,7 +498,7 @@
   };
 
   const checkAnswer = async (card) => {
-    const definition = quizDefinitions[getQuestionNumber(card)];
+    const definition = getDefinition(card);
     if (!definition) return;
     const selected = selectedValues(card);
     if (!selected.length) {
@@ -355,14 +524,15 @@
   const renderCard = (card) => {
     if (card.dataset.quizReady === "true") return;
     const number = getQuestionNumber(card);
-    const definition = quizDefinitions[number];
+    const quizSet = getQuizSet(card);
+    const definition = quizSets[quizSet]?.[number];
     const body = card.querySelector(".llm-quiz-practice__body");
     const question = body?.querySelector(":scope > p");
     const explanation = body?.querySelector(".llm-quiz-answer");
     if (!definition || !body || !question || !explanation) return;
 
     card.dataset.quizReady = "true";
-    card.dataset.quizId = `${QUIZ_PREFIX}${number}`;
+    card.dataset.quizId = `${QUIZ_PREFIX}${quizSet}-q${number}`;
     question.innerHTML = `<strong>Question.</strong> ${escapeHtml(definition.question)}`;
     explanation.hidden = true;
     const answerTitle = explanation.querySelector("strong");
@@ -383,7 +553,7 @@
       ${definition.options
         .map((option, index) => {
           const letter = LETTERS[index];
-          return `<label class="llm-quiz-option"><input type="${inputType}" name="quiz-${number}" value="${letter}"><span class="llm-quiz-option__letter">${letter}</span><span>${escapeHtml(option)}</span></label>`;
+          return `<label class="llm-quiz-option"><input type="${inputType}" name="quiz-${quizSet}-${number}" value="${letter}"><span class="llm-quiz-option__letter">${letter}</span><span>${escapeHtml(option)}</span></label>`;
         })
         .join("")}
     `;

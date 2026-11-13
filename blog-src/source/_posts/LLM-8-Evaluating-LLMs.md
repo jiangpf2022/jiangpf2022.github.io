@@ -110,6 +110,10 @@ BIG-bench collected more than 200 diverse tasks from a broad research collaborat
 
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm8-evaluation/llm8-slide-020.webp" alt="Comparison of MMLU BIG-bench and BIG-bench Hard" loading="lazy" decoding="async"><figcaption>MMLU emphasizes broad subjects; BIG-bench emphasizes task diversity; BBH isolates difficult reasoning tasks. Course slide 20.</figcaption></figure>
 
+SWE-bench moves evaluation from short answers to repository-level software maintenance. A system receives a real issue and a codebase, must identify the relevant files, understand interactions across functions, propose an edit, and pass tests without breaking unrelated behavior. The hard part is therefore not merely recalling a programming fact or paying for a large model. It is sustained, multi-step reasoning over a changing external state: search, inspect, form a hypothesis, edit, run tests, interpret failure, and revise.
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q3</span><span>Identify a real-world LLM challenge</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What is a common challenge in real-world applications such as SWE-bench?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Performing complex reasoning. Repository-level tasks require the system to connect an issue to the right code, coordinate tools, maintain state across steps, and verify the repair with tests. Compute cost and model size matter operationally, but they are not the capability challenge singled out here.</div></div></details>
+
 For any multiple-choice benchmark, specify the scoring procedure. Let $a_j$ be candidate answer $j$ with token sequence $(a_{j,1},\ldots,a_{j,m_j})$. One score is length-normalized conditional log-likelihood:
 
 $$

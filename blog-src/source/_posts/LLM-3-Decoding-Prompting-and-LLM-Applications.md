@@ -161,6 +161,8 @@ Not every prompt needs all six. A simple rewrite may need only text, audience, a
 
 Prompting is also distinct from fine-tuning. A prompt changes the context for this inference call. Fine-tuning updates parameters across calls. Retrieval adds external information. Decoding chooses from the resulting token distribution. Keeping these mechanisms separate makes debugging much easier.
 
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q1</span><span>Identify the purpose of prompt engineering</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What does prompt engineering primarily involve?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Developing and refining prompts to guide an LLM's behavior. Prompt engineering changes the model's request-time instructions and context; it is not hardware design, visualization, or database construction.</div></div></details>
+
 ### System, User, and Assistant Messages
 
 Chat APIs typically organize a conversation into roles. The **system** message establishes application-level behavior and constraints. The **user** message contains the current request and data. Previous **assistant** messages can demonstrate style or preserve conversational history. Internally, the interface serializes these messages into a token sequence using special boundary markers; the model still receives tokens, not abstract chat bubbles.
@@ -285,6 +287,8 @@ Tools are valuable because some operations should not be approximated in languag
 
 Function calling gives the model a schema for available actions and asks it to return a function name plus arguments. The application must validate the arguments, enforce authorization, execute the function, and decide what result is safe to return. Never let generated arguments bypass normal security rules. Tool availability expands capability and risk at the same time.
 
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q12</span><span>Recognize an agent loop</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What is an agent loop?</p><div class="llm-quiz-answer"><strong>Answer.</strong> The agent selects a tool or action, observes the result, updates its state, and repeats until an explicit stopping condition is reached. Retrieval may be one action inside the loop; an endless loop is a failure mode, not the definition.</div></div></details>
+
 ### Post-Processing Is Part of the System
 
 An answer may be used as-is, formatted for display, reduced to selected fields, or mapped to an application action. Each path needs post-processing. Markdown and code require safe rendering. Classification needs an allowed-label check. Regression needs numeric parsing and range validation. Entity extraction needs a schema and a policy for missing values. A function call needs type checks, permissions, retries, and error handling.
@@ -330,6 +334,8 @@ Across all these applications, the recurring pattern is the same: place the mode
 ### LangChain as Orchestration
 
 Frameworks such as LangChain package recurring application patterns. A **prompt template** fills variables into a reusable instruction. An **output parser** converts model text into a typed structure. **Memory** stores conversation state outside the model and inserts relevant history into later prompts. The model itself remains stateless between independent API calls unless the application resends state.
+
+<details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q4</span><span>Explain apparent chatbot memory</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> How can a chatbot appear to remember an earlier turn?</p><div class="llm-quiz-answer"><strong>Answer.</strong> The application stores or selects the conversation history and sends it again as context in the next transaction. The language model does not silently retain every independent call, and a large context window alone does nothing unless prior messages are placed inside it.</div></div></details>
 
 <figure class="llm1-figure llm1-figure--half"><img src="/blog/images/llm3-lecture-3/memory.jpg" alt="Conversation history passed back into a stateless language model" loading="lazy" decoding="async"><figcaption>Apparent conversational memory is usually external state selected and passed into a new model call. Course slide 111.</figcaption></figure>
 
