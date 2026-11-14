@@ -32,6 +32,8 @@ An LLM request has two computational phases. During **prefill**, the model proce
 
 During **decode**, the model produces one new token at a time. Token $t+1$ depends on the sampled or selected token $t$, so generation is sequential across time. Within one decoding step, the model still runs large matrix operations, but each active request contributes only one new query position. The weights must be read again for every step, and the KV cache must be consulted and extended.
 
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q15</span><span>Identify the serving dependency</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Why can autoregressive serving remain slow on a powerful GPU?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Output tokens are sequentially dependent: token $t+1$ cannot be finalized before token $t$ is generated. Parallel work still exists inside each step and across requests, but one sequence cannot decode all future positions simultaneously.</div></div></details>
+
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm7-serving/llm7-slide-007.webp" alt="Prefill and autoregressive decoding phases of an LLM request" loading="lazy" decoding="async"><figcaption>Prefill consumes the known prompt in parallel; decode repeatedly appends one token. Their compute and memory profiles are different. Course slide 7.</figcaption></figure>
 
 For many decode workloads, memory traffic rather than raw floating-point capacity becomes the bottleneck. A rough 13-billion-parameter example in the course material uses about 26 GB for half-precision weights. Even before the KV cache and temporary buffers, one decoding step must stream a large fraction of those weights through the device. The precise throughput depends on hardware, kernels, quantization, tensor parallelism, sequence length, and batch size; the important point is that **a small decode batch may not create enough arithmetic per byte moved**.
@@ -66,6 +68,8 @@ A_{t+1}=\bigl(A_t\setminus F_t\bigr)\cup N_t,
 $$
 
 where $F_t$ is the set that finished during the iteration and $N_t$ is a set of admitted requests that fit the available memory. The difficult word is **fit**. Continuous batching can keep compute busy only if the cache allocator can place each request without reserving large unused regions. That brings us to attention and memory movement.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q16</span><span>Choose continuous batching</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which batching policy replaces completed sequences while generation is still in progress?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Continuous batching. It schedules at the iteration level, removes finished sequences, and admits new requests without waiting for the longest member of the original batch.</div></div></details>
 
 ## 2. FlashAttention
 
@@ -137,6 +141,10 @@ $$
 
 The factor 2 represents keys and values. For ordinary multi-head attention, $H_{kv}=H_q$ and $H_{kv}d_h$ is the model width. Multi-query attention and grouped-query attention reduce $H_{kv}$, often cutting cache memory substantially.
 
+For the 13B configuration used in the lecture's serving example, substituting its layer, head, width, and precision values gives a memorable order-of-magnitude estimate of roughly **1 MB per cached token**. This is configuration-specific rather than a universal property of every 13B model, but it explains why thousands of active tokens can consume several gigabytes.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q17</span><span>Estimate per-token KV memory</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What per-token KV-cache estimate was used for the 13B example?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Approximately 1 MB per token for that particular configuration. The value follows from $2L H_{kv}d_hb$ and changes with layer count, KV heads, head dimension, and precision.</div></div></details>
+
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm7-serving/llm7-slide-040.webp" alt="KV cache growth through autoregressive decoding" loading="lazy" decoding="async"><figcaption>The KV cache avoids recomputing earlier tokens, but grows with sequence length for every layer and active request. Course slide 40.</figcaption></figure>
 
 Now imagine reserving one contiguous region sized for each request's maximum possible sequence length. A request that stops early leaves most of its reservation unused—**internal fragmentation**. As requests of different sizes arrive and finish, enough total free memory may exist but not as one sufficiently large contiguous segment—**external fragmentation**. The course cites observations in which ordinary contiguous allocation used only a minority of reserved cache capacity for real tokens.
@@ -150,6 +158,8 @@ PagedAttention borrows the virtual-memory idea. Each sequence's logical KV cache
 Only the final block of a sequence can be partially filled, so internal waste is bounded by fewer than one block per sequence. Physical blocks can be allocated wherever space exists, removing the need for one contiguous range. A small block reduces waste but increases block-table entries and addressing overhead; a large block simplifies mapping but wastes more capacity at sequence tails. The vLLM study found a block size around 16 tokens effective across its tested workloads, but this is a system parameter rather than a law.
 
 Indirection adds kernel overhead—the course reports roughly 10–15% in one comparison—but capacity can improve much more. If paging allows twice as many useful tokens to remain resident, continuous batching has more requests available to amortize weight reads.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q18</span><span>Reason about PagedAttention</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which PagedAttention properties are correct?</p><div class="llm-quiz-answer"><strong>Answer.</strong> It divides the cache into fixed-size blocks, can share prompt blocks across samples, and the reported implementation found a block size of 16 effective. It greatly reduces fragmentation but cannot eliminate the unused tail of every final partial block.</div></div></details>
 
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm7-serving/llm7-slide-052.webp" alt="PagedAttention reducing internal and external fragmentation" loading="lazy" decoding="async"><figcaption>Paging confines unused space to the final block and lets physical blocks be reused immediately. Course slide 52.</figcaption></figure>
 
@@ -165,6 +175,8 @@ If the GPU still runs out of cache blocks, the scheduler must preempt work. Two 
 - **recompute:** discard the cache and rebuild it from the token prefix when the request resumes.
 
 Recompute is often attractive when PCIe transfer would be slower than another prefill, but the trade depends on prefix length and hardware. A first-come-first-served scheduler can preempt the most recently admitted request, preserving progress for older requests. Fairness, latency SLOs, and priority classes may require more sophisticated policies.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q19</span><span>Handle KV-block exhaustion</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What does the system do when no KV block is available?</p><div class="llm-quiz-answer"><strong>Answer.</strong> It preempts one or more requests and later recovers them, either by restoring swapped cache blocks or recomputing the prefix. GPU memory cannot expand automatically, and immediate request loss is not the intended policy.</div></div></details>
 
 ## 4. vLLM
 
@@ -264,6 +276,8 @@ Running $B$ independent tiny matrix multiplications would launch inefficient ker
 The S-LoRA evaluation reported serving orders of magnitude more adapters than simpler baselines and throughput improvements up to several-fold in its tested settings, while adding small per-token overhead. Capacity depends on adapter rank, base model, CPU memory, transfer bandwidth, popularity distribution, and request length. A production cache should keep hot adapters resident and prefetch when routing makes the next adapter predictable.
 
 vLLM and S-LoRA solve overlapping but differently emphasized problems. vLLM's core contribution is efficient KV-cache management for general request serving. S-LoRA specializes the memory manager and kernels for very large adapter populations. Modern systems may incorporate ideas from both rather than force an exclusive choice.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q20</span><span>Compare vLLM and S-LoRA adapters</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> How does the Quiz 4 comparison distinguish their adapter handling?</p><div class="llm-quiz-answer"><strong>Answer.</strong> The tested vLLM path merges an adapter into the base model, whereas S-LoRA retains a large adapter collection in main memory and transfers active adapters into shared GPU space. This enables heterogeneous multi-adapter serving rather than one permanently merged model per adapter.</div></div></details>
 
 ## 7. Sharing GPUs Safely
 

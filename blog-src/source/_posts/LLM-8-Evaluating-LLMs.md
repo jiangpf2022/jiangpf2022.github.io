@@ -188,6 +188,8 @@ This is worth calculating directly because a displayed classroom example can con
 
 ROUGE can still be fooled. “cold cold cold cold” repeats a reference word but conveys almost none of the sentence. Clipping reduces its unigram precision to $1/4$, but “outside cold it is” contains all four words and can score perfectly on unigram precision despite broken order. ROUGE-2 and ROUGE-L penalize some ordering errors, yet none of these metrics proves factual equivalence or fluency.
 
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q26</span><span>Compute three ROUGE scores</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Calculate ROUGE-1, ROUGE-2, and ROUGE-L F1.</p><div class="llm-quiz-answer"><strong>Answer.</strong> ROUGE-1 F1 is $5/6=0.833$ because five unigrams match. ROUGE-2 F1 is $2/5=0.400$ because “I like” and “like green” are the two shared bigrams. The LCS has four tokens—“I like green and”—so ROUGE-L F1 is $4/6=0.667$.</div></div></details>
+
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm8-evaluation/llm8-slide-029.webp" alt="Repetition and word-order failure cases for overlap metrics" loading="lazy" decoding="async"><figcaption>Clipped counts fix unlimited repetition credit, but unigram overlap still cannot understand syntax or meaning. Course slide 29.</figcaption></figure>
 
 ### BLEU
@@ -221,6 +223,10 @@ Chain-of-thought, tree search, and tool-using methods expose intermediate text. 
 
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm8-evaluation/llm8-slide-034.webp" alt="Taxonomy of errors in generated reasoning chains" loading="lazy" decoding="async"><figcaption>Reasoning evaluation must distinguish grammar, factuality, hallucination, redundancy, missing steps, coherence, and arithmetic errors. Course slide 34.</figcaption></figure>
 
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q24</span><span>Diagnose a factuality error</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What error occurs when a rationale swaps Sheila's and Tyler's stated distances?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Factuality. The explanation contradicts the supplied context by assigning each distance to the wrong person, so its final conclusion is unsupported even though the prose is grammatical.</div></div></details>
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q25</span><span>Diagnose unnecessary repetition</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which error describes repeatedly restating the same lecture-hour calculation?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Repetition. The arithmetic reaches 24 hours correctly, but the rationale repeats an intermediate fact instead of advancing the reasoning. In practice, repetition and broader redundancy are related labels, so the evaluation taxonomy must define their boundary explicitly.</div></div></details>
+
 ROSCOE organizes automatic reasoning-chain metrics into four families:
 
 1. semantic alignment with the source or reference;
@@ -240,6 +246,8 @@ $$
 r\text{-align}(H\rightarrow S)=(\alpha_1,\ldots,\alpha_N).
 $$
 
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q21</span><span>Calculate reasoning alignment</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Compute the normalized maximum cosine alignment for the supplied embeddings.</p><div class="llm-quiz-answer"><strong>Answer.</strong> The maximum cosine similarity is approximately $0.0466$. ROSCOE rescales cosine similarity from $[-1,1]$ to $[0,1]$, so $\alpha=(1+0.0466)/2\approx0.523$.</div></div></details>
+
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm8-evaluation/llm8-slide-038.webp" alt="Reasoning alignment vector between generated steps and source sentences" loading="lazy" decoding="async"><figcaption>Each generated step is compared with its most similar source sentence, creating a grounding profile across the chain. Course slide 38.</figcaption></figure>
 
 The mean alignment can serve as a step-level faithfulness signal. Bidirectional coverage asks both whether hypothesis steps are grounded in the source and whether important source information appears in the hypothesis. Comparing with an optional gold reasoning chain can reveal redundancy or missing content.
@@ -247,6 +255,26 @@ The mean alignment can serve as a step-level faithfulness signal. Bidirectional 
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm8-evaluation/llm8-slide-039.webp" alt="ROSCOE semantic alignment metrics" loading="lazy" decoding="async"><figcaption>ROSCOE derives separate signals for faithfulness, information coverage, hallucination, and redundancy. Course slide 39.</figcaption></figure>
 
 Whole-chain embedding similarity measures broad semantic agreement but can hide one fatal step. Step-level repetition detects whether a new step paraphrases earlier reasoning. Natural-language-inference models estimate contradiction probabilities between steps or between a step and the source. Perplexity and grammatical acceptability measure fluency.
+
+ROSCOE turns the largest contradiction probability into two conservative consistency scores. Self-consistency checks every later hypothesis step against earlier steps:
+
+$$
+\operatorname{self\text{-}consistency}(H)
+=1-\max_{2\le i\le N}\max_{j<i}p_{\rm contr}(h_i,h_j).
+$$
+
+Source-consistency instead checks every hypothesis step against every source sentence:
+
+$$
+\operatorname{source\text{-}consistency}(H,S)
+=1-\max_{1\le i\le N}\max_{1\le j\le T}p_{\rm contr}(h_i,s_j).
+$$
+
+The use of a maximum makes one severe contradiction visible rather than allowing many harmless pairs to average it away.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q22</span><span>Compute self-consistency</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Convert the largest within-chain contradiction probability into a score.</p><div class="llm-quiz-answer"><strong>Answer.</strong> The maximum pairwise contradiction probability is $0.7$, hence self-consistency is $1-0.7=0.3$.</div></div></details>
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q23</span><span>Compute source-consistency</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Convert the largest hypothesis-to-source contradiction probability into a score.</p><div class="llm-quiz-answer"><strong>Answer.</strong> The largest probability across the eight pairs is $0.4$, so source-consistency is $1-0.4=0.6$.</div></div></details>
 
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm8-evaluation/llm8-slide-041.webp" alt="Logical inference metrics for reasoning chains" loading="lazy" decoding="async"><figcaption>NLI-based scores probe contradictions within a chain and between the chain and its source. Course slide 41.</figcaption></figure>
 

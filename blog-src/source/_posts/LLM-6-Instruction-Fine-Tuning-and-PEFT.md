@@ -50,6 +50,8 @@ Fine-tuning moves the examples from the runtime prompt into a training dataset. 
 
 > **A clean distinction:** prompting changes the current context; retrieval changes the evidence in that context; fine-tuning changes the model's conditional behavior. None of the three automatically replaces the others.
 
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q9</span><span>Separate tuning from in-context learning</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which process updates weights, and which supplies demonstrations only at inference time?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Instruction fine-tuning uses prompt-completion examples as labeled training data and updates weights. In-context learning places demonstrations in the inference context while leaving the model parameters unchanged.</div></div></details>
+
 ### What Fine-Tuning Actually Changes
 
 Let the pretrained parameters be $\theta_0$. For an instruction $x$ and desired response $y=(y_1,\ldots,y_T)$, supervised fine-tuning minimizes the negative log-likelihood of the target tokens:
@@ -82,6 +84,8 @@ Fine-tuning is useful when failure is systematic and behavioral. Examples includ
 Fine-tuning is a poor substitute for frequently changing facts. If the answer depends on today's inventory, current policy, or a private document revised every week, retrieval is usually the more direct mechanism. Fine-tuning can teach the model **how to use** retrieved evidence, but it should not be treated as a reliable database update.
 
 Before training, write one sentence that names the intended change: “Given a support dialogue, produce a concise summary containing the issue, action already taken, and unresolved next step.” A statement such as “make the model better” cannot determine the dataset, metric, or stopping rule.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q7</span><span>State the purpose of task fine-tuning</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Why fine-tune with a prompt dataset?</p><div class="llm-quiz-answer"><strong>Answer.</strong> To make a pretrained model more effective and adaptable for specified tasks. Fine-tuning changes conditional behavior; it is not intended to make training more expensive, reduce accuracy, or eliminate the need to express instructions clearly.</div></div></details>
 
 ## 2. Build an Instruction Dataset
 
@@ -179,6 +183,8 @@ Forgetting becomes more likely when the dataset is narrow, the learning rate is 
 
 The effect can be measured. Create a **retention suite** before training: a small set of capabilities that the adapted model must keep. Evaluate it at every checkpoint beside the target metric. The correct checkpoint may be the one that gives up a fraction of target performance in exchange for much stronger retention.
 
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q10</span><span>Name the forgetting phenomenon</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What is it called when narrow fine-tuning improves one task while degrading others?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Catastrophic forgetting: adaptation to new data or a narrow objective can overwrite behavior that the pretrained model had previously learned.</div></div></details>
+
 ### When Forgetting Is Acceptable
 
 Sometimes the model will serve only one controlled task. If a classifier is never exposed to general questions, losing open-ended generation may not matter. A smaller deployment model can benefit from becoming specialized.
@@ -192,6 +198,8 @@ The decision should still be explicit. Accepting forgetting is different from fa
 - Can routing guarantee that only valid requests reach the model?
 
 If broad capability must remain, common defenses include lower learning rates, fewer epochs, mixing general examples into training, multi-task fine-tuning, regularization toward the initial weights, replay data, or PEFT methods that leave the base weights frozen.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q6</span><span>Recognize forgetting and its mitigation</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which statements correctly define or mitigate catastrophic forgetting?</p><div class="llm-quiz-answer"><strong>Answer.</strong> The first three statements are correct. Forgetting means losing earlier capabilities while learning new ones; regularization can limit destructive weight movement; and the problem is common in deep learning. It is not restricted to supervised learning.</div></div></details>
 
 ## 4. Multi-Task Instruction Tuning
 
@@ -228,6 +236,8 @@ T5 is an encoder-decoder model that casts tasks into text-to-text form. FLAN-T5 
 This creates an important adaptation strategy: when a project needs one additional task, start from an instruction-tuned checkpoint rather than from the raw pretrained checkpoint. The FLAN Collection study found that instruction-tuned checkpoints can converge faster and higher on later downstream tasks. Prior instruction tuning has already shaped the interface; the new fine-tuning run refines it.
 
 That does not remove the need for validation. A broadly instruction-tuned model may carry response conventions that conflict with a strict task. It can also produce fluent but unsupported text. The starting checkpoint changes the prior, not the acceptance criteria.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q11</span><span>Reason about multi-task tuning</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which statements about multi-task fine-tuning are supported?</p><div class="llm-quiz-answer"><strong>Answer.</strong> FLAN-T5 uses multi-task fine-tuning, and a varied task mixture can help preserve broader capabilities. Multi-task tuning does not require one separate model per task and does not inherently slow the inference graph.</div></div></details>
 
 ### Template Diversity Without Task Ambiguity
 
@@ -343,6 +353,8 @@ The frozen base preserves a common foundation. Each task stores only $\phi^*$, w
 
 PEFT can reduce trainable parameters, optimizer memory, checkpoint size, and transfer time. Keeping the original weights frozen can also reduce forgetting, although the adapter can still steer outputs away from broad behavior.
 
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q8</span><span>Identify the motivation for PEFT</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which full-tuning challenges can motivate PEFT?</p><div class="llm-quiz-answer"><strong>Answer.</strong> All four: computational cost, checkpoint storage, catastrophic forgetting, and the desire to preserve strong task performance with a constrained update. PEFT does not guarantee equal performance, but maintaining useful quality is part of its design objective.</div></div></details>
+
 ### Three Families of PEFT
 
 It helps to classify methods by where the trainable capacity lives.
@@ -356,6 +368,8 @@ It helps to classify methods by where the trainable capacity lives.
 **Additive methods** introduce trainable components while keeping the original network fixed. Examples include adapter layers and learned soft prompts.
 
 These families are not mutually exclusive. Quantization can be combined with LoRA; adapters can coexist with other trainable modules; different tasks can use different adapters on the same base.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q12</span><span>Classify PEFT families</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which method families belong to PEFT?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Additive, reparameterization, and selective methods. “Subtractive” is not the taxonomy used here.</div></div></details>
 
 ### PEFT Trade-Offs
 
@@ -419,6 +433,8 @@ $$
 where $\alpha$ controls the adapter's contribution. Implementations often initialize one factor to zero so that $\Delta W=0$ at the beginning and the adapted model initially behaves exactly like the base model.
 
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm6-fine-tuning/llm6-slide-086.webp" alt="LoRA freezes the original self-attention weight learns two low-rank matrices and adds their product for inference" loading="lazy" decoding="async"><figcaption>LoRA trains the factors of a compact update. At inference, the product can remain separate or be added to the original weight. Course slide 86.</figcaption></figure>
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q13</span><span>Describe the LoRA update</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What does LoRA train?</p><div class="llm-quiz-answer"><strong>Answer.</strong> LoRA freezes the base weight and trains two smaller low-rank factors whose product represents the update $\Delta W=BA$. It is neither ordinary full fine-tuning nor model distillation.</div></div></details>
 
 ### A Concrete Parameter Count
 
@@ -564,6 +580,8 @@ $$
 to the frozen model. Only the $md$ entries of $P$ are optimized.
 
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm6-fine-tuning/llm6-slide-095.webp" alt="Trainable soft prompt vectors prepended to ordinary token embeddings" loading="lazy" decoding="async"><figcaption>A soft prompt is a learned sequence of embedding-sized vectors, often tens of virtual tokens, prepended to every input. Course slide 95.</figcaption></figure>
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q14</span><span>Define a soft prompt</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What makes a soft prompt different from an ordinary text prompt?</p><div class="llm-quiz-answer"><strong>Answer.</strong> A soft prompt is a set of trainable continuous vectors prepended to the model input. Backpropagation learns their values for a task while the base model remains frozen; the vectors need not correspond to readable vocabulary tokens.</div></div></details>
 
 The virtual tokens need not correspond to real vocabulary items. Their job is to steer hidden states, not form a readable sentence. This is why converting each learned vector to its nearest word embedding usually produces an awkward or misleading interpretation.
 

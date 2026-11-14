@@ -418,9 +418,208 @@
     },
   };
 
+  const quiz4Definitions = {
+    1: {
+      question: "The Chinchilla paper primarily discusses the relationship between:",
+      options: [
+        "Model size and training speed",
+        "Training time and model performance",
+        "Model size, dataset size, and compute budget",
+        "Dataset size and model accuracy",
+      ],
+      answer: ["C"],
+    },
+    2: {
+      question: "According to the lecture, what is one petaflop/s-day equivalent to?",
+      options: [
+        "One million model parameters",
+        "Computing chips running at one quadrillion (10¹⁵) floating-point operations per second for 24 hours",
+        "One GPU running for 24 hours",
+        "One trillion floating-point operations",
+      ],
+      answer: ["B"],
+    },
+    3: {
+      question: "BloombergGPT's training data consisted of approximately:",
+      options: ["100% financial data", "51% financial data", "75% financial data", "25% financial data"],
+      answer: ["B"],
+    },
+    4: {
+      question: "Which of the following is NOT a stage in ZeRO (Zero Redundancy Optimizer)?",
+      options: ["Optimizer-state sharding", "Gradient sharding", "Parameter sharding", "Data sharding"],
+      answer: ["D"],
+    },
+    5: {
+      question: "For FP32-precision training, what total GPU RAM is typically budgeted per billion parameters when training overhead and the Adam optimizer are included?",
+      options: ["4 GB", "24 GB", "48 GB", "12 GB"],
+      answer: ["B"],
+    },
+    6: {
+      question: "Which statements about catastrophic forgetting are true? Select all that apply.",
+      multiple: true,
+      options: [
+        "It occurs when a model forgets previously learned information as it learns new information.",
+        "Regularization can mitigate it by limiting changes to important model weights during training.",
+        "It is a common problem in machine learning, especially in deep-learning models.",
+        "It occurs only in supervised learning and is not a problem in unsupervised learning.",
+      ],
+      answer: ["A", "B", "C"],
+    },
+    7: {
+      question: "What is the purpose of fine-tuning with prompt datasets?",
+      options: [
+        "To increase the computational resources required for training",
+        "To decrease a pretrained model's accuracy by introducing new prompts",
+        "To improve a pretrained model's performance and adaptability for specific tasks",
+        "To eliminate the need for instructions and prompts",
+      ],
+      answer: ["C"],
+    },
+    8: {
+      question: "Which full-fine-tuning challenges do parameter-efficient fine-tuning (PEFT) methods attempt to address? Select all that apply.",
+      multiple: true,
+      options: ["Model performance", "Computational constraints", "Catastrophic forgetting", "Storage requirements"],
+      answer: ["A", "B", "C", "D"],
+    },
+    9: {
+      question: "_______ uses many prompt-completion examples as labeled training data and updates model weights. This differs from _______, where examples are supplied during inference.",
+      options: [
+        "Pretraining; instruction fine-tuning",
+        "Instruction fine-tuning; in-context learning",
+        "In-context learning; instruction fine-tuning",
+        "Prompt engineering; pretraining",
+      ],
+      answer: ["B"],
+    },
+    10: {
+      question: "Fine-tuning on one task may improve that task while degrading performance on other tasks. What is this phenomenon called?",
+      options: ["Catastrophic loss", "Catastrophic forgetting", "Instruction bias", "Model toxicity"],
+      answer: ["B"],
+    },
+    11: {
+      question: "Which statements about multi-task fine-tuning are correct? Select all that apply.",
+      multiple: true,
+      options: [
+        "FLAN-T5 was trained with multi-task fine-tuning.",
+        "Multi-task fine-tuning requires a separate model for every task.",
+        "Multi-task fine-tuning necessarily produces slower inference.",
+        "Multi-task fine-tuning can help prevent catastrophic forgetting.",
+      ],
+      answer: ["A", "D"],
+    },
+    12: {
+      question: "Which are families of parameter-efficient fine-tuning methods? Select all that apply.",
+      multiple: true,
+      options: ["Subtractive", "Additive", "Reparameterization", "Selective"],
+      answer: ["B", "C", "D"],
+    },
+    13: {
+      question: "Which statement best describes how LoRA works?",
+      options: [
+        "It freezes all weights in the original model layers and introduces new components which are trained on new data.",
+        "It continues the original pretraining objective and updates every original weight.",
+        "It distills the pretrained LLM into a smaller model.",
+        "It represents a weight update with two smaller low-rank matrices and trains those instead of all full model weights.",
+      ],
+      answer: ["D"],
+    },
+    14: {
+      question: "What is a soft prompt in the context of LLMs?",
+      options: [
+        "A strict input sentence that constrains generation",
+        "A method that controls behavior only by changing the learning rate",
+        "A decoding rule that limits creativity",
+        "A set of trainable prompt vectors whose values are learned for a task",
+      ],
+      answer: ["D"],
+    },
+    15: {
+      question: "What makes LLM serving surprisingly slow even on powerful hardware?",
+      options: [
+        "Sequential dependency between output tokens",
+        "GPU hardware limitations alone",
+        "Model parameter size alone",
+        "Network bandwidth constraints alone",
+      ],
+      answer: ["A"],
+    },
+    16: {
+      question: "Which batching technique keeps the GPU utilized by inserting new sequences as other sequences finish?",
+      options: ["Static batching", "Continuous batching", "Parallel batching", "Dynamic batching"],
+      answer: ["B"],
+    },
+    17: {
+      question: "Approximately how much GPU memory is required per KV-cache token for the 13B-parameter model discussed in the lecture?",
+      options: ["500 KB", "100 KB", "1 MB", "5 MB"],
+      answer: ["C"],
+    },
+    18: {
+      question: "Which statements about PagedAttention are true? Select all that apply.",
+      multiple: true,
+      options: [
+        "It enables sharing prompt blocks across samples.",
+        "The reported implementation typically works best with a block size of 16.",
+        "It divides KV-cache space into fixed-size blocks.",
+        "It eliminates every form of internal fragmentation.",
+      ],
+      answer: ["A", "B", "C"],
+    },
+    19: {
+      question: "What happens when a PagedAttention serving system runs out of KV-block memory?",
+      options: [
+        "It switches every computation to the CPU.",
+        "It performs request preemption and later recovery.",
+        "It automatically expands physical GPU memory.",
+        "It immediately drops the request.",
+      ],
+      answer: ["B"],
+    },
+    20: {
+      question: "What is the primary difference described between vLLM and S-LoRA when handling LoRA adapters?",
+      options: [
+        "S-LoRA always requires more GPU memory than vLLM.",
+        "vLLM merges adapters into the base model, whereas S-LoRA keeps many adapters in main memory and pages active ones into GPU memory.",
+        "vLLM uses only CPU memory, whereas S-LoRA uses only GPU memory.",
+        "S-LoRA handles only a few adapters, whereas vLLM handles thousands.",
+      ],
+      answer: ["B"],
+    },
+    21: {
+      question: "Let s contain four sentence embeddings: (0.4,0.5,0.2,0.1), (0.4,0.5,0.1,0.2), (0.1,0.5,0.2,0.4), and (0.1,0.2,0.5,0.4). For e(h)=(0.1,−0.1,0.2,−0.2), compute ROSCOE reasoning alignment r-align(h→s) to three decimal places.",
+      inputs: [{ label: "r-align(h→s)", answer: 0.523, tolerance: 0.0005, placeholder: "0.000" }],
+    },
+    22: {
+      question: "For a four-step hypothesis, the pairwise contradiction probabilities are 0.1, 0.3, 0.4, 0.01, 0.02, and 0.7. Compute the ROSCOE self-consistency score to one decimal place.",
+      inputs: [{ label: "Self-consistency", answer: 0.3, tolerance: 0.05, placeholder: "0.0" }],
+    },
+    23: {
+      question: "For two hypothesis sentences and four source sentences, the contradiction probabilities are {0.1,0.3,0.4,0.01} and {0.02,0.2,0.25,0.3}. Compute ROSCOE source-consistency to one decimal place.",
+      inputs: [{ label: "Source-consistency", answer: 0.6, tolerance: 0.05, placeholder: "0.0" }],
+    },
+    24: {
+      question: "Context: Sheila drives 5 miles a day to work from her home while her manager Tyler walks 3 miles a day to work from his home. Whose home is closer to work? Model explanation: Sheila's home is 3 miles from work. Tyler's home is 5 miles from work. So the answer is Sheila. Which ROSCOE error type appears?",
+      options: ["Redundancy", "Repetition", "Grammar", "Factuality"],
+      answer: ["D"],
+    },
+    25: {
+      question: "Context: A class has 14 lectures in a semester, each lasting 2 hours. Rehan must miss 2 lectures for job interviews. Model explanation: Each lecture is 2 hours for 2×14=28 hours. Rehan misses 2 lectures for 2×2=4 hours. Rehan will miss 4 hours due to interviews. Rehan attends 28−4=24 hours. Which ROSCOE error type appears?",
+      options: ["Grammar", "Redundancy", "Repetition", "Factuality"],
+      answer: ["C"],
+    },
+    26: {
+      question: "Reference: 'I like green eggs and ham'. Generated: 'I like green ham and egg'. Compute ROUGE-1 F1, ROUGE-2 F1, and ROUGE-L F1 to three decimal places.",
+      inputs: [
+        { label: "ROUGE-1 F1", answer: 0.833, tolerance: 0.0005, placeholder: "0.000" },
+        { label: "ROUGE-2 F1", answer: 0.4, tolerance: 0.0005, placeholder: "0.000" },
+        { label: "ROUGE-L F1", answer: 0.667, tolerance: 0.0005, placeholder: "0.000" },
+      ],
+    },
+  };
+
   const quizSets = {
     1: quizDefinitions,
     3: quiz3Definitions,
+    4: quiz4Definitions,
   };
 
   const escapeHtml = (value) =>
@@ -444,6 +643,9 @@
     [...card.querySelectorAll(".llm-quiz-option input:checked")]
       .map((input) => input.value)
       .sort();
+
+  const numericValues = (card) =>
+    [...card.querySelectorAll(".llm-quiz-numeric-input")].map((input) => Number(input.value));
 
   const arraysMatch = (left, right) =>
     left.length === right.length && left.every((value, index) => value === right[index]);
@@ -500,6 +702,30 @@
   const checkAnswer = async (card) => {
     const definition = getDefinition(card);
     if (!definition) return;
+    if (definition.inputs) {
+      const inputs = [...card.querySelectorAll(".llm-quiz-numeric-input")];
+      if (inputs.some((input) => input.value.trim() === "")) {
+        setResult(card, "error", "Enter every numerical answer first.");
+        return;
+      }
+      const values = numericValues(card);
+      const correct = values.every((value, index) => {
+        const expected = definition.inputs[index];
+        return Number.isFinite(value) && Math.abs(value - expected.answer) <= expected.tolerance;
+      });
+      const explanation = card.querySelector(".llm-quiz-answer");
+      explanation?.removeAttribute("hidden");
+      if (!correct) {
+        card.classList.remove("is-correct");
+        card.classList.add("is-incorrect");
+        setResult(card, "incorrect", "Not quite. Check the definition and intermediate calculation, then try again.");
+        return;
+      }
+      card.classList.remove("is-incorrect");
+      card.classList.add("is-correct");
+      await rewardCorrectAnswer(card);
+      return;
+    }
     const selected = selectedValues(card);
     if (!selected.length) {
       setResult(card, "error", definition.multiple ? "Select one or more answers first." : "Select an answer first.");
@@ -547,16 +773,29 @@
 
     const fieldset = document.createElement("fieldset");
     fieldset.className = "llm-quiz-options";
-    const inputType = definition.multiple ? "checkbox" : "radio";
-    fieldset.innerHTML = `
-      <legend>${definition.multiple ? "Select all that apply" : "Select one answer"}</legend>
-      ${definition.options
-        .map((option, index) => {
-          const letter = LETTERS[index];
-          return `<label class="llm-quiz-option"><input type="${inputType}" name="quiz-${quizSet}-${number}" value="${letter}"><span class="llm-quiz-option__letter">${letter}</span><span>${escapeHtml(option)}</span></label>`;
-        })
-        .join("")}
-    `;
+    if (definition.inputs) {
+      fieldset.classList.add("llm-quiz-options--numeric");
+      fieldset.innerHTML = `
+        <legend>Enter the numerical answer${definition.inputs.length > 1 ? "s" : ""}</legend>
+        ${definition.inputs
+          .map(
+            (input, index) =>
+              `<label class="llm-quiz-numeric"><span>${escapeHtml(input.label)}</span><input class="llm-quiz-numeric-input" type="number" inputmode="decimal" step="any" name="quiz-${quizSet}-${number}-${index}" placeholder="${escapeHtml(input.placeholder || "")}"></label>`,
+          )
+          .join("")}
+      `;
+    } else {
+      const inputType = definition.multiple ? "checkbox" : "radio";
+      fieldset.innerHTML = `
+        <legend>${definition.multiple ? "Select all that apply" : "Select one answer"}</legend>
+        ${definition.options
+          .map((option, index) => {
+            const letter = LETTERS[index];
+            return `<label class="llm-quiz-option"><input type="${inputType}" name="quiz-${quizSet}-${number}" value="${letter}"><span class="llm-quiz-option__letter">${letter}</span><span>${escapeHtml(option)}</span></label>`;
+          })
+          .join("")}
+      `;
+    }
 
     const actions = document.createElement("div");
     actions.className = "llm-quiz-actions";
@@ -594,7 +833,7 @@
       if (card) checkAnswer(card);
     });
     document.addEventListener("change", (event) => {
-      const input = event.target.closest(".llm-quiz-option input");
+      const input = event.target.closest(".llm-quiz-option input, .llm-quiz-numeric-input");
       if (!input) return;
       const card = input.closest(".llm-quiz-practice");
       if (!card || card.classList.contains("is-correct")) return;

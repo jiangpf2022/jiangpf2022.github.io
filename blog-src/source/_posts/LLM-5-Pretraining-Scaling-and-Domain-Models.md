@@ -178,6 +178,8 @@ Do not treat 24 bytes as a universal constant. Optimizer choice, master weights,
 
 <details class="llm-quiz-practice" data-quiz-set="3"><summary><span class="llm-quiz-practice__label">Quiz 3 · Q19</span><span>Account for Adam training overhead</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Excluding the FP32 parameter copy, what additional per-parameter budget does the course heuristic use for Adam states, gradients, activations, and temporary memory?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Approximately 20 bytes: 8 for Adam's two FP32 moments, 4 for the FP32 gradient, and roughly 8 for activations and temporary memory. Adding the 4-byte parameter copy gives the 24-byte planning heuristic. The activation term is workload-dependent.</div></div></details>
 
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q5</span><span>Budget complete FP32 training memory</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What total memory should be budgeted per billion parameters?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Approximately 24 GB under the course heuristic: 4 GB of FP32 parameters plus roughly 20 GB for Adam moments, gradients, activations, and temporary storage. This is a planning estimate rather than a universal hardware constant.</div></div></details>
+
 ### Activations Depend on the Workload
 
 Optimizer state scales mostly with parameter count. Activations scale with the computation being remembered for backpropagation. A rough Transformer activation budget grows with
@@ -298,6 +300,8 @@ The Zero Redundancy Optimizer asks why every data-parallel rank must store ident
 
 The gain is not free. A rank that owns only a shard must communicate when computation needs the full logical tensor. Sharding changes a capacity problem into a communication-and-scheduling problem. The network, tensor grouping, prefetch schedule, and overlap with computation determine whether the trade is worthwhile.
 
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q4</span><span>Distinguish ZeRO stages</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which item is not a ZeRO stage?</p><div class="llm-quiz-answer"><strong>Answer.</strong> Data sharding. ZeRO progressively shards optimizer states, gradients, and parameters. Dividing the input batch across workers is ordinary data parallelism, not an additional ZeRO stage.</div></div></details>
+
 ### FSDP Reconstructs One Block at a Time
 
 Fully Sharded Data Parallel (FSDP) implements the full-sharding idea around modules or parameter groups. Conceptually, for each wrapped block:
@@ -335,6 +339,8 @@ $$
 $$
 
 This is a unit of **work**, not a promise about elapsed time. If eight accelerators each advertise a peak rate, the achieved rate is lower unless kernels, memory, communication, and scheduling keep them fully utilized. Training cost can be approximated as achieved compute multiplied by wall-clock time, or estimated from model and token counts.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q2</span><span>Interpret a PF-day</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> What does one petaflop/s-day measure?</p><div class="llm-quiz-answer"><strong>Answer.</strong> It is the work produced by sustained $10^{15}$ floating-point operations per second for 24 hours: $8.64\times10^{19}$ operations. It is not the same as one GPU-day because different devices sustain different rates.</div></div></details>
 
 For a dense decoder Transformer, a frequently used first-order estimate is
 
@@ -382,6 +388,8 @@ $$
 Its central demonstration compared Gopher, 280B parameters, with Chinchilla, 70B parameters trained on 1.4T tokens at the same compute budget. The smaller, more thoroughly trained model performed better across many evaluations and was cheaper to serve. The lesson is not “70B is always ideal”; it is that a huge model can be **over-parameterized for its training budget**.
 
 <figure class="llm1-figure llm1-figure--wide"><img src="/blog/images/llm5-lecture-5/llm5-slide-077.webp" alt="Table comparing parameter counts, approximate compute-optimal tokens, and actual tokens for Chinchilla, LLaMA, GPT-3, OPT, and BLOOM" loading="lazy" decoding="async"><figcaption>The often quoted “about 20 tokens per parameter” is a rule derived from a particular compute-optimal analysis, not a timeless constant. Course slide 77.</figcaption></figure>
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q1</span><span>Identify Chinchilla's allocation question</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which relationship does Chinchilla study?</p><div class="llm-quiz-answer"><strong>Answer.</strong> The allocation among model size, dataset size, and compute budget. Its central result is that a fixed compute budget can be wasted by making the model too large and training it on too few tokens.</div></div></details>
 
 ### Batch Size Is Related but Not Interchangeable
 
@@ -431,6 +439,8 @@ The paper's BQL example makes the product motivation tangible: a user writes a n
 ### Prepared Corpus Versus Consumed Tokens
 
 The prepared corpus contains about **708.9B tokens**: approximately 363B financial tokens and 345B general-purpose tokens. FinPile accounts for 51.27% and public general data for 48.73%. FinPile includes web material, financial news, filings, press releases, and Bloomberg material; it should not be described as entirely private. General sources include The Pile, C4, and English Wikipedia.
+
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q3</span><span>Read BloombergGPT's data mixture</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Approximately what share of BloombergGPT's prepared corpus was financial data?</p><div class="llm-quiz-answer"><strong>Answer.</strong> About 51% (51.27% in the reported prepared corpus). The rest was general-purpose text, supporting the goal of financial specialization without abandoning broad language competence.</div></div></details>
 
 The selected checkpoint did not consume all 708.9B prepared tokens. It was chosen at step 139,200 after about **569B consumed tokens**. Prepared capacity and actual training exposure are different quantities. This distinction prevents a common error: reading a corpus total as if every token were necessarily used exactly once.
 
