@@ -237,7 +237,7 @@ This creates an important adaptation strategy: when a project needs one addition
 
 That does not remove the need for validation. A broadly instruction-tuned model may carry response conventions that conflict with a strict task. It can also produce fluent but unsupported text. The starting checkpoint changes the prior, not the acceptance criteria.
 
-<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q11</span><span>Reason about multi-task tuning</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which statements about multi-task fine-tuning are supported?</p><div class="llm-quiz-answer"><strong>Answer.</strong> FLAN-T5 uses multi-task fine-tuning, and a varied task mixture can help preserve broader capabilities. Multi-task tuning does not require one separate model per task and does not inherently slow the inference graph.</div></div></details>
+<details class="llm-quiz-practice" data-quiz-set="4"><summary><span class="llm-quiz-practice__label">Quiz 4 · Q11</span><span>Reason about multi-task tuning</span></summary><div class="llm-quiz-practice__body"><p><strong>Question.</strong> Which statements about multi-task fine-tuning are supported?</p><div class="llm-quiz-answer"><strong>Answer.</strong> A, C, and D are supported: FLAN-T5 was trained with multi-task fine-tuning; multi-task fine-tuning may lead to slower inference in some implementations; and the varied task mixture can help prevent catastrophic forgetting. It does not require a separate model for every task.</div></div></details>
 
 ### Template Diversity Without Task Ambiguity
 

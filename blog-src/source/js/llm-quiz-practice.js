@@ -502,10 +502,10 @@
       options: [
         "FLAN-T5 was trained with multi-task fine-tuning.",
         "Multi-task fine-tuning requires a separate model for every task.",
-        "Multi-task fine-tuning necessarily produces slower inference.",
+        "Performing multi-task fine-tuning may lead to slower inference.",
         "Multi-task fine-tuning can help prevent catastrophic forgetting.",
       ],
-      answer: ["A", "D"],
+      answer: ["A", "C", "D"],
     },
     12: {
       question: "Which are families of parameter-efficient fine-tuning methods? Select all that apply.",
