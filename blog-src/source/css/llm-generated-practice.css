@@ -1,0 +1,100 @@
+.llm-generated-practice {
+  margin: 1.8rem 0 2.4rem;
+  border: 1px solid rgba(111, 76, 179, 0.34);
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(249, 247, 255, 0.96), rgba(241, 247, 255, 0.92));
+  box-shadow: 0 16px 42px rgba(62, 53, 113, 0.1);
+}
+
+.llm-generated-practice > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1rem 1.15rem;
+  cursor: pointer;
+  list-style: none;
+  color: #2c2457;
+  font-weight: 750;
+}
+
+.llm-generated-practice > summary::-webkit-details-marker { display: none; }
+.llm-generated-practice > summary::after { content: "+"; margin-left: auto; font-size: 1.35rem; color: #7758b7; }
+.llm-generated-practice[open] > summary::after { content: "−"; }
+
+.llm-generated-practice__badge {
+  display: inline-flex;
+  padding: 0.28rem 0.62rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7148b6, #386fc7);
+  color: #fff;
+  font-size: 0.72rem;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.llm-generated-practice__title { min-width: 0; }
+.llm-generated-practice__count { color: #6b6682; font-size: 0.8rem; font-weight: 650; }
+.llm-generated-practice__body { padding: 0 1rem 1rem; }
+
+.llm-generated-practice__notice {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0 0 1rem;
+  padding: 0.82rem 0.95rem;
+  border-left: 4px solid #7c59bd;
+  border-radius: 10px;
+  background: rgba(118, 84, 183, 0.09);
+  color: #4b4268;
+  font-size: 0.84rem;
+}
+
+.llm-generated-question {
+  margin: 0.9rem 0;
+  padding: 1rem;
+  border: 1px solid rgba(70, 93, 151, 0.2);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.llm-generated-question.is-correct { border-color: rgba(29, 151, 99, 0.55); box-shadow: 0 8px 24px rgba(29, 151, 99, 0.1); }
+.llm-generated-question.is-wrong { border-color: rgba(201, 74, 84, 0.5); }
+.llm-generated-question__meta { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 0.55rem; }
+.llm-generated-question__meta span { padding: 0.2rem 0.5rem; border-radius: 999px; background: #edf1fb; color: #53617a; font-size: 0.7rem; font-weight: 700; }
+.llm-generated-question.is-hard .llm-generated-question__meta span:last-child { background: #ffe9ec; color: #a23a4a; }
+.llm-generated-question__prompt { margin: 0.35rem 0 0.8rem; color: #20283a; }
+.llm-generated-question__options { display: grid; gap: 0.48rem; margin: 0; padding: 0; border: 0; }
+.llm-generated-question__options label { display: grid; grid-template-columns: auto 1.6rem minmax(0, 1fr); gap: 0.42rem; align-items: start; padding: 0.58rem 0.68rem; border: 1px solid rgba(101, 117, 155, 0.18); border-radius: 10px; background: rgba(247, 249, 253, 0.94); cursor: pointer; }
+.llm-generated-question__options label:hover { border-color: rgba(89, 80, 170, 0.45); background: rgba(242, 242, 253, 0.98); }
+.llm-generated-question__options input { margin-top: 0.26rem; accent-color: #6d4fb1; }
+.llm-generated-question__letter { display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: #e7e9f6; color: #51447b; font-size: 0.72rem; font-weight: 800; }
+.llm-generated-question__actions { display: flex; gap: 0.55rem; margin-top: 0.85rem; }
+.llm-generated-question__actions button { appearance: none; border: 0; border-radius: 999px; padding: 0.5rem 0.85rem; cursor: pointer; font: inherit; font-size: 0.78rem; font-weight: 750; }
+.llm-generated-question__check { background: linear-gradient(135deg, #704bb0, #3f70bf); color: #fff; }
+.llm-generated-question__reset { background: #e9edf5; color: #46536a; }
+.llm-generated-question__result, .llm-generated-question__explanation { margin-top: 0.72rem; padding: 0.68rem 0.78rem; border-radius: 9px; font-size: 0.84rem; }
+.llm-generated-question__result.is-correct { background: #e7f7ef; color: #146846; }
+.llm-generated-question__result.is-wrong { background: #fff0f1; color: #9b3342; }
+.llm-generated-question__result.is-warning { background: #fff7dd; color: #7f6010; }
+.llm-generated-question__explanation { background: #eef3fb; color: #394a63; line-height: 1.68; }
+
+[data-theme="dark"] .llm-generated-practice, .dark .llm-generated-practice { background: linear-gradient(145deg, rgba(37, 30, 62, 0.96), rgba(22, 38, 61, 0.95)); border-color: rgba(159, 132, 224, 0.45); }
+[data-theme="dark"] .llm-generated-practice > summary, .dark .llm-generated-practice > summary { color: #eee9ff; }
+[data-theme="dark"] .llm-generated-practice__count, .dark .llm-generated-practice__count { color: #bbb3d1; }
+[data-theme="dark"] .llm-generated-practice__notice, .dark .llm-generated-practice__notice { background: rgba(164, 125, 232, 0.12); color: #d5caee; }
+[data-theme="dark"] .llm-generated-question, .dark .llm-generated-question { background: rgba(20, 29, 45, 0.94); border-color: rgba(134, 146, 190, 0.28); }
+[data-theme="dark"] .llm-generated-question__prompt, .dark .llm-generated-question__prompt { color: #edf1fa; }
+[data-theme="dark"] .llm-generated-question__options label, .dark .llm-generated-question__options label { background: rgba(30, 41, 61, 0.96); border-color: rgba(142, 153, 189, 0.25); color: #e0e6f2; }
+[data-theme="dark"] .llm-generated-question__options label:hover, .dark .llm-generated-question__options label:hover { background: rgba(49, 49, 82, 0.98); }
+[data-theme="dark"] .llm-generated-question__meta span, .dark .llm-generated-question__meta span { background: #303950; color: #cbd4e7; }
+[data-theme="dark"] .llm-generated-question__reset, .dark .llm-generated-question__reset { background: #394256; color: #e0e6f2; }
+[data-theme="dark"] .llm-generated-question__explanation, .dark .llm-generated-question__explanation { background: #26354b; color: #d7dfed; }
+
+@media (max-width: 720px) {
+  .llm-generated-practice > summary { align-items: flex-start; flex-wrap: wrap; }
+  .llm-generated-practice > summary::after { margin-left: 0; }
+  .llm-generated-practice__body { padding: 0 0.65rem 0.65rem; }
+  .llm-generated-question { padding: 0.8rem; }
+  .llm-generated-question__options label { grid-template-columns: auto 1.45rem minmax(0, 1fr); }
+}
