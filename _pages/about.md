@@ -16,7 +16,7 @@ redirect_from:
 
 # 📝 Publications
 
-- <code class="language-plaintext highlighter-rouge">ICRA 2026</code> Junting Chen<sup>1</sup>, Yunchuan Li<sup>1</sup>, **Panfeng Jiang**<sup>1</sup>, Jiacheng Du, Zixuan Chen, Chenrui Tie, Jiajun Deng, and Lin Shao. **“LISN: Language-Instructed Social Navigation with VLM-based Controller Modulating.”** Accepted to IEEE International Conference on Robotics and Automation.
+- <code class="language-plaintext highlighter-rouge">ICRA 2026</code> Junting Chen<sup>1</sup>, Yunchuan Li<sup>1</sup>, **Panfeng Jiang**<sup>1</sup>, Jiacheng Du, Zixuan Chen, Chenrui Tie, Jiajun Deng, and Lin Shao. [**“LISN: Language-Instructed Social Navigation with VLM-based Controller Modulating.”**](https://arxiv.org/pdf/2512.09920) Accepted to IEEE International Conference on Robotics and Automation.
 - <code class="language-plaintext highlighter-rouge">ICCV 2025</code> Hang Su, Yunlong Feng, Daniel Gehrig, **Panfeng Jiang**, Ling Gao, Xavier Lagorce, and Laurent Kneip. [**“A Linear N-Point Solver for Structure and Motion from Asynchronous Tracks.”**](https://arxiv.org/pdf/2507.22733) Accepted as a **Highlight Paper** at IEEE/CVF International Conference on Computer Vision.
 
 # 📖 Education
@@ -67,7 +67,8 @@ redirect_from:
 # 🏅 Honors and Awards
 
 - *Dec 2025* — **National Scholarship**.
-- *Jun 2025* — **Outstanding Winner and American Mathematical Society Award**, MCM 2025 (Top 3 of 21,054 teams).
+- *Jun 2025* — **Outstanding Winner Award (Top 0.1%)**, Mathematical Contest in Modeling 2025.
+- *Jun 2025* — **American Mathematical Society Award**, Mathematical Contest in Modeling 2025 (Top 3 of 21,054 teams).
 - *Mar 2025* — **First Place**, Bay Area Data Science Summit at UC Berkeley, endorsed by Wells Fargo.
 - *Sep 2024* — **Provincial Third Prize**, China Undergraduate Mathematical Contest in Modeling.
 
@@ -116,12 +117,6 @@ redirect_from:
   <a class="detail-link" href="/projects/asynchronous-n-point-solver/" target="_self">View research details <span aria-hidden="true">→</span></a>
 </div>
 
-# 💼 Activities
-
-- **Teaching Assistant, CS101A Data Structures (ShanghaiTech Honors Class)**, Aug 2025 – Present. Helped launch the university’s first honors data-structures course and developed its syllabus, assignments, and advanced materials.
-- **Designer, “1001 Inventions” Exhibition**, Jul 2025. Created a mathematically inspired Rubik’s Cube pattern selected by ShanghaiTech’s Humanities Institute.
-- **Staff and Referee, Official Rubik’s Cube Competitions**, Jul 2023 – Mar 2025. Officiated WCA events in Berkeley, Changsha, and other venues.
-
 # 🔍 Projects
 
 <div class="project-card">
@@ -137,7 +132,7 @@ redirect_from:
       <li>Combined a VLM reasoning loop with real-time costmap and controller modulation.</li>
       <li>Achieved 91.3% average success across challenging human–robot scenarios.</li>
     </ul>
-    <p><a href="/projects/lisn-social-navigation/" class="detail-link" target="_self">Project details →</a> · <a href="/images/projects/ICRA2026.mp4">Video</a></p>
+    <p><a href="/projects/lisn-social-navigation/" class="detail-link" target="_self">Project details →</a> · <a href="https://arxiv.org/pdf/2512.09920">Paper</a> · <a href="/images/projects/ICRA2026.mp4">Video</a></p>
   </div>
 </div>
 
@@ -225,3 +220,9 @@ redirect_from:
     <p><a href="/projects/hybrid-quality-prediction/" class="detail-link" target="_self">Project details →</a> · <a href="/files/cs182_ppt.pdf">Slides</a> · <a href="/files/cs182_report.pdf">Paper</a> · <a href="https://github.com/jiangpf2022/CS182-Project">Code</a></p>
   </div>
 </div>
+
+# 💼 Activities
+
+- **Teaching Assistant, CS101A Data Structures (ShanghaiTech Honors Class)**, Aug 2025 – Present. Helped launch the university’s first honors data-structures course and developed its syllabus, assignments, and advanced materials.
+- **Designer, “1001 Inventions” Exhibition**, Jul 2025. Created a mathematically inspired Rubik’s Cube pattern selected by ShanghaiTech’s Humanities Institute.
+- **Staff and Referee, Official Rubik’s Cube Competitions**, Jul 2023 – Mar 2025. Officiated WCA events in Berkeley, Changsha, and other venues.

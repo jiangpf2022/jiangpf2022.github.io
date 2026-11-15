@@ -40,6 +40,30 @@
 @import "vendor/magnific-popup/magnific-popup";
 @import "print";
 
+.masthead__inner-wrap {
+    padding: .55rem 1rem;
+}
+
+.masthead__menu-item--lg {
+    padding-right: 1.25rem;
+}
+
+.masthead__menu-home-item a {
+    color: #1f2d43;
+    font-weight: 800;
+    letter-spacing: -.01em;
+}
+
+.greedy-nav a {
+    margin: 0 .65rem;
+    padding: .48rem .12rem;
+    font-size: .94rem;
+}
+
+.greedy-nav button {
+    border-radius: .45rem;
+}
+
 .resume-summary {
     margin: 0 0 2.25rem;
     padding: 1.35rem 1.5rem;

@@ -8,6 +8,10 @@ summary: "A benchmark and fast–slow VLM control framework for robots that must
 image: "/images/projects/ICRA2026.png"
 image_alt: "Overview of the LISN social navigation system"
 links:
+  - label: "Paper"
+    url: "https://arxiv.org/pdf/2512.09920"
+  - label: "Project page"
+    url: "https://social-nav.github.io/LISN-project/"
   - label: "Project video"
     url: "/images/projects/ICRA2026.mp4"
   - label: "ICRA 2026"

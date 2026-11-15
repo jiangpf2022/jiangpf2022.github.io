@@ -1,26 +1,19 @@
 # main links links
 main:
-  - title: "About Me"
-    url: "/#about-me"
+  - title: "Publications"
+    url: "/#-publications"
 
   - title: "Education"
     url: "/#-education"
 
+  - title: "Research"
+    url: "/#-research-experience"
+
   - title: "Projects"
     url: "/#-projects"
 
-  - title: "Publications"
-    url: "/#-publications"
-
-  - title: "Honors and Awards"
+  - title: "Honors"
     url: "/#-honors-and-awards"
 
-  - title: "Activities"
-    url: "/#-activities"
-
-  - title: "Academic CV"
+  - title: "CV"
     url: "https://jiangpf2022.github.io/files/cv.pdf"
-
-
-  # - title: "Internships"
-  #   url: "/#-internships"
