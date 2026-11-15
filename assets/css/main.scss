@@ -82,17 +82,94 @@
     text-transform: uppercase;
 }
 
-.resume-entry--with-logo {
-    min-height: 8rem;
-    padding-right: 10rem;
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15.25rem, 1fr));
+    gap: 1rem;
+    margin: 1.15rem 0 2rem;
+}
+
+.education-card {
+    display: flex;
+    min-width: 0;
+    min-height: 17rem;
+    padding: 1.2rem;
+    flex-direction: column;
+    border: 1px solid #e1e7ef;
+    border-top: 4px solid #00369f;
+    border-radius: .9rem;
+    background: linear-gradient(180deg, #fff 0%, #f8faff 100%);
+    box-shadow: 0 10px 26px rgba(34, 48, 74, .07);
+}
+
+.education-card__header {
+    display: grid;
+    grid-template-columns: 3.75rem minmax(0, 1fr);
+    gap: .85rem;
+    align-items: center;
+    padding-bottom: .9rem;
+    border-bottom: 1px solid #e7ebf1;
 
     img {
-        position: absolute;
-        top: 1.1rem;
-        right: 1.2rem;
-        width: 7.25rem;
-        height: 5.5rem;
+        width: 3.75rem;
+        height: 3.75rem;
+        padding: .25rem;
+        border-radius: .75rem;
+        background: #fff;
         object-fit: contain;
+    }
+
+    h3 {
+        margin: .12rem 0;
+        color: #1f2d43;
+        font-size: 1rem;
+        line-height: 1.25;
+    }
+}
+
+.education-card__period,
+.education-card__location {
+    margin: 0;
+    color: #607087;
+    font-size: .72rem;
+    line-height: 1.35;
+}
+
+.education-card__period {
+    color: #00369f;
+    font-weight: 700;
+}
+
+.education-card__degree {
+    margin: 1rem 0 .3rem;
+    color: #1f2d43;
+    font-weight: 750;
+    line-height: 1.4;
+}
+
+.education-card__metric {
+    display: inline-flex;
+    width: fit-content;
+    margin: .2rem 0 .75rem;
+    padding: .24rem .58rem;
+    border-radius: 999px;
+    background: rgba(0, 54, 159, .08);
+    color: #00369f;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.education-card__detail {
+    margin: auto 0 0;
+    color: #4d5c70;
+    font-size: .82rem;
+    line-height: 1.55;
+
+    strong {
+        color: #26364d;
+        font-size: .76rem;
+        letter-spacing: .02em;
+        text-transform: uppercase;
     }
 }
 
@@ -190,18 +267,8 @@
 }
 
 @media (max-width: 760px) {
-    .resume-entry--with-logo {
-        padding-right: 1.35rem;
-
-        img {
-            position: static;
-            float: right;
-            width: 5.5rem;
-            height: 4rem;
-            margin: 0 0 .5rem 1rem;
-        }
-    }
-
+    .education-grid { grid-template-columns: 1fr; }
+    .education-card { min-height: 0; }
     .project-card { grid-template-columns: 1fr; }
     .project-card__media { min-height: 0; }
 }

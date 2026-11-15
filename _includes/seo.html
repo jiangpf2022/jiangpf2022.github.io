@@ -9,7 +9,7 @@
 {% endif %}
 
 {% assign seo_title = page.title | default: site.title %}
-<title>{{ seo_title }}{% if page.title %} | Panfeng Jiang{% endif %}</title>
+<title>{{ seo_title }}{% if page.title != blank %} | Panfeng Jiang{% endif %}</title>
 
 {% assign seo_description = page.description | default: page.summary | default: page.excerpt | default: site.description %}
 {% if seo_description %}

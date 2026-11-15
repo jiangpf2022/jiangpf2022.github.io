@@ -21,34 +21,47 @@ redirect_from:
 
 # 📖 Education
 
-<div class="resume-entry resume-entry--with-logo">
-  <img src="/images/logos/cu.jpg" alt="Columbia University logo">
-  <h4>Columbia University</h4>
-  <ul>
-    <li><strong>M.S. in Computer Science</strong>, Aug 2026 – Expected Dec 2027.</li>
-    <li>Coursework includes Databases and LLM-Based Generative AI.</li>
-    <li>New York, NY.</li>
-  </ul>
-</div>
+<div class="education-grid">
+  <article class="education-card">
+    <header class="education-card__header">
+      <img src="/images/logos/cu.jpg" alt="Columbia University logo">
+      <div>
+        <p class="education-card__period">Aug 2026 – Expected Dec 2027</p>
+        <h3>Columbia University</h3>
+        <p class="education-card__location">New York, NY</p>
+      </div>
+    </header>
+    <p class="education-card__degree">M.S. in Computer Science</p>
+    <p class="education-card__detail"><strong>Selected coursework</strong><br>Databases · LLM-Based Generative AI</p>
+  </article>
 
-<div class="resume-entry resume-entry--with-logo">
-  <img src="/images/projects/shanghaitech.png" alt="ShanghaiTech University logo">
-  <h4>ShanghaiTech University</h4>
-  <ul>
-    <li><strong>B.Eng. in Computer Science</strong>, GPA 3.75/4.0, Rank 11/161, Sep 2022 – Jun 2026.</li>
-    <li>National Scholarship; Outstanding Graduate of Shanghai; ShanghaiTech Outstanding Student Award.</li>
-    <li>Coursework includes algorithms, computer vision, machine learning, probability, and linear algebra.</li>
-  </ul>
-</div>
+  <article class="education-card">
+    <header class="education-card__header">
+      <img src="/images/projects/shanghaitech.png" alt="ShanghaiTech University logo">
+      <div>
+        <p class="education-card__period">Sep 2022 – Jun 2026</p>
+        <h3>ShanghaiTech University</h3>
+        <p class="education-card__location">Shanghai, China</p>
+      </div>
+    </header>
+    <p class="education-card__degree">B.Eng. in Computer Science</p>
+    <p class="education-card__metric">GPA 3.75/4.0 · Rank 11/161</p>
+    <p class="education-card__detail"><strong>Highlights</strong><br>National Scholarship · Outstanding Graduate of Shanghai</p>
+  </article>
 
-<div class="resume-entry resume-entry--with-logo">
-  <img src="/images/projects/ucberkeley.png" alt="UC Berkeley logo">
-  <h4>University of California, Berkeley</h4>
-  <ul>
-    <li><strong>Undergraduate Exchange in Computer Science</strong>, GPA 3.8/4.0, Aug 2024 – Jun 2025.</li>
-    <li>Recipient of the 2025 ShanghaiTech International Exchange Program Scholarship.</li>
-    <li>Coursework includes optimization, deep learning, AI, LLM agents, and abstract algebra.</li>
-  </ul>
+  <article class="education-card">
+    <header class="education-card__header">
+      <img src="/images/projects/ucberkeley.png" alt="UC Berkeley logo">
+      <div>
+        <p class="education-card__period">Aug 2024 – Jun 2025</p>
+        <h3>UC Berkeley</h3>
+        <p class="education-card__location">Berkeley, CA</p>
+      </div>
+    </header>
+    <p class="education-card__degree">Exchange in Computer Science</p>
+    <p class="education-card__metric">GPA 3.8/4.0</p>
+    <p class="education-card__detail"><strong>Selected coursework</strong><br>Optimization · Deep Learning · AI · LLM Agents</p>
+  </article>
 </div>
 
 # 🏅 Honors and Awards
@@ -68,7 +81,6 @@ redirect_from:
     <li>Train supervisory models on hidden representations to identify unreliable or deceptive responses.</li>
     <li>Focus on interpretable signals for trustworthy language-model evaluation.</li>
   </ul>
-  <a class="detail-link" href="/projects/llm-reliability/">View research details <span aria-hidden="true">→</span></a>
 </div>
 
 <div class="resume-entry">
@@ -79,7 +91,7 @@ redirect_from:
     <li>Built a VLM-based navigation framework that joins high-level reasoning with real-time control.</li>
     <li>Reached 91.3% navigation success, compared with 28% for the prior state of the art.</li>
   </ul>
-  <a class="detail-link" href="/projects/lisn-social-navigation/">View research details <span aria-hidden="true">→</span></a>
+  <a class="detail-link" href="/projects/lisn-social-navigation/" target="_self">View research details <span aria-hidden="true">→</span></a>
 </div>
 
 <div class="resume-entry">
@@ -90,7 +102,7 @@ redirect_from:
     <li>Extended LMC-TS to bandits with action-dependent noise variance.</li>
     <li>Derived regret bounds connecting finite-step posterior error with exploration efficiency.</li>
   </ul>
-  <a class="detail-link" href="/projects/variance-aware-lmc-ts/">View research details <span aria-hidden="true">→</span></a>
+  <a class="detail-link" href="/projects/variance-aware-lmc-ts/" target="_self">View research details <span aria-hidden="true">→</span></a>
 </div>
 
 <div class="resume-entry">
@@ -101,7 +113,7 @@ redirect_from:
     <li>Developed event-based detection and point-tracking modules for motion estimation.</li>
     <li>Helped achieve 63 μs CPU runtime and 10–30% lower velocity error.</li>
   </ul>
-  <a class="detail-link" href="/projects/asynchronous-n-point-solver/">View research details <span aria-hidden="true">→</span></a>
+  <a class="detail-link" href="/projects/asynchronous-n-point-solver/" target="_self">View research details <span aria-hidden="true">→</span></a>
 </div>
 
 # 💼 Activities
@@ -125,7 +137,7 @@ redirect_from:
       <li>Combined a VLM reasoning loop with real-time costmap and controller modulation.</li>
       <li>Achieved 91.3% average success across challenging human–robot scenarios.</li>
     </ul>
-    <p><a href="/projects/lisn-social-navigation/" class="detail-link">Project details →</a> · <a href="/images/projects/ICRA2026.mp4">Video</a></p>
+    <p><a href="/projects/lisn-social-navigation/" class="detail-link" target="_self">Project details →</a> · <a href="/images/projects/ICRA2026.mp4">Video</a></p>
   </div>
 </div>
 
@@ -142,7 +154,7 @@ redirect_from:
       <li>Supported global-shutter, rolling-shutter, event-camera, and mixed sensor tracks.</li>
       <li>Delivered 63 μs CPU runtime with 10–30% lower velocity error.</li>
     </ul>
-    <p><a href="/projects/asynchronous-n-point-solver/" class="detail-link">Project details →</a> · <a href="https://arxiv.org/pdf/2507.22733">Paper</a> · <a href="https://github.com/suhang99/AsyncTrack-Motion-Solver">Code</a></p>
+    <p><a href="/projects/asynchronous-n-point-solver/" class="detail-link" target="_self">Project details →</a> · <a href="https://arxiv.org/pdf/2507.22733">Paper</a> · <a href="https://github.com/suhang99/AsyncTrack-Motion-Solver">Code</a></p>
   </div>
 </div>
 
@@ -159,7 +171,7 @@ redirect_from:
       <li>Designed a multidimensional concept-subspace steering method.</li>
       <li>Improved concept alignment from 0.5/5 to 5.0/5 using five latent directions.</li>
     </ul>
-    <p><a href="/projects/llm-concept-subspaces/" class="detail-link">Project details →</a></p>
+    <p><a href="/projects/llm-concept-subspaces/" class="detail-link" target="_self">Project details →</a></p>
   </div>
 </div>
 
@@ -176,7 +188,7 @@ redirect_from:
       <li>Optimized interventions and tax allocation through simulation and AHP.</li>
       <li>Placed Top 3 among 21,054 teams in the Mathematical Contest in Modeling.</li>
     </ul>
-    <p><a href="/projects/overtourism-modeling/" class="detail-link">Project details →</a></p>
+    <p><a href="/projects/overtourism-modeling/" class="detail-link" target="_self">Project details →</a></p>
   </div>
 </div>
 
@@ -193,7 +205,7 @@ redirect_from:
       <li>Built an MLP-based, exposure-aware equity derivative hedging pipeline.</li>
       <li>Reduced test-set premium cost by 64.5% while maintaining a $10M exposure target.</li>
     </ul>
-    <p><a href="/projects/equity-derivative-hedging/" class="detail-link">Project details →</a> · <a href="/files/badss_ppt.pdf">Slides</a> · <a href="/files/badss_report.pdf">Paper</a> · <a href="https://github.com/jiangpf2022/MLP-for-Optimal-Equity-Derivative-Hedging/tree/main">Code</a></p>
+    <p><a href="/projects/equity-derivative-hedging/" class="detail-link" target="_self">Project details →</a> · <a href="/files/badss_ppt.pdf">Slides</a> · <a href="/files/badss_report.pdf">Paper</a> · <a href="https://github.com/jiangpf2022/MLP-for-Optimal-Equity-Derivative-Hedging/tree/main">Code</a></p>
   </div>
 </div>
 
@@ -210,6 +222,6 @@ redirect_from:
       <li>Applied Huber loss to reduce sensitivity to noisy labels and heavy-tailed residuals.</li>
       <li>Combined robust preprocessing with classical and ensemble predictive models.</li>
     </ul>
-    <p><a href="/projects/hybrid-quality-prediction/" class="detail-link">Project details →</a> · <a href="/files/cs182_ppt.pdf">Slides</a> · <a href="/files/cs182_report.pdf">Paper</a> · <a href="https://github.com/jiangpf2022/CS182-Project">Code</a></p>
+    <p><a href="/projects/hybrid-quality-prediction/" class="detail-link" target="_self">Project details →</a> · <a href="/files/cs182_ppt.pdf">Slides</a> · <a href="/files/cs182_report.pdf">Paper</a> · <a href="https://github.com/jiangpf2022/CS182-Project">Code</a></p>
   </div>
 </div>
