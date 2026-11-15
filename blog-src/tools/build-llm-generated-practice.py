@@ -144,12 +144,129 @@ ARTICLES: dict[str, dict] = {
 
 
 BAD_APPLICATIONS = (
-    "只观察一个成功样本，不记录任何失败情况。",
-    "删除所有不符合预期的数据后再报告结果。",
-    "只看单一平均分，忽略任务分布和适用边界。",
+    "Inspect one successful example and omit every failure case.",
+    "Remove observations that contradict the expected result before reporting it.",
+    "Report one average while ignoring the task distribution and operating boundary.",
 )
 
 
+
+
+# English content is cached in source so builds never depend on a translation service.
+ENGLISH_PROFILES = {('LLM 1 - Fundamentals of Deep Learning', '1. Why AI Scaled'): ('AI expansion is driven by data, algorithms, computing power and cloud infrastructure.', 'AlexNet and base models demonstrate synergy of scale and approach.', 'When evaluating new models, check your data, budget, and training methods simultaneously.', 'Just increasing the number of parameters will definitely result in a better general model.', 'Teams misinterpret correlations as causal conclusions about a single scale factor.', None),
+ ('LLM 1 - Fundamentals of Deep Learning', '10. Parallelism'): ('Data, model, pipeline, and tensor parallelism solve different capacity and throughput bottlenecks.', 'Hybrid parallelism requires considering both communication topology and load balancing.', 'First, choose whether the model can be accommodated, and then choose parallel decomposition.', 'All parallel approaches are simply replicating the complete model.', 'A mismatch between parallel layout and bottlenecks increases traffic without increasing speed.', ('8 GPUs are used for data parallelization, batch=16 per card, what is the global batch?', '128', ('16', '64', '256'), 'Global batch=8×16=128.')),
+ ('LLM 1 - Fundamentals of Deep Learning', '11. Sync and Benchmarks'): ('Synchronous training waits for all workers, and the slowest worker determines the step time.', 'Benchmarks must report throughput, accuracy, hardware, and communication settings simultaneously.', 'Fixed model, batch, and accuracy targets when comparing all-reduce schemes.', 'Scaling efficiency is demonstrated by reporting only the number of GPUs.', 'straggler and communication costs are erroneously hidden.', ('1 card throughput 100, 8 card throughput 600; what is the scaling efficiency?', '75%', ('60%', '80%', '600%'), 'Efficiency=600/(8×100)=0.75=75%.')),
+ ('LLM 1 - Fundamentals of Deep Learning', '2. System Stack'): ('Generative AI systems are composed of data, models, software stacks, and production services.', 'Model quality and deployment reliability belong to different but interdependent layers.', 'When designing the solution, the data pipeline, training framework, monitoring and service goals are also specified.', 'After the model is trained, the software and production layers no longer affect the user experience.', 'Systems can lose control over monitoring, reproducibility, or service reliability.', None),
+ ('LLM 1 - Fundamentals of Deep Learning', '3. Cloud Lifecycle'): ('Machine learning on the cloud should cover the complete life cycle of data, training, deployment, monitoring and retraining.', 'IaaS, PaaS and SaaS provide different levels of abstraction.', 'Define drift monitoring and trigger retraining conditions before going online.', 'The completion of deployment means the end of the life cycle.', 'The model degrades as the data changes but cannot be discovered in time.', None),
+ ('LLM 1 - Fundamentals of Deep Learning', '4. Generalization'): ("Generalization focuses on the model's error on unseen data, rather than how well it fits the training set.", 'Underfitting corresponds to high bias, and overfitting usually corresponds to high variance.', 'Compare training error and validation error using an independent validation set.', 'The lower the training error, the lower the test error must be.', 'Teams will choose models that memorize training samples but fail to transfer.', ('The training error is 0.08 and the validation error is 0.23. What is the generalization gap between the two?', '0.15', ('0.08', '0.23', '0.31'), 'Generalization gap=0.23−0.08=0.15.')),
+ ('LLM 1 - Fundamentals of Deep Learning', '5. Regularization'): ('Regularization strikes a balance between fitting and generalization by constraining the effective complexity.', 'L1 tends to be sparse, L2 penalizes large weights smoothly.', 'Choose regularization coefficients on the validation set rather than just looking at the training loss.', 'The larger the regularization coefficient, the better the model performance must be.', 'Constraints that are too strong will cause underfitting, and constraints that are too weak will retain high variance.', ('The target is data loss 1.2 plus λ||w||², λ=0.1, ||w||²=3, what is the regularization target?', '1.5', ('1.2', '1.3', '3.3'), '1.2+0.1×3=1.5。')),
+ ('LLM 1 - Fundamentals of Deep Learning', '6. Metrics'): ('Metrics must match error costs, class distributions, and decision thresholds.', 'Accuracy in imbalanced classification may mask minority class failures.', 'Confusion matrix, precision, recall and threshold curves are also reported.', 'As long as the accuracy is high, there is no need to check class proportions.', 'The system may miss a large number of critical positive classes when the overall accuracy is high.', ('TP=80, FP=20, FN=40, what is approximately F1?', '0.727', ('0.800', '0.667', '0.571'), 'Precision=0.8，Recall=80/120=0.667，F1=2PR/(P+R)≈0.727。')),
+ ('LLM 1 - Fundamentals of Deep Learning', '7. Training'): ('The training loop consists of forward computation, loss, backpropagation, and parameter updates.', 'Gradient descent uses the derivative of the loss with respect to the parameters to determine the update direction.', 'First verify whether a small batch can overfit, and then expand the training.', 'Backpropagation directly gives the global optimal solution.', 'Implementation errors may be mistaken for insufficient model capacity.', ('The parameter w=2, the gradient is 0.5, and the learning rate is 0.1; what is w after an SGD update?', '1.95', ('2.05', '1.5', '2.5'), 'w←w−ηg=2−0.1×0.5=1.95。')),
+ ('LLM 1 - Fundamentals of Deep Learning', '8. Batch and Rate'): ('Batch size together with learning rate affects gradient noise, throughput, and convergence.', 'Increasing the batch size does not automatically lead to linear speedup or the same generalization.', 'Re-verify the learning rate and convergence curve after adjusting the batch.', 'The learning rate must always double exactly when the batch is doubled.', 'Training may increase throughput but worsen convergence.', ('The data set has 10,000 samples and batch=200. How many updates are there in one epoch?', '50', ('20', '200', '2000'), 'Number of updates=10000/200=50.')),
+ ('LLM 1 - Fundamentals of Deep Learning', '9. Hardware'): ('Training performance depends on the common bottlenecks of computing, memory capacity, bandwidth, and communication.', 'Training and inference have different requirements for batch size, latency, and memory access.', 'Use profiler to distinguish between computing power constraint, memory constraint and communication constraint.', 'GPU peak FLOPS can directly predict end-to-end training time.', 'Hardware purchases can be misled by theoretical peaks.', ('If a single card processes 400 samples per second, how many seconds will it take to process 120,000 samples?', '300', ('30', '120', '480'), '120000/400=300 seconds.')),
+ ('LLM 2 - Attention and Transformers', 'Attention'): ('Attention is weighted by the similarity between query and key.', 'Multi-head attention allows different subspaces to learn different relationships.', 'First check the shapes of Q, K, and V, and then perform scaling dot product and softmax.', 'The attention weight is directly obtained by the dot product of value and value.', 'Implementations can err in the direction of dimensionality or normalization.', ('The two unnormalized scores are 0 and ln3, what is the weight of the second term after softmax?', '0.75', ('0.25', '0.5', '3'), 'exp(ln3)/(exp0+exp(ln3))=3/(1+3)=0.75。')),
+ ('LLM 2 - Attention and Transformers', 'Attention as Matrix Computation'): ('Matrix attention computes softmax(QKᵀ/√dk)V.', 'Causal mask masks future positions before softmax.', 'Compute all tokens and headers at once with batch matrix multiplication.', 'softmax should be calculated after value is multiplied.', 'Weights cannot form a probability distribution for each query over all keys.', ('What is the shape of the single-head attention score matrix QKᵀ when the sequence length n=4?', '4×4', ('4×d', 'd×d', '1×4'), 'Each query is compared with 4 keys, so we get 4×4.')),
+ ('LLM 2 - Attention and Transformers', 'BERT in Detail'): ('BERT is a bidirectional encoder stack, and typical pre-training includes masked language modeling.', 'Downstream tasks can use tokens, sentence pairs, or pooled to represent different task headers.', 'NER uses token-level output, and classification uses sentence-level representation.', 'BERT uses causal masks to generate long text token by token.', 'Mistaking understanding models for native autoregressive generators.', ('There are 200 tokens in the sequence. If the random mask is 15%, how many tokens are expected to be selected?', '30', ('15', '20', '170'), '200×0.15=30。')),
+ ('LLM 2 - Attention and Transformers', 'From Seq2Seq to Transformers'): ('Transformer uses parallel attention to alleviate the sequential bottleneck of recurrent networks.', 'Encoder-decoder attention allows the decoder to read the entire source sequence state.', 'Encoder self-attention, causal decoding attention and cross-attention are used respectively in the translation task.', 'Transformers eliminate the need for sequence order information.', 'Without positions and masks the model will get confused or peek into the future.', None),
+ ('LLM 2 - Attention and Transformers', 'GPT, GPT-3, and LLaMA'): ('GPT and LLaMA belong to the decoder-only family and are pre-trained through causal prediction of the next token.', 'Data mix, scale, and training recipe are just as important as the number of parameters.', 'Check context, tokenizer, data, and inference budget simultaneously when comparing models.', 'GPT-3 is a single fixed parameter scale and is defined only by the number of parameters.', 'The comparison ignores differences caused by data and training calculations.', None),
+ ('LLM 2 - Attention and Transformers', 'Inputs and Outputs'): ('The input consists of token embeddings combined with positional representations, and the output header maps hidden states to vocabulary logits.', 'Weight sharing allows input embedding and output projection to reuse parameters.', 'Check whether the training goals after tokenizer, position index and shift are consistent.', 'Transformer input requires only token ID, no position or embedding.', 'The model may not be able to distinguish the same set of tokens in different arrangements.', ('Hidden dimensions 512, vocabulary 30,000, how much weight does the unshared output projection contain?', '15,360,000', ('30,512', '60,000', '7,680,000'), '30000×512=15,360,000。')),
+ ('LLM 2 - Attention and Transformers', 'Mixture of Experts'): ('MoE uses sparse routing to expand parameter capacity without activating all experts.', 'Route balancing and cross-device communication are system-level difficulties.', 'Total parameters, activation parameters and expert load are also reported.', 'Each token must pass through all experts during MoE inference.', 'Expert congestion can cause tail latency and training instability.', ('8 experts, top-2 routes, what is the proportion of experts activated for each token?', '25%', ('12.5%', '50%', '100%'), 'Each token activates 2/8=25%.')),
+ ('LLM 2 - Attention and Transformers', 'The Transformer Block'): ('The complete block consists of attention, residual, normalization, and position-wise feedforward networks.', 'pre-norm places normalization before sub-layers to improve deep training stability.', 'Trace the residual branches and tensor shapes one by one.', 'Feedforward networks mix information directly between different tokens.', 'It will confuse the token mixing function and the channel transformation function.', None),
+ ('LLM 2 - Attention and Transformers', 'Three Architecture Families'): ('encoder-only is good at understanding, encoder-decoder is good at conditional conversion, and decoder-only is good at continuation.', 'Schema choices should match the visibility context and how the target is generated.', 'Bidirectional encoders are used for classification, encoder-decoders are used for translation, and causal decoders are used for open generation.', 'The attention mask and input visibility are exactly the same for the three architectures.', 'The model uses information flows that do not match the task.', None),
+ ('LLM 2 - Attention and Transformers', 'Word Representations'): ('Word representation maps discrete tokens into continuous vectors, and static vectors cannot differentiate between synonyms and different meanings.', 'ELMo has generated contextualized representations via bidirectional context.', 'Compare the different vectors of bank in the financial and riparian contexts.', 'The same word should use exactly the same semantic vector in all contexts.', 'Polysemy words can be incorrectly merged in downstream tasks.', ('Vocabulary 50,000, embedding dimension 768, how many parameters does the embedding matrix have?', '38,400,000', ('50,768', '6,510', '76,800,000'), 'Number of parameters = 50000 × 768 = 38,400,000.')),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Application Frameworks'): ('LangChain is biased toward orchestration, and LlamaIndex is biased toward data and retrieval-centered applications.', 'Frameworks reduce boilerplate code but do not replace evaluation and secure design.', 'First draw the data flow and call boundaries, and then select the smallest frame.', 'Using a framework automatically resolves illusions, permissions, and quality issues.', 'Complex abstractions can hide the true location of faults.', None),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Building and Evaluating Prompts'): ('Tip engineering should iterate through repeatable data sets, metrics, and error analysis.', 'Establish a baseline first, then modify the prompts item by item to identify causal effects.', 'Save prompt version, model version, parameters and test samples.', 'Seeing a successful example confirms that the tip works.', 'The tip will overfit to a small number of examples and cannot be reproduced.', None),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Common Application Patterns'): ('Writing, translating, coding, extracting, and structuring actions require different verification strategies.', 'Extraction tasks should prioritize schema constraints, and code tasks need to be tested.', 'Define executable acceptance conditions for each application.', 'All applications only need the same common tip and the same indicator.', 'The system cannot detect task-specific failures.', None),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Deterministic Decoding'): ('Greedy selects the highest local probability at each step, and beam retains multiple partial sequences.', 'Beam width increases search but is not guaranteed to be more consistent with human preference.', 'Comparing greedy to finite beam in reproducible structure output.', 'Beam search must find the globally optimal and factually correct answer.', 'Search scores serve as a substitute for task quality judgments.', ('The beam width is 4 and each candidate extension has 3 tokens. How many extensions are there before clipping?', '12', ('4', '7', '64'), '4×3=12。')),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'From Representations to Generated Text'): ('The language model outputs a conditional token distribution, and the decoding strategy converts the distribution into a specific sequence.', 'High probability does not equate to being factually correct or on task.', 'Design model probabilities, decoding rules and external verification separately.', 'Choosing the token with the highest probability can ensure that the entire answer is true.', 'The system can mistake model confidence for factual evidence.', None),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'In-Context Learning'): ('ICL gives examples in an inference context and does not update model weights.', 'Sample order, label balance, and coverage all affect the results.', 'Choose complementary examples and check token budgets.', 'Increasing the number of examples always monotonically improves accuracy.', 'Contextual crowding and biased examples degrade performance.', ('The context budget is 4096 tokens, system and problem account for 1096, and each example is 500. How many examples can be released in full?', '6', ('5', '7', '8'), 'There are 3000 tokens left, which can accommodate floor(3000/500)=6.')),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Prompts as Model Interfaces'): ('prompt is an interface that contains roles, tasks, contexts, constraints, and output formats.', 'System, user and assistant messages assume different control roles.', 'Clarify success criteria and failure handling instead of just writing topic keywords.', 'The longer the prompt, the better the result will be.', 'Irrelevant context dilutes constraints and increases conflicts.', None),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Putting the Whole System Together'): ('Reliable applications connect models, retrieval, tools, post-processing, monitoring and evaluation in a closed loop.', 'Each component requires input-output contracts and failure degradation.', 'End-to-end testing of normal, borderline, and adversarial scenarios.', 'A high benchmark score for a single model proves that the entire application is reliable.', 'Component interaction errors will be exposed intensively in the end-to-end stage.', None),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'ReAct, Tools, and Reliable Workflows'): ('ReAct alternates reasoning and action, and tool calls must have parameter validation and result checking.', 'Post-processing and permission boundaries are part of system reliability.', 'Perform schema verification on tool results and limit high-risk actions.', 'The model generation tool can be executed directly without verification after being called.', 'Incorrect parameters or prompt injection can translate into real operational risks.', None),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Reasoning Patterns'): ('CoT, Auto-CoT and Tree of Thoughts provide different reasoning expansion and search methods.', 'The inference text still needs to be verified, and a long chain does not mean correct.', 'Math questions combine structured steps, checkpoints, and final verification.', 'As long as the model is asked to think step by step, the answer must be correct.', 'Wrong steps will be masked by smooth language.', None),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Sampling and Distribution Control'): ('Temperature, top-k and top-p change the concentration of the sampling distribution.', 'Low temperatures are more deterministic, high temperatures are flatter but potentially more random.', 'Creative tasks increase variety, and factual tasks lower the temperature and increase validation.', 'A temperature of 0.5 divides all probabilities directly by 2.', 'Parameter settings can be misinterpreted, leading to runaway diversity or stability.', ('What is the difference between the two logits 0 and 1 at temperature T=0.5?', '2', ('0.5', '1', '1.5'), 'Logits are first divided by T, and the difference changes from 1 to 1/0.5=2.')),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'BloombergGPT: Design and Training'): ('BloombergGPT is trained with a mixture of financial and general corpora, and selects a 50B scale under real budget.', 'Preparing corpus and actually consuming tokens need to be distinguished.', 'Record mix ratio, tokenizer, ZeRO/MiCS and checkpoint.', 'BloombergGPT training data all comes from financial texts.', 'Cases will be simplified into single-domain corpus stories.', ('If financial tokens account for 51%, totaling 700B tokens, how many financial tokens are there?', '357B', ('343B', '510B', '51B'), '700×0.51=357B。')),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'BloombergGPT: Evaluation and Evidence'): ('The domain model should compare both financial tasks and general tasks and explain how they are scored.', 'The way multiple-choice candidates are scored changes the conclusions.', 'Report strengths and weaknesses by task family, not just averages.', 'Leading in some financial tasks proves leading in all financial tasks.', 'Uneven results will be masked by the average.', None),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'Choose Before You Train'): ('Reuse, adaptation, continued pre-training or training from scratch should be decided based on product goals, data and constraints.', 'Model cards are used to verify licensing, architecture, data, and known limitations.', 'Create a minimum viable baseline first before more expensive training is justified.', 'The more parameters there are, the more it should be pretrained from scratch.', 'Resources will be invested in training that does not address business gaps.', None),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'Compute Budgets and Scaling Laws'): ('The scaling law is an empirical prediction. Under fixed calculation, the model size and data token need to be jointly allocated.', 'Chinchilla emphasized that many large model training tokens are insufficient.', 'Compare different N and D combinations under a fixed FLOP budget.', 'The scaling law is a theorem that holds exactly for any data and task.', 'Budgets can be mistakenly invested entirely in parameters and data ignored.', ('How many PF-days equals 3 days of training at 2 PFLOP/s?', '6', ('1.5', '3', '48'), 'PF-day=2×3=6。')),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'Domain Pretraining'): ('The domain continues pre-training to change the data distribution through the target corpus, and the quality and general ability regression should be controlled.', 'Domain tokenizers, deduplication and data governance impact revenue.', 'Also set up domain and general hold out evaluations.', 'The more concentrated the domain data is, the less likely it will be forgotten.', 'Domain advancement comes with the risk of general competencies or deviations.', None),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'From One GPU to Many'): ('DDP copies the model and shards the data, and ZeRO/FSDP shards the training state to increase capacity.', 'Scaling should measure both throughput and maximum trainable model.', 'Determine whether state sharding is needed based on memory bottlenecks.', 'ZeRO’s stages include data sharding.', 'It will confuse the concepts of data parallelism and state sharding.', ('4-card DDP, batch=32 per card, what is the global batch?', '128', ('32', '64', '256'), '4×32=128。')),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'Precision, Mixed Precision, and Quantization'): ('BF16 preserves the FP32 exponent range, and quantization maps high-precision values \u200b\u200bto lower bitwidths.', 'PTQ and QAT differ in the degree of training involvement.', 'Memory, speed, and accuracy losses are evaluated separately.', 'Quantization only modifies the file extension and does not change the numerical representation.', 'Low bit width errors are ignored.', ('Only weights remain for 1 billion parameters: FP32 is about 4GB, and INT8 is about how much?', '1GB', ('0.5GB', '2GB', '4GB'), 'INT8 1 byte per parameter, so ~1GB.')),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'Pretraining Objectives'): ('MLM, causal LM and span corruption correspond to different visible information and structures.', 'The self-supervised objective constructs predicted labels from raw data.', 'Select the target and mask based on the downstream generation method.', 'The condition information for the three targets is exactly the same.', 'The training objectives do not match the deployment tasks.', None),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'The Real Training Memory Budget'): ('Training memory includes parameters, gradients, optimizer state, activations, and temporary buffers.', "Adam's first- and second-order momentum brings about persistent states.", 'First estimate by accuracy and optimizer, and then measure the peak value.', 'The parameter file size is the complete training memory.', 'The model can be loaded but backpropagation cannot be started.', ('1 billion parameters are budgeted at 24GB based on course experience. How many GB is required to train a 7B model?', '168', ('24', '96', '336'), '7×24=168GB。')),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'What Pretraining Does Not Finish'): ('Pre-training does not automate instruction following, fact assurance, safety alignment, and product integration.', 'Follow-up still requires SFT, alignment, retrieval, evaluation and monitoring.', 'Think of pretrained models as system components rather than final products.', 'The decrease in pre-training loss means that the deployment quality is all up to standard.', 'Models fail at the boundaries of real interaction and safety.', None),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '1. When Prompting Stops Being Enough'): ('Prompting does not update weights, fine-tuning uses data to continuously change behavior.', 'Whether or not to fine-tune depends on the stabilization behavior gap, data, and cost.', 'First use prompt and ICL to establish a baseline, and then decide whether to train.', 'Any prompt failure should be immediately fully parameterized.', 'Training costs are spent on problems that can be solved by interface design.', None),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '10. Soft Prompt Tuning'): ('A soft prompt is a trainable continuous vector in the input embedding space, not an artificial text prompt.', 'A frozen model can serve multiple learned prompts.', 'Comparing soft cue length, model size, and task differences.', 'Soft prompts can be directly read as natural language rules by humans.', 'Interpretability and transferability will be exaggerated.', ('Soft prompt length is 20, hidden dimension is 4096, what are the trainable parameters?', '81,920', ('4,116', '20,480', '409,600'), '20×4096=81,920。')),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '11. QLoRA and a Practical Decision Guide'): ('QLoRA quantifies the frozen base model and trains LoRA to reduce video memory.', 'The smallest intervention that satisfies quality should be chosen rather than defaulting to the most complex approach.', 'Upgrade step by step from prompting, soft prompt, LoRA, QLoRA to full fine-tuning.', 'QLoRA will also pin the LoRA adapter as untrainable.', 'Method selection will be independent of data, quality, and hardware constraints.', None),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '2. Build an Instruction Dataset'): ('The command data needs to construct prompt-completion pairs from the original records, split them first and then set the template.', 'Tokenization, padding and quality auditing belong to data design.', 'Split by original entity to avoid template leaks.', 'Generating all templates first and then randomly segmenting them can always avoid leaks.', 'Training and validation share near-duplicate samples.', None),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '3. Single-Task Fine-Tuning and Forgetting'): ('Narrow task fine-tuning can quickly improve the target task, but can cause catastrophic forgetfulness.', 'Learning rate, epoch, data narrowness and full parameter drift affect forgetting.', 'Assess target tasks and general abilities simultaneously.', 'Catastrophic forgetting only occurs outside of supervised learning.', 'The model will forcibly map irrelevant questions to target labels.', None),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '4. Multi-Task Instruction Tuning'): ('Multi-task instruction fine-tuning allows a model to learn a common instruction-behavior interface.', 'The task mix ratio and template diversity determine migration.', 'Use the held-out task family to check for true migration.', 'Multi-task fine-tuning requires a separate model to be saved for each task.', 'Big data tasks can overwhelm small tasks or introduce negative migration.', None),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '5. Case Study: Dialogue Summarization'): ('The conversation summary requires defining information contracts, baselines, and production estimates.', 'ROUGE is not a substitute for factual, omission and action item checks.', 'The zero sample, hint and fine-tuned baselines are compared first.', 'The production summaries are proven reliable by increasing the training ROUGE.', 'The model produces summaries that are smooth but miss or fabricate action items.', None),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '6. Why Full Fine-Tuning Is Expensive'): ('Full fine-tuning requires updating and saving all parameters, gradients, and optimizer state.', 'A complete checkpoint per task is difficult to scale.', 'Estimate total training and storage costs by number of tasks.', 'The number of trainable parameters is the only source of video memory.', 'Checkpoint storage and loading are out of control when deploying multitasking.', ('How many GB are needed to store one copy for each of 20 tasks in a 14GB checkpoint?', '280', ('14', '34', '140'), '14×20=280GB。')),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '7. Parameter-Efficient Fine-Tuning'): ('PEFT freezes most of the base model and only trains small adaptation parameters.', 'Methods include additive, reparameterization and selective.', 'Evaluate quality, latency, storage, and switching costs together.', 'PEFT means that training does not require activation and backpropagation at all.', 'Teams underestimate the memory and computation required to run the base model.', None),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '8. LoRA: Learning a Low-Rank Update'): ('LoRA updates ΔW with BA-approximated weights and only trains low-rank matrices.', 'Rank, alpha, dropout and insertion position jointly determine the capacity.', 'Start verification from the smaller rank of attention projection.', 'LoRA directly deletes the original weight matrix.', 'Wrong rank and position can cause underfitting or unnecessary overhead.', ('W is 1024×1024, LoRA rank=8; what is the total number of A and B parameters?', '16,384', ('8,192', '1,048,576', '2,097,152'), 'r(din+dout)=8×(1024+1024)=16,384。')),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '9. Evaluating LoRA Honestly'): ('LoRA should be compared with the base model, full fine-tuning and different ranks under the same protocol.', 'Validation curves, behavioral assessments, and replication information are more important than a single overlap score.', 'Comparison after fixed data, seed and training budget.', 'Quality degradation is acceptable as long as there are few trainable parameters.', 'Efficiency claims will lack a baseline of fairness.', None),
+ ('LLM 7 - Efficient LLM Serving', '1. The Serving Workload'): ('Prefill prompts for high parallel processing, decodes token by token and is often limited by memory bandwidth.', 'Continuous batching inserts new requests immediately at the end of the sequence.', 'Measure the first token delay and inter-token delay respectively.', 'The calculation forms of prefill and decode are exactly the same.', 'The scheduler uses error metrics to optimize services.', ('Prefill 80ms, generate 20 tokens, each token is 30ms, what is the total delay?', '680ms', ('600ms', '100ms', '2,400ms'), '80+20×30=680ms。')),
+ ('LLM 7 - Efficient LLM Serving', '2. FlashAttention'): ('FlashAttention reduces HBM reads and writes via chunking and online softmax, not approximate attention.', 'Numerical results preserve precise attention semantics.', 'Comparing memory accesses versus runtime on long sequences.', 'The core of FlashAttention is to discard most of the attention score.', 'IO optimization will be mistakenly written as algorithm approximation.', None),
+ ('LLM 7 - Efficient LLM Serving', '3. KV Cache and PagedAttention'): ('KV cache saves historical key/value, and PagedAttention uses blocks to manage non-contiguous memory.', 'Paging reduces external fragmentation and supports sharing, swapping out, and recovery.', 'Estimate per-token memory by number of layers, heads, dimensions, and precision.', 'KV cache is only used in prefill, and decode is no longer read.', 'Long context capacity can be severely underestimated.', ('If the KV cache per token is 1MB, approximately how many GB are needed for 8,000 tokens?', '8GB', ('1GB', '4GB', '80GB'), '8000MB is approximately 8GB.')),
+ ('LLM 7 - Efficient LLM Serving', '4. vLLM'): ('vLLM combines PagedAttention, continuous batching, and scheduling to improve throughput.', 'When the video memory is insufficient, the request can be restored through preemption and recalculation.', 'Also measure throughput, TTFT, ITL and failure rate.', 'vLLM eliminates waste by making all requests the same length.', 'Scheduling benefits under real long and short requests will be misunderstood.', None),
+ ('LLM 7 - Efficient LLM Serving', '5. SGLang and RadixAttention'): ('RadixAttention reuses shared prefix KV, suitable for programmatic, multi-round and branching workflows.', 'constrained decoding and jump-forward can skip certain characters.', 'Test cache hits against shared system prompt and JSON schema.', 'RadixAttention simply compresses model weights on disk.', 'Prefix reuse opportunities will be wasted.', None),
+ ('LLM 7 - Efficient LLM Serving', '6. Serving Thousands of LoRA Adapters'): ('Multi-tenant LoRA services require efficient storage, loading, merging and scheduling adapters.', 'vLLM and S-LoRA differ in adapter storage and exchange strategies.', 'Incorporate adapter popularity and switching costs into scheduling.', 'Every LoRA must replicate the complete base model.', 'Adapter switching and memory hierarchy can become bottlenecks.', ('80MB per LoRA, approximately how many GB of total storage for 1,000 adapters?', '80GB', ('8GB', '800GB', '1,000GB'), '80MB×1000=80,000MB≈80GB。')),
+ ('LLM 7 - Efficient LLM Serving', '7. Sharing GPUs Safely'): ('GPU sharing requires spatial and temporal isolation, and control of queues, memory, and tail latencies.', 'Partition size is a joint decision of capacity and queuing.', 'Set quotas, preemption policies, and tenant-level monitoring.', 'A high average utilization proves multi-tenant security and fairness.', 'A single tenant can slow down or crowd out other requests.', None),
+ ('LLM 7 - Efficient LLM Serving', '8. Benchmarking a Serving System'): ('Service benchmarks must specify request distribution, concurrency, length, hardware, and latency percentiles.', 'Throughput cannot be separated from TTFT, ITL and SLO comparisons.', 'Use realistic arrival processes and cold/hot cache scenarios.', 'Just reporting the maximum tokens/s is enough to compare systems.', 'High throughput can mask unacceptable tail latency.', ('Among 100 requests, where does the p95 latency correspond to the sorted position?', '95th', ('5th', '50th', 'The 100th inevitable'), 'p95 means that about 95% of requests do not exceed this delay, corresponding to around the 95th order.')),
+ ('LLM 7 - Efficient LLM Serving', '9. Design Checklist'): ('The design should form a closed loop from workload, SLO, memory, scheduling, isolation and measurement.', 'Optimizations must be verified on target hardware and real traffic.', 'Conduct capacity testing, fault recovery and rollback drills before going online.', 'Skip system design by choosing the fastest core.', 'Local core gains cannot be translated into stable services.', None),
+ ('LLM 7 - Efficient LLM Serving', '综合检查点'): ('Efficient service is a joint optimization of model kernel, KV memory, scheduling and SLO.', 'Prefill/decode separation and real traffic benchmarks are core.', 'Validate optimizations with end-to-end load instead of just looking at micro-benchmarks.', 'Any single throughput improvement necessarily improves latency for all users.', 'Systems sacrifice tail latency, isolation, or stability for surface throughput.', None),
+ ('LLM 8 - Evaluating Language Models', '1. Evaluation Is a Measurement Design'): ('Assessment requires defining objects, task distributions, indicators, baselines and uncertainties.', 'A single total score cannot cover factuality, safety, reasoning, and system costs.', 'Write the assessment questions first, then choose the data and metrics.', 'Choosing a popular benchmark is equivalent to completing the measurement design.', 'The conclusion will be beyond the range supported by the data and indicators.', None),
+ ('LLM 8 - Evaluating Language Models', '2. GLUE and SuperGLUE'): ('GLUE/SuperGLUE brings together multiple language understanding tasks, with the latter increasing in difficulty.', 'After the benchmark is saturated, more difficult tasks and more detailed error analysis are required.', 'Report by task rather than just looking at average scores.', 'A single average score on the GLUE demonstrates all language proficiency.', 'Task differences are masked by macro averaging.', None),
+ ('LLM 8 - Evaluating Language Models', '3. Broader Benchmark Suites'): ('MMLU, BIG-bench, BBH and HELM expand knowledge, capabilities and multi-metric assessment.', 'HELM emphasizes scenarios, metrics, and transparent reporting.', 'Examine data contamination, prompt sensitivity, and task coverage.', 'Larger question banks automatically eliminate benchmark leaks.', 'Models may achieve artificially high scores through contamination or prompting special cases.', None),
+ ('LLM 8 - Evaluating Language Models', '4. ROUGE and BLEU'): ('ROUGE partial recall, BLEU is based on n-gram precision and includes brevity penalty.', 'Overlap metrics cannot judge factual consistency or semantic equivalence.', 'Also give points for overlap, manual fact assessment, and error cases.', 'A high ROUGE or BLEU guarantees a factually correct answer.', 'Superficial word overlap can mask critical semantic errors.', ('unigram overlap=8, generate 10 words, reference 12 words; what is ROUGE-1 precision?', '0.8', ('0.667', '0.75', '1.2'), 'precision=8/10=0.8。')),
+ ('LLM 8 - Evaluating Language Models', '5. Evaluating Reasoning'): ('Reasoning assessments must examine both the final answer and the quality of intermediate reasoning.', 'ROSCOE detects factuality, duplication, contradiction, and alignment issues.', 'Design samples that distinguish correct answers from incorrect reasons.', 'The correct final answer proves that the reasoning chain is reliable.', 'An accidental correct guess will be regarded as a reliable inference.', ('The maximum contradiction probability of 6 sentence pairs is 0.7. If self-consistency=1−max, what is the result?', '0.3', ('0.7', '0.42', '1.7'), '1−0.7=0.3。')),
+ ('LLM 8 - Evaluating Language Models', '6. TravelPlanner'): ('Planning tasks requires checking hard constraints, budget, time, and executability simultaneously.', 'Micro pass depends on order constraints, while macro pass requires the entire plan to be passed.', 'Verify transportation, hours of operation, and budget item by item.', 'The passage of multiple local constraints means that the entire plan must pass.', 'Partial correctness masks overall unenforceability.', ('Each of the five independent hard constraints has a pass rate of 0.9. What is the approximate probability of all passing?', '0.590', ('0.9', '0.5', '0.810'), '0.9^5≈0.590。')),
+ ('LLM 8 - Evaluating Language Models', '7. Systems Metrics'): ('System evaluation should include latency, throughput, cost, failure rate, and resource utilization.', 'Average latency is not a substitute for p95/p99 tail latency.', 'Compare costs at fixed mass and load.', 'The same model accuracy means the same service experience.', 'System bottlenecks and high-tail latencies are missed.', ('40 requests are completed per second, with an average of 500 tokens per request. What is the throughput of token/s?', '20,000', ('540', '12,500', '40,000'), '40×500=20,000 token/s。')),
+ ('LLM 8 - Evaluating Language Models', '8. LLMPerf'): ('LLMPerf measures LLM service throughput and latency using normalized load.', 'Model, hardware, concurrency, and input and output lengths must be documented.', 'Repeat the run and report distributions rather than single points.', 'Request length can be ignored when comparing across systems.', 'Different workloads can be mistaken for system differences.', None),
+ ('LLM 8 - Evaluating Language Models', '9. Building an Evaluation Portfolio'): ('The assessment portfolio should cover capabilities, safety, robustness, cost and real business tasks.', 'Different levels of evidence cannot be replaced by an average score.', 'Maintain regression sets, challenge sets and online monitoring.', 'A benchmark victory is enough to prove that the production system is excellent.', 'Models can fail in uncovered scenarios without anyone noticing.', None),
+ ('LLM 8 - Evaluating Language Models', '综合检查点'): ('Robust assessment places task quality, reasoning processes, system performance, and risk in the same evidence framework.', 'Metrics must have applicable boundaries and reproducible protocols.', 'Cross-validate model conclusions with multiple layers of evidence.', 'As long as the number of questions is large, any single indicator can represent the entire quality.', 'Assessment conclusions can be incorrectly extrapolated to unmeasured abilities.', None),
+ ('LLM 9 - RLHF, PPO, and GRPO', '1. Alignment After Fine-Tuning'): ('Alignment transforms human preferences such as helpfulness, honesty, and harmlessness into optimizable and auditable behavioral goals.', 'Neither pre-trained likelihood nor supervised imitation can fully express the relative quality among multiple candidate responses.', 'Write out the preference criteria first, then report the results by dimension and check for conflicts between goals.', 'As long as the supervised fine-tuning loss is low enough, the model is already fully aligned with all human preferences.', 'Systems can mistake smooth imitation for reliable, safe, and honest behavior.', None),
+ ('LLM 9 - RLHF, PPO, and GRPO', '2. Reinforcement Learning for Language'): ('In language model RL, the state is the prompt plus the generated prefix, the action is the next token, and the complete response is a rollout.', 'Rewards often arrive only after the response is complete, which makes credit assignment harder than in an environment with dense stepwise rewards.', 'Specify termination rules, the sampling policy, and reward timing while retaining sufficiently diverse trajectories.', 'The environment naturally supplies an accurate human-preference reward after every generated token.', 'Training may misattribute a delayed, noisy sequence-level reward to individual actions.', ('The old policy assigns a token probability of 0.20 and the new policy assigns 0.30. What is the PPO probability ratio ρ?', '1.5', ('0.5', '0.67', '2.0'), 'ρ=π_new/π_old=0.30/0.20=1.5.')),
+ ('LLM 9 - RLHF, PPO, and GRPO', '3. Human Feedback and Reward Models'): ('The reward model learns a relative preference scale from chosen/rejected comparisons under the same cue.', 'Bradley–Terry probabilities are determined only by the reward difference of the two responses, and the absolute scores have no uniform units across models.', 'Document annotation criteria, agreement and disagreement, and maintain an independent human audit set.', 'A reward model that outputs a 4-point answer must be twice as satisfying to a human as an answer that outputs a 2-point answer.', 'Teams treat agent scores as human values \u200b\u200bthemselves and ignore out-of-distribution failures.', ('If the chosen reward is 2 and the rejected reward is 1, what is approximately σ(2−1)?', '0.731', ('0.269', '0.500', '1.000'), 'The preference probability is σ(1)=1/(1+e⁻¹)≈0.731.')),
+ ('LLM 9 - RLHF, PPO, and GRPO', '4. PPO for RLHF'): ('PPO samples trajectories with old policies, weights probability ratios by advantage, and limits single policy moves through clipping.', 'The value model provides a baseline to reduce variance, and the entropy term suppresses premature distribution collapse.', 'Fixed the old strategy corresponding to rollout, and jointly monitored reward, KL, clip fraction and value error.', 'PPO pruning ensures that the actual policy never crosses the trust zone in any state.', 'Implementations may be wrong with old strategies, dominant symbols, or clipping directions and still show reward increases.', ('Assume A=2, ρ=1.30, ε=0.20; what is min(ρA, clip(ρ)A) of PPO?', '2.4', ('2.0', '2.6', '3.0'), 'ρA=2.6, after cropping 1.2×2=2.4, take the smaller value 2.4.')),
+ ('LLM 9 - RLHF, PPO, and GRPO', '5. Reward Hacking and KL Control'): ('Reward hacking is a strategy that increases agent rewards but deviates from the real target; KL constraints use a frozen reference strategy to limit drift.', "Goodhart's law states that once a proxy indicator is strongly optimized, its relationship with the real target may break down.", 'Simultaneously audit high reward samples, task quality and KL, and check shortcuts with held-out human review.', 'As long as the reward model training accuracy is high, it is impossible for the policy to find reward vulnerabilities.', 'Models generate irrelevant, exaggerated, or speculative text to score high.', ('The task reward is 1.0, logπθ−logπref=0.4, β=0.25; r total=r task−βΔlogπ, what is it?', '0.90', ('0.60', '1.10', '1.40'), '1.0−0.25×0.4=0.90。')),
+ ('LLM 9 - RLHF, PPO, and GRPO', '6. Scaling Feedback and Constitutional AI'): ('Constitutional AI uses clear principles to guide self-criticism, revision, and feedback on AI preferences to extend human oversight.', 'RLAIF reduces the cost of repeated annotation, but principle selection, feedback model deviations, and high-risk auditing still require human governance.', 'Establish priorities and conflict handling for principles, and reserve manual upgrades for high-risk scenarios such as medical care and finance.', 'When AI is used to generate feedback, the system no longer contains any human value judgments or sources of bias.', 'The blind spots of homology models may be replicated at scale into policy and reward models.', None),
+ ('LLM 9 - RLHF, PPO, and GRPO', '7. DeepSeekMath'): ("DeepSeekMath's power comes from a combination of mathematical corpus pre-training, SFT data, and GRPO reinforcement learning.", 'Paper results must be explained together with the data, sampling, tool usage, and evaluation protocol.', 'Fixed model, data slicing, decoding budget, and scoring rules when comparing SFT to RL.', 'As long as the benchmark score improves, it can be concluded that the improvement comes entirely from the GRPO algorithm.', 'The impact of data and inference budgets is misattributed to the optimizer.', ('MATH accuracy increases from 40% to 52%. What is the absolute improvement and relative improvement?', '12 percentage points, 30%', ('12%，12%', '30 percentage points, 12%', '52 points, 30%'), 'Absolute improvement=52−40=12 percentage points; relative improvement=12/40=30%.')),
+ ('LLM 9 - RLHF, PPO, and GRPO', '8. GRPO Derivation'): ('GRPO uses a set of answers to the same question to construct relative advantage, removing the value model of PPO but retaining the strategy, reward, and reference models.', 'The advantage of within-group standardization is only meaningful within the current question and sample group and cannot be used as an absolute reward across questions.', 'Examine the respective effects of within-group variance, probability ratio clipping, length normalization, and the KL term.', 'Removing the critic means that GRPO no longer needs to sample multiple responses, reward calculations, or reference strategies.', 'The system underestimates the computation and variance introduced by rollouts, reward models, and group sampling.',
+                                                         ('A set of rewards is [1,1,0,0], normalized using the population standard deviation; what is the advantage of answering with a reward of 1?', '1', ('0', '0.5', '2'), 'The mean is 0.5 and the population standard deviation is 0.5, so (1−0.5)/0.5=1.')),
+ ('LLM 9 - RLHF, PPO, and GRPO', '9. Results and Interpretation'): ('Maj@K measures the probability quality and stability of the correct answer, and Pass@K is closer to the ability boundary of picking the correct solution at least once.', 'Maj@K increases while Pass@K remains basically unchanged, supporting strategies to make existing correct solutions more common rather than expanding the upper limit of solvable problems.', 'Reports sampling parameters, K, confidence intervals, baseline and failure samples, and distinguishes between absolute and relative improvement.', 'As long as Pass@K remains unchanged, it can be proven that reinforcement learning does not improve the model at all.', 'The paper results can be misinterpreted as indicating that the model has not changed or that it has gained new inference capabilities.',
+                                                                    ('When the single correct probability p=0.2 and independent sampling K=5, what is the approximate value of Pass@5=1−(1−p)^5?', '0.672', ('0.200', '0.328', '1.000'), '1−0.8⁵=1−0.32768≈0.672。')),
+ ('LLM 9 - RLHF, PPO, and GRPO', '综合检查点'): ('The RLHF system connects preference data, reward agents, policy optimization, drift constraints and independent evaluation into a feedback closed loop.', 'A high score for any single component cannot prove that the entire closed loop is safe and reliable.', 'Joint acceptance of four evidence chains from labeling divergence, reward vulnerability, KL drift and held-out behavior.', 'As long as the final average reward rises, the reward model, policy, and deployment behavior must simultaneously improve.', 'Local improvements in agent goals can mask true behavioral degradation.', ('The reward model score increases by 0.8, but the KL penalty increases by 0.5, β=0.4; approximately what is the net target change?', '0.6', ('0.3', '0.8', '1.0'), 'Net change=0.8−0.4×0.5=0.6.'))}
+
+ENGLISH_ADVANCED_CALCS = {('LLM 1 - Fundamentals of Deep Learning', '10. Parallelism'): ('The single-card model takes up 36GB, while each card only has 24GB. Which one can solve the capacity problem first, data parallelism or model parallelism that evenly cuts the model to 2 cards?', '2-card model parallelism; each card carries approximately 18GB of model state', ('Data parallelism; each card carries only 4.5GB', 'Data parallelism; models are automatically compressed', 'Neither method can change the occupancy of a single card model.'), 'Data parallel copying of the complete model cannot solve the problem that the model itself cannot be put down; 2-way model parallelism can share the model state.'),
+ ('LLM 1 - Fundamentals of Deep Learning', '11. Sync and Benchmarks'): ('Each step of a single card takes 100ms, and each step of 8-card synchronous training takes 140ms, and each card processes the same batch. What is the approximate throughput acceleration ratio compared to a single card?', '5.71×', ('1.40×', '8.00×', '11.20×'), 'The throughput is proportional to the total number of samples per step divided by the step time, and the acceleration ratio = 8×100/140≈5.71.'),
+ ('LLM 1 - Fundamentals of Deep Learning', '4. Generalization'): ('The training/validation error for model A is 0.04/0.18 and for model B is 0.10/0.13. If the deployment distribution is consistent with the validation set, based on this data alone, which model should be preferred and why?', 'Model B; has lower validation error and smaller generalization gap', ('Model A; lowest training error', 'Model A; larger generalization gap', 'Both must be equivalent'), 'It should be based on the performance of unseen data. A has a gap of 0.14 and B has a gap of 0.03; B also has a lower validation error.'),
+ ('LLM 1 - Fundamentals of Deep Learning', '5. Regularization'): ('The objective function is L(w)+λw². If w=4, λ=0.1, and the gradient of L with respect to w is −0.3, what is the total gradient?', '0.5', ('−0.7', '−0.3', '0.8'), 'The gradient of the regular term is 2λw=0.8, and the total gradient is −0.3+0.8=0.5.'),
+ ('LLM 1 - Fundamentals of Deep Learning', '6. Metrics'): ('The two classifiers are TP=90, FP=30, and FN=10. What is its F1 approximately?', '0.818', ('0.750', '0.900', '0.857'), 'Precision=90/120=0.75，Recall=90/100=0.9，F1=2×0.75×0.9/(0.75+0.9)≈0.818。'),
+ ('LLM 1 - Fundamentals of Deep Learning', '8. Batch and Rate'): ('8 GPUs, micro-batch=4 per card, gradient is updated after 8 steps of accumulation; what is the global effective batch?', '256', ('32', '64', '512'), 'Globally valid batch=8×4×8=256.'),
+ ('LLM 2 - Attention and Transformers', 'Attention'): ('The attention score is [0, ln3], and the corresponding value is [2, 6]. What is the weighted output?', '5', ('3', '4', '6'), 'The softmax weight is [0.25,0.75], and the output=0.25×2+0.75×6=5.'),
+ ('LLM 2 - Attention and Transformers', 'Attention as Matrix Computation'): ('As the sequence length increases from 2,048 to 4,096, other things remaining unchanged, approximately how many times does the number of elements of the standard attention score matrix increase?', '4 times', ('2 times', '8 times', '16 times'), 'The attention score scale is proportional to n², doubling the length gives 2²=4 times the number of elements.'),
+ ('LLM 2 - Attention and Transformers', 'BERT in Detail'): ('BERT selects 15% of 1,000 tokens for MLM, 80% of which are changed to [MASK], 10% to random tokens, and 10% remain unchanged. How many tokens are expected to actually appear as [MASK]?', '120', ('15', '100', '150'), '1000×0.15×0.8=120。'),
+ ('LLM 2 - Attention and Transformers', 'Mixture of Experts'): ('One MoE layer has 16 experts and top-2 routes; one batch has 1,600 tokens and capacity factor=1.25. If distributed evenly, how many tokens should the capacity of each expert be set to?', '250', ('125', '200', '2,000'), 'Total routing volume = 1600 × 2 = 3200; average 200 per expert, multiplied by 1.25 to get 250.'),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Deterministic Decoding'): ('The probabilities of two candidate sequence tokens with the same length are [0.8,0.4] and [0.6,0.6] respectively. In terms of probability product, which one should be retained in beam search?', 'The second one; 0.36>0.32', ('The first one; 0.8>0.6', 'First; the sum is 1.2 greater', 'The probability of both is exactly the same'), 'Sequence score comparison joint probabilities: 0.8×0.4=0.32, 0.6×0.6=0.36.'),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'In-Context Learning'): ('The upper limit of context is 8,192 tokens; system prompts 900, user questions 700, and reserved output 1,500. Each example costs an average of 850 tokens. How many complete examples can be placed at most?', '5', ('6', '7', '8'), 'Example budget=8192−900−700−1500=5092, floor(5092/850)=5.'),
+ ('LLM 3–4 - Decoding, Prompt Engineering, and RAG', 'Sampling and Distribution Control'): ('The binary logits difference is 2. What does the probability of the high logit class change from σ(2) when the temperature is adjusted from 1 to 2?', 'σ(1)≈0.731', ('σ(4)≈0.982', '0.500', '0.881'), 'Temperature scaling divides the logit difference by T: 2/2=1, so the probability is σ(1)≈0.731.'),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'Compute Budgets and Scaling Laws'): ('Use approximate training computation C≈6ND. If parameter N=10B and training token D=300B, how many FLOPs will be the calculation amount?', '1.8×10²²', ('3×10²¹', '6×10²¹', '1.8×10²¹'), '6×10¹⁰×3×10¹¹=18×10²¹=1.8×10²² FLOPs。'),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'From One GPU to Many'): ('4-card training, micro-batch=8 per card, gradient accumulation for 4 steps. If the data set has 10,240 samples, how many parameter updates are there in one epoch?', '80', ('20', '320', '1,280'), 'Effective batch=4×8×4=128, number of updates=10240/128=80.'),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'Precision, Mixed Precision, and Quantization'): ('If the weight of a 70B model is quantized from FP16 to 4-bit, and calculated based on weight only, how much will the storage amount be reduced from?', '140GB reduced to 35GB', ('280GB reduced to 70GB', '140GB reduced to 70GB', '70GB down to 17.5GB'), 'FP16 is 2 bytes/parameter: 140GB; 4-bit is 0.5 byte/parameter: 35GB.'),
+ ('LLM 5 - Pretraining, Scaling, and Domain Models', 'The Real Training Memory Budget'): ('A 7B model uses BF16 weights and gradients (2 bytes/parameter each), and two FP32 states of Adam (4 bytes/parameter each), excluding activation for the time being. Approximately how many GB will this persistent state alone require?', '84GB', ('28GB', '56GB', '112GB'), '2+2+4+4=12 bytes per parameter; 7B×12≈84GB.'),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '10. Soft Prompt Tuning'): ('Each of the 50 tasks uses a FP16 soft prompt of length 100 and hidden dimension 4096. Approximately how many MB is the total storage for all soft prompts?', 'About 41MB', ('About 4.1MB', 'About 82MB', 'About 410MB'), 'Number of parameters = 50 × 100 × 4096 = 20,480,000; FP16 has 2 bytes per parameter, approximately 40.96MB.'),
+ ('LLM 6 - Instruction Fine-Tuning and PEFT', '8. LoRA: Learning a Low-Rank Update'): ('Use LoRA with rank=16 for a 4096×4096 projection. How much does the LoRA parameter amount account for in the original matrix parameter amount?', '0.78%', ('0.39%', '1.56%', '6.25%'), 'LoRA parameters=16×(4096+4096)=131072; original matrix=4096²=16777216, accounting for about 0.781%.'),
+ ('LLM 7 - Efficient LLM Serving', '1. The Serving Workload'): ('Requesting prefill takes 120ms, and then generates 40 tokens; the first token is included 25ms after prefill, and the remaining tokens are spaced 25ms apart. What is the approximate total completion delay?', '1,120ms', ('1,000ms', '1,095ms', '1,145ms'), 'From the beginning to the completion of 40 tokens, it takes about 120+40×25=1120ms.'),
+ ('LLM 7 - Efficient LLM Serving', '3. KV Cache and PagedAttention'): ('The KV cache is 128KB per token per layer, the model has 32 layers, and the context is 4,096 tokens. How many GB is the KV cache for a single request?', '16GB', ('4GB', '8GB', '32GB'), '128KB×32×4096=16,777,216KB≈16GB。'),
+ ('LLM 7 - Efficient LLM Serving', '8. Benchmarking a Serving System'): ('The throughput of both systems is 20,000 token/s. A has a p95 TTFT=0.8s, B is 2.4s, and the SLO requires p95<1s. How to judge?', 'Only A meets the SLO, and the same throughput cannot determine the same experience.', ('They are equivalent because the throughput is the same', 'B is better because TTFT is larger', 'Just compare the average output length'), 'Throughput must be judged jointly with tail latency and SLO; B violates p95 TTFT constraint.'),
+ ('LLM 8 - Evaluating Language Models', '4. ROUGE and BLEU'): ('The candidate length c=8, the reference length r=10, and the BLEU geometric mean without multiplying the brevity penalty is 0.75. BP=exp(1−r/c), what is the final BLEU?', '0.584', ('0.600', '0.750', '0.963'), 'BP=exp(1−10/8)=exp(−0.25)≈0.779；BLEU≈0.779×0.75=0.584。'),
+ ('LLM 8 - Evaluating Language Models', '6. TravelPlanner'): ('A trip has 6 independent hard constraints that must all be satisfied, each with a pass rate of 0.95. What is the approximate probability of passing the entire trip?', '0.735', ('0.700', '0.950', '0.815'), 'macro pass≈0.95⁶≈0.735, indicating that local high pass rates can still accumulate into obvious overall failures.'),
+ ('LLM 9 - RLHF, PPO, and GRPO', '3. Human Feedback and Reward Models'): ('The reward difference between chosen and rejected is 2. What is the approximate value of pairwise loss=−logσ(2)?', '0.127', ('0.269', '0.500', '0.881'), 'σ(2)≈0.881, therefore −log(0.881)≈0.127.'),
+ ('LLM 9 - RLHF, PPO, and GRPO', '4. PPO for RLHF'): ('Assume advantage A=−3, probability ratio ρ=0.70, and ε=0.20. What is min(ρA,clip(ρ)A) of PPO?', '−2.4', ('−3.0', '−2.1', '2.4'), 'ρA=−2.1; clip(ρ)=0.8, clip(ρ)A=−2.4; take the smaller value −2.4.'),
+ ('LLM 9 - RLHF, PPO, and GRPO', '8. GRPO Derivation'): ('A group of rewards is [3,1,1,1], and the overall standard deviation is used for intra-group standardization. What is the approximate answer advantage for Bonus 3?', '1.732', ('0.577', '1.000', '2.000'), 'The mean is 1.5, the overall standard deviation is √0.75≈0.866, and the advantage=(3−1.5)/0.866≈1.732.'),
+ ('LLM 9 - RLHF, PPO, and GRPO', '9. Results and Interpretation'): ('If the accuracy of a single sampling is p=0.1 and the samples are independently sampled 10 times, what is the approximate value of Pass@10?', '0.651', ('0.100', '0.349', '1.000'), 'Pass@10=1−(1−0.1)¹⁰=1−0.9¹⁰≈0.651。')}
 # A second, deliberately harder calculation for quantitatively rich sections.
 # These do not merely change the numbers in the introductory calculation: each
 # one adds an inverse problem, a second stage, or a system-level constraint.
@@ -225,7 +342,37 @@ def normalize(text: str) -> str:
     return re.sub(r"[^a-z0-9\u4e00-\u9fff]+", "", text.lower())
 
 
-def question(section_title, prompt, correct, wrong, explanation, difficulty, kind="single"):
+def clean_english(text: str) -> str:
+    return (text.replace("。", ".").replace("，", ", ").replace("；", "; ")
+            .replace("：", ": ").replace("？", "?").replace("（", "(").replace("）", ")"))
+
+
+def english_topic(topic: Topic, article_title: str) -> Topic:
+    profile = ENGLISH_PROFILES[(article_title, topic.title)]
+    concept, support, application, misconception, consequence, calc = profile
+    if calc:
+        calc = (clean_english(calc[0]), clean_english(calc[1]),
+                tuple(clean_english(x) for x in calc[2]), clean_english(calc[3]))
+    title = "Checkpoint Quiz" if topic.title == "综合检查点" else topic.title
+    return Topic(title, *(clean_english(x) for x in
+                          (concept, support, application, misconception, consequence)), calc)
+
+
+def related_topics(topic: Topic, all_topics: list[Topic]) -> list[Topic]:
+    """Return adjacent course concepts, which make plausible rather than random distractors."""
+    index = all_topics.index(topic)
+    offsets = (-1, 1, 2, -2, 3)
+    related = []
+    for offset in offsets:
+        candidate = all_topics[(index + offset) % len(all_topics)]
+        if candidate != topic and candidate not in related:
+            related.append(candidate)
+    if len(related) < 3:
+        raise ValueError(f"Need three related topics for {topic.title}")
+    return related
+
+
+def question(section_title, prompt, correct, wrong, explanation, difficulty, kind="single", skill="unspecified"):
     options, answers = shuffle_options(list(correct), list(wrong))
     return {
         "sectionTitle": section_title,
@@ -235,107 +382,119 @@ def question(section_title, prompt, correct, wrong, explanation, difficulty, kin
         "explanation": explanation,
         "difficulty": difficulty,
         "type": "multiple" if kind == "multiple" else "single",
+        "skill": skill,
         "source": "generated-practice",
     }
 
 
 def build_topic_questions(topic: Topic, all_topics: list[Topic], article_title: str):
-    quiz_title = f"{article_title} 综合检查点" if topic.title == "综合检查点" else topic.title
-    others = [x for x in all_topics if x.title != topic.title]
-    wrong_pool = [topic.misconception] + [x.misconception for x in others]
-    app_wrong = list(BAD_APPLICATIONS)
-    consequence_wrong = ["模型参数会自动归零。", "性能会在所有任务上得到保证性提升。", "系统因此不再需要任何验证。"]
+    quiz_title = f"{article_title} Checkpoint Quiz" if topic.title == "Checkpoint Quiz" else topic.title
+    d1, d2, d3 = related_topics(topic, all_topics)[:3]
     q = []
-    q.append(question(topic.title, f"关于“{quiz_title}”，哪项概括最准确？", [topic.concept], wrong_pool[:3], topic.concept, "进阶"))
-    q.append(question(topic.title, f"关于“{quiz_title}”，下列哪项说法不正确？", [topic.misconception], [topic.concept, topic.support, topic.application], f"错误说法是：{topic.misconception} 正确边界是：{topic.concept}", "挑战"))
-    q.append(question(topic.title, f"围绕“{quiz_title}”，下列哪些陈述成立？选择所有正确项。", [topic.concept, topic.support, topic.application], [topic.misconception], f"前三项分别覆盖定义、关键约束和实践方法；“{topic.misconception}”是需要避免的误解。", "挑战", "multiple"))
-    q.append(question(topic.title, f"一个团队正在应用“{quiz_title}”中的方法。哪项做法最合理？", [topic.application], app_wrong, f"合理实践是：{topic.application} 它把概念转化为可验证的工程步骤。", "进阶"))
+    q.append(question(topic.title, f"Which statement best captures the central principle of {quiz_title}?",
+                      [topic.concept], [d1.concept, d2.concept, d3.concept],
+                      topic.concept, "Intermediate", skill="core_principle"))
+    q.append(question(topic.title, f"Which claim reveals the most serious misconception about {quiz_title}?",
+                      [topic.misconception], [d1.misconception, d2.misconception, d3.misconception],
+                      f"The incorrect assumption is: {topic.misconception} The valid boundary is: {topic.concept}",
+                      "Challenging", skill="misconception_detection"))
+    q.append(question(topic.title,
+                      f"Which TWO observations would provide the strongest direct evidence for {quiz_title}? Select all that apply.",
+                      [topic.support, f"A controlled intervention reduces the documented failure: {topic.consequence}"],
+                      [d1.support, "A single successful example is reported without measuring the proposed mechanism or any failure cases."],
+                      "Direct evidence must test the stated mechanism and its characteristic failure mode; evidence for a neighboring topic is not a substitute.",
+                      "Challenging", "multiple", skill="evidence_selection"))
+    q.append(question(topic.title, f"A team must operationalize {quiz_title}. Which action is the most defensible first step?",
+                      [topic.application], [d1.application, d2.application, d3.application],
+                      f"The action tied to this section is: {topic.application}", "Intermediate", skill="implementation_choice"))
     if topic.calc:
         stem, correct, distractors, explanation = topic.calc
-        q.append(question(topic.title, stem, [correct], list(distractors), explanation, "挑战"))
+        q.append(question(topic.title, stem, [correct], list(distractors), explanation,
+                          "Challenging", skill="foundational_calculation"))
     else:
-        q.append(question(topic.title, f"如果忽略“{quiz_title}”的关键约束，最可能首先出现什么问题？", [topic.consequence], consequence_wrong, f"最直接的失败模式是：{topic.consequence}", "挑战"))
+        q.append(question(topic.title, f"If the defining constraint of {quiz_title} is ignored, which failure should appear first?",
+                          [topic.consequence], [d1.consequence, d2.consequence, d3.consequence],
+                          f"The predicted failure is: {topic.consequence}", "Challenging", skill="failure_prediction"))
     return q
 
 
 def build_advanced_questions(topic: Topic, all_topics: list[Topic], article_title: str):
     """Five transfer questions that test mechanisms, diagnosis, and computation."""
-    title = f"{article_title} 综合检查点" if topic.title == "综合检查点" else topic.title
-    others = [x for x in all_topics if x.title != topic.title]
-    if len(others) < 3:
-        raise ValueError(f"Need three related topics for advanced distractors: {title}")
-    d1, d2, d3 = others[:3]
+    title = f"{article_title} Checkpoint Quiz" if topic.title == "Checkpoint Quiz" else topic.title
+    d1, d2, d3 = related_topics(topic, all_topics)[:3]
     q = []
     q.append(question(
         topic.title,
-        f"一个系统出现了以下现象：{topic.consequence} 团队同时声称：{topic.misconception} 哪项诊断最能定位真正原因？",
-        [f"固定其他条件，执行“{topic.application}”，并检查结果是否符合“{topic.support}”。"],
+        f"A system exhibits this failure: {topic.consequence} The team nevertheless assumes: {topic.misconception} Which diagnostic intervention best tests the disputed mechanism?",
+        [f"Hold the workload and evaluation protocol fixed, apply this intervention—{topic.application}—and test whether the predicted evidence appears: {topic.support}"],
         [
-            f"改用“{d1.application}”，并把“{d1.support}”作为唯一判据。",
-            f"改用“{d2.application}”，并把“{d2.support}”作为唯一判据。",
-            f"改用“{d3.application}”，并把“{d3.support}”作为唯一判据。",
+            f"Change to this unrelated intervention—{d1.application}—and use only this criterion: {d1.support}",
+            f"Change to this unrelated intervention—{d2.application}—and use only this criterion: {d2.support}",
+            f"Change to this unrelated intervention—{d3.application}—and use only this criterion: {d3.support}",
         ],
-        f"高质量诊断需要受控干预和机制证据。本节可操作的干预是“{topic.application}”，对应证据是“{topic.support}”。",
-        "高阶",
+        f"A useful diagnosis changes one causal factor and measures evidence predicted by the mechanism. The relevant intervention is '{topic.application}'; the predicted evidence is '{topic.support}'.",
+        "Advanced", skill="causal_diagnosis",
     ))
     q.append(question(
         topic.title,
-        f"为了区分“{topic.concept}”与误解“{topic.misconception}”，实验中应保留哪些证据？选择所有正确项。",
+        f"Which THREE design choices are required for a controlled test of {title}? Select all that apply.",
         [
-            "在相同数据、预算和评测协议下设置遵循约束的方案与违反约束的对照组。",
-            f"记录能直接检验这一机制的证据：{topic.support}",
-            f"对“{topic.consequence}”所对应的失败样本进行分层分析。",
+            "Keep the data, compute budget, and scoring protocol identical between treatment and control.",
+            f"Measure the mechanism-specific evidence: {topic.support}",
+            f"Stratify errors associated with this predicted failure: {topic.consequence}",
         ],
-        [f"把另一机制的证据“{d1.support}”直接当成本节机制已经成立。"],
-        "前三项分别控制混杂因素、验证本节机制并检查失败边界；其他章节中的有效证据不能未经论证直接替代本节证据。",
-        "高阶",
-        "multiple",
+        [f"Treat evidence for {d1.title}—{d1.support}—as proof of the current mechanism without testing it."],
+        "The correct choices control confounders, measure the mechanism, and inspect its failure boundary.",
+        "Advanced", "multiple", skill="controlled_experiment",
     ))
     q.append(question(
         topic.title,
-        f"离线验证支持“{topic.support}”，但上线后仍出现“{topic.consequence}”。此时最严谨的结论是什么？",
-        ["离线证据只在其数据与假设范围内成立；应先检查分布变化、实现差异和未覆盖边界，再决定是否否定机制。"],
+        f"Offline evaluation supports this finding—{topic.support}—but deployment still exhibits: {topic.consequence} What is the strongest justified conclusion?",
+        ["The offline result is conditional on its data and assumptions; inspect distribution shift, implementation differences, and uncovered edge cases before rejecting the mechanism."],
         [
-            f"这足以证明问题来自“{d1.title}”，无需检查当前机制的实现。",
-            f"只要补充“{d2.support}”，当前机制就自动在部署分布中成立。",
-            f"直接改用“{d3.application}”，无需复现离线—线上差异。",
+            f"The observation proves that {d1.title} is responsible, so the current implementation need not be inspected.",
+            f"Adding this unrelated result—{d2.support}—automatically validates the current mechanism in production.",
+            f"Adopt this different action—{d3.application}—without reproducing the offline-to-online discrepancy.",
         ],
-        "验证集证据不能自动外推到新分布。高阶判断需要区分机制失效、实现偏差与部署分布变化。",
-        "高阶",
+        "Evidence does not automatically transfer to a new distribution. Separate mechanism failure, implementation error, and distribution shift.",
+        "Advanced", skill="distribution_shift",
     ))
     q.append(question(
         topic.title,
-        f"围绕“{title}”，下列哪条推理链在逻辑上成立？",
-        [f"先提出可检验机制“{topic.concept}”，再用“{topic.support}”寻找证据，最后通过“{topic.application}”验证其适用范围。"],
+        f"Which comparison correctly distinguishes {title} from the neighboring concept {d1.title}?",
+        [f"For {title}, the relevant evidence is '{topic.support}', whereas evidence specific to {d1.title} is '{d1.support}'; neither can replace the other without an explicit causal link."],
         [
-            f"从“{topic.concept}”出发，却只测量“{d1.support}”，随后执行“{d1.application}”。",
-            f"从“{d2.concept}”出发，却用“{topic.support}”证明它，并执行“{topic.application}”。",
-            f"先接受“{topic.misconception}”，再用“{d3.support}”替代当前机制的边界测试。",
+            f"Because both appear in the same course, evidence for {d1.title} automatically proves {title}.",
+            f"The two concepts are equivalent whenever this action is taken: {d2.application}",
+            f"The misconception '{topic.misconception}' makes evidence for either concept unnecessary.",
         ],
-        "有效推理必须从机制到证据再到受控验证，并明确结论的适用范围，不能把局部观察升级为普遍因果结论。",
-        "高阶",
+        "Closely related mechanisms still require their own predicted evidence and intervention; course proximity is not causal equivalence.",
+        "Advanced", skill="concept_discrimination",
     ))
-    calc = ADVANCED_CALCS.get((article_title, topic.title))
+    calc = ENGLISH_ADVANCED_CALCS.get((article_title, topic.title))
     if calc:
         stem, correct, distractors, explanation = calc
-        q.append(question(topic.title, stem, [correct], list(distractors), explanation, "高阶"))
+        q.append(question(topic.title, clean_english(stem), [clean_english(correct)],
+                          [clean_english(x) for x in distractors], clean_english(explanation),
+                          "Advanced", skill="advanced_calculation"))
     else:
         q.append(question(
             topic.title,
-            f"设计方案必须同时利用“{topic.concept}”并避免“{topic.consequence}”。哪项方案最完整？",
-            [f"采用“{topic.application}”，同步验证“{topic.support}”，并把失败模式写入上线门槛和回退条件。"],
+            f"A deployment gate must preserve the principle '{topic.concept}' while preventing this failure: {topic.consequence} Which policy is complete?",
+            [f"Apply this action—{topic.application}—verify this evidence—{topic.support}—and encode the failure mode in release and rollback criteria."],
             [
-                f"采用“{d1.application}”，只验证“{d1.support}”，但不检查当前失败模式。",
-                f"采用“{topic.application}”，却以“{d2.support}”替代本节应验证的机制证据。",
-                f"接受“{topic.misconception}”，并用“{d3.application}”绕过本节约束。",
+                f"Apply {d1.application} and validate only {d1.support}, without checking the current failure mode.",
+                f"Apply {topic.application}, but substitute the unrelated evidence {d2.support} for the required measurement.",
+                f"Accept the misconception '{topic.misconception}' and bypass the constraint with {d3.application}",
             ],
-            "完整方案同时包含机制、可执行干预、可观察证据以及失败时的控制措施。",
-            "高阶",
+            "A complete release policy joins the mechanism, intervention, observable evidence, and a control for failure.",
+            "Advanced", skill="system_integration",
         ))
     return q
 
 
 def load_llm9_questions():
+    article_title = "LLM 9 - RLHF, PPO, and GRPO"
     topics = [
         T("1. Alignment After Fine-Tuning",
           "对齐把帮助性、诚实性与无害性等人类偏好转化为可优化、可审计的行为目标。",
@@ -399,12 +558,13 @@ def load_llm9_questions():
           "论文结果会被误读为模型没有变化或获得了全新推理能力。",
           ("单次正确概率 p=0.2，独立采样 K=5 时 Pass@5=1−(1−p)^5 约为多少？", "0.672", ("0.200", "0.328", "1.000"), "1−0.8⁵=1−0.32768≈0.672。")),
     ]
+    topics = [english_topic(topic, article_title) for topic in topics]
     banks = [{
         "target": topic.title,
         "label": topic.title,
         "questions": (
-            build_topic_questions(topic, topics, "LLM 9 - RLHF, PPO, and GRPO")
-            + build_advanced_questions(topic, topics, "LLM 9 - RLHF, PPO, and GRPO")
+            build_topic_questions(topic, topics, article_title)
+            + build_advanced_questions(topic, topics, article_title)
         ),
     } for topic in topics]
     checkpoint_topic = T(
@@ -416,32 +576,34 @@ def load_llm9_questions():
         "代理目标的局部改进会掩盖真实行为退化。",
         ("奖励模型分数提高 0.8，但 KL 惩罚增加 0.5，β=0.4；净目标改变量约为多少？", "0.6", ("0.3", "0.8", "1.0"), "净改变量=0.8−0.4×0.5=0.6。"),
     )
+    checkpoint_topic = english_topic(checkpoint_topic, article_title)
     banks.append({
-        "target": "__checkpoint__", "before": "10. Complete Lecture Archive", "label": "综合检查点",
+        "target": "__checkpoint__", "before": "10. Complete Lecture Archive", "label": "Checkpoint Quiz",
         "questions": (
-            build_topic_questions(checkpoint_topic, topics + [checkpoint_topic], "LLM 9 - RLHF, PPO, and GRPO")
-            + build_advanced_questions(checkpoint_topic, topics + [checkpoint_topic], "LLM 9 - RLHF, PPO, and GRPO")
+            build_topic_questions(checkpoint_topic, topics + [checkpoint_topic], article_title)
+            + build_advanced_questions(checkpoint_topic, topics + [checkpoint_topic], article_title)
         ),
     })
     return {"title": "LLM 9 - RLHF, PPO, and GRPO", "banks": banks}
 
 
 def build():
-    output = {"version": "20261114-generated-v2", "notice": "AI 生成练习 · 非 CourseWorks 真题", "articles": {}}
+    output = {"version": "20261114-generated-v3", "notice": "AI-generated practice · Not an official CourseWorks quiz", "articles": {}}
     seen = set()
     total = 0
     for slug, article in ARTICLES.items():
-        topics = article["topics"]
+        topics = [english_topic(topic, article["title"]) for topic in article["topics"]]
         banks = []
         for topic in topics:
             items = build_topic_questions(topic, topics, article["title"])
             items += build_advanced_questions(topic, topics, article["title"])
             banks.append({"target": topic.title, "label": topic.title, "questions": items})
-        if checkpoint := article.get("checkpoint"):
+        if raw_checkpoint := article.get("checkpoint"):
+            checkpoint = english_topic(raw_checkpoint, article["title"])
             all_topics = topics + [checkpoint]
             items = build_topic_questions(checkpoint, all_topics, article["title"])
             items += build_advanced_questions(checkpoint, all_topics, article["title"])
-            banks.append({"target": "__checkpoint__", "label": "综合检查点", "questions": items})
+            banks.append({"target": "__checkpoint__", "label": "Checkpoint Quiz", "questions": items})
         output["articles"][slug] = {"title": article["title"], "banks": banks}
 
     output["articles"]["LLM-9-RLHF-and-GRPO"] = load_llm9_questions()
@@ -453,6 +615,9 @@ def build():
         for bank in article["banks"]:
             if len(bank["questions"]) != 10:
                 raise AssertionError(f"{slug}/{bank['label']} does not have ten questions")
+            skills = [q["skill"] for q in bank["questions"]]
+            if len(set(skills)) != 10:
+                raise AssertionError(f"{slug}/{bank['label']} repeats a tested skill: {skills}")
             for q in bank["questions"]:
                 key = normalize(q["prompt"])
                 if key in seen:
@@ -463,8 +628,11 @@ def build():
                 total += 1
     if total != 830:
         raise AssertionError(f"Expected 830 generated questions, got {total}")
+    serialized = json.dumps(output, ensure_ascii=False, indent=2) + "\n"
+    if re.search(r"[\u3400-\u9fff]", serialized):
+        raise AssertionError("Chinese text remains in the generated English practice bank")
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(serialized, encoding="utf-8")
     print(f"created={OUTPUT}")
     print(f"articles={len(output['articles'])} questions={total} unique={len(seen)}")
     for slug, article in output["articles"].items():
