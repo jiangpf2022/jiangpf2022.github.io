@@ -11,9 +11,7 @@ redirect_from:
 <span class="anchor" id="about-me"></span>
 
 <div class="resume-summary">
-  <p><strong>Panfeng (Gavin) Jiang</strong> is an M.S. student in Computer Science at <a href="https://www.columbia.edu/">Columbia University</a>, with a B.Eng. from <a href="https://www.shanghaitech.edu.cn/eng/">ShanghaiTech University</a> and an exchange year at <a href="https://www.berkeley.edu/">UC Berkeley</a>.</p>
-  <p>His research interests include trustworthy LLMs, sequential decision-making, multimodal learning, and embodied AI.</p>
-  <p>His work spans LLM reliability, bandit theory, language-instructed robot navigation, and asynchronous visual perception.</p>
+  <p>I am <a href="https://jiangpf2022.github.io/">Panfeng (Gavin) Jiang</a>, currently pursuing an M.S. in Computer Science at <a href="https://www.columbia.edu/">Columbia University</a>. I received my B.Eng. in Computer Science from <a href="https://www.shanghaitech.edu.cn/eng/">ShanghaiTech University</a> and spent an academic year at the <a href="https://www.berkeley.edu/">University of California, Berkeley</a> as an exchange student. My interests broadly span machine learning, sequential decision-making, LLMs, and embodied &amp; multimodal AI. I have been fortunate to gain research experience across both theory and applications, working with <a href="https://zeroweight.github.io/">Dr. Weitong Zhang</a> at the <a href="https://www.unc.edu/">University of North Carolina at Chapel Hill</a> on learning and decision-making under uncertainty, with <a href="https://linsats.github.io/">Dr. Lin Shao</a> at the <a href="https://www.nus.edu.sg/">National University of Singapore</a> on vision-language models and robotic navigation, and with <a href="https://sist.shanghaitech.edu.cn/lkneip/main.htm">Prof. Laurent Kneip</a> at the <a href="https://mpl.sist.shanghaitech.edu.cn/MPL%40shanghaitech.html">Mobile Perception Lab</a> on event-based vision and perception.</p>
 </div>
 
 # 📝 Publications
