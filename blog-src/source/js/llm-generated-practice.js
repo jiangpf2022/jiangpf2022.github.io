@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const DATA_URL = "/blog/data/llm-generated-practice.json?v=20261114-generated-v1";
+  const DATA_URL = "/blog/data/llm-generated-practice.json?v=20261114-generated-v2";
   const ARTICLE_SELECTOR = ".article-content.markdown-body";
   let bankPromise = null;
 
