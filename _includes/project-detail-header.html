@@ -1,0 +1,15 @@
+<div class="project-detail">
+  <a class="project-detail__back" href="/#-projects">← Back to projects</a>
+  <header class="project-detail__hero">
+    {% if page.eyebrow %}<p class="project-detail__eyebrow">{{ page.eyebrow }}</p>{% endif %}
+    <h1>{{ page.title }}</h1>
+    {% if page.period %}<p><strong>{{ page.period }}</strong>{% if page.location %} · {{ page.location }}{% endif %}</p>{% endif %}
+    {% if page.summary %}<p>{{ page.summary }}</p>{% endif %}
+    {% if page.links %}
+      <nav class="project-detail__links" aria-label="Project resources">
+        {% for item in page.links %}<a href="{{ item.url }}">{{ item.label }}</a>{% endfor %}
+      </nav>
+    {% endif %}
+    {% if page.image %}<img class="project-detail__image" src="{{ page.image }}" alt="{{ page.image_alt | default: page.title }}">{% endif %}
+  </header>
+</div>
