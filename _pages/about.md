@@ -29,7 +29,6 @@ redirect_from:
         <img src="/images/logos/cu.jpg" alt="Columbia University logo">
       </div>
       <div>
-        <p class="education-card__status">Current education</p>
         <p class="education-card__period">Aug 2026 – Expected Dec 2027</p>
         <h3>Columbia University</h3>
         <p class="education-card__location">New York, NY</p>
@@ -46,7 +45,6 @@ redirect_from:
         <img src="/images/projects/shanghaitech.png" alt="ShanghaiTech University logo">
       </div>
       <div>
-        <p class="education-card__status">Previous education</p>
         <p class="education-card__period">Sep 2022 – Jun 2026</p>
         <h3>ShanghaiTech University</h3>
         <p class="education-card__location">Shanghai, China</p>
@@ -64,7 +62,6 @@ redirect_from:
         <img src="/images/projects/ucberkeley.png" alt="UC Berkeley logo">
       </div>
       <div>
-        <p class="education-card__status">Previous education</p>
         <p class="education-card__period">Aug 2024 – Jun 2025</p>
         <h3>UC Berkeley</h3>
         <p class="education-card__location">Berkeley, CA</p>

@@ -158,9 +158,10 @@
 }
 
 .education-card--previous {
-    border-color: #e0e5eb;
-    border-top-color: #93a1b2;
-    background: linear-gradient(180deg, #fff 0%, #f5f7fa 100%);
+    border-color: rgba(15, 118, 110, .24);
+    border-top-color: #0f766e;
+    background: linear-gradient(180deg, #fff 0%, #effcf9 100%);
+    box-shadow: 0 10px 26px rgba(15, 118, 110, .085);
 }
 
 .education-card__header {
@@ -205,7 +206,7 @@
 }
 
 .education-card--previous .education-card__logo span {
-    background: #6b7788;
+    background: #0f766e;
 }
 
 .education-card__header {
@@ -246,7 +247,7 @@
 }
 
 .education-card--previous .education-card__period {
-    color: #657387;
+    color: #0f766e;
 }
 
 .education-card__period {
