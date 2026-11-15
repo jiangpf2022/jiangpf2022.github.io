@@ -22,10 +22,14 @@ redirect_from:
 # 📖 Education
 
 <div class="education-grid">
-  <article class="education-card">
+  <article class="education-card education-card--current">
     <header class="education-card__header">
-      <img src="/images/logos/cu.jpg" alt="Columbia University logo">
+      <div class="education-card__logo">
+        <span>Master's</span>
+        <img src="/images/logos/cu.jpg" alt="Columbia University logo">
+      </div>
       <div>
+        <p class="education-card__status">Current education</p>
         <p class="education-card__period">Aug 2026 – Expected Dec 2027</p>
         <h3>Columbia University</h3>
         <p class="education-card__location">New York, NY</p>
@@ -35,10 +39,14 @@ redirect_from:
     <p class="education-card__detail"><strong>Selected coursework</strong><br>Databases · LLM-Based Generative AI</p>
   </article>
 
-  <article class="education-card">
+  <article class="education-card education-card--previous">
     <header class="education-card__header">
-      <img src="/images/projects/shanghaitech.png" alt="ShanghaiTech University logo">
+      <div class="education-card__logo">
+        <span>Bachelor's</span>
+        <img src="/images/projects/shanghaitech.png" alt="ShanghaiTech University logo">
+      </div>
       <div>
+        <p class="education-card__status">Previous education</p>
         <p class="education-card__period">Sep 2022 – Jun 2026</p>
         <h3>ShanghaiTech University</h3>
         <p class="education-card__location">Shanghai, China</p>
@@ -49,10 +57,14 @@ redirect_from:
     <p class="education-card__detail"><strong>Highlights</strong><br>National Scholarship · Outstanding Graduate of Shanghai</p>
   </article>
 
-  <article class="education-card">
+  <article class="education-card education-card--previous">
     <header class="education-card__header">
-      <img src="/images/projects/ucberkeley.png" alt="UC Berkeley logo">
+      <div class="education-card__logo">
+        <span>Exchange</span>
+        <img src="/images/projects/ucberkeley.png" alt="UC Berkeley logo">
+      </div>
       <div>
+        <p class="education-card__status">Previous education</p>
         <p class="education-card__period">Aug 2024 – Jun 2025</p>
         <h3>UC Berkeley</h3>
         <p class="education-card__location">Berkeley, CA</p>
@@ -66,17 +78,29 @@ redirect_from:
 
 # 🏅 Honors and Awards
 
+- *Jun 2026* — **Outstanding Graduate of Shanghai**.
+- *Jun 2026* — **Outstanding Graduate of ShanghaiTech University**.
+- *Jun 2026* — **Outstanding Graduate of Dadao College**.
 - *Dec 2025* — **National Scholarship**.
+- *2025* — **ShanghaiTech Outstanding Student Award (Top 2%)**.
 - *Jun 2025* — **Outstanding Winner Award (Top 0.1%)**, Mathematical Contest in Modeling 2025.
 - *Jun 2025* — **American Mathematical Society Award**, Mathematical Contest in Modeling 2025 (Top 3 of 21,054 teams).
 - *Mar 2025* — **First Place**, Bay Area Data Science Summit at UC Berkeley, endorsed by Wells Fargo.
 - *Sep 2024* — **Provincial Third Prize**, China Undergraduate Mathematical Contest in Modeling.
+- *2023* — **ShanghaiTech Merit Student Award (Top 10%)**.
 
 # 💻 Research Experience
 
 <div class="resume-entry">
-  <p class="resume-entry__meta">Sep 2026 – Present · New York, NY</p>
-  <h4>Research Assistant · Columbia Creative Machines Lab</h4>
+  <div class="resume-entry__heading">
+    <div>
+      <p class="resume-entry__meta">Sep 2026 – Present · New York, NY</p>
+      <h4>Research Assistant · Columbia Creative Machines Lab</h4>
+    </div>
+    <div class="resume-entry__logos">
+      <img src="/images/logos/cu.jpg" alt="Columbia University logo">
+    </div>
+  </div>
   <ul>
     <li>Study whether confidence and correctness can be inferred from internal LLM activations.</li>
     <li>Train supervisory models on hidden representations to identify unreliable or deceptive responses.</li>
@@ -85,8 +109,16 @@ redirect_from:
 </div>
 
 <div class="resume-entry">
-  <p class="resume-entry__meta">Jun 2025 – Oct 2025 · Shenzhen, China</p>
-  <h4>AI Research Intern · RoboScience & NUS Lin Shao Lab</h4>
+  <div class="resume-entry__heading">
+    <div>
+      <p class="resume-entry__meta">Jun 2025 – Oct 2025 · Shenzhen, China</p>
+      <h4>AI Research Intern · RoboScience & NUS Lin Shao Lab</h4>
+    </div>
+    <div class="resume-entry__logos">
+      <img src="/images/logos/roboscience.jpg" alt="RoboScience logo">
+      <img src="/images/logos/nus.jpeg" alt="National University of Singapore logo">
+    </div>
+  </div>
   <ul>
     <li>Led research resulting in a co-first-author paper accepted to ICRA 2026.</li>
     <li>Built a VLM-based navigation framework that joins high-level reasoning with real-time control.</li>
@@ -96,8 +128,15 @@ redirect_from:
 </div>
 
 <div class="resume-entry">
-  <p class="resume-entry__meta">Apr 2025 – Oct 2025 · Remote</p>
-  <h4>Research Assistant · UNC Chapel Hill, Weitong Zhang Lab</h4>
+  <div class="resume-entry__heading">
+    <div>
+      <p class="resume-entry__meta">Apr 2025 – Oct 2025 · Remote</p>
+      <h4>Research Assistant · UNC Chapel Hill, Weitong Zhang Lab</h4>
+    </div>
+    <div class="resume-entry__logos">
+      <img src="/images/logos/unc.png" alt="UNC Chapel Hill logo">
+    </div>
+  </div>
   <ul>
     <li>Coauthored a manuscript on variance-aware Langevin Monte Carlo Thompson Sampling.</li>
     <li>Extended LMC-TS to bandits with action-dependent noise variance.</li>
@@ -107,8 +146,15 @@ redirect_from:
 </div>
 
 <div class="resume-entry">
-  <p class="resume-entry__meta">Apr 2023 – Mar 2025 · Shanghai, China</p>
-  <h4>Research Assistant · ShanghaiTech Mobile Perception Lab</h4>
+  <div class="resume-entry__heading">
+    <div>
+      <p class="resume-entry__meta">Apr 2023 – Mar 2025 · Shanghai, China</p>
+      <h4>Research Assistant · ShanghaiTech Mobile Perception Lab</h4>
+    </div>
+    <div class="resume-entry__logos">
+      <img src="/images/logos/mpl.jpeg" alt="Mobile Perception Lab logo">
+    </div>
+  </div>
   <ul>
     <li>Coauthored an ICCV 2025 Highlight paper on asynchronous structure and motion.</li>
     <li>Developed event-based detection and point-tracking modules for motion estimation.</li>
@@ -155,23 +201,6 @@ redirect_from:
 
 <div class="project-card">
   <div class="project-card__media">
-    <span class="badge">Mar 2025 – May 2025</span>
-    <img src="/images/projects/cs182.png" alt="LLM concept-subspace analysis">
-  </div>
-  <div class="project-card__body">
-    <p class="project-card__eyebrow">UC Berkeley · EECS 182</p>
-    <h2>Beyond the LRH: Concept Subspaces in LLMs</h2>
-    <ul>
-      <li>Identified limits of single-direction representations for complex semantics.</li>
-      <li>Designed a multidimensional concept-subspace steering method.</li>
-      <li>Improved concept alignment from 0.5/5 to 5.0/5 using five latent directions.</li>
-    </ul>
-    <p><a href="/projects/llm-concept-subspaces/" class="detail-link" target="_self">Project details →</a></p>
-  </div>
-</div>
-
-<div class="project-card">
-  <div class="project-card__media">
     <span class="badge">Feb 2025 – May 2025</span>
     <img src="/images/projects/mcm_overtourism.png" alt="Sustainable tourism modeling">
   </div>
@@ -187,39 +216,7 @@ redirect_from:
   </div>
 </div>
 
-<div class="project-card">
-  <div class="project-card__media">
-    <span class="badge">Feb 2025</span>
-    <img src="/images/projects/badss.png" alt="Equity derivative hedging pipeline">
-  </div>
-  <div class="project-card__body">
-    <p class="project-card__eyebrow">Bay Area Data Science Summit · First Place</p>
-    <h2>MLP for Optimal Equity Derivative Hedging</h2>
-    <ul>
-      <li>Led an international team in a UC Berkeley competition endorsed by Wells Fargo.</li>
-      <li>Built an MLP-based, exposure-aware equity derivative hedging pipeline.</li>
-      <li>Reduced test-set premium cost by 64.5% while maintaining a $10M exposure target.</li>
-    </ul>
-    <p><a href="/projects/equity-derivative-hedging/" class="detail-link" target="_self">Project details →</a> · <a href="/files/badss_ppt.pdf">Slides</a> · <a href="/files/badss_report.pdf">Paper</a> · <a href="https://github.com/jiangpf2022/MLP-for-Optimal-Equity-Derivative-Hedging/tree/main">Code</a></p>
-  </div>
-</div>
-
-<div class="project-card">
-  <div class="project-card__media">
-    <span class="badge">Feb 2024 – Jun 2024</span>
-    <img src="/images/projects/cs182.png" alt="Wine quality prediction project">
-  </div>
-  <div class="project-card__body">
-    <p class="project-card__eyebrow">Machine Learning Project</p>
-    <h2>Hybrid ML for Quality Prediction</h2>
-    <ul>
-      <li>Used PCA to compress correlated physicochemical features and isolate stable signal.</li>
-      <li>Applied Huber loss to reduce sensitivity to noisy labels and heavy-tailed residuals.</li>
-      <li>Combined robust preprocessing with classical and ensemble predictive models.</li>
-    </ul>
-    <p><a href="/projects/hybrid-quality-prediction/" class="detail-link" target="_self">Project details →</a> · <a href="/files/cs182_ppt.pdf">Slides</a> · <a href="/files/cs182_report.pdf">Paper</a> · <a href="https://github.com/jiangpf2022/CS182-Project">Code</a></p>
-  </div>
-</div>
+<p class="projects-cta"><a href="/projects/" class="detail-link" target="_self">View all projects <span aria-hidden="true">→</span></a></p>
 
 # 💼 Activities
 

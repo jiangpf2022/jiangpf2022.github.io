@@ -66,11 +66,7 @@
 
 .resume-summary {
     margin: 0 0 2.25rem;
-    padding: 1.35rem 1.5rem;
-    border: 1px solid rgba(0, 54, 159, .14);
-    border-left: 4px solid #00369f;
-    border-radius: .8rem;
-    background: linear-gradient(135deg, rgba(0, 54, 159, .055), rgba(255, 255, 255, .9));
+    padding: 0;
 
     p {
         margin: 0;
@@ -106,6 +102,34 @@
     text-transform: uppercase;
 }
 
+.resume-entry__heading {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    > div:first-child {
+        min-width: 0;
+    }
+}
+
+.resume-entry__logos {
+    display: flex;
+    flex: 0 0 auto;
+    gap: .55rem;
+    align-items: center;
+
+    img {
+        width: 4.4rem;
+        height: 4.4rem;
+        padding: .25rem;
+        border: 1px solid #e4e9f0;
+        border-radius: .65rem;
+        background: #fff;
+        object-fit: contain;
+    }
+}
+
 .education-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15.25rem, 1fr));
@@ -126,6 +150,19 @@
     box-shadow: 0 10px 26px rgba(34, 48, 74, .07);
 }
 
+.education-card--current {
+    border-color: rgba(0, 54, 159, .28);
+    border-top-color: #00369f;
+    background: linear-gradient(180deg, #fff 0%, #eef4ff 100%);
+    box-shadow: 0 12px 30px rgba(0, 54, 159, .12);
+}
+
+.education-card--previous {
+    border-color: #e0e5eb;
+    border-top-color: #93a1b2;
+    background: linear-gradient(180deg, #fff 0%, #f5f7fa 100%);
+}
+
 .education-card__header {
     display: grid;
     grid-template-columns: 3.75rem minmax(0, 1fr);
@@ -133,8 +170,14 @@
     align-items: center;
     padding-bottom: .9rem;
     border-bottom: 1px solid #e7ebf1;
+}
+
+.education-card__logo {
+    position: relative;
+    width: 3.75rem;
 
     img {
+        display: block;
         width: 3.75rem;
         height: 3.75rem;
         padding: .25rem;
@@ -143,6 +186,29 @@
         object-fit: contain;
     }
 
+    span {
+        position: absolute;
+        z-index: 1;
+        top: -.55rem;
+        left: -.55rem;
+        padding: .13rem .35rem;
+        border: 2px solid #fff;
+        border-radius: 999px;
+        background: #00369f;
+        color: #fff;
+        font-size: .54rem;
+        font-weight: 800;
+        letter-spacing: .025em;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+}
+
+.education-card--previous .education-card__logo span {
+    background: #6b7788;
+}
+
+.education-card__header {
     h3 {
         margin: .12rem 0;
         color: #1f2d43;
@@ -157,6 +223,30 @@
     color: #607087;
     font-size: .72rem;
     line-height: 1.35;
+}
+
+.education-card__status {
+    display: inline-flex;
+    width: fit-content;
+    margin: 0 0 .22rem;
+    padding: .16rem .45rem;
+    border-radius: 999px;
+    background: rgba(0, 54, 159, .1);
+    color: #00369f;
+    font-size: .62rem;
+    font-weight: 800;
+    letter-spacing: .045em;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+.education-card--previous .education-card__status {
+    background: #e8ecf1;
+    color: #5c6878;
+}
+
+.education-card--previous .education-card__period {
+    color: #657387;
 }
 
 .education-card__period {
@@ -239,9 +329,39 @@
 .project-card__body {
     align-self: center;
 
-    h2 { margin: 0 0 .65rem; }
+    h2 {
+        display: inline;
+        margin: 0 0 .65rem;
+        color: #00369f;
+        background: linear-gradient(180deg, transparent 64%, rgba(60, 133, 220, .2) 64%);
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+    }
     ul { margin: .35rem 0 .8rem 1.2rem; }
     li { margin-bottom: .32rem; }
+    p:last-child { margin-bottom: 0; }
+}
+
+.projects-cta {
+    margin: 1.2rem 0 2.5rem;
+    text-align: right;
+
+    .detail-link {
+        padding: .6rem 1rem;
+        border: 1px solid rgba(0, 54, 159, .2);
+        border-radius: 999px;
+        background: rgba(0, 54, 159, .055);
+    }
+}
+
+.projects-index__header {
+    margin: 0 0 2rem;
+    padding: 1.5rem 1.6rem;
+    border-left: 4px solid #00369f;
+    border-radius: 0 .9rem .9rem 0;
+    background: linear-gradient(135deg, rgba(0, 54, 159, .08), rgba(255, 255, 255, .96));
+
+    h1 { margin: .1rem 0 .5rem; }
     p:last-child { margin-bottom: 0; }
 }
 
@@ -293,6 +413,11 @@
 @media (max-width: 760px) {
     .education-grid { grid-template-columns: 1fr; }
     .education-card { min-height: 0; }
+    .resume-entry__heading { gap: .65rem; }
+    .resume-entry__logos img {
+        width: 3.2rem;
+        height: 3.2rem;
+    }
     .project-card { grid-template-columns: 1fr; }
     .project-card__media { min-height: 0; }
 }
