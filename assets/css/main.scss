@@ -120,9 +120,9 @@
     align-items: center;
 
     img {
-        width: 4.4rem;
-        height: 4.4rem;
-        padding: .25rem;
+        width: 5.5rem;
+        height: 5.5rem;
+        padding: .32rem;
         border: 1px solid #e4e9f0;
         border-radius: .65rem;
         background: #fff;
@@ -416,8 +416,8 @@
     .education-card { min-height: 0; }
     .resume-entry__heading { gap: .65rem; }
     .resume-entry__logos img {
-        width: 3.2rem;
-        height: 3.2rem;
+        width: 4rem;
+        height: 4rem;
     }
     .project-card { grid-template-columns: 1fr; }
     .project-card__media { min-height: 0; }
