@@ -1,7 +1,7 @@
 ---
 permalink: /projects/asynchronous-n-point-solver/
 title: "A Linear N-Point Solver for Asynchronous Tracks"
-eyebrow: "ICCV 2025 · Highlight Paper"
+eyebrow: "ICCV 2025 · Highlight Paper 🔥"
 period: "Nov 2024 – Mar 2025"
 location: "ShanghaiTech Mobile Perception Lab"
 summary: "A unified linear solver for recovering structure and continuous motion from point tracks captured at arbitrary timestamps."

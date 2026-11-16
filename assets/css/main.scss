@@ -122,11 +122,16 @@
     img {
         width: 5.5rem;
         height: 5.5rem;
-        padding: .32rem;
+        padding: 0;
         border: 1px solid #e4e9f0;
         border-radius: .65rem;
         background: #fff;
         object-fit: contain;
+    }
+
+    img.logo-wide {
+        width: 8rem;
+        height: 3.5rem;
     }
 }
 
@@ -415,9 +420,15 @@
     .education-grid { grid-template-columns: 1fr; }
     .education-card { min-height: 0; }
     .resume-entry__heading { gap: .65rem; }
+    .resume-entry__heading { flex-direction: column; }
+    .resume-entry__logos { align-self: flex-start; }
     .resume-entry__logos img {
         width: 4rem;
         height: 4rem;
+    }
+    .resume-entry__logos img.logo-wide {
+        width: 6.5rem;
+        height: 2.85rem;
     }
     .project-card { grid-template-columns: 1fr; }
     .project-card__media { min-height: 0; }

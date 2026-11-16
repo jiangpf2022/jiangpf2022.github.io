@@ -1,7 +1,7 @@
 ---
 permalink: /projects/lisn-social-navigation/
 title: "LISN: Language-Instructed Social Navigation"
-eyebrow: "ICRA 2026 · Accepted"
+eyebrow: "ICRA 2026 · Accepted ✅"
 period: "May 2025 – Oct 2025"
 location: "RoboScience & NUS Lin Shao Lab"
 summary: "A benchmark and fast–slow VLM control framework for robots that must follow language instructions while navigating around people."

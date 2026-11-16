@@ -1,7 +1,7 @@
 ---
 permalink: /projects/overtourism-modeling/
 title: "Rebalancing Nature’s Scale"
-eyebrow: "MCM 2025 · Outstanding Winner & AMS Award"
+eyebrow: "MCM 2025 · Outstanding Winner & AMS Award 🔥"
 period: "Feb 2025 – May 2025"
 location: "Berkeley, CA"
 summary: "A dynamic model for balancing tourism revenue, environmental pressure, infrastructure, and resident welfare."

@@ -35,7 +35,6 @@ redirect_from:
       </div>
     </header>
     <p class="education-card__degree">M.S. in Computer Science</p>
-    <p class="education-card__detail"><strong>Selected coursework</strong><br>Databases · LLM-Based Generative AI</p>
   </article>
 
   <article class="education-card education-card--previous">
@@ -52,7 +51,6 @@ redirect_from:
     </header>
     <p class="education-card__degree">B.Eng. in Computer Science</p>
     <p class="education-card__metric">GPA 3.75/4.0 · Rank 11/161</p>
-    <p class="education-card__detail"><strong>Highlights</strong><br>National Scholarship · Outstanding Graduate of Shanghai</p>
   </article>
 
   <article class="education-card education-card--previous">
@@ -69,7 +67,6 @@ redirect_from:
     </header>
     <p class="education-card__degree">Exchange in Computer Science</p>
     <p class="education-card__metric">GPA 3.8/4.0</p>
-    <p class="education-card__detail"><strong>Selected coursework</strong><br>Optimization · Deep Learning · AI · LLM Agents</p>
   </article>
 </div>
 
@@ -113,7 +110,7 @@ redirect_from:
     </div>
     <div class="resume-entry__logos">
       <img src="/images/logos/roboscience.jpg" alt="RoboScience logo">
-      <img src="/images/logos/nus.jpeg" alt="National University of Singapore logo">
+      <img class="logo-wide" src="/images/logos/nus.png" alt="National University of Singapore logo">
     </div>
   </div>
   <ul>
@@ -149,7 +146,7 @@ redirect_from:
       <h4>Research Assistant · ShanghaiTech Mobile Perception Lab</h4>
     </div>
     <div class="resume-entry__logos">
-      <img src="/images/logos/mpl.jpeg" alt="Mobile Perception Lab logo">
+      <img class="logo-wide" src="/images/logos/mpl.jpeg" alt="Mobile Perception Lab logo">
     </div>
   </div>
   <ul>
@@ -168,7 +165,7 @@ redirect_from:
     <img src="/images/projects/ICRA2026.png" alt="LISN social navigation system">
   </div>
   <div class="project-card__body">
-    <p class="project-card__eyebrow">ICRA 2026 · Accepted</p>
+    <p class="project-card__eyebrow">ICRA 2026 · Accepted ✅</p>
     <h2>LISN: Language-Instructed Social Navigation</h2>
     <ul>
       <li>Introduced a benchmark for instruction-following social navigation.</li>
@@ -185,7 +182,7 @@ redirect_from:
     <img src="/images/projects/ICCV2025.png" alt="Asynchronous structure and motion solver">
   </div>
   <div class="project-card__body">
-    <p class="project-card__eyebrow">ICCV 2025 · Highlight</p>
+    <p class="project-card__eyebrow">ICCV 2025 · Highlight 🔥</p>
     <h2>A Linear N-Point Solver for Asynchronous Tracks</h2>
     <ul>
       <li>Unified structure and linear-motion estimation across arbitrary timestamps and views.</li>
@@ -202,7 +199,7 @@ redirect_from:
     <img src="/images/projects/mcm_overtourism.png" alt="Sustainable tourism modeling">
   </div>
   <div class="project-card__body">
-    <p class="project-card__eyebrow">MCM 2025 · Outstanding Winner & AMS Award</p>
+    <p class="project-card__eyebrow">MCM 2025 · Outstanding Winner & AMS Award 🔥</p>
     <h2>Rebalancing Nature’s Scale</h2>
     <ul>
       <li>Built a coupled ODE model for tourism, environmental pressure, and local revenue.</li>

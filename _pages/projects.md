@@ -17,7 +17,7 @@ author_profile: true
     <img src="/images/projects/ICRA2026.png" alt="LISN social navigation system">
   </div>
   <div class="project-card__body">
-    <p class="project-card__eyebrow">ICRA 2026 · Accepted</p>
+    <p class="project-card__eyebrow">ICRA 2026 · Accepted ✅</p>
     <h2>LISN: Language-Instructed Social Navigation</h2>
     <ul>
       <li>Introduced a benchmark for instruction-following social navigation.</li>
@@ -34,7 +34,7 @@ author_profile: true
     <img src="/images/projects/ICCV2025.png" alt="Asynchronous structure and motion solver">
   </div>
   <div class="project-card__body">
-    <p class="project-card__eyebrow">ICCV 2025 · Highlight</p>
+    <p class="project-card__eyebrow">ICCV 2025 · Highlight 🔥</p>
     <h2>A Linear N-Point Solver for Asynchronous Tracks</h2>
     <ul>
       <li>Unified structure and linear-motion estimation across arbitrary timestamps and views.</li>
@@ -68,7 +68,7 @@ author_profile: true
     <img src="/images/projects/mcm_overtourism.png" alt="Sustainable tourism modeling">
   </div>
   <div class="project-card__body">
-    <p class="project-card__eyebrow">MCM 2025 · Outstanding Winner &amp; AMS Award</p>
+    <p class="project-card__eyebrow">MCM 2025 · Outstanding Winner &amp; AMS Award 🔥</p>
     <h2>Rebalancing Nature’s Scale</h2>
     <ul>
       <li>Built a coupled ODE model for tourism, environmental pressure, and local revenue.</li>
